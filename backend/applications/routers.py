@@ -159,6 +159,7 @@ async def get_all_applications(
     return await view_get_all_applications(**query_params)
 
 
+#TODO Удалить перед выкатом
 @router.get(
     "/test/task/billing",
     response_model=ListApplications,
