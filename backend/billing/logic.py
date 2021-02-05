@@ -9,14 +9,14 @@ from yandex_checkout import Configuration, Payment as YandexPaymentObject
 from backend.accounts.models import Account
 from backend.billing.crud import payment_operation as crud_payment_operation
 from backend.billing.errors import PaymentError
-from backend.billing.settings import YANDEX_KASSA_ID, YANDEX_KASSA_SECRET
 from backend.billing.utils import concat_card_number
 from backend.common.schemas import UpdatedBase
+from backend.core.config import settings
 from backend.enums.billing import PaymentErrors, PaymentOperationStatus
 from backend.schemas.billing import PaymentOperationCreate
 
-Configuration.account_id = YANDEX_KASSA_ID
-Configuration.secret_key = YANDEX_KASSA_SECRET
+Configuration.account_id = settings.YANDEX_KASSA_ID
+Configuration.secret_key = settings.YANDEX_KASSA_SECRET
 
 
 class PaymentBase:

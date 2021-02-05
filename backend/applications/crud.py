@@ -30,7 +30,7 @@ class CRUDApplication(CRUDBase[Application, ApplicationCreate, UpdatedBase]):
             self.model.filter(
                 Q(
                     Q(application_status=ApplicationStatus.confirmed),
-                    # Q(to_go_when__lt=datetime.utcnow().date())
+                    Q(to_go_when__lt=datetime.utcnow().date())
                 )
             ).all()
         )

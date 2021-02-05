@@ -1,6 +1,6 @@
 from decimal import Decimal, ROUND_DOWN
 
-from .settings import DEFAULT_COMMISSION_IN_PERCENT
+from backend.core.config import settings
 
 
 def concat_card_number(first6: str, last4: str) -> str:
@@ -11,7 +11,7 @@ def concat_card_number(first6: str, last4: str) -> str:
 
 def get_commission_sum_from_application(application_sum: Decimal) -> Decimal:
     """Получение суммы за услуги сервиса от стоимости заявки."""
-    return (application_sum * DEFAULT_COMMISSION_IN_PERCENT).quantize(Decimal('0.0'), rounding=ROUND_DOWN)
+    return (application_sum * settings.DEFAULT_COMMISSION_IN_PERCENT).quantize(Decimal('0.0'), rounding=ROUND_DOWN)
 
 
 def add_amount_to_debt(current_debt: Decimal, commission_sum: Decimal) -> Decimal:

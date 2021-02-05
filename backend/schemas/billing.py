@@ -16,4 +16,5 @@ class PaymentOperationCreate(BaseModel):
 
 
 class PaymentLink(BaseModel):
-    url: str
+    payment_url: int
+    payment_operation_id: str

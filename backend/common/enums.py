@@ -13,3 +13,5 @@ class BaseMessage(Enum):
     obj_data = "Object data."
     obj_is_not_created = "Object is not created reason bad request."
     obj_is_deleted = "Object is deleted."
+    OK = "OK"
+

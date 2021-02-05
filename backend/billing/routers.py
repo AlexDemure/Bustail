@@ -1,26 +1,37 @@
-from fastapi import APIRouter, status, Response, Depends, HTTPException
-from structlog import get_logger
 from decimal import Decimal
 
-from backend.accounts.models import Account
-from backend.drivers.views import get_driver_by_account_id
-from backend.drivers.crud import driver as crud_driver
+from fastapi import APIRouter, status, Response, Depends, HTTPException
+from fastapi.responses import JSONResponse
 
-from backend.billing.logic import Payment, PaymentNotification
+from structlog import get_logger
+
+from backend.accounts.models import Account
 from backend.billing.crud import payment_operation as crud_payment_operation
+from backend.billing.logic import Payment, PaymentNotification
 from backend.billing.utils import write_off_debt
-from backend.schemas.billing import PaymentLink
-from backend.enums.billing import PaymentOperationEvents
 from backend.common.deps import confirmed_account
 from backend.common.enums import BaseMessage
+from backend.common.responses import auth_responses
 from backend.common.schemas import UpdatedBase
 
+from backend.drivers.views import get_driver_by_account_id, update_driver
+from backend.enums.billing import PaymentOperationEvents, PaymentErrors
+from backend.schemas.billing import PaymentLink
 
 router = APIRouter()
 
 
-@router.post("/yandex/payments/")
-async def payment_url(account: Account = Depends(confirmed_account)):
+@router.get(
+    "/payments/",
+    response_model=PaymentLink,
+    responses={
+        status.HTTP_201_CREATED: {"description": BaseMessage.obj_is_created.value},
+        status.HTTP_400_BAD_REQUEST: {"description": PaymentErrors.payment_amount_must_be_gt_zero.value},
+        **auth_responses,
+    }
+
+)
+async def get_payment_url(account: Account = Depends(confirmed_account)) -> JSONResponse:
     """Прием уведомления об платежной операции из яндекс кассы."""
     driver = await get_driver_by_account_id(account.id)
     if not driver:
@@ -29,18 +40,25 @@ async def payment_url(account: Account = Depends(confirmed_account)):
             detail=BaseMessage.obj_is_not_found.value
         )
 
-    if driver.debt == Decimal("0"):
+    if driver.debt < Decimal("1"):
         raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail="Amount is 0"
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=PaymentErrors.payment_amount_must_be_gt_zero.value
         )
 
     payment_data = await Payment(account=account, amount=driver.debt).create_payment_operation()
-    return PaymentLink(url=payment_data['payment_url'])
+
+    return JSONResponse(status_code=status.HTTP_201_CREATED, content=payment_data)
 
 
-@router.post("/yandex/payments/notifications/")
-async def payment_notification(payment_data: dict):
+@router.post(
+    "/payments/notifications/",
+    responses={
+        status.HTTP_200_OK: {"description": BaseMessage.OK.value},
+        status.HTTP_500_INTERNAL_SERVER_ERROR: {"description": PaymentErrors.payment_operation_have_end_status.value},
+    }
+)
+async def payment_notification(payment_data: dict, response: Response) -> Response:
     """Прием уведомления об платежной операции из яндекс кассы."""
     logger = get_logger()
     logger.debug("Payment notification", notification_json=payment_data)
@@ -61,6 +79,7 @@ async def payment_notification(payment_data: dict):
             id=driver.id,
             updated_fields=dict(debt=write_off_debt(driver.debt, payment_operation.sum))
         )
-        await crud_driver.update(driver_up)
+        await update_driver(driver_up)
 
-    return Response(status_code=200)
+    response.status_code = status.HTTP_200_OK
+    return response

@@ -1,7 +1,7 @@
 import os
 import secrets
 from typing import Any, Optional
-
+from decimal import Decimal
 from pydantic import BaseSettings, PostgresDsn, validator
 
 
@@ -60,11 +60,16 @@ class YandexObjectStorage(BaseConfig):
     MAX_FILE_SIZE_MB: int = 100
 
 
+class YandexKassaSettings(BaseConfig):
+
+    YANDEX_KASSA_ID = os.environ.get('YANDEX_KASSA_ID', "779715")
+    YANDEX_KASSA_SECRET = os.environ.get('YANDEX_KASSA_SECRET', "test_flrVnF0TXpmlBFxsfWBp0GHjMbWcEWfR98-QPvhwTsA")
+
+
 # INCLUDE SETTINGS
 configs = [
-    FastApiAuthSettings, SecuritySettings,
-    PostgresDBSettings, SQLiteDBSettings,
-    YandexObjectStorage, MailingMandrillSettings,
+    FastApiAuthSettings, SecuritySettings, PostgresDBSettings, SQLiteDBSettings,
+    YandexObjectStorage, MailingMandrillSettings, YandexKassaSettings,
 ]
 
 
@@ -75,6 +80,8 @@ class Settings(*configs):
     API_URL: str = "/api/v1"
 
     SECRET_KEY: str = secrets.token_urlsafe(32)
+
+    DEFAULT_COMMISSION_IN_PERCENT = Decimal("0.05")
 
 
 settings = Settings()
