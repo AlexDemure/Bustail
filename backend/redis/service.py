@@ -13,12 +13,12 @@ class RedisService:
     async def redis_init(self):
         """Инициализация редиса и получение его пула."""
         url = 'redis://%s:%s/%s' % (
-            os.environ["REDIS_HOST"],
-            os.environ["REDIS_PORT"],
-            os.environ["REDIS_DB"]
+            os.environ.get("REDIS_HOST", "localhost"),
+            os.environ.get("REDIS_PORT", "6379"),
+            os.environ.get("REDIS_DB", "0")
         )
         self.pool = await aioredis.create_redis_pool(
-            url, password=os.environ["REDIS_PASSWORD"]
+            url, password=os.environ.get("REDIS_PASSWORD", "foobared")
         )
 
     @staticmethod

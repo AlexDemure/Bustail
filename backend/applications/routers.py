@@ -157,3 +157,16 @@ async def get_all_applications(
         limit=limit, offset=offset, city=city, order_by=order_by, order_type=order_type
     )
     return await view_get_all_applications(**query_params)
+
+
+@router.get(
+    "/test/task/billing",
+    response_model=ListApplications,
+    responses={
+        status.HTTP_200_OK: {"description": BaseMessage.obj_data.value},
+        **auth_responses
+    }
+)
+async def task_billing():
+    from backend.applications.tasks import completed_applications
+    return await completed_applications()

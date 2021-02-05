@@ -25,6 +25,7 @@ passlib = "^1.7.4"
 python-multipart = "^0.0.5"
 bcrypt = "^3.1.7"
 boto3 = "^1.16.25"
+yandex-checkout = "^1.6"
 
 tortoise-orm = "^0.16.5"
 psycopg2-binary = "^2.8.5"

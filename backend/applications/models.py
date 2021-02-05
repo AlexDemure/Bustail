@@ -8,6 +8,7 @@ class Application(models.Model):
     id = fields.IntField(pk=True)
     account = fields.ForeignKeyField('models.Account', related_name='applications', on_delete=fields.CASCADE)
     driver = fields.ForeignKeyField('models.Driver', related_name='applications', on_delete=fields.CASCADE, null=True)
+    transport = fields.ForeignKeyField('models.Transport', related_name='applications', on_delete=fields.CASCADE, null=True)
     to_go_from = fields.CharField(max_length=255)
     to_go_to = fields.CharField(max_length=255, null=True)
     to_go_when = fields.DateField()

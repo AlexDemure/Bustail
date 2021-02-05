@@ -83,7 +83,7 @@ async def delete_application(account: Account, application_id: int) -> None:
     assert application is None, "Application is not deleted"
 
 
-async def confirm_application(application_id: int, driver_id: int, change_price: int = None) -> None:
+async def confirm_application(application_id: int, transport_id: int, driver_id: int, change_price: int = None) -> None:
     """Подтверждение заявки, происходит после того когда клиент или водитель приняк заявку."""
     application = await application_crud.get(application_id)
     if not application:
@@ -98,6 +98,7 @@ async def confirm_application(application_id: int, driver_id: int, change_price:
         updated_fields=dict(
             confirmed_at=datetime.utcnow(),
             driver_id=driver_id,
+            transport_id=transport_id,
             price=change_price if change_price else application.price,
             application_status=ApplicationStatus.confirmed
         )

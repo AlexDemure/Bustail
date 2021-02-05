@@ -3,6 +3,10 @@ import random
 import pytest
 from tortoise import Tortoise
 from backend.tests.data import BaseTest, TestDriverData, TestAccountData
+from backend.db.database import sqlite_db_init
+from backend.redis.service import redis
+from backend.mailing.service import service_mailing
+from backend.permissions.fixtures import setup_permissions_and_roles
 
 pytestmark = pytest.mark.asyncio
 
@@ -13,6 +17,12 @@ class TestDriver(BaseTest):
     account_data = TestAccountData()
 
     async def test_driver_account(self):
+        await redis.redis_init()
+        await redis.register_service(service_mailing)
+
+        await sqlite_db_init()
+        await setup_permissions_and_roles()
+
         await self.get_user()
 
         async with self.client as ac:
@@ -29,6 +39,12 @@ class TestDriver(BaseTest):
         assert "X"
 
     async def test_transport(self):
+        await redis.redis_init()
+        await redis.register_service(service_mailing)
+
+        await sqlite_db_init()
+        await setup_permissions_and_roles()
+
         await self.get_user()
 
         async with self.client as ac:

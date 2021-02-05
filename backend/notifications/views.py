@@ -37,7 +37,7 @@ async def set_decision(notification_id: int, decision: bool) -> None:
         if not driver:
             raise ValueError(BaseMessage.obj_is_not_found.value)
 
-        await confirm_application(notification.application_id, driver.id, notification.price)
+        await confirm_application(notification.application_id, notification.transport_id, driver.id, notification.price)
 
     update_schema = UpdatedBase(
         id=notification.id,

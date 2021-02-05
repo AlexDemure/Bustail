@@ -73,3 +73,4 @@ class DriverData(DriverBase):
     id: int
     account_id: int
     transports: List[TransportData] = None
+    debt: Decimal
