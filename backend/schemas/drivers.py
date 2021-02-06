@@ -1,4 +1,5 @@
 from decimal import Decimal
+from enum import Enum
 from typing import List
 
 from pydantic import BaseModel, root_validator
@@ -7,6 +8,14 @@ from backend.common.utils import get_cities
 from backend.enums.drivers import TransportType
 from backend.object_storage.enums import FileMimetypes
 from backend.schemas.notifications import NotificationData
+
+
+class CoverData(BaseModel):
+    id: int
+    file_hash: str
+    file_uri: str
+    media_type: Enum
+    transport_id: int
 
 
 class DriverBase(BaseModel):

@@ -19,13 +19,13 @@ from backend.drivers.serializer import (
     prepare_transport_with_photos,
     prepare_driver_data
 )
-from backend.drivers.models import Driver
+from backend.drivers.models import Driver, TransportPhoto
 from backend.enums.drivers import DriverErrors
 from backend.object_storage.enums import FileStorages, FileMimetypes
 from backend.object_storage.uploader import ObjectStorage
-from backend.object_storage.utils import get_file_hash
+from backend.object_storage.utils import get_file_hash, compression_image
 from backend.schemas.drivers import (
-    DriverCreate, DriverData, TransportData, TransportCreate,
+    DriverCreate, DriverData, TransportData, TransportCreate, CoverData,
     ListTransports, TransportUpdate, TransportPhotoData, TransportPhotoCreate
 )
 
@@ -120,21 +120,22 @@ async def upload_transport_cover(transport: TransportData, file: UploadFile) -> 
     """Загрузка обложки к транспорту через бакет."""
 
     file_hash = get_file_hash(file.file)  # Получение хеша файла с передачей SpooledTempFile.
+    file_media_type = FileMimetypes(file.content_type)
 
     # Попытка найти файл в БД по хешу и айди транспорта
     file_object = await transport_covers_crud.find_transport_by_hash(transport.id, file_hash)
     if file_object:
         return TransportPhotoData(**file_object)
 
-    file_media_type = FileMimetypes(file.content_type)
-
     # Путь где файл будет храниться covers/uuid.file_format
     file_uri = f"{FileStorages.covers.path}{str(uuid4())}{file_media_type.file_format}"
+
+    compression_file = compression_image(file.file, file_media_type) # Сжатие изображения
 
     # Загрузка файла в облако.
     if settings.ENV == "PROD":
         object_storage.upload(
-            file=file.file,
+            file_content=compression_file,
             content_type=file.content_type,
             file_url=file_uri
         )
@@ -150,13 +151,18 @@ async def upload_transport_cover(transport: TransportData, file: UploadFile) -> 
     return TransportPhotoData(**transport_cover.__dict__)
 
 
-async def get_transport_cover(transport_cover_id: int) -> Tuple[bytes, str]:
+async def get_transport_cover(transport_cover_id: int) -> Optional[CoverData]:
+    cover = await transport_covers_crud.get(transport_cover_id)
+    return CoverData(**cover.__dict__) if cover else None
+
+
+async def download_transport_cover(transport_cover_id: int) -> Tuple[bytes, str]:
     """Получение облокжи транспорта со скачиванием обложки из бакета."""
     transport_cover = await transport_covers_crud.get(transport_cover_id)
 
-    file_content = object_storage.download(transport_cover['file_uri'])
+    file_content = object_storage.download(transport_cover.file_uri)
 
-    return file_content, transport_cover['media_type'].value
+    return file_content, transport_cover.media_type.value
 
 
 async def is_transport_belongs_driver(account_id: int, transport_id: int) -> tuple:

@@ -1,6 +1,5 @@
 import os
 import tempfile
-from typing import IO
 
 import boto3
 
@@ -34,14 +33,14 @@ class ObjectStorage:
             aws_secret_access_key=self.aws_secret_access_key,
         )
 
-    def upload(self, file: IO, content_type: str, file_url: str) -> None:
+    def upload(self, file_content: bytes, content_type: str, file_url: str) -> None:
         """Загрузка файлов в бакет."""
 
         tempFileIO = tempfile.mkstemp(suffix=FileMimetypes(content_type).file_format)
 
         with open(tempFileIO[1], "wb") as temp_file:
-            file.seek(0)
-            temp_file.write(file.read())
+
+            temp_file.write(file_content)
 
             self.client.upload_file(
                 Filename=temp_file.name,

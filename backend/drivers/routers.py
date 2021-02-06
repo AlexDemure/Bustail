@@ -10,7 +10,7 @@ from backend.common.enums import BaseMessage
 from backend.common.responses import auth_responses
 from backend.common.schemas import Message, UpdatedBase
 from backend.drivers.views import (
-    get_driver_by_account_id, update_driver,
+    get_driver_by_account_id, update_driver, download_transport_cover,
     get_driver as view_get_driver,
     is_transport_belongs_driver, upload_transport_cover,
     create_driver as view_create_driver,
@@ -96,15 +96,29 @@ async def get_transport_cover(transport_id: int, cover_id: int) -> Response:
 
     - **returned**: Возвращает response с параметрами content, media_type.
     """
-    transport = await get_transport(transport_id)
+    transport = await view_get_transport(transport_id)
     if not transport:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
             detail=BaseMessage.obj_is_not_found.value
         )
 
-    file_to_bytes, media_type = await view_get_transport_cover(cover_id)
+    cover = await view_get_transport_cover(cover_id)
+    if not cover:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=BaseMessage.obj_is_not_found.value
+        )
 
+    if transport.id != cover.transport_id:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=BaseMessage.obj_is_not_found.value
+        )
+
+    file_to_bytes, media_type = await download_transport_cover(cover_id)
+
+    print(1)
     return Response(content=file_to_bytes, status_code=status.HTTP_200_OK, media_type=media_type)
 
 

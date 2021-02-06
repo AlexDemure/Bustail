@@ -87,6 +87,13 @@ class FileMimetypes(Enum):
 
         return media_type  # Возвращаем медиа тип.
 
+    @property
+    def pillow_format(self):
+        if self is self.png:
+            return "PNG"
+        elif self is self.jpeg:
+            return "JPEG"
+
 
 class UploadErrors(Enum):
 
