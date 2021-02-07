@@ -1,9 +1,10 @@
 import asyncio
-import os
 from typing import AnyStr
 
 import aioredis
 import ujson
+
+from .settings import REDIS_HOST, REDIS_PASSWORD, REDIS_DB, REDIS_PORT
 
 
 class RedisService:
@@ -12,13 +13,9 @@ class RedisService:
 
     async def redis_init(self):
         """Инициализация редиса и получение его пула."""
-        url = 'redis://%s:%s/%s' % (
-            os.environ.get("REDIS_HOST", "localhost"),
-            os.environ.get("REDIS_PORT", "6379"),
-            os.environ.get("REDIS_DB", "0")
-        )
+        url = 'redis://%s:%s/%s' % (REDIS_HOST, REDIS_PORT, REDIS_DB)
         self.pool = await aioredis.create_redis_pool(
-            url, password=os.environ.get("REDIS_PASSWORD", "foobared")
+            url, password=REDIS_PASSWORD
         )
 
     @staticmethod
