@@ -3,8 +3,7 @@ from typing import Optional
 from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi.encoders import jsonable_encoder
 from fastapi.responses import JSONResponse
-
-from backend.core.config import settings
+from structlog import get_logger
 
 from backend.accounts.crud import account as account_crud
 from backend.accounts.models import Account
@@ -18,9 +17,10 @@ from backend.accounts.views import (
 from backend.auth.schemas import Token
 from backend.auth.utils import get_token
 from backend.common.deps import current_account, confirmed_account
-from backend.common.enums import BaseMessage
+from backend.common.enums import BaseMessage, BaseLogs
 from backend.common.responses import auth_responses
 from backend.common.schemas import Message
+from backend.core.config import settings
 from backend.enums.accounts import AccountErrors
 from backend.mailing.views import is_verify_code
 from backend.schemas.accounts import AccountCreate, AccountUpdate, AccountData, ConfirmAccount, ChangePassword
@@ -47,7 +47,7 @@ async def read_user_me(account: Account = Depends(confirmed_account)) -> Optiona
         status.HTTP_404_NOT_FOUND: {"description": AccountErrors.confirmed_code_is_not_found.value}
     }
 )
-async def confirmed_account(payload: ConfirmAccount, account: Account = Depends(current_account)) -> Message:
+async def confirm_account(payload: ConfirmAccount, account: Account = Depends(current_account)) -> Message:
     """
     Подтверждение аккаунта через почту.
 
@@ -55,19 +55,28 @@ async def confirmed_account(payload: ConfirmAccount, account: Account = Depends(
     - **validation №2**: Если клиент указал не правильный код - вернетс 404 ошибка,
      после этого не обходимо указать клиенту что необходимо повторно пройти регистрацию.
     """
-    if account:
-        if account.verified_at is not None:
-            raise HTTPException(
-                status_code=400,
-                detail=AccountErrors.account_is_confirmed.value,
-            )
+    logger = get_logger().bind(
+        payload=payload.dict(),
+        account_id=account.id, email=account.email,
+        created_at=account.created_at, verified_at=account.verified_at
+    )
+
+    if account.verified_at is not None:
+        logger.debug(BaseLogs.account_confirmed.value)
+        raise HTTPException(
+            status_code=400,
+            detail=AccountErrors.account_is_confirmed.value,
+        )
 
     if settings.ENV == "PROD":
         if await is_verify_code(account.id, payload.code) is False:
+            logger.debug(BaseLogs.wrong_verify_code.value)
             raise HTTPException(
                 status_code=404,
                 detail=AccountErrors.confirmed_code_is_not_found.value,
             )
+    else:
+        logger.warning(f"{BaseLogs.ignore_business_logic.value} Check verify code skipped.")
 
     await view_confirmed_account(account)
     return Message(msg=BaseMessage.obj_is_changed.value)
@@ -112,9 +121,12 @@ async def create_account(payload: AccountCreate) -> JSONResponse:
 
     - **returned**: В ответ возвращается токен авторизации который необходимо передавать в каждом запросе в headers.
     """
+    logger = get_logger().bind(payload=payload.dict())
+
     account = await account_crud.find_by_email(email=payload.email)
     if account:
-        if account.verified_at is None:
+        if account.verified_at is not None:
+            logger.debug(BaseLogs.account_already_exist.value)
             raise HTTPException(
                 status_code=400,
                 detail=AccountErrors.email_already_exist.value,
@@ -145,10 +157,13 @@ async def update_account(payload: AccountUpdate, account: Account = Depends(conf
 
     - **validation**: Если клиент указал телефон который уже есть в системе будет отдаваться 400 ошибка.
     """
+    logger = get_logger().bind(payload=payload.dict(), account_id=account.id)
+
     if payload.phone:
         other_account = await account_crud.find_by_phone(phone=payload.phone)
         if other_account:
             if other_account.id != account.id:
+                logger.debug(BaseLogs.account_already_exist.value)
                 raise HTTPException(
                     status_code=400,
                     detail=AccountErrors.phone_already_exist.value,
