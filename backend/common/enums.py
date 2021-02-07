@@ -16,7 +16,7 @@ class BaseMessage(Enum):
     OK = "OK"
 
 
-class BaseLogs(Enum):
+class SystemLogs(Enum):
     account_not_found = "Account is not found"
     account_not_have_permissions = "Account is not have permissions."
     account_not_confirmed = "Account is not confirmed."

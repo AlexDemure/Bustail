@@ -4,7 +4,7 @@ from structlog import get_logger
 from backend.accounts.crud import account as account_crud
 from backend.accounts.models import Account
 from backend.auth.security import get_password_hash
-from backend.common.enums import BaseSystemErrors, BaseLogs
+from backend.common.enums import BaseSystemErrors, SystemLogs
 from backend.common.schemas import UpdatedBase
 from backend.enums.accounts import AccountErrors
 from backend.mailing.views import send_verify_code, send_welcome_message, is_verify_token
@@ -52,15 +52,15 @@ async def create_account(account_in: AccountCreate, account: Account = None) -> 
                 updated_fields=dict(hashed_password=account_in.hashed_password)
             )
             await account_crud.update(updated_schema)
-            logger.debug(BaseLogs.account_is_updated.value)
+            logger.debug(SystemLogs.account_is_updated.value)
 
     else:
         account = await account_crud.create(account_in)
-        logger.debug(BaseLogs.account_is_created.value)
+        logger.debug(SystemLogs.account_is_created.value)
         logger = logger.bind(account_id=account.id)
 
         await create_account_role(account.id, Roles.customer)
-        logger.debug(BaseLogs.user_role_is_created.value)
+        logger.debug(SystemLogs.user_role_is_created.value)
 
     await send_verify_code(account.id, account_in.email)
 
@@ -80,7 +80,7 @@ async def update_account(account: Account, account_up: AccountUpdate) -> None:
         updated_fields=account_up.dict()
     )
     await account_crud.update(update_schema)
-    logger.debug(BaseLogs.account_is_updated.value)
+    logger.debug(SystemLogs.account_is_updated.value)
 
 
 async def confirmed_account(account: Account) -> None:
@@ -92,7 +92,7 @@ async def confirmed_account(account: Account) -> None:
         updated_fields=dict(verified_at=datetime.utcnow())
     )
     await account_crud.update(account_up)
-    logger.debug(BaseLogs.account_confirmed.value)
+    logger.debug(SystemLogs.account_confirmed.value)
 
     await send_welcome_message(account.email)
 
@@ -103,18 +103,18 @@ async def change_password(password: str, security_token: str) -> None:
 
     context = verify_security_token(security_token)  # Получение данных токена.
     if context is None:
-        logger.debug(BaseLogs.wrong_verify_code.value)
+        logger.debug(SystemLogs.wrong_verify_code.value)
         raise ValueError(AccountErrors.url_change_password_is_wrong.value)
 
     logger = logger.bind(email=context['email'])
 
     if await is_verify_token(context['email'], security_token) is False:  # Чтение события о смене пароля.
-        logger.debug(BaseLogs.wrong_verify_code.value)
+        logger.debug(SystemLogs.wrong_verify_code.value)
         raise ValueError(AccountErrors.url_change_password_is_wrong.value)
 
     account = await account_crud.get(object_id=context['account_id'])
     if not account:
-        logger.debug(BaseLogs.account_not_found.value)
+        logger.debug(SystemLogs.account_not_found.value)
         raise ValueError(AccountErrors.account_not_found.value)
 
     update_schema = UpdatedBase(
@@ -122,4 +122,4 @@ async def change_password(password: str, security_token: str) -> None:
         updated_fields=dict(hashed_password=get_password_hash(password))
     )
     await account_crud.update(update_schema)
-    logger.debug(BaseLogs.account_is_updated.value)
+    logger.debug(SystemLogs.account_is_updated.value)

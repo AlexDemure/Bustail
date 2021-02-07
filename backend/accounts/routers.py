@@ -17,7 +17,7 @@ from backend.accounts.views import (
 from backend.auth.schemas import Token
 from backend.auth.utils import get_token
 from backend.common.deps import current_account, confirmed_account
-from backend.common.enums import BaseMessage, BaseLogs
+from backend.common.enums import BaseMessage, SystemLogs
 from backend.common.responses import auth_responses
 from backend.common.schemas import Message
 from backend.core.config import settings
@@ -62,7 +62,7 @@ async def confirm_account(payload: ConfirmAccount, account: Account = Depends(cu
     )
 
     if account.verified_at is not None:
-        logger.debug(BaseLogs.account_confirmed.value)
+        logger.debug(SystemLogs.account_confirmed.value)
         raise HTTPException(
             status_code=400,
             detail=AccountErrors.account_is_confirmed.value,
@@ -70,13 +70,13 @@ async def confirm_account(payload: ConfirmAccount, account: Account = Depends(cu
 
     if settings.ENV == "PROD":
         if await is_verify_code(account.id, payload.code) is False:
-            logger.debug(BaseLogs.wrong_verify_code.value)
+            logger.debug(SystemLogs.wrong_verify_code.value)
             raise HTTPException(
                 status_code=404,
                 detail=AccountErrors.confirmed_code_is_not_found.value,
             )
     else:
-        logger.warning(f"{BaseLogs.ignore_business_logic.value} Check verify code skipped.")
+        logger.warning(f"{SystemLogs.ignore_business_logic.value} Check verify code skipped.")
 
     await view_confirmed_account(account)
     return Message(msg=BaseMessage.obj_is_changed.value)
@@ -126,7 +126,7 @@ async def create_account(payload: AccountCreate) -> JSONResponse:
     account = await account_crud.find_by_email(email=payload.email)
     if account:
         if account.verified_at is not None:
-            logger.debug(BaseLogs.account_already_exist.value)
+            logger.debug(SystemLogs.account_already_exist.value)
             raise HTTPException(
                 status_code=400,
                 detail=AccountErrors.email_already_exist.value,
@@ -163,7 +163,7 @@ async def update_account(payload: AccountUpdate, account: Account = Depends(conf
         other_account = await account_crud.find_by_phone(phone=payload.phone)
         if other_account:
             if other_account.id != account.id:
-                logger.debug(BaseLogs.account_already_exist.value)
+                logger.debug(SystemLogs.account_already_exist.value)
                 raise HTTPException(
                     status_code=400,
                     detail=AccountErrors.phone_already_exist.value,
