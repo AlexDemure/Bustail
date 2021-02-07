@@ -23,3 +23,4 @@ class DriverErrors(Enum):
     driver_already_exist = "Карточка водителя была ранее создана."
     transport_already_exist = "Транспорт с такими данными уже есть в системе."
     car_not_belong_to_driver = "Данный транспорт не принадлежит текущему пользователю."
+    driver_have_debt_limit = "Превышен лимит задолженности. Необходимо оплатить задолженность."

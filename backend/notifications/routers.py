@@ -8,7 +8,7 @@ from backend.common.deps import confirmed_account
 from backend.common.enums import BaseMessage
 from backend.common.responses import auth_responses
 from backend.common.schemas import Message
-from backend.drivers.views import is_transport_belongs_driver
+from backend.drivers.views import is_transport_belongs_driver, is_driver_debt_exceeded
 from backend.enums.applications import ApplicationErrors, ApplicationStatus
 from backend.enums.drivers import DriverErrors
 from backend.enums.notifications import NotificationTypes, NotificationErrors
@@ -26,8 +26,9 @@ router = APIRouter()
         status.HTTP_201_CREATED: {"description": BaseMessage.obj_is_created.value},
         status.HTTP_400_BAD_REQUEST: {
             "description": f"{DriverErrors.car_not_belong_to_driver.value} or "
-                           f"{ApplicationErrors.application_does_not_belong_this_user.value} or"
-                           f"{ApplicationErrors.application_has_ended_status.value}"
+                           f"{ApplicationErrors.application_does_not_belong_this_user.value} or "
+                           f"{ApplicationErrors.application_has_ended_status.value} or "
+                           f"{DriverErrors.driver_have_debt_limit.value}"
         },
         **auth_responses
     }
@@ -43,11 +44,13 @@ async def create_notification_(notification_in: NotificationCreate, account: Acc
         )
 
     if notification_in.notification_type == NotificationTypes.driver_to_client:
-        if await is_transport_belongs_driver(account.id, notification_in.transport_id) is False:
+        driver, transport = await is_transport_belongs_driver(account.id, notification_in.transport_id)
+        if is_driver_debt_exceeded(driver):
             raise HTTPException(
                 status_code=status.HTTP_400_BAD_REQUEST,
-                detail=DriverErrors.car_not_belong_to_driver.value
+                detail=DriverErrors.driver_have_debt_limit.value
             )
+
     elif notification_in.notification_type == NotificationTypes.client_to_driver:
         if account.id != application.account_id:
             raise HTTPException(
@@ -107,12 +110,15 @@ async def notification_decision(request: SetDecision, account: Account = Depends
                 detail=ApplicationErrors.application_does_not_belong_this_user.value
             )
 
-    # Если уведомление от клиента тогда смотрим принадлежит ли этот транспорт данному пользователю.
+    # Если уведомление от клиента тогда смотрим принадлежит ли этот транспорт данному пользователю т.е водителю.
     elif notification.notification_type == NotificationTypes.client_to_driver:
-        if await is_transport_belongs_driver(account.id, notification.transport_id) is False:
+        driver, transport = await is_transport_belongs_driver(account.id, notification.transport_id)
+
+        # Имеет ли водитель задолженность.
+        if is_driver_debt_exceeded(driver):
             raise HTTPException(
                 status_code=status.HTTP_400_BAD_REQUEST,
-                detail=DriverErrors.car_not_belong_to_driver.value
+                detail=DriverErrors.driver_have_debt_limit.value
             )
 
     await set_decision(notification.id, request.decision)
@@ -133,7 +139,7 @@ async def notification_decision(request: SetDecision, account: Account = Depends
         **auth_responses
     }
 )
-async def notification_decision(request: SetDecision, account: Account = Depends(confirmed_account)) -> Message:
+async def notification_delete(request: SetDecision, account: Account = Depends(confirmed_account)) -> Message:
     """Удаление предложения."""
     notification = await get_notification(request.notification_id)
     if not notification:

@@ -192,6 +192,10 @@ async def is_transport_belongs_driver(account_id: int, transport_id: int) -> tup
     return driver, transport
 
 
+def is_driver_debt_exceeded(driver: DriverData):
+    return True if driver.debt > settings.DEFAULT_DEBT_LIMIT_IN_RUBLS else False
+
+
 async def get_driver(driver_id: int) -> Optional[DriverData]:
     driver = await driver_crud.get(driver_id)
     return prepare_driver_data(driver, driver.transports.related_objects) if driver else None

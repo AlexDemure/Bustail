@@ -82,6 +82,7 @@ class Settings(*configs):
     SECRET_KEY: str = secrets.token_urlsafe(32)
 
     DEFAULT_COMMISSION_IN_PERCENT = Decimal("0.05")
+    DEFAULT_DEBT_LIMIT_IN_RUBLS = Decimal("5000")
 
 
 settings = Settings()
