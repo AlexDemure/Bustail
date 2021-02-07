@@ -4,6 +4,8 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi.encoders import jsonable_encoder
 from fastapi.responses import JSONResponse
 
+from backend.core.config import settings
+
 from backend.accounts.crud import account as account_crud
 from backend.accounts.models import Account
 from backend.accounts.views import (
@@ -60,11 +62,12 @@ async def confirmed_account(payload: ConfirmAccount, account: Account = Depends(
                 detail=AccountErrors.account_is_confirmed.value,
             )
 
-    if await is_verify_code(account.id, payload.code) is False:
-        raise HTTPException(
-            status_code=404,
-            detail=AccountErrors.confirmed_code_is_not_found.value,
-        )
+    if settings.ENV == "PROD":
+        if await is_verify_code(account.id, payload.code) is False:
+            raise HTTPException(
+                status_code=404,
+                detail=AccountErrors.confirmed_code_is_not_found.value,
+            )
 
     await view_confirmed_account(account)
     return Message(msg=BaseMessage.obj_is_changed.value)
