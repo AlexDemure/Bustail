@@ -118,7 +118,6 @@ async def get_transport_cover(transport_id: int, cover_id: int) -> Response:
 
     file_to_bytes, media_type = await download_transport_cover(cover_id)
 
-    print(1)
     return Response(content=file_to_bytes, status_code=status.HTTP_200_OK, media_type=media_type)
 
 
