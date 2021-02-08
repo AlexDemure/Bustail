@@ -65,8 +65,8 @@ async def create_cover_transport(
             detail=UploadErrors.mime_type_is_wrong_format.value
         )
 
-    # Разрешенный размер файла до 2 МБ
-    if check_file_size(file.file, 2) is False:
+    # Разрешенный размер файла до 5 МБ
+    if check_file_size(file.file, 5) is False:
         logger.debug(SystemLogs.file_is_large.value)
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
