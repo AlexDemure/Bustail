@@ -11,6 +11,7 @@ from backend.billing.crud import payment_operation as crud_payment_operation
 from backend.billing.errors import PaymentError
 from backend.billing.utils import concat_card_number
 from backend.common.schemas import UpdatedBase
+from backend.common.enums import SystemLogs
 from backend.core.config import settings
 from backend.enums.billing import PaymentErrors, PaymentOperationStatus
 from backend.schemas.billing import PaymentOperationCreate
@@ -78,7 +79,11 @@ class PaymentBase:
         elif self.account.phone:
             customer = dict(phone=self.account.phone)
         else:
-            raise ValueError("Customer not have email and phone")
+            self.logger.error(
+                f"{SystemLogs.violation_business_logic} "
+                f"{SystemLogs.payment_personal_data_is_wrong_format.value}"
+            )
+            raise PaymentError(PaymentErrors.personal_data_is_wrong_format.value)
 
         return dict(
             receipt=dict(
@@ -146,7 +151,7 @@ class Payment(PaymentBase):
         )
         payment_operation = await crud_payment_operation.create(payment_operation_in)
         self.logger.debug(
-            f"Create payment operation",
+            SystemLogs.payment_operation_is_created.value,
             operation_id=payment_operation.operation_id,
             payment_operation_id=payment_operation.id,
             payment_url=yandex_payment_object.confirmation.confirmation_url
@@ -164,12 +169,10 @@ class PaymentNotification:
     notification = None
 
     payment_operation = None
-    account = None
 
     def __init__(self, notification: dict):
         self.logger = get_logger()
         self.notification = notification
-        self.account = None
 
     async def receiving_notification(self) -> int:
         """
@@ -177,21 +180,40 @@ class PaymentNotification:
 
         Пример уведомления можно найти в test_response.json.
         """
+        self.logger = self.logger.bind(operation_id=self.notification['object']['id'])
+
         async with in_transaction():
             self.payment_operation = await crud_payment_operation.get_by_operation_id(self.notification['object']['id'])
             if not self.payment_operation:
+                self.logger.error(
+                    f"{SystemLogs.violation_business_logic.value} "
+                    f"{SystemLogs.payment_operation_not_found.value}"
+                )
                 raise PaymentError(PaymentErrors.operation_id_is_not_found.value)
 
             self.logger = self.logger.bind(payment_operation_id=self.payment_operation.id)
-            self.account = await self.payment_operation.account
 
             if self.payment_operation.status is not None:
+                self.logger.error(
+                    f"{SystemLogs.violation_business_logic.value} "
+                    f"{SystemLogs.payment_operation_is_have_ended_status.value}"
+                )
                 raise PaymentError(PaymentErrors.payment_operation_have_end_status.value)
 
             if self.notification['object']['status'] != PaymentOperationStatus.success.value:
+                self.logger.error(
+                    f"{SystemLogs.violation_business_logic.value} "
+                    f"{SystemLogs.payment_operation_is_have_not_success_status.value}",
+                    status=self.notification['object']['status']
+                )
                 raise PaymentError(PaymentErrors.operation_status_not_success.value)
 
             if self.notification['object']['paid'] is False:
+                self.logger.error(
+                    f"{SystemLogs.violation_business_logic.value} "
+                    f"{SystemLogs.payment_operation_is_not_finished.value}",
+                    paid_status=self.notification['object']['paid']
+                )
                 raise PaymentError(PaymentErrors.paid_is_not_finished.value)
 
             # Подтверждения оплаты
@@ -214,7 +236,7 @@ class PaymentNotification:
             )
         )
         await crud_payment_operation.update(payment_operation_up)
-        self.logger.debug("Confirmed payment operation")
+        self.logger.debug(SystemLogs.payment_operation_is_confirmed.value, payload=payment_operation_up.dict())
 
     def get_card_data(self) -> dict:
         return dict(

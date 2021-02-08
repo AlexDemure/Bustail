@@ -1,6 +1,7 @@
 from fastapi import APIRouter, Depends, status, HTTPException
 from fastapi.encoders import jsonable_encoder
 from fastapi.responses import JSONResponse
+from structlog import get_logger
 
 from backend.accounts.models import Account
 from backend.applications.views import (
@@ -12,12 +13,12 @@ from backend.applications.views import (
     get_driver_applications as view_get_driver_applications,
 )
 from backend.common.deps import confirmed_account
-from backend.common.enums import BaseMessage
+from backend.common.enums import BaseMessage, SystemLogs
 from backend.common.responses import auth_responses
 from backend.common.schemas import Message
 from backend.drivers.views import get_driver_by_account_id
 from backend.enums.applications import ApplicationErrors
-from backend.schemas.applications import ListApplications, ApplicationData, ApplicationBase
+from backend.schemas.applications import ListApplications, ApplicationData, ApplicationBase, ApplicationCreate
 
 router = APIRouter()
 
@@ -54,8 +55,10 @@ async def get_driver_applications(account: Account = Depends(confirmed_account))
 
     - **description**: Не относится к заявкам клиента. Уведомления в данном API не возвращаются.
     """
+    logger = get_logger().bind(account_id=account.id)
     driver = await get_driver_by_account_id(account.id)
     if not driver:
+        logger.debug(SystemLogs.driver_not_found.value)
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
             detail=BaseMessage.obj_is_not_found.value
@@ -77,10 +80,8 @@ async def create_application(
         account: Account = Depends(confirmed_account),
 ) -> JSONResponse:
     """Создание заявки."""
-    try:
-        application = await view_create_application(account, payload)
-    except AssertionError as e:
-        raise HTTPException(status_code=400, detail=str(e))
+    application_in = ApplicationCreate(account_id=account.id, **payload.dict())
+    application = await view_create_application(account, application_in)
 
     return JSONResponse(
         status_code=status.HTTP_201_CREATED,

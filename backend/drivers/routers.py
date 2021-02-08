@@ -1,12 +1,11 @@
-from typing import List
-
 from fastapi import APIRouter, Depends, status, HTTPException, File, UploadFile
 from fastapi.encoders import jsonable_encoder
 from fastapi.responses import JSONResponse, Response
+from structlog import get_logger
 
 from backend.accounts.models import Account
 from backend.common.deps import confirmed_account
-from backend.common.enums import BaseMessage
+from backend.common.enums import BaseMessage, SystemLogs
 from backend.common.responses import auth_responses
 from backend.common.schemas import Message, UpdatedBase
 from backend.drivers.views import (
@@ -22,7 +21,7 @@ from backend.drivers.views import (
     get_transport_cover as view_get_transport_cover,
 )
 from backend.enums.drivers import DriverErrors
-from backend.object_storage.enums import UploadErrors
+from backend.object_storage.enums import UploadErrors, FileMimetypes
 from backend.object_storage.utils import check_file_type, check_file_size
 from backend.schemas.drivers import (
     DriverBase, DriverCreate, DriverData,
@@ -56,14 +55,19 @@ async def create_cover_transport(
     - **validation №1**: Если клиент загрузил формат не подходящего типа
      или размер файла превышает лимит в системе вернется 400.
     """
+    logger = get_logger().bind(transport_id=transport_id, account_id=account.id)
 
-    if check_file_type(file.content_type) is False:
+    # Разрешенный тип только png или jpeg
+    if check_file_type(file.content_type, [FileMimetypes.png, FileMimetypes.jpeg]) is False:
+        logger.debug(SystemLogs.file_is_wrong_format.value, content_type=file.content_type)
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail=UploadErrors.mime_type_is_wrong_format.value
         )
 
-    if check_file_size(file.file) is False:
+    # Разрешенный размер файла до 2 МБ
+    if check_file_size(file.file, 2) is False:
+        logger.debug(SystemLogs.file_is_large.value)
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail=UploadErrors.file_is_large.value
@@ -96,8 +100,10 @@ async def get_transport_cover(transport_id: int, cover_id: int) -> Response:
 
     - **returned**: Возвращает response с параметрами content, media_type.
     """
+    logger = get_logger().bind(transport_id=transport_id, cover_id=cover_id)
     transport = await view_get_transport(transport_id)
     if not transport:
+        logger.debug(SystemLogs.transport_not_found.value)
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
             detail=BaseMessage.obj_is_not_found.value
@@ -105,12 +111,14 @@ async def get_transport_cover(transport_id: int, cover_id: int) -> Response:
 
     cover = await view_get_transport_cover(cover_id)
     if not cover:
+        logger.debug(SystemLogs.cover_not_found.value)
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
             detail=BaseMessage.obj_is_not_found.value
         )
 
     if transport.id != cover.transport_id:
+        logger.warning(f"{SystemLogs.violation_business_logic.value} {SystemLogs.cover_not_belong_to_transport.value}")
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
             detail=BaseMessage.obj_is_not_found.value
@@ -136,8 +144,10 @@ async def get_transport(transport_id: int) -> TransportData:
 
     - **returned**: Возвращает транспорт без уведомлений т.к. эта картачка доступна для всех пользователей системы.
     """
+    logger = get_logger().bind(transport_id=transport_id)
     transport = await view_get_transport(transport_id)
     if not transport:
+        logger.debug(SystemLogs.transport_not_found.value)
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
             detail=BaseMessage.obj_is_not_found.value
@@ -204,8 +214,11 @@ async def delete_transport(transport_id: int, account: Account = Depends(confirm
 )
 async def create_transport(payload: TransportBase, account: Account = Depends(confirmed_account)):
     """Создание карточки транспорта."""
+    logger = get_logger().bind(account_id=account.id, payload=payload.dict())
+
     driver = await get_driver_by_account_id(account.id)
     if not driver:
+        logger.debug(SystemLogs.driver_not_found.value)
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
             detail=BaseMessage.obj_is_not_found.value
@@ -246,7 +259,8 @@ async def get_transports(
     """
 
     query_params = dict(
-        limit=limit, offset=offset, city=city, order_by=order_by, order_type=order_type
+        limit=limit, offset=offset, city=city,
+        order_by=order_by, order_type=order_type
     )
     return await view_get_transports(**query_params)
 
@@ -266,8 +280,10 @@ async def read_driver_me(account: Account = Depends(confirmed_account)) -> Drive
 
     - **returned**: Возвращает карточка водителя со списком транспортов, обложек к ним и уведомлениями.
     """
+    logger = get_logger().bind(account_id=account.id)
     driver = await get_driver_by_account_id(account.id)
     if not driver:
+        logger.debug(SystemLogs.driver_not_found.value)
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
             detail=BaseMessage.obj_is_not_found.value
@@ -287,8 +303,10 @@ async def read_driver_me(account: Account = Depends(confirmed_account)) -> Drive
 )
 async def get_driver(driver_id: int, account: Account = Depends(confirmed_account)) -> DriverData:
     """Получение карточки водителя."""
+    logger = get_logger().bind(driver_id=driver_id)
     driver = await view_get_driver(driver_id)
     if not driver:
+        logger.debug(SystemLogs.driver_not_found.value)
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
             detail=BaseMessage.obj_is_not_found.value
@@ -308,8 +326,10 @@ async def get_driver(driver_id: int, account: Account = Depends(confirmed_accoun
 )
 async def change_driver_data(payload: DriverBase, account: Account = Depends(confirmed_account)) -> Message:
     """Смена данных в карточки водителя."""
+    logger = get_logger().bind(account_id=account.id, payload=payload.dict())
     driver = await get_driver_by_account_id(account.id)
     if not driver:
+        logger.debug(SystemLogs.driver_not_found.value)
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
             detail=BaseMessage.obj_is_not_found.value

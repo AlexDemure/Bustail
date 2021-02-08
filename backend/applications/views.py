@@ -1,33 +1,25 @@
 from datetime import datetime
 from typing import Optional
 
-from fastapi import HTTPException
+from structlog import get_logger
 
 from backend.accounts.models import Account
 from backend.applications.crud import application as application_crud
 from backend.applications.serializer import prepare_apps_with_notifications
-from backend.common.enums import BaseSystemErrors, BaseMessage
+from backend.common.enums import BaseSystemErrors, BaseMessage, SystemLogs
 from backend.common.schemas import UpdatedBase
 from backend.drivers.crud import driver as driver_crud
 from backend.enums.applications import ApplicationErrors, ApplicationStatus
 from backend.schemas.applications import ApplicationBase, ApplicationData, ApplicationCreate, ListApplications
 
 
-async def create_application(account: Account, application_in: ApplicationBase) -> ApplicationData:
+async def create_application(account: Account, application_in: ApplicationCreate) -> ApplicationData:
     """Создание заявки клиента."""
+    logger = get_logger().bind(account_id=account.id, payload=application_in.dict())
     assert isinstance(application_in, ApplicationBase), BaseSystemErrors.schema_wrong_format.value
 
-    application_data = application_in.dict()
-
-    try:
-        application_in = ApplicationCreate(
-            account_id=account.id,
-            **application_data
-        )
-    except AssertionError as e:
-        raise HTTPException(status_code=400, detail=str(e))
-
     application = await application_crud.create(application_in)
+    logger.debug(SystemLogs.application_is_created.value)
     return ApplicationData(**application.__dict__)
 
 
@@ -70,30 +62,40 @@ async def get_application(application_id: int) -> Optional[ApplicationData]:
 
 async def delete_application(account: Account, application_id: int) -> None:
     """Удаление заявки только в статусе ожидания."""
+    logger = get_logger().bind(account_id=account.id, application_id=application_id)
     application = await application_crud.get(application_id)
     if not application:
+        logger.debug(SystemLogs.application_not_found.value)
         raise ValueError(BaseMessage.obj_is_not_found.value)
 
     assert application.account_id == account.id, ApplicationErrors.application_does_not_belong_this_user.value
     assert application.application_status == ApplicationStatus.waiting, ApplicationErrors.application_has_ended_status.value
 
     await application_crud.remove(application['id'])
+    logger.debug(SystemLogs.application_is_deleted.value)
 
     application = await application_crud.get(application_id)
     assert application is None, "Application is not deleted"
+    logger.debug(SystemLogs.application_not_found.value)
 
 
 async def confirm_application(application_id: int, transport_id: int, driver_id: int, change_price: int = None) -> None:
     """Подтверждение заявки, происходит после того когда клиент или водитель приняк заявку."""
+    logger = get_logger().bind(
+        application_id=application_id, transport_id=transport_id,
+        driver_id=driver_id, changed_price=change_price
+    )
     application = await application_crud.get(application_id)
     if not application:
+        logger.debug(SystemLogs.application_not_found.value)
         raise ValueError(BaseMessage.obj_is_not_found.value)
 
     driver = await driver_crud.get(driver_id)
     if not driver:
+        logger.debug(SystemLogs.driver_not_found.value)
         raise ValueError(BaseMessage.obj_is_not_found.value)
 
-    update_schema = UpdatedBase(
+    app_up = UpdatedBase(
         id=application.id,
         updated_fields=dict(
             confirmed_at=datetime.utcnow(),
@@ -104,23 +106,27 @@ async def confirm_application(application_id: int, transport_id: int, driver_id:
         )
     )
 
-    await application_crud.update(update_schema)
+    await application_crud.update(app_up)
+    logger.debug(SystemLogs.application_is_updated.value, payload=app_up.dict())
 
 
 async def reject_application(account: Account, application_id: int) -> None:
     """Отмена заявки."""
+    logger = get_logger().bind(account_id=account.id, application_id=application_id)
     application = await application_crud.get(application_id)
     if not application:
+        logger.debug(SystemLogs.application_not_found.value)
         raise ValueError(BaseMessage.obj_is_not_found.value)
 
     assert application.account_id == account.id, ApplicationErrors.application_does_not_belong_this_user.value
     assert application.application_status != ApplicationStatus.completed, ApplicationErrors.application_has_ended_status.value
 
-    updated_schema = UpdatedBase(
+    app_up = UpdatedBase(
         id=application.id,
         updated_fields=dict(application_status=ApplicationStatus.rejected)
     )
-    await application_crud.update(updated_schema)
+    await application_crud.update(app_up)
+    logger.debug(SystemLogs.application_is_updated.value, payload=app_up.dict())
 
     application = await application_crud.get(application_id)
     assert application.application_status == ApplicationStatus.rejected, "Application is not rejected"

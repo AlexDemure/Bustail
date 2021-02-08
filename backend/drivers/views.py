@@ -3,10 +3,11 @@ from uuid import uuid4
 
 from fastapi import HTTPException, status
 from fastapi import UploadFile
+from structlog import get_logger
 
 from backend.accounts.models import Account
 from backend.common.enums import BaseMessage
-from backend.common.enums import BaseSystemErrors
+from backend.common.enums import BaseSystemErrors, SystemLogs
 from backend.common.schemas import UpdatedBase
 from backend.core.config import settings
 from backend.drivers.crud import (
@@ -14,12 +15,12 @@ from backend.drivers.crud import (
     transport as transport_crud,
     transport_covers as transport_covers_crud
 )
+from backend.drivers.models import Driver
 from backend.drivers.serializer import (
     prepare_transport_with_notifications_and_photos,
     prepare_transport_with_photos,
     prepare_driver_data
 )
-from backend.drivers.models import Driver, TransportPhoto
 from backend.enums.drivers import DriverErrors
 from backend.object_storage.enums import FileStorages, FileMimetypes
 from backend.object_storage.uploader import ObjectStorage
@@ -36,6 +37,8 @@ object_storage = ObjectStorage(
 
 async def create_driver(driver_in: DriverCreate, account: Account) -> DriverData:
     """Создание карточки водителя."""
+    logger = get_logger().bind(payload=driver_in.dict(), account_id=account.id)
+
     assert isinstance(driver_in, DriverCreate), BaseSystemErrors.schema_wrong_format.value
 
     driver = await get_driver_by_account_id(account.id)
@@ -43,6 +46,7 @@ async def create_driver(driver_in: DriverCreate, account: Account) -> DriverData
         return driver
 
     driver = await driver_crud.create(driver_in)
+    logger.debug(SystemLogs.driver_is_created.value, driver_id=driver.id)
     return DriverData(**driver.__dict__)
 
 
@@ -57,12 +61,15 @@ async def get_driver_by_account_id(account_id: int) -> Optional[DriverData]:
 
 
 async def update_driver(driver_up: UpdatedBase) -> None:
+    logger = get_logger().bind(payload=driver_up.dict(), driver_id=driver_up.id)
     assert isinstance(driver_up, UpdatedBase), BaseSystemErrors.schema_wrong_format.value
     await driver_crud.update(driver_up)
+    logger.debug(SystemLogs.driver_is_updated.value)
 
 
 async def create_transport(transport_in: TransportCreate) -> TransportData:
     """Создание карточки транспорта."""
+    logger = get_logger().bind(payload=transport_in.dict())
     assert isinstance(transport_in, TransportCreate), BaseSystemErrors.schema_wrong_format.value
 
     transport = await transport_crud.find_by_params(
@@ -71,9 +78,11 @@ async def create_transport(transport_in: TransportCreate) -> TransportData:
         state_number=transport_in.state_number
     )
     if transport:
+        logger.debug(SystemLogs.transport_already_exist.value)
         raise ValueError(DriverErrors.transport_already_exist.value)
 
     transport = await transport_crud.create(transport_in)
+    logger.debug(SystemLogs.transport_is_created.value)
     return TransportData(**transport.__dict__)
 
 
@@ -84,6 +93,8 @@ async def get_transport(transport_id: int) -> Optional[TransportData]:
 
 async def change_transport_data(transport: TransportData, transport_up: TransportUpdate) -> None:
     """Обновление карточки транспорта."""
+    logger = get_logger().bind(transport_id=transport.id, payload=transport_up.dict())
+
     assert isinstance(transport_up, TransportUpdate), BaseSystemErrors.schema_wrong_format.value
 
     transport_data = await transport_crud.find_by_params(
@@ -92,6 +103,7 @@ async def change_transport_data(transport: TransportData, transport_up: Transpor
         state_number=transport_up.state_number
     )
     if transport_data:
+        logger.debug(SystemLogs.transport_already_exist.value)
         raise ValueError(DriverErrors.transport_already_exist.value)
 
     update_schema = UpdatedBase(
@@ -99,6 +111,7 @@ async def change_transport_data(transport: TransportData, transport_up: Transpor
         updated_fields=transport_up.dict()
     )
     await transport_crud.update(update_schema)
+    logger.debug(SystemLogs.transport_is_updated.value)
 
 
 async def get_transports(**kwargs) -> ListTransports:
@@ -110,14 +123,18 @@ async def get_transports(**kwargs) -> ListTransports:
 
 
 async def delete_transport(transport_id: int) -> None:
+    logger = get_logger().bind(transport_id=transport_id)
     await transport_crud.remove(transport_id)
+    logger.debug(SystemLogs.transport_is_deleted.value)
 
     transport = await transport_crud.get(transport_id)
     assert transport is None, "Transport is not deleted"
+    logger.debug(SystemLogs.transport_not_found.value)
 
 
 async def upload_transport_cover(transport: TransportData, file: UploadFile) -> TransportPhotoData:
     """Загрузка обложки к транспорту через бакет."""
+    logger = get_logger().bind(transport_id=transport.id)
 
     file_hash = get_file_hash(file.file)  # Получение хеша файла с передачей SpooledTempFile.
     file_media_type = FileMimetypes(file.content_type)
@@ -139,6 +156,7 @@ async def upload_transport_cover(transport: TransportData, file: UploadFile) -> 
             content_type=file.content_type,
             file_url=file_uri
         )
+        logger.debug(SystemLogs.cover_is_uploaded.value, file_uri=file_uri)
 
     transport_cover_in = TransportPhotoCreate(
         transport_id=transport.id,
@@ -148,6 +166,7 @@ async def upload_transport_cover(transport: TransportData, file: UploadFile) -> 
     )
 
     transport_cover = await transport_covers_crud.create(transport_cover_in)
+    logger.debug(SystemLogs.cover_is_created.value, cover_id=transport_cover.id)
     return TransportPhotoData(**transport_cover.__dict__)
 
 
@@ -167,9 +186,11 @@ async def download_transport_cover(transport_cover_id: int) -> Tuple[bytes, str]
 
 async def is_transport_belongs_driver(account_id: int, transport_id: int) -> tuple:
     """Проверка принадлежности водителя к транспорту."""
+    logger = get_logger().bind(account_id=account_id, transport_id=transport_id)
 
     driver = await get_driver_by_account_id(account_id)
     if not driver:
+        logger.debug(SystemLogs.driver_not_found.value)
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
             detail=BaseMessage.obj_is_not_created.value
@@ -177,6 +198,7 @@ async def is_transport_belongs_driver(account_id: int, transport_id: int) -> tup
 
     transport = await get_transport(transport_id)
     if not transport:
+        logger.debug(SystemLogs.transport_not_found.value)
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
             detail=BaseMessage.obj_is_not_found.value
@@ -184,6 +206,7 @@ async def is_transport_belongs_driver(account_id: int, transport_id: int) -> tup
 
     # Если транспорт не принадлежит данному водителю.
     if transport.driver_id != driver.id:
+        logger.warning(f"{SystemLogs.violation_business_logic} {SystemLogs.transport_not_belong_to_driver.value}")
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail=DriverErrors.car_not_belong_to_driver.value
@@ -202,12 +225,15 @@ async def get_driver(driver_id: int) -> Optional[DriverData]:
 
 
 async def get_driver_by_transport_id(transport_id: int) -> Optional[DriverData]:
+    logger = get_logger().bind(transport_id=transport_id)
     transport = await transport_crud.get(transport_id)
     if not transport:
+        logger.debug(SystemLogs.transport_not_found.value)
         raise ValueError(BaseMessage.obj_is_not_found.value)
 
     driver = await get_driver(transport.driver_id)
     if not driver:
+        logger.debug(SystemLogs.driver_not_found.value)
         raise ValueError(BaseMessage.obj_is_not_found.value)
 
     return driver

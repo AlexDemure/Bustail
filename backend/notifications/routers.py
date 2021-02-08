@@ -1,11 +1,12 @@
 from fastapi import APIRouter, Depends, status, HTTPException
 from fastapi.encoders import jsonable_encoder
 from fastapi.responses import JSONResponse
+from structlog import get_logger
 
 from backend.accounts.models import Account
 from backend.applications.views import get_application
 from backend.common.deps import confirmed_account
-from backend.common.enums import BaseMessage
+from backend.common.enums import BaseMessage, SystemLogs
 from backend.common.responses import auth_responses
 from backend.common.schemas import Message
 from backend.drivers.views import is_transport_belongs_driver, is_driver_debt_exceeded
@@ -35,9 +36,11 @@ router = APIRouter()
 )
 async def create_notification_(notification_in: NotificationCreate, account: Account = Depends(confirmed_account)) -> JSONResponse:
     """Создание предложения об услуги."""
+    logger = get_logger().bind(account_id=account.id, payload=notification_in.dict())
     application = await get_application(notification_in.application_id)
 
     if application.application_status != ApplicationStatus.waiting:
+        logger.debug(SystemLogs.application_have_ended_status.value)
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail=ApplicationErrors.application_has_ended_status.value
@@ -46,6 +49,7 @@ async def create_notification_(notification_in: NotificationCreate, account: Acc
     if notification_in.notification_type == NotificationTypes.driver_to_client:
         driver, transport = await is_transport_belongs_driver(account.id, notification_in.transport_id)
         if is_driver_debt_exceeded(driver):
+            logger.debug(SystemLogs.driver_is_have_debt.value, debt=driver.debt)
             raise HTTPException(
                 status_code=status.HTTP_400_BAD_REQUEST,
                 detail=DriverErrors.driver_have_debt_limit.value
@@ -53,6 +57,10 @@ async def create_notification_(notification_in: NotificationCreate, account: Acc
 
     elif notification_in.notification_type == NotificationTypes.client_to_driver:
         if account.id != application.account_id:
+            logger.warning(
+                f"{SystemLogs.violation_business_logic.value} "
+                f"{SystemLogs.application_not_belong_to_user.value}"
+            )
             raise HTTPException(
                 status_code=status.HTTP_400_BAD_REQUEST,
                 detail=ApplicationErrors.application_does_not_belong_this_user.value
@@ -79,17 +87,21 @@ async def create_notification_(notification_in: NotificationCreate, account: Acc
         **auth_responses
     }
 )
-async def notification_decision(request: SetDecision, account: Account = Depends(confirmed_account)) -> Message:
+async def notification_decision(payload: SetDecision, account: Account = Depends(confirmed_account)) -> Message:
     """Решение по предложению."""
-
-    notification = await get_notification(request.notification_id)
+    logger = get_logger().bind(account_id=account.id, payload=payload.dict())
+    notification = await get_notification(payload.notification_id)
     if not notification:
+        logger.debug(SystemLogs.notification_not_found.value)
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
             detail=BaseMessage.obj_is_not_found.value
         )
 
+    logger = logger.bind(notification_id=notification.id)
+
     if notification.decision is not None:
+        logger.debug(SystemLogs.notification_is_have_decision.value, decision=notification.decision)
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail=NotificationErrors.notification_is_have_decision.value
@@ -99,12 +111,17 @@ async def notification_decision(request: SetDecision, account: Account = Depends
     if notification.notification_type == NotificationTypes.driver_to_client:
         application = await get_application(notification.application_id)
         if not application:
+            logger.debug(SystemLogs.application_not_found.value)
             raise HTTPException(
                 status_code=status.HTTP_400_BAD_REQUEST,
                 detail=BaseMessage.obj_is_not_found.value
             )
 
         if application.account_id != account.id:
+            logger.warning(
+                f"{SystemLogs.violation_business_logic.value} "
+                f"{SystemLogs.application_not_belong_to_user.value}"
+            )
             raise HTTPException(
                 status_code=status.HTTP_400_BAD_REQUEST,
                 detail=ApplicationErrors.application_does_not_belong_this_user.value
@@ -116,12 +133,13 @@ async def notification_decision(request: SetDecision, account: Account = Depends
 
         # Имеет ли водитель задолженность.
         if is_driver_debt_exceeded(driver):
+            logger.debug(SystemLogs.driver_is_have_debt.value, debt=driver.debt)
             raise HTTPException(
                 status_code=status.HTTP_400_BAD_REQUEST,
                 detail=DriverErrors.driver_have_debt_limit.value
             )
 
-    await set_decision(notification.id, request.decision)
+    await set_decision(notification.id, payload.decision)
 
     return Message(msg=BaseMessage.obj_is_changed.value)
 
@@ -139,16 +157,21 @@ async def notification_decision(request: SetDecision, account: Account = Depends
         **auth_responses
     }
 )
-async def notification_delete(request: SetDecision, account: Account = Depends(confirmed_account)) -> Message:
+async def notification_delete(payload: SetDecision, account: Account = Depends(confirmed_account)) -> Message:
     """Удаление предложения."""
-    notification = await get_notification(request.notification_id)
+    logger = get_logger().bind(account_id=account.id, payload=payload.dict())
+
+    notification = await get_notification(payload.notification_id)
     if not notification:
+        logger.debug(SystemLogs.notification_not_found.value)
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
             detail=BaseMessage.obj_is_not_found.value
         )
 
+    # Удаление уведомления можно только до тех пор пока он не получил конечный статус.
     if notification.decision is not None:
+        logger.debug(SystemLogs.notification_is_have_decision.value)
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail=NotificationErrors.notification_is_have_decision.value
@@ -158,12 +181,17 @@ async def notification_delete(request: SetDecision, account: Account = Depends(c
     if notification.notification_type == NotificationTypes.driver_to_client:
         application = await get_application(notification.application_id)
         if not application:
+            logger.debug(SystemLogs.application_not_found.value)
             raise HTTPException(
                 status_code=status.HTTP_400_BAD_REQUEST,
                 detail=BaseMessage.obj_is_not_found.value
             )
 
         if application.account_id != account.id:
+            logger.warning(
+                f"{SystemLogs.violation_business_logic.value} "
+                f"{SystemLogs.application_not_belong_to_user.value}"
+            )
             raise HTTPException(
                 status_code=status.HTTP_400_BAD_REQUEST,
                 detail=ApplicationErrors.application_does_not_belong_this_user.value
@@ -172,6 +200,10 @@ async def notification_delete(request: SetDecision, account: Account = Depends(c
     # Если уведомление от клиента тогда смотрим принадлежит ли этот транспорт данному пользователю.
     elif notification.notification_type == NotificationTypes.client_to_driver:
         if await is_transport_belongs_driver(account.id, notification.transport_id) is False:
+            logger.warning(
+                f"{SystemLogs.violation_business_logic.value} "
+                f"{SystemLogs.transport_not_belong_to_driver.value}"
+            )
             raise HTTPException(
                 status_code=status.HTTP_400_BAD_REQUEST,
                 detail=DriverErrors.car_not_belong_to_driver.value

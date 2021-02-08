@@ -1,10 +1,12 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordRequestForm
 
+from structlog import get_logger
+
 from backend.accounts.crud import account as account_crud
 from backend.auth.schemas import Token
 from backend.auth.utils import get_token
-from backend.common.enums import BaseMessage
+from backend.common.enums import BaseMessage, SystemLogs
 from backend.enums.accounts import AccountErrors
 
 router = APIRouter()
@@ -22,9 +24,11 @@ async def login_access_cookie(form_data: OAuth2PasswordRequestForm = Depends()) 
     """
     OAuth2 compatible token login, get an access token for future requests
     """
+    logger = get_logger().bind(payload=form_data.__dict__)
 
     account = await account_crud.authenticate(form_data.username, form_data.password)
     if not account:
+        logger.debug(SystemLogs.account_not_found.value)
         raise HTTPException(status_code=404, detail=AccountErrors.account_not_found.value)
 
     return Token(access_token=get_token(account.id))

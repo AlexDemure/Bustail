@@ -2,7 +2,6 @@ from decimal import Decimal
 
 from fastapi import APIRouter, status, Response, Depends, HTTPException
 from fastapi.responses import JSONResponse
-
 from structlog import get_logger
 
 from backend.accounts.models import Account
@@ -10,10 +9,9 @@ from backend.billing.crud import payment_operation as crud_payment_operation
 from backend.billing.logic import Payment, PaymentNotification
 from backend.billing.utils import write_off_debt
 from backend.common.deps import confirmed_account
-from backend.common.enums import BaseMessage
+from backend.common.enums import BaseMessage, SystemLogs
 from backend.common.responses import auth_responses
 from backend.common.schemas import UpdatedBase
-
 from backend.drivers.views import get_driver_by_account_id, update_driver
 from backend.enums.billing import PaymentOperationEvents, PaymentErrors
 from backend.schemas.billing import PaymentLink
@@ -33,14 +31,17 @@ router = APIRouter()
 )
 async def get_payment_url(account: Account = Depends(confirmed_account)) -> JSONResponse:
     """Прием уведомления об платежной операции из яндекс кассы."""
+    logger = get_logger().bind(account_id=account.id)
     driver = await get_driver_by_account_id(account.id)
     if not driver:
+        logger.debug(SystemLogs.driver_not_found.value)
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
             detail=BaseMessage.obj_is_not_found.value
         )
 
     if driver.debt < Decimal("1"):
+        logger.debug(SystemLogs.payment_amount_is_less_possible.value, debt=driver.debt)
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail=PaymentErrors.payment_amount_must_be_gt_zero.value
@@ -60,8 +61,8 @@ async def get_payment_url(account: Account = Depends(confirmed_account)) -> JSON
 )
 async def payment_notification(payment_data: dict, response: Response) -> Response:
     """Прием уведомления об платежной операции из яндекс кассы."""
-    logger = get_logger()
-    logger.debug("Payment notification", notification_json=payment_data)
+    logger = get_logger().bind(payload=payment_data)
+    logger.debug(SystemLogs.payment_notification_is_accepted.value)
 
     if payment_data['event'] == PaymentOperationEvents.payment_success.value:
         payment_operation_id = await PaymentNotification(payment_data).receiving_notification()
@@ -70,6 +71,7 @@ async def payment_notification(payment_data: dict, response: Response) -> Respon
 
         driver = await get_driver_by_account_id(payment_operation.account_id)
         if not driver:
+            logger.warning(f"{SystemLogs.violation_business_logic.value} {SystemLogs.driver_not_found.value}")
             raise HTTPException(
                 status_code=status.HTTP_404_NOT_FOUND,
                 detail=BaseMessage.obj_is_not_found.value

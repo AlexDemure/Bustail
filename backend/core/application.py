@@ -13,6 +13,7 @@ app = FastAPI()
 
 @app.on_event("startup")
 async def redis_init():
+    print("Connection to Redis...")
     await redis.redis_init()
     await redis.register_service(service_mailing)
 
@@ -20,10 +21,10 @@ async def redis_init():
 @app.on_event("startup")
 async def fixtures():
     if settings.ENV == "PROD":
-        print("Connect to PostgreSQL DB")
+        print("Connection to PostgreSQL...")
         await postgres_db_init()
     else:
-        print("Connect to test DB")
+        print("Connection to SQLite3...")
         await sqlite_db_init()
     await setup_permissions_and_roles()
 
