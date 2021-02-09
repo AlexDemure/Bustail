@@ -22,6 +22,6 @@ async def sentry_dispatcher(request: Request, call_next: RequestResponseEndpoint
 utils = []
 
 if settings.ENV == SystemEnvs.prod.value:
-    utils.extend(
+    utils.extend([
         Middleware(BaseHTTPMiddleware, dispatch=sentry_dispatcher),
-    )
+    ])
