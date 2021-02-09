@@ -23,7 +23,7 @@ docker-compose -f docker-compose.prod up -d --build
 #### Используемые технологии
 - FastApi Framework (Python)
 - React (JavaScript)
-- PostgreSQL
+- PostgreSQL (main) & SQLite3 (test)
 - Tortoise ORM
 - Aerich (Мигратор)
 - HTML/CSS
@@ -33,5 +33,6 @@ docker-compose -f docker-compose.prod up -d --build
 - Netdata (Мониторинг сервера)
 - CI/CD (CircleCI)
 - Pytest/Unittest
-- Redis
+- Redis (Используется в качестве менеджера задач)
 - Docker & Docker-compose
+- Sentry
