@@ -2,7 +2,7 @@ from uuid import uuid4
 
 from pydantic import BaseModel, EmailStr
 
-from backend.mailing.settings import SERVICE_NAME
+from backend.apps.mailing.settings import SERVICE_NAME
 
 
 class BaseEmail(BaseModel):

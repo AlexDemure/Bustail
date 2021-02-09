@@ -29,10 +29,8 @@ services:
       - "redis"
     env_file:
       - ./env_files/postgres.env
-      - ./env_files/global.env
+      - ./env_files/core.env
       - ./env_files/mailing.env
-      - ./env_files/redis.env
-      - ./env_files/yandex.env
     volumes:
       - ./backend:/app/backend/
 

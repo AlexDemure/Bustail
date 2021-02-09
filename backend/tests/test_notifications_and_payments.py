@@ -2,16 +2,16 @@ import json
 from unittest.mock import patch
 
 import pytest
+from backend.apps.applications.models import Application
+from backend.apps.applications.tasks import completed_applications
 from tortoise import Tortoise
 
-from backend.applications.models import Application
-from backend.applications.tasks import completed_applications
-from backend.billing.crud import payment_operation as crud_payment_operation
+from backend.apps.billing.crud import payment_operation as crud_payment_operation
+from backend.apps.mailing.service import service_mailing
 from backend.db.database import sqlite_db_init
 from backend.enums.applications import ApplicationStatus
-from backend.mailing.service import service_mailing
-from backend.permissions.fixtures import setup_permissions_and_roles
-from backend.redis.service import redis
+from backend.submodules.permissions.fixtures import setup_permissions_and_roles
+from backend.submodules.redis.service import redis
 from backend.tests.data import BaseTest, NotificationData
 
 pytestmark = pytest.mark.asyncio
@@ -40,7 +40,7 @@ class TestPayments(BaseTest):
         await sqlite_db_init()
         await setup_permissions_and_roles()
 
-        with patch('backend.applications.crud.application.completed_applications') as perm_mock:
+        with patch('backend.apps.applications.crud.application.completed_applications') as perm_mock:
             perm_mock.return_value = await ApplicationCrud.completed_applications()
             await completed_applications()
 

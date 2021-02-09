@@ -1,18 +1,16 @@
 from fastapi import APIRouter
 
-from backend.accounts.routers import router as account_router
-from backend.applications.routers import router as application_router
-from backend.auth.routers import router as auth_router
-from backend.common.routers import router as common_router
-from backend.drivers.routers import router as driver_router
-from backend.mailing.routers import router as mailing_router
-from backend.notifications.routers import router as notification_router
-from backend.billing.routers import router as billing_router
+from backend.api.routers.router_accounts import router as account_router
+from backend.api.routers.router_applications import router as application_router
+from backend.api.routers.router_drivers import router as driver_router
+from backend.api.routers.router_mailing import router as mailing_router
+from backend.api.routers.router_notifications import router as notification_router
+from backend.api.routers.router_payments import router as billing_router
+from backend.api.routers.router_other import router as other_router
 
 api_router = APIRouter()
 
-api_router.include_router(auth_router, tags=["auth"])
-api_router.include_router(common_router, tags=["common"])
+api_router.include_router(other_router, tags=["other"])
 api_router.include_router(billing_router, tags=["billing"])
 api_router.include_router(account_router, tags=["accounts"], prefix='/accounts')
 api_router.include_router(application_router, tags=["applications"], prefix='/applications')
