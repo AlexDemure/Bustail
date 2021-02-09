@@ -10,7 +10,7 @@ from backend.core.application import app
 from backend.enums.applications import ApplicationTypes
 from backend.enums.drivers import TransportType
 from backend.enums.notifications import NotificationTypes
-from backend.core.utils import get_cities
+from backend.utils import get_cities
 from backend.submodules.security.utils import generate_random_code
 
 ASYNC_CLIENT = AsyncClient(app=app, base_url="http://localhost/api/v1")

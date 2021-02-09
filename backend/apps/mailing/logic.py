@@ -1,4 +1,4 @@
-from backend.core.utils import get_current_domain
+from backend.utils import get_current_domain
 from backend.enums.mailing import MailingTypes
 from backend.apps.mailing import crud
 from backend.apps.mailing.settings import SERVICE_NAME

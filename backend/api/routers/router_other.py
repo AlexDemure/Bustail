@@ -8,7 +8,7 @@ from backend.enums.system import SystemLogs
 from backend.submodules.auth.schemas import Token
 from backend.submodules.auth.utils import get_token
 from backend.submodules.common.enums import BaseMessage
-from backend.core.utils import get_cities
+from backend.utils import get_cities
 
 router = APIRouter()
 

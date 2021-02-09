@@ -6,7 +6,7 @@ from pydantic import BaseModel, root_validator
 
 from backend.enums.drivers import TransportType
 from backend.schemas.notifications import NotificationData
-from backend.core.utils import get_cities
+from backend.utils import get_cities
 from backend.submodules.object_storage.enums import FileMimetypes
 
 
