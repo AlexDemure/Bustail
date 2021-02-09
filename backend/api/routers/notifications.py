@@ -10,8 +10,8 @@ from backend.apps.drivers.logic import is_transport_belongs_driver, is_driver_de
 from backend.apps.notifications.logic import create_notification, get_notification, set_decision, delete_notification
 from backend.enums.applications import ApplicationErrors, ApplicationStatus
 from backend.enums.drivers import DriverErrors
-from backend.enums.system import SystemLogs
 from backend.enums.notifications import NotificationTypes, NotificationErrors
+from backend.enums.system import SystemLogs
 from backend.schemas.notifications import NotificationData, NotificationCreate, SetDecision
 from backend.submodules.common.enums import BaseMessage
 from backend.submodules.common.responses import auth_responses

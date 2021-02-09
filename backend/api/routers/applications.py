@@ -3,6 +3,7 @@ from fastapi.encoders import jsonable_encoder
 from fastapi.responses import JSONResponse
 from structlog import get_logger
 
+from backend.api.deps.accounts import confirmed_account
 from backend.apps.accounts.models import Account
 from backend.apps.applications.logic import (
     get_account_applications as logic_get_account_applications,
@@ -14,9 +15,8 @@ from backend.apps.applications.logic import (
 )
 from backend.apps.drivers.logic import get_driver_by_account_id
 from backend.enums.applications import ApplicationErrors
-from backend.schemas.applications import ListApplications, ApplicationData, ApplicationBase, ApplicationCreate
-from backend.api.deps.accounts import confirmed_account
 from backend.enums.system import SystemLogs
+from backend.schemas.applications import ListApplications, ApplicationData, ApplicationBase, ApplicationCreate
 from backend.submodules.common.enums import BaseMessage
 from backend.submodules.common.responses import auth_responses
 from backend.submodules.common.schemas import Message
