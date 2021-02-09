@@ -1,6 +1,6 @@
 from pydantic import BaseModel, root_validator
 
-from backend.common.utils import get_cities
+from backend.core.utils import get_cities
 
 
 class AccountBase(BaseModel):

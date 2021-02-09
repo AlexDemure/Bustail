@@ -2,11 +2,12 @@ import random
 
 import pytest
 from tortoise import Tortoise
-from backend.tests.data import BaseTest, TestDriverData, TestAccountData
+
+from backend.apps.mailing.service import service_mailing
 from backend.db.database import sqlite_db_init
-from backend.redis.service import redis
-from backend.mailing.service import service_mailing
-from backend.permissions.fixtures import setup_permissions_and_roles
+from backend.submodules.permissions.fixtures import setup_permissions_and_roles
+from backend.submodules.redis.service import redis
+from backend.tests.data import BaseTest, TestDriverData, TestAccountData
 
 pytestmark = pytest.mark.asyncio
 

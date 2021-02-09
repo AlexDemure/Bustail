@@ -4,9 +4,9 @@ from tortoise.contrib.fastapi import register_tortoise
 from backend.core.config import settings
 
 MODELS_LIST = [
-    "backend.accounts.models", "backend.mailing.models", "backend.drivers.models",
-    "backend.applications.models", "backend.notifications.models", "backend.billing.models",
-    "backend.permissions.models", "aerich.models"
+    "backend.apps.accounts.models", "backend.apps.mailing.models", "backend.apps.drivers.models",
+    "backend.apps.applications.models", "backend.apps.notifications.models", "backend.apps.billing.models",
+    "backend.submodules.permissions.models", "aerich.models"
 ]
 
 

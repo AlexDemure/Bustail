@@ -21,7 +21,7 @@
 #          command: |
 #            git clone git@github.com:AlexDemure/bustail_core.git --recursive
 #            cd bustail_core
-#            cp env_files/global.env.example env_files/global.env
+#            cp env_files/core.env.example env_files/core.env
 #            cp env_files/mailing.env.example env_files/mailing.env
 #            cp env_files/postgres.env.example env_files/postgres.env
 #            cp env_files/redis.env.example env_files/redis.env

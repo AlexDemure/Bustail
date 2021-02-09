@@ -1,14 +1,22 @@
 import uvicorn
 from fastapi import FastAPI
 from structlog import get_logger
+
+from backend.apps.mailing.service import service_mailing
 from backend.core.config import settings
 from backend.core.urls import api_router
+from backend.core import middleware
 from backend.db.database import postgres_db_init, sqlite_db_init
-from backend.mailing.service import service_mailing
-from backend.permissions.fixtures import setup_permissions_and_roles
-from backend.redis.service import redis
+from backend.submodules.permissions.fixtures import setup_permissions_and_roles
+from backend.submodules.redis.service import redis
+from backend.submodules.sentry.service import sentry
 
-app = FastAPI()
+app = FastAPI(middleware=middleware.utils)
+
+
+@app.on_event("startup")
+def sentry_init():
+    sentry.senty_init(app)
 
 
 @app.on_event("startup")

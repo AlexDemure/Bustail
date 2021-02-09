@@ -11,16 +11,6 @@ class BaseConfig(BaseSettings):
         case_sensitive = True
 
 
-class FastApiAuthSettings(BaseConfig):
-
-    ACCESS_TOKEN_EXPIRE_MINUTES: int = 60 * 12  # 60 minutes * 12 hours = 0.5day
-
-
-class SecuritySettings(BaseConfig):
-
-    SECURITY_TOKEN_EXPIRE_MINUTES: int = 60 * 60 * 24  # 1 day
-
-
 class MailingMandrillSettings(BaseConfig):
 
     MAILING_SECRET_KEY: str = os.environ.get("MAILING_SECRET_KEY", "NOT_SET")
@@ -68,7 +58,7 @@ class YandexKassaSettings(BaseConfig):
 
 # INCLUDE SETTINGS
 configs = [
-    FastApiAuthSettings, SecuritySettings, PostgresDBSettings, SQLiteDBSettings,
+    PostgresDBSettings, SQLiteDBSettings,
     YandexObjectStorage, MailingMandrillSettings, YandexKassaSettings,
 ]
 
@@ -79,7 +69,8 @@ class Settings(*configs):
     DOMAIN: str = os.environ.get("DOMAIN", "localhost")
     API_URL: str = "/api/v1"
 
-    SECRET_KEY: str = secrets.token_urlsafe(32)
+    # openssl rand -hex 16
+    SECRET_KEY: str = os.environ.get("SECRET_KEY", "5f8d0ff68f7fb0818355a76c58418312")
 
     DEFAULT_COMMISSION_IN_PERCENT = Decimal("0.05")
     DEFAULT_DEBT_LIMIT_IN_RUBLS = Decimal("5000")
