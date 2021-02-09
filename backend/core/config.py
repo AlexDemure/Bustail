@@ -47,8 +47,6 @@ class YandexObjectStorage(BaseConfig):
     YANDEX_SECRET_ACCESS_KEY: str = os.environ.get("YANDEX_SECRET_ACCESS_KEY", "NOT_SET")
     YANDEX_BUCKET_NAME: str = os.environ.get("YANDEX_BUCKET_NAME", "bustail")
 
-    MAX_FILE_SIZE_MB: int = 100
-
 
 class YandexKassaSettings(BaseConfig):
 
