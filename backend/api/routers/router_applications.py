@@ -16,7 +16,7 @@ from backend.apps.drivers.logic import get_driver_by_account_id
 from backend.enums.applications import ApplicationErrors
 from backend.schemas.applications import ListApplications, ApplicationData, ApplicationBase, ApplicationCreate
 from backend.api.deps.accounts import confirmed_account
-from backend.enums.logs import SystemLogs
+from backend.enums.system import SystemLogs
 from backend.submodules.common.enums import BaseMessage
 from backend.submodules.common.responses import auth_responses
 from backend.submodules.common.schemas import Message

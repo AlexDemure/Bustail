@@ -4,7 +4,7 @@ from structlog import get_logger
 
 from backend.apps.accounts.crud import account as account_crud
 from backend.enums.accounts import AccountErrors
-from backend.enums.logs import SystemLogs
+from backend.enums.system import SystemLogs
 from backend.submodules.auth.schemas import Token
 from backend.submodules.auth.utils import get_token
 from backend.submodules.common.enums import BaseMessage

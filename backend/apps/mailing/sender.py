@@ -5,9 +5,10 @@ import jinja2
 from structlog import get_logger
 from tenacity import retry, stop_after_attempt, wait_exponential
 
-from backend.submodules.common.enums import BaseSystemErrors
 from backend.core.config import settings
+from backend.enums.system import SystemEnvs
 from backend.schemas.mailing import BaseEmail, SendVerifyCodeEvent, ChangePassword
+from backend.submodules.common.enums import BaseSystemErrors
 
 
 class SenderBase:
@@ -79,7 +80,7 @@ class SenderBase:
         data = self.get_send_grid_template(subject, html)
 
         async with httpx.AsyncClient() as client:
-            if settings.ENV == "PROD":
+            if settings.ENV == SystemEnvs.prod.value:
                 self.logger.debug("Send mail")
                 response = await client.post(
                     url='https://api.sendgrid.com/v3/mail/send',

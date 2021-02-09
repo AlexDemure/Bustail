@@ -1,6 +1,11 @@
 from enum import Enum
 
 
+class SystemEnvs(Enum):
+    dev = "DEV"
+    prod = "PROD"
+
+
 class SystemLogs(Enum):
     account_not_found = "Account is not found."
     account_not_have_permissions = "Account is not have permissions."

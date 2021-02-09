@@ -12,7 +12,7 @@ from backend.apps.billing.errors import PaymentError
 from backend.apps.billing.utils import concat_card_number
 from backend.core.config import settings
 from backend.enums.billing import PaymentErrors, PaymentOperationStatus
-from backend.enums.logs import SystemLogs
+from backend.enums.system import SystemLogs
 from backend.schemas.billing import PaymentOperationCreate
 from backend.submodules.common.schemas import UpdatedBase
 

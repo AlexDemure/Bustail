@@ -3,10 +3,11 @@ from fastapi import FastAPI
 from structlog import get_logger
 
 from backend.apps.mailing.service import service_mailing
+from backend.core import middleware
 from backend.core.config import settings
 from backend.core.urls import api_router
-from backend.core import middleware
 from backend.db.database import postgres_db_init, sqlite_db_init
+from backend.enums.system import SystemEnvs
 from backend.submodules.permissions.fixtures import setup_permissions_and_roles
 from backend.submodules.redis.service import redis
 from backend.submodules.sentry.service import sentry
@@ -16,7 +17,9 @@ app = FastAPI(middleware=middleware.utils)
 
 @app.on_event("startup")
 def sentry_init():
-    sentry.senty_init(app)
+    if settings.ENV == SystemEnvs.prod.value:
+        print("Connection to Sentry...")
+        sentry.senty_init(app)
 
 
 @app.on_event("startup")
@@ -28,7 +31,7 @@ async def redis_init():
 
 @app.on_event("startup")
 async def fixtures():
-    if settings.ENV == "PROD":
+    if settings.ENV == SystemEnvs.prod.value:
         print("Connection to PostgreSQL...")
         await postgres_db_init()
     else:

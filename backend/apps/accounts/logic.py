@@ -7,7 +7,7 @@ from backend.apps.accounts.crud import account as account_crud
 from backend.apps.accounts.models import Account
 from backend.apps.mailing.logic import send_verify_code, send_welcome_message, is_verify_token
 from backend.enums.accounts import AccountErrors
-from backend.enums.logs import SystemLogs
+from backend.enums.system import SystemLogs
 from backend.schemas.accounts import AccountCreate
 from backend.schemas.accounts import AccountData
 from backend.schemas.accounts import AccountUpdate

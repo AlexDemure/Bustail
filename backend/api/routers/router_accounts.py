@@ -18,7 +18,7 @@ from backend.apps.accounts.models import Account
 from backend.apps.mailing.logic import is_verify_code
 from backend.core.config import settings
 from backend.enums.accounts import AccountErrors
-from backend.enums.logs import SystemLogs
+from backend.enums.system import SystemLogs, SystemEnvs
 from backend.schemas.accounts import AccountCreate, AccountUpdate, AccountData, ConfirmAccount, ChangePassword
 from backend.submodules.auth.schemas import Token
 from backend.submodules.auth.utils import get_token
@@ -69,7 +69,7 @@ async def confirm_account(payload: ConfirmAccount, account: Account = Depends(cu
             detail=AccountErrors.account_is_confirmed.value,
         )
 
-    if settings.ENV == "PROD":
+    if settings.ENV == SystemEnvs.prod.value:
         if await is_verify_code(account.id, payload.code) is False:
             logger.debug(SystemLogs.wrong_verify_code.value)
             raise HTTPException(

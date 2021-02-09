@@ -11,7 +11,7 @@ from backend.apps.billing.logic import Payment, PaymentNotification
 from backend.apps.billing.utils import write_off_debt
 from backend.apps.drivers.logic import get_driver_by_account_id, update_driver
 from backend.enums.billing import PaymentOperationEvents, PaymentErrors
-from backend.enums.logs import SystemLogs
+from backend.enums.system import SystemLogs
 from backend.schemas.billing import PaymentLink
 from backend.submodules.common.enums import BaseMessage
 from backend.submodules.common.responses import auth_responses

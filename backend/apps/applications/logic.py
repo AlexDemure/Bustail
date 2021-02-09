@@ -8,7 +8,7 @@ from backend.apps.applications.crud import application as application_crud
 from backend.apps.applications.serializer import prepare_apps_with_notifications
 from backend.apps.drivers.crud import driver as driver_crud
 from backend.enums.applications import ApplicationErrors, ApplicationStatus
-from backend.enums.logs import SystemLogs
+from backend.enums.system import SystemLogs
 from backend.schemas.applications import ApplicationBase, ApplicationData, ApplicationCreate, ListApplications
 from backend.submodules.common.enums import BaseSystemErrors, BaseMessage
 from backend.submodules.common.schemas import UpdatedBase

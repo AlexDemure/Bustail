@@ -19,7 +19,7 @@ from backend.apps.drivers.serializer import (
 )
 from backend.core.config import settings
 from backend.enums.drivers import DriverErrors
-from backend.enums.logs import SystemLogs
+from backend.enums.system import SystemLogs, SystemEnvs
 from backend.schemas.drivers import (
     DriverCreate, DriverData, TransportData, TransportCreate, CoverData,
     ListTransports, TransportUpdate, TransportPhotoData, TransportPhotoCreate
@@ -150,13 +150,15 @@ async def upload_transport_cover(transport: TransportData, file: UploadFile) -> 
     compression_file = compression_image(file.file, file_media_type) # Сжатие изображения
 
     # Загрузка файла в облако.
-    if settings.ENV == "PROD":
+    if settings.ENV == SystemEnvs.prod.value:
         object_storage.upload(
             file_content=compression_file,
             content_type=file.content_type,
             file_url=file_uri
         )
         logger.debug(SystemLogs.cover_is_uploaded.value, file_uri=file_uri)
+    else:
+        logger.warning(f"{SystemLogs.ignore_business_logic} Upload file to object storage skipped.")
 
     transport_cover_in = TransportPhotoCreate(
         transport_id=transport.id,

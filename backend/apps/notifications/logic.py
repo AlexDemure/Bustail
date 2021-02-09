@@ -5,7 +5,7 @@ from structlog import get_logger
 from backend.apps.applications.logic import confirm_application
 from backend.apps.drivers.logic import get_driver_by_transport_id
 from backend.apps.notifications.crud import notification as notification_crud
-from backend.enums.logs import SystemLogs
+from backend.enums.system import SystemLogs
 from backend.enums.notifications import NotificationErrors
 from backend.schemas.notifications import NotificationCreate, NotificationData
 from backend.submodules.common.enums import BaseSystemErrors, BaseMessage

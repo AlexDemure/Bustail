@@ -18,7 +18,7 @@ from backend.apps.drivers.logic import (
     get_transport_cover as logic_get_transport_cover,
 )
 from backend.enums.drivers import DriverErrors
-from backend.enums.logs import SystemLogs
+from backend.enums.system import SystemLogs
 from backend.schemas.drivers import (
     DriverBase, DriverCreate, DriverData,
     TransportData, TransportBase, TransportCreate, ListTransports, TransportUpdate,
