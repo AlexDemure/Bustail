@@ -1,9 +1,12 @@
+from decimal import Decimal
+
 from fastapi import APIRouter, Depends, status, HTTPException, File, UploadFile
 from fastapi.encoders import jsonable_encoder
 from fastapi.responses import JSONResponse, Response
 from structlog import get_logger
-from decimal import Decimal
+
 from backend.api.deps.accounts import confirmed_account
+from backend.api.deps.uploads import valid_image_content_length
 from backend.apps.accounts.models import Account
 from backend.apps.drivers.logic import (
     get_driver_by_account_id, update_driver, download_transport_cover,
@@ -29,7 +32,6 @@ from backend.submodules.common.responses import auth_responses
 from backend.submodules.common.schemas import Message, UpdatedBase
 from backend.submodules.object_storage.enums import UploadErrors, FileMimetypes
 from backend.submodules.object_storage.utils import check_file_type, check_file_size
-from backend.api.deps.uploads import valid_image_content_length
 
 router = APIRouter()
 
