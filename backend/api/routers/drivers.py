@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends, status, HTTPException, File, UploadFile
 from fastapi.encoders import jsonable_encoder
 from fastapi.responses import JSONResponse, Response
 from structlog import get_logger
-
+from decimal import Decimal
 from backend.api.deps.accounts import confirmed_account
 from backend.apps.accounts.models import Account
 from backend.apps.drivers.logic import (
@@ -29,6 +29,7 @@ from backend.submodules.common.responses import auth_responses
 from backend.submodules.common.schemas import Message, UpdatedBase
 from backend.submodules.object_storage.enums import UploadErrors, FileMimetypes
 from backend.submodules.object_storage.utils import check_file_type, check_file_size
+from backend.api.deps.uploads import valid_image_content_length
 
 router = APIRouter()
 
@@ -38,16 +39,16 @@ router = APIRouter()
     response_model=TransportPhotoData,
     responses={
         status.HTTP_201_CREATED: {"description": BaseMessage.obj_is_created.value},
-        status.HTTP_400_BAD_REQUEST: {
-            "description": f"{UploadErrors.file_is_large.value} or {UploadErrors.mime_type_is_wrong_format.value}"
-        },
+        status.HTTP_400_BAD_REQUEST: {"description": UploadErrors.mime_type_is_wrong_format.value},
         status.HTTP_404_NOT_FOUND: {"description": BaseMessage.obj_is_not_found},
+        status.HTTP_413_REQUEST_ENTITY_TOO_LARGE: {"description": UploadErrors.file_is_large.value},
         **auth_responses
     }
 )
 async def create_cover_transport(
         transport_id: int,
         file: UploadFile = File(...),
+        file_size_to_mb: Decimal = Depends(valid_image_content_length),
         account: Account = Depends(confirmed_account),
 ) -> JSONResponse:
     """
@@ -66,11 +67,11 @@ async def create_cover_transport(
             detail=UploadErrors.mime_type_is_wrong_format.value
         )
 
-    # Разрешенный размер файла до 5 МБ
-    if check_file_size(file.file, 5) is False:
+    # Разрешенный размер файла устанавливается в Depends/uploads.py в объекте Headers параметр lt=value_to_bytes
+    if check_file_size(file.file, file_size_to_mb) is False:
         logger.debug(SystemLogs.file_is_large.value)
         raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
+            status_code=status.HTTP_413_REQUEST_ENTITY_TOO_LARGE,
             detail=UploadErrors.file_is_large.value
         )
 

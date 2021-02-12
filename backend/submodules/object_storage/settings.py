@@ -1,4 +1,5 @@
 import os
+from decimal import Decimal
 from pydantic import BaseSettings
 
 
@@ -8,3 +9,5 @@ class YandexObjectStorage(BaseSettings):
     YANDEX_SECRET_ACCESS_KEY: str = os.environ.get("YANDEX_SECRET_ACCESS_KEY", "NOT_SET")
     YANDEX_BUCKET_NAME: str = os.environ.get("YANDEX_BUCKET_NAME", "bustail")
 
+
+IMAGE_LIMIT_SIZE_TO_BYTES = Decimal(5 * 1024 * 1024)  # 5 MB

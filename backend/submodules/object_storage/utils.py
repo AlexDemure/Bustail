@@ -8,19 +8,32 @@ from typing import IO, List
 from PIL import Image
 
 from .enums import FileMimetypes
+from .settings import IMAGE_LIMIT_SIZE_TO_BYTES
 
 
 def get_file_size_to_mb(file: IO) -> Decimal:
-    file.seek(0)
-    file_size_to_bytes = len(file.read())
-    file_size_to_mb = Decimal(file_size_to_bytes) / Decimal("1024") / Decimal("1024")
+    """Получение размера файла в МБ."""
+    file_size_to_bytes = 0
 
-    return file_size_to_mb.quantize(Decimal('0.00'), rounding=ROUND_UP)
+    for chunk in file:
+        file_size_to_bytes += len(chunk)
+
+    return convert_bytes_to_mb(file_size_to_bytes)
 
 
-def check_file_size(file: IO, max_file_size_mb: int = 100) -> bool:
+def convert_bytes_to_mb(value_to_bytes: int) -> Decimal:
+    value_to_mb = Decimal(value_to_bytes) / Decimal("1024") / Decimal("1024")
+    return value_to_mb.quantize(Decimal('0.00'), rounding=ROUND_UP)
+
+
+def convert_mb_to_bytes(value_to_mb: int) -> Decimal:
+    return Decimal(value_to_mb * 1024 * 1024)
+
+
+def check_file_size(file: IO, max_file_size_mb: Decimal = convert_bytes_to_mb(IMAGE_LIMIT_SIZE_TO_BYTES)) -> bool:
+    """Проверка на размер файла в МБ."""
     file_size_to_mb = get_file_size_to_mb(file)
-    return True if Decimal(max_file_size_mb) >= file_size_to_mb else False
+    return True if max_file_size_mb >= file_size_to_mb else False
 
 
 def check_file_type(content_type: str, validation_types: List[FileMimetypes] = None) -> bool:
@@ -62,13 +75,13 @@ def get_file_hash(file: IO) -> str:
 
 def compression_image(file: IO, content_type: FileMimetypes) -> bytes:
     """
-    Сжатие изображения под размер 600x600 с оптимизацией качества.
+    Сжатие изображения под размер 512x512 с оптимизацией качества.
 
     Возвращает bytes строку с содержимым контента.
     """
     with tempfile.NamedTemporaryFile() as temp_file:
         image = Image.open(file)
-        image = image.resize((600, 600), Image.ANTIALIAS)
+        image.thumbnail([512, 512], Image.ANTIALIAS)
         image.save(temp_file, content_type.pillow_format, quality=85, optimize=True)
         temp_file.seek(0)
         return temp_file.file.read()
