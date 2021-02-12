@@ -11,13 +11,14 @@ from backend.schemas.mailing import SendVerifyCodeEventCreate, ChangePasswordEve
 class CRUDSendVerifyCode(CRUDBase[SendVerifyCodeEvent, SendVerifyCodeEventCreate, UpdatedBase]):
 
     async def find_code(self, account_id: int, code: str) -> Optional[SendVerifyCodeEvent]:
-        return await self.model.get_or_none(
+        return await self.model.filter(
             Q(
                 Q(message=code),
                 Q(account_id=account_id),
                 join_type="AND"
             )
-        )
+        ).first()
+
 
 send_verify_code_event = CRUDSendVerifyCode(SendVerifyCodeEvent)
 
@@ -25,7 +26,7 @@ send_verify_code_event = CRUDSendVerifyCode(SendVerifyCodeEvent)
 class CRUDChangePassword(CRUDBase[ChangePasswordEvent, ChangePasswordEventCreate, UpdatedBase]):
 
     async def find_token(self, email: str, token: str) -> Optional[dict]:
-        return await self.model.get_or_none(
+        return await self.model.filter(
             Q(
                 Q(message=token),
                 Q(email=email),

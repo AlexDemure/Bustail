@@ -42,7 +42,7 @@ class SystemLogs(Enum):
     file_is_wrong_format = "File is wrong format."
     file_is_large = "File is large."
 
-    ignore_business_logic = "Business login is ignored."
+    ignore_business_logic = "Business logic is ignored."
     violation_business_logic = "Violation business logic."
     wrong_verify_code = "Wrong verify code."
     user_role_is_created = "User role is created."

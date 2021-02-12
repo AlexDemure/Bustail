@@ -37,6 +37,11 @@ def check_file_size(file: IO, max_file_size_mb: Decimal = convert_bytes_to_mb(IM
 
 
 def check_file_type(content_type: str, validation_types: List[FileMimetypes] = None) -> bool:
+    """
+    Проверка типа файла на валидность.
+
+    Можно передать список типов к которым должен относиться файл.
+    """
     try:
         file_type = FileMimetypes(content_type)
     except ValueError:

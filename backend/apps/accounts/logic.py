@@ -1,5 +1,6 @@
 from datetime import datetime
 from typing import Optional
+from pydantic import EmailStr
 
 from structlog import get_logger
 
@@ -59,8 +60,8 @@ async def create_account(account_in: AccountCreate, account: Account = None) -> 
 
     else:
         account = await account_crud.create(account_in)
-        logger.debug(SystemLogs.account_is_created.value)
         logger = logger.bind(account_id=account.id)
+        logger.debug(SystemLogs.account_is_created.value)
 
         await create_account_role(account.id, Roles.customer)
         logger.debug(SystemLogs.user_role_is_created.value)
@@ -102,7 +103,7 @@ async def confirmed_account(account: Account) -> None:
 
 async def change_password(password: str, security_token: str) -> None:
     """Изменение пароля через токен подтверждения."""
-    logger = get_logger().bind(security_token=security_token)
+    logger = get_logger()
 
     context = verify_security_token(security_token)  # Получение данных токена.
     if context is None:
@@ -126,3 +127,8 @@ async def change_password(password: str, security_token: str) -> None:
     )
     await account_crud.update(update_schema)
     logger.debug(SystemLogs.account_is_updated.value)
+
+
+async def find_account_by_email(email: EmailStr) -> Optional[AccountData]:
+    account = await account_crud.find_by_email(email=email)
+    return AccountData(**account.__dict__)

@@ -1,7 +1,7 @@
 from fastapi import APIRouter, HTTPException, status
 from structlog import get_logger
 
-from backend.apps.accounts.crud import account as account_crud
+from backend.apps.accounts.logic import find_account_by_email
 from backend.apps.mailing.logic import send_change_password_message
 from backend.enums.accounts import AccountErrors
 from backend.enums.system import SystemLogs
@@ -23,7 +23,8 @@ router = APIRouter()
 async def change_password(payload: BaseEmail):
     """Отправка email-ссылки на изменение пароля аккаунта."""
     logger = get_logger().bind(payload=payload.dict())
-    account = await account_crud.find_by_email(email=payload.email)
+    account = await find_account_by_email(email=payload.email)
+
     if not account:
         logger.debug(SystemLogs.account_not_found.value)
         raise HTTPException(

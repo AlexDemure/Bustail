@@ -1,11 +1,11 @@
-from backend.utils import get_current_domain
-from backend.enums.mailing import MailingTypes
+from backend.apps.accounts.utils import get_change_password_link
 from backend.apps.mailing import crud
 from backend.apps.mailing.settings import SERVICE_NAME
-from backend.submodules.redis.service import redis
+from backend.enums.mailing import MailingTypes
 from backend.schemas.mailing import (
     SendVerifyCodeEventCreate, ChangePasswordEventCreate, MailingTask
 )
+from backend.submodules.redis.service import redis
 from backend.submodules.security.utils import generate_random_code, generate_security_token
 
 
@@ -47,7 +47,7 @@ async def send_change_password_message(account_id: int, email: str) -> None:
     security_token = generate_security_token(security_data)
 
     # Ссылка на страницу со сменой пароля.
-    confirm_url = f"{get_current_domain()}/change_password/?token={security_token}"
+    confirm_url = get_change_password_link(security_token)
 
     task = MailingTask(
         message_type=MailingTypes.send_change_password_message.value,
