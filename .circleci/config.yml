@@ -55,8 +55,8 @@ jobs:
             mkdir -p ~/.ssh/
             ssh-keyscan -H $SSH_HOST >> ~/.ssh/known_hosts
       - run:
-          name: Проверка доступа к удаленному серверу.
-            command: |
+          name: Проверка доступа к удаленному серверу
+          command: |
               ssh $SSH_USER@$SSH_HOST
       - run:
           name: Актуализация кодовой базы
