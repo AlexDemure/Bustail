@@ -57,7 +57,7 @@ jobs:
       - run:
           name: Актуализация кодовой базы
           command: |
-            ssh $SSH_USER@$SSH_HOST "cd /home/alex/bustail && git pull"
+            ssh $SSH_USER@$SSH_HOST "cd /home/alex/bustail && mkdir hello_world"
       - run:
           name: Экспортирование переменных и запуск тестов
           command: |
