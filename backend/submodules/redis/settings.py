@@ -11,7 +11,7 @@ REDIS_PASSWORD = os.environ.get("REDIS_PASSWORD", "foobared")
 DEFAULT_CACHE_TTL = 60 * 30
 DEFAULT_CACHE_PARAMS = dict(
     cache=Cache.REDIS,
-    serializer=MsgPackSerializer(),
+    serializer=MsgPackSerializer(encoding=None, use_list=True),
     port=REDIS_PORT,
     password=REDIS_PASSWORD
 )
