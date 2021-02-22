@@ -1,45 +1,3 @@
-#commands:
-#   #Абстрактное развертывание приложения под PROD но с переменными из под DEV внутри докера из Ubuntu 20.04 LTS
-#  build_app:
-#    steps:
-#      - checkout
-#      - setup_remote_docker:
-#          version: 19.03.13
-#      - run:
-#          name: Install Docker Compose
-#          command: |
-#            curl -L https://github.com/docker/compose/releases/download/1.26.0/docker-compose-`uname -s`-`uname -m` > ~/docker-compose
-#            chmod +x ~/docker-compose
-#            sudo mv ~/docker-compose /usr/local/bin/docker-compose
-#      - run:
-#          name: Добавление GitHub.com в known hosts
-#          command: |
-#            mkdir -p ~/.ssh/
-#            ssh-keyscan github.com >> ~/.ssh/known_hosts
-#      - run:
-#          name:  Клонирование репозитория с подготовкой окружения
-#          command: |
-#            git clone git@github.com:AlexDemure/bustail_core.git --recursive
-#            cd bustail_core
-#            cp env_files/core.env.example env_files/core.env
-#            cp env_files/mailing.env.example env_files/mailing.env
-#            cp env_files/postgres.env.example env_files/postgres.env
-#            cp env_files/redis.env.example env_files/redis.env
-#
-#      - run:
-#          # TODO Какая-та херня с путями не находит файл для запуска приложения.
-#          name:  Запуск docker-compose.prod.yml
-#          command: |
-#            cd bustail_core/
-#            pwd
-#            ls
-#            docker-compose -f docker-compose.prod.yml up -d --build core
-#            ls
-#            pwd
-#            docker exec -it core bash
-#            ls
-#            pwd
-
 version: 2.1
 
 jobs:
@@ -54,10 +12,6 @@ jobs:
           command: |
             mkdir -p ~/.ssh/
             ssh-keyscan -H $SSH_HOST >> ~/.ssh/known_hosts
-      - run:
-          name: Проверка доступа к удаленному серверу
-          command: |
-              ssh $SSH_USER@$SSH_HOST
       - run:
           name: Актуализация кодовой базы
           command: |
