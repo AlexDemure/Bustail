@@ -57,16 +57,16 @@ jobs:
       - run:
           name: Актуализация кодовой базы
           command: |
-            ssh $SSH_USER@$SSH_HOST "cd /home/alex/bustail && mkdir hello_world"
+            ssh $SSH_USER@$SSH_HOST "cd /home/alex/bustail && git pull"
       - run:
           name: Экспортирование переменных и запуск тестов
           command: |
-            ssh $SSH_USER@$SSH_HOST "cd /home/alex/bustail_core/backend && export REDIS_HOST=localhost REDIS_DB=0 REDIS_PORT=6379 REDIS_PASSWORD=foobared && python3 -m pytest --junitxml=test-results/junit.xml"
+            ssh $SSH_USER@$SSH_HOST "cd /home/alex/bustail/backend && export REDIS_HOST=localhost REDIS_DB=0 REDIS_PORT=6379 REDIS_PASSWORD=foobared && python3 -m pytest --junitxml=test-results/junit.xml"
       - run:
           name: Копирование файла с сервера в контейнер circleci
           command: |
             mkdir -p test-results/
-            scp $SSH_USER@$SSH_HOST:/home/alex/bustail_core/backend/test-results/junit.xml ~/project/test-results/
+            scp $SSH_USER@$SSH_HOST:/home/alex/bustail/backend/test-results/junit.xml ~/project/test-results/
 
       # Параметр для загрузки результатов в Tests GUI circleci
       - store_test_results:
@@ -79,16 +79,16 @@ jobs:
       - run:
           name: Остановка контейнеров и чиста образов
           command: |
-            ssh $SSH_USER@$SSH_HOST "cd /home/alex/bustail_core && docker-compose -f $CFG_NAME down"
+            ssh $SSH_USER@$SSH_HOST "cd /home/alex/bustail && docker-compose -f $CFG_NAME down"
 
       - run:
           name: Развертывание контейнеров
           command: |
-            ssh $SSH_USER@$SSH_HOST "cd /home/alex/bustail_core && docker-compose -f $CFG_NAME up -d --build"
+            ssh $SSH_USER@$SSH_HOST "cd /home/alex/bustail && docker-compose -f $CFG_NAME up -d --build"
       - run:
           name: Быстрый просмотр логов о состоянии системы
           command: |
-            ssh $SSH_USER@$SSH_HOST "cd /home/alex/bustail_core && docker-compose -f $CFG_NAME logs --tail="20""
+            ssh $SSH_USER@$SSH_HOST "cd /home/alex/bustail && docker-compose -f $CFG_NAME logs --tail="20""
 
 workflows:
   version: 2.1
