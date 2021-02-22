@@ -8,6 +8,7 @@ authors = ["Alexander Demure"]
 
 python = "^3.8"
 fastapi = "^0.60.1"
+fastapi-utils = "^0.2.1"
 uvicorn = "^0.11.5"
 structlog = "^20.1.0"
 tenacity = "^6.2.0"

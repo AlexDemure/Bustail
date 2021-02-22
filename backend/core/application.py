@@ -1,5 +1,6 @@
 import uvicorn
 from fastapi import FastAPI
+from fastapi_utils.timing import add_timing_middleware
 from structlog import get_logger
 
 from backend.apps.mailing.service import service_mailing
@@ -12,7 +13,10 @@ from backend.submodules.permissions.fixtures import setup_permissions_and_roles
 from backend.submodules.redis.service import redis
 from backend.submodules.sentry.service import sentry
 
+logger = get_logger()
+
 app = FastAPI(middleware=middleware.utils)
+add_timing_middleware(app, record=logger.debug, prefix="app", exclude="untimed")
 
 
 @app.on_event("startup")
@@ -44,7 +48,6 @@ app.include_router(api_router, prefix=settings.API_URL)
 
 
 if __name__ == '__main__':
-    logger = get_logger()
     # Лог со всеми настройками системы
     attrs = vars(settings)
     attrs_to_str = '\n'.join("%s: %s" % item for item in attrs.items())
