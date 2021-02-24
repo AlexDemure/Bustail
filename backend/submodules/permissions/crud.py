@@ -1,5 +1,5 @@
 from typing import Optional, List
-from tortoise.query_utils import Q
+from tortoise.query_utils import Q, Prefetch
 
 from backend.submodules.common.crud import CRUDBase
 
@@ -15,7 +15,22 @@ from .schemas import (
 class CRUDAccountRole(CRUDBase[AccountRole, AccountRoleCreate, AccountRoleUpdate]):
 
     async def get_by_account(self, account_id: int) -> Optional[AccountRole]:
-        return await self.model.get_or_none(account_id=account_id)
+        return await self.model.filter(account_id=account_id).first().prefetch_related(
+                Prefetch(
+                    'role',
+                    queryset=Role.all().prefetch_related(
+                        Prefetch(
+                            'role_permissions',
+                            queryset=RolePermission.all().prefetch_related(
+                                Prefetch(
+                                    'permission',
+                                    queryset=Permission.all()
+                                )
+                            )
+                        )
+                    )
+                ),
+            )
 
 
 class CRUDPermission(CRUDBase[Permission, PermissionCreate, PermissionUpdate]):

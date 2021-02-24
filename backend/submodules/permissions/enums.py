@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class Permissions(Enum):
     """
     Доступы ограничений в системе

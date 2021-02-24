@@ -1,59 +1,29 @@
-from typing import Optional, List
+from typing import List
 
 from . import crud
 from .enums import Roles, Permissions
 from .schemas import AccountRoleCreate
-from .models import Role
-
-
-async def _get_current_role(account_id: int) -> Optional[Role]:
-    account_role = await crud.account_role.get_by_account(account_id)
-    if not account_role:
-        return None
-
-    role = await crud.role.get(account_role.role_id)
-    if not role:
-        return None
-
-    return role
-
-
-async def account_role(account_id: int) -> Optional[Roles]:
-    role = await _get_current_role(account_id)
-    if not role:
-        return None
-
-    return Roles(role.description)
 
 
 async def is_have_permission(account_id: int, required_permissions: List[Permissions]) -> bool:
-    role = await _get_current_role(account_id)
-
-    role_permissions = await crud.role_permission.get_by_role(role.id)
-    if len(role_permissions) == 0:
+    """Проверка наличия прав."""
+    account_role = await crud.account_role.get_by_account(account_id)
+    if not account_role:
         return False
 
-    permissions = list()
+    user_permissions = [x.permission.name for x in account_role.role.role_permissions.related_objects]
 
-    for role_permission in role_permissions:
-        permission = await crud.permission.get(role_permission.permission_id)
-        if not permission:
-            continue
-        permissions.append(permission.name)
-
-    return set([x for x in required_permissions]).issubset(set(permissions))
+    return set(required_permissions).issubset(set(user_permissions))
 
 
-async def create_account_role(account_id: int, role: Roles) -> Roles:
-    account_role = await crud.account_role.get_by_account(account_id)
-    if account_role:
-        return account_role
-
-    role_object = await crud.role.get_by_role(role)
-    if not role_object:
+async def create_account_role(account_id: int, role_type: Roles) -> int:
+    """Присваивание роли к определенному аккаунту."""
+    role = await crud.role.get_by_role(role_type)
+    if not role:
         raise ValueError("Role is not found")
 
-    schema = AccountRoleCreate(account_id=account_id, role_id=role_object.id)
-    await crud.account_role.create(schema)
+    account_role_id = await crud.account_role.create(
+        AccountRoleCreate(account_id=account_id, role_id=role.id)
+    )
 
-    return Roles(role_object.description)
+    return account_role_id
