@@ -16,6 +16,6 @@ def get_subject_from_auth_token(token: str = Depends(reusable_oauth2)) -> int:
 
 
 def get_subject_from_refresh_token(params: RefreshTokenParams = Body(...)) -> int:
-    """Получение объекта из авторизационного токена."""
+    """Получение объекта из refresh токена."""
     token_payload = decode_token(params.token, TokenPurpose.refresh)
     return token_payload.sub
