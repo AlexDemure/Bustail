@@ -5,9 +5,9 @@ from typing import Optional, Any
 import itsdangerous.exc
 from itsdangerous import URLSafeTimedSerializer
 
-from .settings import SECRET_KEY, SECURITY_TOKEN_EXPIRE_MINUTES
+from backend.core.config import settings
 
-signer = URLSafeTimedSerializer(SECRET_KEY)
+signer = URLSafeTimedSerializer(settings.SECRET_KEY)
 
 
 def generate_security_token(context: dict):
@@ -18,7 +18,7 @@ def generate_security_token(context: dict):
 def verify_security_token(token: str) -> Optional[Any]:
     """Проверка токена с помощью библиотеки ItsDangerous."""
     try:
-        return signer.loads(token, max_age=SECURITY_TOKEN_EXPIRE_MINUTES)
+        return signer.loads(token, max_age=settings.SECURITY_TOKEN_EXPIRE_SECONDS)
     except (itsdangerous.exc.SignatureExpired, itsdangerous.exc.BadSignature):
         return None
 

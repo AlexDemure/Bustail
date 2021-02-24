@@ -4,7 +4,7 @@ from typing import AnyStr
 import aioredis
 import ujson
 
-from .settings import REDIS_HOST, REDIS_PASSWORD, REDIS_DB, REDIS_PORT
+from backend.core.config import settings
 
 
 class RedisService:
@@ -13,10 +13,7 @@ class RedisService:
 
     async def redis_init(self):
         """Инициализация редиса и получение его пула."""
-        url = 'redis://%s:%s/%s' % (REDIS_HOST, REDIS_PORT, REDIS_DB)
-        self.pool = await aioredis.create_redis_pool(
-            url, password=REDIS_PASSWORD
-        )
+        self.pool = await aioredis.create_redis_pool(settings.get_redis_uri(), password=settings.REDIS_PASSWORD)
 
     @staticmethod
     async def register_service(service):

@@ -21,7 +21,7 @@ from backend.enums.accounts import AccountErrors
 from backend.enums.system import SystemLogs, SystemEnvs
 from backend.schemas.accounts import AccountCreate, AccountUpdate, AccountData, ConfirmAccount, ChangePassword
 from backend.submodules.auth.schemas import Token
-from backend.submodules.auth.utils import get_token
+from backend.submodules.auth.security import generate_token
 from backend.submodules.common.enums import BaseMessage
 from backend.submodules.common.responses import auth_responses
 from backend.submodules.common.schemas import Message
@@ -137,9 +137,7 @@ async def create_account(payload: AccountCreate) -> JSONResponse:
 
     return JSONResponse(
         status_code=status.HTTP_201_CREATED,
-        content=jsonable_encoder(
-            Token(access_token=get_token(account_id))
-        )
+        content=jsonable_encoder(generate_token(account_id))
     )
 
 

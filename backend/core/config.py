@@ -1,14 +1,19 @@
 import os
+import secrets
 
 from backend.apps.billing.settings import BillingSettings
 from backend.apps.mailing.settings import MailingSettings
 from backend.db.settings import PostgresDBSettings, SQLiteDBSettings
 from backend.submodules.object_storage.settings import YandexObjectStorage
+from backend.submodules.auth.settings import AuthSettings
+from backend.submodules.security.settings import SecuritySettings
+from backend.submodules.redis.settings import RedisSettings
 
 # INCLUDE SETTINGS
 configs = [
-    PostgresDBSettings, SQLiteDBSettings,
+    PostgresDBSettings, SQLiteDBSettings, AuthSettings,
     YandexObjectStorage, MailingSettings, BillingSettings,
+    SecuritySettings, RedisSettings
 ]
 
 
@@ -18,8 +23,7 @@ class Settings(*configs):
     DOMAIN: str = os.environ.get("DOMAIN", "localhost")
     API_URL: str = "/api/v1"
 
-    # openssl rand -hex 16
-    SECRET_KEY: str = os.environ.get("SECRET_KEY", "5f8d0ff68f7fb0818355a76c58418312")
+    SECRET_KEY: str = secrets.token_hex(16)
 
     class Config:
         case_sensitive = True

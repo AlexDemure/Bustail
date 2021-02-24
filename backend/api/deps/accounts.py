@@ -5,12 +5,12 @@ from backend.apps.accounts.crud import account as account_crud
 from backend.apps.accounts.models import Account
 from backend.enums.accounts import AccountErrors
 from backend.enums.system import SystemLogs
-from backend.submodules.auth.deps import get_subject_from_token
+from backend.submodules.auth.deps import get_subject_from_auth_token, get_subject_from_refresh_token
 from backend.submodules.permissions.enums import Permissions
 from backend.submodules.permissions.utils import is_have_permission
 
 
-async def current_account(current_account_id: int = Depends(get_subject_from_token)) -> Account:
+async def current_account(current_account_id: int = Depends(get_subject_from_auth_token)) -> Account:
     """Получение текущего аккаунта без проверки на подтвержденность."""
     logger = get_logger().bind(account_id=current_account_id)
 
@@ -29,7 +29,7 @@ async def current_account(current_account_id: int = Depends(get_subject_from_tok
     return account
 
 
-async def confirmed_account(current_account_id: int = Depends(get_subject_from_token)) -> Account:
+async def confirmed_account(current_account_id: int = Depends(get_subject_from_auth_token)) -> Account:
     """Получение подтвежденного аккаунта."""
     logger = get_logger().bind(account_id=current_account_id)
 
@@ -41,3 +41,11 @@ async def confirmed_account(current_account_id: int = Depends(get_subject_from_t
         raise HTTPException(status_code=404, detail=AccountErrors.account_not_found.value)
 
     return account
+
+
+async def current_account_by_refresh_token(
+        current_account_id: int = Depends(get_subject_from_refresh_token)
+) -> Account:
+    """Получение аккаунта через refresh token."""
+    return await current_account(current_account_id)
+

@@ -1,67 +1,61 @@
 from datetime import datetime, timedelta
 from typing import Any, Union
+from uuid import uuid4
 
 from jose import jwt
 from passlib.context import CryptContext
-from starlette.responses import Response, RedirectResponse
+from pydantic import ValidationError
 
-from .settings import SECRET_KEY, ACCESS_TOKEN_EXPIRE_MINUTES, DOMAIN
+from backend.core.config import settings
+from .enums import TokenPurpose, AuthErrors
+from .errors import AuthError
+from .schemas import Token, TokenPayload
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
-KEY = "Authorization"
-ALGORITHM = "HS256"
+
+def encode_token(**kwargs):
+    return jwt.encode(kwargs, settings.SECRET_KEY, algorithm=settings.ALGORITHM)
 
 
-def create_access_token(subject: Union[str, Any], expires_delta: timedelta = None) -> str:
-    if expires_delta:
-        expire = datetime.utcnow() + expires_delta
-    else:
-        expire = datetime.utcnow() + timedelta(
-            minutes=ACCESS_TOKEN_EXPIRE_MINUTES
-        )
-    to_encode = {"exp": expire, "sub": str(subject)}
-    encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
-    return encoded_jwt
+def decode_token(token: str, token_purpose: TokenPurpose) -> TokenPayload:
+    try:
+        payload = jwt.decode(token, settings.SECRET_KEY, algorithms=[settings.ALGORITHM])
+        token_data = TokenPayload(**payload)
+
+        if token_data.purpose != token_purpose:
+            raise AuthError(AuthErrors.purpose_is_wrong.value)
+
+    except jwt.ExpiredSignatureError:
+        raise AuthError(AuthErrors.token_is_expired.value)
+    except (jwt.JWTError, ValidationError):
+        raise AuthError(AuthErrors.tokes_is_wrong.valuel)
+
+    return token_data
 
 
-def create_cookie(token: str):
-    response = Response()
-    response.set_cookie(**get_token_data(token))
-    return response
+def generate_token(subject: Union[str, Any]) -> Token:
+    now = datetime.utcnow()
+    jwt_identifier = str(uuid4())
 
-
-def create_cookie_with_redirect(path: str, token: str):
-    response = RedirectResponse(path)
-    response.set_cookie(**get_token_data(token))
-    return response
-
-
-def get_token_data(token: str):
-    return dict(
-        key=KEY,
-        value=f"Bearer {token}",
-        domain=DOMAIN,
-        httponly=True,
-        max_age=ACCESS_TOKEN_EXPIRE_MINUTES,
-        expires=ACCESS_TOKEN_EXPIRE_MINUTES,
+    return Token(
+        access_token=encode_token(
+            sub=str(subject),
+            purpose=TokenPurpose.access,
+            exp=now + timedelta(minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES),
+            jti=jwt_identifier
+        ),
+        refresh_token=encode_token(
+            sub=str(subject),
+            purpose=TokenPurpose.refresh,
+            exp=now + timedelta(minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES),
+            jti=jwt_identifier
+        ),
     )
-
-
-def delete_cookie():
-    response = Response()
-
-    response.delete_cookie(
-        key=KEY,
-        path='/',
-        domain=DOMAIN
-    )
-
-    return response
 
 
 def verify_password(plain_password: str, hashed_password: str) -> bool:
-    return pwd_context.verify(plain_password, hashed_password)
+    return pwd_context.verify(plain_password, hashed_password, scheme="bcrypt")
 
 
 def get_password_hash(password: str) -> str:
