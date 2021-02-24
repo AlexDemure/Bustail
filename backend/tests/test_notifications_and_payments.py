@@ -1,20 +1,12 @@
 import json
 from unittest.mock import patch
 
-import pytest
 from backend.apps.applications.models import Application
 from backend.apps.applications.tasks import completed_applications
-from tortoise import Tortoise
-
 from backend.apps.billing.crud import payment_operation as crud_payment_operation
-from backend.apps.mailing.service import service_mailing
-from backend.db.database import sqlite_db_init
 from backend.enums.applications import ApplicationStatus
-from backend.submodules.permissions.fixtures import setup_permissions_and_roles
-from backend.submodules.redis.service import redis
 from backend.tests.data import BaseTest, NotificationData
-
-pytestmark = pytest.mark.asyncio
+from backend.tests.fixtures import *
 
 
 class TestPayments(BaseTest):
@@ -22,24 +14,9 @@ class TestPayments(BaseTest):
     notifications = NotificationData()
 
     async def test_notifications(self):
-        await redis.redis_init()
-        await redis.register_service(service_mailing)
-
-        await sqlite_db_init()
-        await setup_permissions_and_roles()
-
         await self.notifications.generate_notifications()
 
-        await Tortoise.close_connections()
-        assert "X"
-
     async def test_payments(self):
-        await redis.redis_init()
-        await redis.register_service(service_mailing)
-
-        await sqlite_db_init()
-        await setup_permissions_and_roles()
-
         with patch('backend.apps.applications.crud.application.completed_applications') as perm_mock:
             perm_mock.return_value = await ApplicationCrud.completed_applications()
             await completed_applications()
@@ -51,9 +28,6 @@ class TestPayments(BaseTest):
 
         response = await self.close_debt(payment_notification_in_json)
         print(response)
-
-        await Tortoise.close_connections()
-        assert "X"
 
     async def get_payment_link(self, headers: dict):
         async with self.client as ac:

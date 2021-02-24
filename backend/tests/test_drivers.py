@@ -1,15 +1,7 @@
 import random
 
-import pytest
-from tortoise import Tortoise
-
-from backend.apps.mailing.service import service_mailing
-from backend.db.database import sqlite_db_init
-from backend.submodules.permissions.fixtures import setup_permissions_and_roles
-from backend.submodules.redis.service import redis
 from backend.tests.data import BaseTest, TestDriverData, TestAccountData
-
-pytestmark = pytest.mark.asyncio
+from backend.tests.fixtures import *
 
 
 class TestDriver(BaseTest):
@@ -18,12 +10,6 @@ class TestDriver(BaseTest):
     account_data = TestAccountData()
 
     async def test_driver_account(self):
-        await redis.redis_init()
-        await redis.register_service(service_mailing)
-
-        await sqlite_db_init()
-        await setup_permissions_and_roles()
-
         await self.get_user()
 
         async with self.client as ac:
@@ -36,16 +22,7 @@ class TestDriver(BaseTest):
             response = await ac.get("/drivers/me/", headers=self.headers)
         assert response.status_code == 200
 
-        await Tortoise.close_connections()
-        assert "X"
-
     async def test_transport(self):
-        await redis.redis_init()
-        await redis.register_service(service_mailing)
-
-        await sqlite_db_init()
-        await setup_permissions_and_roles()
-
         await self.get_user()
 
         async with self.client as ac:
@@ -60,9 +37,6 @@ class TestDriver(BaseTest):
             response_json = response.json()
 
             await self.create_transport_photo(response_json['id'])
-
-        await Tortoise.close_connections()
-        assert "X"
 
     async def create_transport_photo(self, transport_id: int):
         files = ["test_01.jpg", "test_02.jpg", "test_03.jpg", "test_04.jpg"]

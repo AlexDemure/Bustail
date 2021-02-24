@@ -1,14 +1,6 @@
-import pytest
-from tortoise import Tortoise
-
 from backend.apps.mailing.models import ChangePasswordEvent
-from backend.apps.mailing.service import service_mailing
-from backend.db.database import sqlite_db_init
-from backend.submodules.permissions.fixtures import setup_permissions_and_roles
-from backend.submodules.redis.service import redis
 from backend.tests.data import BaseTest, TestAccountData
-
-pytestmark = pytest.mark.asyncio
+from backend.tests.fixtures import *
 
 
 class TestCreateAccount(BaseTest):
@@ -16,16 +8,7 @@ class TestCreateAccount(BaseTest):
     account_data = TestAccountData()
 
     async def test_create_account(self):
-        await redis.redis_init()
-        await redis.register_service(service_mailing)
-
-        await sqlite_db_init()
-        await setup_permissions_and_roles()
-
         await self.create_account()
-
-        await Tortoise.close_connections()
-        assert "X"
 
 
 class TestChangePassword(BaseTest):
@@ -35,21 +18,12 @@ class TestChangePassword(BaseTest):
     new_password = "123456"
 
     async def test_reset_password(self):
-        await redis.redis_init()
-        await redis.register_service(service_mailing)
-
-        await sqlite_db_init()
-        await setup_permissions_and_roles()
-
         await self.create_account()
         await self.send_change_email_message()
         await self.setup_new_password()
 
         self.account_data.hashed_password = self.new_password
         await self.login()
-
-        await Tortoise.close_connections()
-        assert "X"
 
     async def send_change_email_message(self):
         async with self.client as ac:
