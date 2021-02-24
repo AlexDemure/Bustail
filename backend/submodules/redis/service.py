@@ -13,7 +13,7 @@ class RedisService:
 
     async def redis_init(self):
         """Инициализация редиса и получение его пула."""
-        self.pool = await aioredis.create_redis_pool(settings.get_redis_uri(), password=settings.REDIS_PASSWORD)
+        self.pool = await aioredis.create_redis_pool(settings.REDIS_URI, password=settings.REDIS_PASSWORD)
 
     @staticmethod
     async def register_service(service):

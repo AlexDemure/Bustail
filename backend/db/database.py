@@ -1,5 +1,4 @@
 from tortoise import Tortoise
-from tortoise.contrib.fastapi import register_tortoise
 
 from backend.core.config import settings
 
