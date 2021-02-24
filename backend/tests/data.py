@@ -89,23 +89,37 @@ class BaseTest:
     client = ASYNC_CLIENT
 
     headers = None
+    access_token = None
+    refresh_token = None
 
     account_data = None
+
+    def update_auth_data(self, data: dict):
+        self.access_token = data['access_token']
+        self.refresh_token = data['refresh_token']
+        self.headers = {"Authorization": f"Bearer {data['access_token']}"}
 
     async def login(self):
         async with ASYNC_CLIENT as ac:
             response = await ac.post("/login/access-token/", data=self.account_data.get_auth_data())
 
         assert response.status_code == 200
-        self.headers = {"Authorization": f"Bearer {response.json()['access_token']}"}
+        self.update_auth_data(response.json())
+
+    async def update_token(self):
+        async with self.client as ac:
+            response = await ac.post("/login/refresh-token/", json={"token": self.refresh_token})
+            assert response.status_code == 200
+
+        self.update_auth_data(response.json())
 
     async def create_account(self):
         async with self.client as ac:
             response = await ac.post("/accounts/", json=self.account_data.get_personal_data())
 
         assert response.status_code == 201
-        self.headers = {"Authorization": f"Bearer {response.json()['access_token']}"}
 
+        self.update_auth_data(response.json())
         await self.confirm_account()
 
     @staticmethod

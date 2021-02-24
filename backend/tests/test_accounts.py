@@ -43,3 +43,13 @@ class TestChangePassword(BaseTest):
     async def get_security_token(self) -> ChangePasswordEvent:
         return await ChangePasswordEvent.get_or_none(email=self.account_data.email)
 
+
+class TestRefreshToken(BaseTest):
+
+    account_data = TestAccountData()
+
+    async def test_refresh_token(self):
+        await self.create_account()
+        await self.login()
+        await self.update_token()
+        await self.login()
