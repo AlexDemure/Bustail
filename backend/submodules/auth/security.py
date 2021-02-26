@@ -3,7 +3,7 @@ from uuid import uuid4
 
 from jose import jwt
 from passlib.context import CryptContext
-from pydantic import ValidationError
+from pydantic import ValidationError, validate_arguments
 
 from backend.core.config import settings
 from .enums import TokenPurpose, AuthErrors
@@ -17,6 +17,7 @@ def encode_token(**kwargs):
     return jwt.encode(kwargs, settings.SECRET_KEY, algorithm=settings.ALGORITHM)
 
 
+@validate_arguments
 def decode_token(token: str, token_purpose: TokenPurpose) -> TokenPayload:
     try:
         payload = jwt.decode(token, settings.SECRET_KEY, algorithms=[settings.ALGORITHM])
@@ -33,6 +34,7 @@ def decode_token(token: str, token_purpose: TokenPurpose) -> TokenPayload:
     return token_data
 
 
+@validate_arguments
 def generate_token(subject: str) -> Token:
     now = datetime.utcnow()
     jwt_identifier = str(uuid4())
@@ -53,10 +55,12 @@ def generate_token(subject: str) -> Token:
     )
 
 
+@validate_arguments
 def verify_password(plain_password: str, hashed_password: str) -> bool:
     return pwd_context.verify(plain_password, hashed_password)
 
 
+@validate_arguments
 def get_password_hash(password: str) -> str:
     return pwd_context.hash(password)
 

@@ -18,6 +18,10 @@ class TestToken(unittest.TestCase):
             token = generate_token(sub)
             self.assertIsInstance(token, Token)
 
+        self.assertRaises(ValueError, generate_token, RaisedClass)
+        self.assertRaises(ValueError, generate_token, None)
+        self.assertRaises(ValueError, generate_token, list())
+
     def test_decode_token(self):
         for sub in self.token_subjects:
             token = generate_token(sub)
