@@ -20,3 +20,4 @@ class PaymentErrors(Enum):
     payment_operation_is_not_found = "Платежная операция не найдена."
     payment_amount_must_be_gt_zero = "Сумма оплаты должны быть больше 0"
     personal_data_is_wrong_format = "Не указан телефон или email для заполнения платежных данных."
+    card_is_wrong_format = "Не корректный формат банковской карты."
