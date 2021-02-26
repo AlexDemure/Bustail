@@ -137,7 +137,7 @@ async def create_account(payload: AccountCreate) -> JSONResponse:
 
     return JSONResponse(
         status_code=status.HTTP_201_CREATED,
-        content=jsonable_encoder(generate_token(account_id))
+        content=jsonable_encoder(generate_token(str(account_id)))
     )
 
 

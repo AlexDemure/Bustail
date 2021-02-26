@@ -1,5 +1,4 @@
 from datetime import datetime, timedelta
-from typing import Any, Union
 from uuid import uuid4
 
 from jose import jwt
@@ -29,24 +28,24 @@ def decode_token(token: str, token_purpose: TokenPurpose) -> TokenPayload:
     except jwt.ExpiredSignatureError:
         raise AuthError(AuthErrors.token_is_expired.value)
     except (jwt.JWTError, ValidationError):
-        raise AuthError(AuthErrors.tokes_is_wrong.valuel)
+        raise AuthError(AuthErrors.tokes_is_wrong.value)
 
     return token_data
 
 
-def generate_token(subject: Union[str, Any]) -> Token:
+def generate_token(subject: str) -> Token:
     now = datetime.utcnow()
     jwt_identifier = str(uuid4())
 
     return Token(
         access_token=encode_token(
-            sub=str(subject),
+            sub=subject,
             purpose=TokenPurpose.access,
             exp=now + timedelta(minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES),
             jti=jwt_identifier
         ),
         refresh_token=encode_token(
-            sub=str(subject),
+            sub=subject,
             purpose=TokenPurpose.refresh,
             exp=now + timedelta(minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES),
             jti=jwt_identifier

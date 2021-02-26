@@ -6,7 +6,7 @@ from backend.schemas.mailing import (
     SendVerifyCodeEventCreate, ChangePasswordEventCreate, MailingTask
 )
 from backend.submodules.redis.service import redis
-from backend.submodules.security.utils import generate_random_code, generate_security_token
+from backend.submodules.security.utils import generate_random_code, encode_token
 
 
 async def send_verify_code(account_id: int, email) -> None:
@@ -43,8 +43,8 @@ async def send_welcome_message(email: str) -> None:
 
 async def send_change_password_message(account_id: int, email: str) -> None:
     """Отправка письма со сменой пароля."""
-    security_data = dict(account_id=account_id, email=email)
-    security_token = generate_security_token(security_data)
+    context = dict(account_id=account_id, email=email)
+    security_token = encode_token(context)
 
     # Ссылка на страницу со сменой пароля.
     confirm_url = get_change_password_link(security_token)

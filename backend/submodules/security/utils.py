@@ -1,6 +1,6 @@
 import random
 import string
-from typing import Optional, Any
+from typing import Optional
 
 import itsdangerous.exc
 from itsdangerous import URLSafeTimedSerializer
@@ -10,12 +10,12 @@ from backend.core.config import settings
 signer = URLSafeTimedSerializer(settings.SECRET_KEY)
 
 
-def generate_security_token(context: dict):
+def encode_token(context: dict) -> str:
     """Генерирование токена с помощью библиотеки ItsDangerous."""
     return signer.dumps(context)
 
 
-def verify_security_token(token: str) -> Optional[Any]:
+def decode_token(token: str) -> Optional[dict]:
     """Проверка токена с помощью библиотеки ItsDangerous."""
     try:
         return signer.loads(token, max_age=settings.SECURITY_TOKEN_EXPIRE_SECONDS)

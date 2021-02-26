@@ -32,7 +32,7 @@ async def login(form_data: OAuth2PasswordRequestForm = Depends()) -> Token:
             detail=AccountErrors.account_not_found.value
         )
 
-    return generate_token(account.id)
+    return generate_token(str(account.id))
 
 
 @router.post(
@@ -42,4 +42,4 @@ async def login(form_data: OAuth2PasswordRequestForm = Depends()) -> Token:
 )
 async def refresh_token(account: Account = Depends(current_account_by_refresh_token)) -> Token:
     """Обновление токена."""
-    return generate_token(account.id)
+    return generate_token(str(account.id))

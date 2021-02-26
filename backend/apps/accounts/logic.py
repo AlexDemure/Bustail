@@ -17,7 +17,7 @@ from backend.submodules.common.enums import BaseSystemErrors
 from backend.submodules.common.schemas import UpdatedBase
 from backend.submodules.permissions.enums import Roles
 from backend.submodules.permissions.utils import create_account_role
-from backend.submodules.security.utils import verify_security_token
+from backend.submodules.security.utils import decode_token
 
 
 async def get_account(account_id: int) -> Optional[AccountData]:
@@ -105,7 +105,7 @@ async def change_password(password: str, security_token: str) -> None:
     """Изменение пароля через токен подтверждения."""
     logger = get_logger()
 
-    context = verify_security_token(security_token)  # Получение данных токена.
+    context = decode_token(security_token)  # Получение данных токена.
     if context is None:
         logger.debug(SystemLogs.wrong_verify_code.value)
         raise ValueError(AccountErrors.url_change_password_is_wrong.value)

@@ -9,13 +9,13 @@ from .security import decode_token
 reusable_oauth2 = OAuth2PasswordBearer(tokenUrl=f"{settings.API_URL}{settings.AUTH_ACCESS_URL}")
 
 
-def get_subject_from_auth_token(token: str = Depends(reusable_oauth2)) -> int:
+def get_subject_from_auth_token(token: str = Depends(reusable_oauth2)) -> str:
     """Получение объекта из авторизационного токена."""
     token_payload = decode_token(token, TokenPurpose.access)
     return token_payload.sub
 
 
-def get_subject_from_refresh_token(params: RefreshTokenParams = Body(...)) -> int:
+def get_subject_from_refresh_token(params: RefreshTokenParams = Body(...)) -> str:
     """Получение объекта из refresh токена."""
     token_payload = decode_token(params.token, TokenPurpose.refresh)
     return token_payload.sub

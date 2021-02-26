@@ -10,8 +10,10 @@ from backend.submodules.permissions.enums import Permissions
 from backend.submodules.permissions.utils import is_have_permission
 
 
-async def current_account(current_account_id: int = Depends(get_subject_from_auth_token)) -> Account:
+async def current_account(subject: str = Depends(get_subject_from_auth_token)) -> Account:
     """Получение текущего аккаунта без проверки на подтвержденность."""
+    current_account_id = int(subject)
+
     logger = get_logger().bind(account_id=current_account_id)
 
     account = await account_crud.get(current_account_id)
@@ -29,8 +31,10 @@ async def current_account(current_account_id: int = Depends(get_subject_from_aut
     return account
 
 
-async def confirmed_account(current_account_id: int = Depends(get_subject_from_auth_token)) -> Account:
+async def confirmed_account(subject: str = Depends(get_subject_from_auth_token)) -> Account:
     """Получение подтвежденного аккаунта."""
+    current_account_id = int(subject)
+
     logger = get_logger().bind(account_id=current_account_id)
 
     account = await current_account(current_account_id)
@@ -44,8 +48,9 @@ async def confirmed_account(current_account_id: int = Depends(get_subject_from_a
 
 
 async def current_account_by_refresh_token(
-        current_account_id: int = Depends(get_subject_from_refresh_token)
+        subject: str = Depends(get_subject_from_refresh_token)
 ) -> Account:
     """Получение аккаунта через refresh token."""
+    current_account_id = int(subject)
     return await current_account(current_account_id)
 
