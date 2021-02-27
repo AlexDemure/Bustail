@@ -1,0 +1,230 @@
+body {
+    padding: 0;
+    margin: 0;
+    background-image: url(../../../static/background_mobile.jpg);
+      /* Full height */
+    height: 100%;
+
+    /* Create the parallax scrolling effect */
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.container {
+    padding: 0;
+    margin: 0;
+    height: 100vh;
+    display: grid;
+    grid-template-rows: 20% 30% 30% 20%;
+    grid-template-columns: 1fr;
+    justify-items: center;
+    align-items: center;
+}
+@media (max-height: 580px) {
+    .container {
+        grid-template-rows: 13% 42% 20% 20%;
+    }
+}
+@media only screen and (min-height:580px) and (max-height: 680px) {
+    .container {
+        grid-template-rows: 15% 40% 25% 20%;
+    }
+}
+@media only screen and (min-height:680px) and (max-height: 740px) {
+    .container {
+        grid-template-rows: 15% 40% 25% 20%;
+    }
+}
+
+.header {
+    justify-self: right;
+    align-self: flex-start;
+    margin-top: 10px;
+}
+
+.header img {
+    width: 30px;
+    height: 30px;
+    padding-right: 10px;
+}
+@media (max-height: 580px) {
+    .header img {
+        width: 25px;
+        height: 25px;
+        padding-right: 10px;
+    }
+}
+
+.preview {
+   text-align: center;
+   font-family: 'FuturaDemic';
+   align-self: flex-start;
+   height: 100%;
+   width: 100%;
+}
+.preview h1 {
+    padding: 0;
+    margin: 0;
+    font-size: 56px;
+    color: #d2d2d2;
+}
+
+.preview h2 {
+    padding: 0;
+    margin: 0;
+    font-size: 20px;
+    color: #fda333;
+}
+
+@media (max-height: 580px) {
+    .preview h1 {
+        font-size: 40px;
+    }
+    .preview h2 {
+        font-size: 18px;
+    }
+}
+@media only screen and (min-height:580px) and (max-height: 680px) {
+    .preview h1 {
+        font-size: 48px;
+    }
+}
+.preview div[id=buttons] {
+    align-self: flex-start;
+    font-family: 'FuturaDemic';
+    display: grid;
+    justify-items: center;
+    align-items: center;
+    grid-template-columns: repeat(2, 50%);
+    gap: 10px;
+    margin-top: 30px;
+}
+@media (max-height: 580px) {
+    .preview div[id=buttons] {
+        gap: 5px;
+        margin-top: 30px;
+    }
+}
+@media only screen and (min-height:580px) and (max-height: 680px) {
+    .preview div[id=buttons] {
+        gap: 8px;
+        margin-top: 25px;
+    }
+}
+
+
+.preview div[id=buttons] div {
+    border: 2px solid #423d49;
+    border-radius: 5%;
+    height: 135px;
+    width: 135px;
+    background-position: center 25px;
+    background-repeat: no-repeat;
+    background-size: 80px;
+}
+
+@media (max-height: 580px) {
+    .preview div[id=buttons] div {
+        height: 120px;
+        width: 120px;
+        background-position: center 20px;
+        background-repeat: no-repeat;
+        background-size: 70px;
+    }
+}
+
+
+.preview div[id=buttons] div:hover {
+    border: 2px solid #fda333;
+}
+
+.preview div[id=buttons] div p {
+    margin-top: 100px;
+    font-family: 'FuturaDemic';
+    color: #4c4653;
+}
+@media (max-height: 580px) {
+    .preview div[id=buttons] div p {
+        margin-top: 85px;
+        font-size: 14px;
+    }
+}
+
+
+.preview div[id=buttons] div:hover p {
+    color: #fda333;
+}
+
+
+.preview div[id=buttons] div[id=web_app] {
+    justify-self: flex-end;
+    background-image: url(../../../static/icons/pc_gray.png);
+}
+
+.preview div[id=buttons] div[id=web_app]:hover {
+    background-image: url(../../../static/icons/pc_yellow.png);
+    
+}
+
+.preview div[id=buttons] div[id=pwa] {
+    justify-self: flex-start;
+}
+
+.preview div[id=buttons] div[id=pwa] {
+    background-position: center 40px;
+    background-image: url(../../../static/icons/pwa_gray.png);
+}
+@media (max-height: 580px) {
+    .preview div[id=buttons] div[id=pwa] {
+        background-position: center 35px;
+    }
+}
+
+.preview div[id=buttons] div[id=pwa]:hover {
+    background-image: url(../../../static/icons/pwa_yellow.png);
+    
+}
+
+.container .tickets {
+    height: 100%;
+    width: 100%;
+    opacity: 0.3;
+}
+
+.container .tickets .ticket {
+    height: 100%;
+    width: 100%;
+    background-image: url(../../../static/examples/ticket_1.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 95% 150px;
+}
+@media (max-height: 580px) {
+    .container .tickets .ticket {
+        margin-top: 10px;
+        background-position: center;
+        background-size: 90% 125px;
+    }
+}
+@media only screen and (min-height:580px) and (max-height: 680px) {
+    .container .tickets .ticket {
+        margin-top: 10px;
+        background-position: center;
+        background-size: 95% 140px;
+    }
+}
+.container a {
+    height: 100%;
+    width: 100%;
+    background-image: url(../../../static/icons/arrow_down_yellow.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 40px;
+}
+@media (max-height: 580px) {
+    .container a {
+        background-size: 35px;
+    }
+}

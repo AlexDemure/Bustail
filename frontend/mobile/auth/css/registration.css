@@ -1,0 +1,35 @@
+.auth_form div form input[id=email] {
+    background-image: url('../../../static/icons/email.png');
+    background-position: 10px 20px;
+    background-repeat: no-repeat;
+    background-size: 30px 20px;
+    padding-left: 50px;
+}
+
+.auth_form div form input[id=city] {
+    background-image: url('../../../static/icons/point.png');
+    background-position: 17px 15px;
+    background-repeat: no-repeat;
+    background-size: 20px 30px;
+    padding-left: 50px;
+}
+
+.auth_form div form input[id=password] {
+    background-image: url('../../../static/icons/password.png');
+    background-position: 15px 15px;
+    background-repeat: no-repeat;
+    background-size: 25px 30px;
+    padding-left: 50px;
+}
+
+.auth_form div form .change_type p[id=login] a {
+    text-decoration: none;
+    color: #aea9af;
+}
+
+.auth_form div form .change_type p[id=del] {
+    opacity: 0.3; 
+}
+.auth_form div form .change_type p[id=login] {
+    opacity: 0.3; 
+}

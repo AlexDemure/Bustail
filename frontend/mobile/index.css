@@ -1,0 +1,23 @@
+body {
+    padding: 0;
+    margin: 0;
+    background-image: url(../static/background_mobile.jpg);
+}
+
+@font-face {
+    font-family: "FuturaBookC";
+    src: url("../static/fonts/FuturaBookC.eot");
+}
+@font-face {
+    font-family: "FuturaDemiC";
+    src: url("../static/fonts/FuturaDemiC.eot");
+}
+@font-face {
+    font-family: "FuturaLightC";
+    src: url("../static/fonts/FuturaLightC.eot");
+}
+@font-face {
+    font-family: "FuturaMediumC";
+    src: url("../static/fonts/FuturaMediumC.eot");
+}
+

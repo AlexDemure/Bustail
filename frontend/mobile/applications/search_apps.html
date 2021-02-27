@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../index.css">
+    <link rel="stylesheet" href="css/search_apps.css">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container" id="container">
+        <div class="header" id="header">
+            <a href="/">
+                <div class="logo" id="logo">
+                    <img src="../../static/icons/logo.png" alt="logo">
+                </div>
+            </a>
+        </div>
+
+        <div class="search_filters">
+            <p id="text">Поиск заявок</p>
+            <div id="sorted">
+                <p id="price">цена</p>
+                <p id="data">дата</p>
+            </div>
+            <div id='filters'>
+                <input type="text" id="city" placeholder="Город поиска">
+                <input type="text" id="app_type" placeholder="Тип заказа">
+            </div>
+        </div>
+        <div class="apps">
+            <div class="app" id="active">
+                <div id="places">
+                    <div id="from_items">
+                        <p id=value>Челябинск</p>
+                        <p id="description">откуда</p>
+                    </div>
+                    <div id="to_items">
+                        <p id=value>Москва</p>
+                        <p id="description">куда</p>
+                    </div>
+                    <div id="controls">
+                        <p id=value>Москва</p>
+                        <p id="description">куда</p>
+                    </div>
+                </div>
+                <div id="info">
+                    <div id="data">
+                        <p id="description">Дата</p>
+                        <p id=value>16.10.21</p>
+                    </div>
+                    <div id="app_type">
+                        <p id="description">Тип заказа</p>
+                        <p id=value>Межгород</p>
+                    </div>
+                    <div id="count">
+                        <p id="description">Пассажиров</p>
+                        <p id=value>20</p>
+                    </div>
+                    <!-- <div id="price">
+                        <p id="description">Стоимость</p>
+                        <p id=value>65000</p>
+                    </div> -->
+                </div>
+            </div>
+            <!-- <div class="app" id="not_active"></div>
+            <div class="app" id="not_active"></div>
+            <div class="app" id="not_active"></div>
+            <div class="app" id="not_active"></div> -->
+            
+        </div>
+        <div class="footer" id="footer">
+            <div id=add>
+                <a href="#">
+                    <img src="../../static/icons/add.png" alt="add">
+                </a>
+            </div>
+            <div class="navbar" id=navbar>
+                <div class="nav_btn" id=home>
+                    <a href="/mobile/main/menu.html">
+                        <img src="../../static/icons/home_yellow.png" alt="home">
+                    </a>
+                </div>
+                <div class="nav_btn" id=search>
+                    <a href="#">
+                        <img src="../../static/icons/search_gray.png" alt="search">
+                    </a>
+                </div>
+                <div class="nav_btn" id=notifications>
+                    <a href="#">
+                        <img src="../../static/icons/notification_gray.png" alt="notification">
+                    </a>
+                </div>
+                <div class="nav_btn" id=cabinet>
+                    <a href="#">
+                        <img src="../../static/icons/cabinet_gray.png" alt="cabinet">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../index.css">
+    <link rel="stylesheet" href="css/search_transport.css">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container" id="container">
+        <div class="header" id="header">
+            <a href="/">
+                <div class="logo" id="logo">
+                    <img src="../../static/icons/logo.png" alt="logo">
+                </div>
+            </a>
+        </div>
+
+        <div class="search_filters">
+            <p id="text">Поиск транспорта</p>
+            <div id="sorted">
+                <p id="price">цена</p>
+                <p id="data">дата</p>
+            </div>
+            <div id='filters'>
+                <input type="text" id="city" placeholder="Город поиска">
+                <input type="text" id="price" placeholder="Стоимость до">
+            </div>
+        </div>
+            
+
+        <div class="transports">
+            <div id="info_block">
+                <div id="header">
+                    <p id="text">Подробная информация</p>
+                    <div id="icon" onclick="hideInfo()"></div>
+                </div>
+                <p id="uid">Идентификатор транспорта: <span>1333</span></p>
+                <p id="driver">Водитель: <span>Иванов Иван Иванович</span></p>
+                <p id="license">Наличие лицензии перевзчика: <span>Есть</span></p>
+                <p id="desc">Описание: <span>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Rem, quia exercitationem error fugiat perspiciatis voluptatibus fuga voluptate debitis quo illo vitae odio similique veritatis voluptatum laudantium rerum ducimus. Praesentium dignissimos iure exercitationem quia reiciendis tenetur cumque animi dolore eligendi beatae nihil dicta assumenda iusto quidem quod, quas repellendus, asperiores neque!</span></p>
+            </div>
+            <div class="transport">
+                <div class="cover" id="example1"></div>
+                <div class="info">
+                    <div class="controls">
+                        <div id="info">
+                            <p id="model">Pegeout Boxer</p>
+                            <p id="count_seats">вместимость: <span>16</span></p>
+                            <p id="price">стоимость: <span>900</span></p>
+                        </div>
+                    </div>
+                    <p id="desc">описание: <span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium incidunt aut nihil fuga voluptatem quae iste dolores deserunt nemo ullam.</span></p>
+                    <p id="city">Челябинск</p>
+                </div>
+            </div>
+            <div class="transport">
+                <div class="cover" id="example2"></div>
+                <div class="info">
+                    <div class="controls">
+                        <div id="info">
+                            <p id="model">Mersedes Benz Spliter</p>
+                            <p id="count_seats">вместимость: <span>24</span></p>
+                            <p id="price">стоимость: <span>1200</span></p>
+                        </div>
+                    </div>
+                    <p id="desc">описание: <span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium incidunt aut nihil fuga voluptatem quae iste dolores deserunt nemo ullam.</span></p>
+                    <p id="city">Челябинск</p>
+                </div>
+            </div>
+            <div class="transport">
+                <div class="cover" id="example3"></div>
+                <div class="info">
+                    <div class="controls">
+                        <div id="info">
+                            <p id="model">Газель 21234</p>
+                            <p id="count_seats">вместимость: <span>3</span></p>
+                            <p id="price">стоимость: <span>250</span></p>
+                        </div>
+                    </div>
+                    <p id="desc">описание: <span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium incidunt aut nihil fuga voluptatem quae iste dolores deserunt nemo ullam.</span></p>
+                    <p id="city">Челябинск</p>
+                </div>
+            </div>
+            <div class="transport">
+                <div class="cover" id="example1"></div>
+                <div class="info">
+                    <div class="controls">
+                        <div id="info">
+                            <p id="model">Pegeout Boxer</p>
+                            <p id="count_seats">вместимость: <span>16</span></p>
+                            <p id="price">стоимость: <span>900</span></p>
+                        </div>
+                    </div>
+                    <p id="desc">описание: <span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium incidunt aut nihil fuga voluptatem quae iste dolores deserunt nemo ullam.</span></p>
+                    <p id="city">Челябинск</p>
+                </div>
+            </div>
+            <div class="transport">
+                <div class="cover" id="example2"></div>
+                <div class="info">
+                    <div class="controls">
+                        <div id="info">
+                            <p id="model">Mersedes Benz Spliter</p>
+                            <p id="count_seats">вместимость: <span>24</span></p>
+                            <p id="price">стоимость: <span>1200</span></p>
+                        </div>
+                    </div>
+                    <p id="desc">описание: <span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium incidunt aut nihil fuga voluptatem quae iste dolores deserunt nemo ullam.</span></p>
+                    <p id="city">Челябинск</p>
+                </div>
+            </div>
+            <div class="transport">
+                <div class="cover" id="example3"></div>
+                <div class="info">
+                    <div class="controls">
+                        <div id="info">
+                            <p id="model">Газель 21234</p>
+                            <p id="count_seats">вместимость: <span>3</span></p>
+                            <p id="price">стоимость: <span>250</span></p>
+                        </div>
+                    </div>
+                    <p id="desc">описание: <span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium incidunt aut nihil fuga voluptatem quae iste dolores deserunt nemo ullam.</span></p>
+                    <p id="city">Челябинск</p>
+                </div>
+            </div>
+        </div>
+        <div class="footer" id="footer">
+            <div id=add>
+                <div id="dropup-content" class="dropup-content">
+                    <div id="contacts"></div>
+                    <a href="/mobile/applications/offer.html" id="create_notify"></a>
+                    <div id="info" onclick="getInfo()"></div>
+                    <div id="back"></div>
+                </div>
+            </div>
+            <div class="navbar" id=navbar>
+                <div class="nav_btn" id=home>
+                    <a href="/mobile/main/menu.html">
+                        <img src="../../static/icons/home_yellow.png" alt="home">
+                    </a>
+                </div>
+                <div class="nav_btn" id=search>
+                    <a href="#">
+                        <img src="../../static/icons/search_gray.png" alt="search">
+                    </a>
+                </div>
+                <div class="nav_btn" id=notifications>
+                    <a href="#">
+                        <img src="../../static/icons/notification_gray.png" alt="notification">
+                    </a>
+                </div>
+                <div class="nav_btn" id=cabinet>
+                    <a href="#">
+                        <img src="../../static/icons/cabinet_gray.png" alt="cabinet">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<script type="text/javascript">
+    function getInfo() {
+        document.getElementById('info_block').style.cssText = 'display: block;';
+    }
+    function hideInfo() {
+        document.getElementById('info_block').style.cssText = 'display: none;';
+    }
+    </script>
+</body>
+</html>

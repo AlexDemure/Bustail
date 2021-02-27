@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../index.css">
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/login.css">
+    
+</head>
+<body>
+    <div class="container" id="container">
+        <div class="header" id="header">
+            <a href="/">
+                <div class="menu" id="menu">
+                    <img src="../../static/icons/menu.png" alt="menu">
+                </div>
+            </a>
+            
+        </div>
+        <div class="preview" id="preview">
+            <h1>bustail</h1>
+            <h2>сервис пассажирских перевозок</h2>
+        </div>
+        <div class="auth_form" id="auth_form">
+            <div>
+                <form action="/">
+                    <div class="change_type">
+                        <p id="reg"><a href="/mobile/auth/registration.html">Регистрация</a></p>
+                        <p id="del">|</p>
+                        <p id="login">Вход</p>
+                    </div>
+                    
+                    <input type="text" id="email" placeholder="Электронная почта"><br>
+                    <input type="text" id="password" placeholder="Пароль"><br>
+                    <input type="submit" value="Войти">
+                </form>
+                
+                <p id="reset_password">Забыли пароль? <a href="/mobile/auth/reset.html">Восстановить</a></p>
+            </div>
+            
+        </div>
+        <div class="footer" id="footer"></div>
+    </div>
+</body>
+</html>

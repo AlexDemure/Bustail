@@ -1,0 +1,40 @@
+.auth_form div form input[id=email] {
+    background-image: url('../../../static/icons/email.png');
+    background-position: 10px 20px;
+    background-repeat: no-repeat;
+    background-size: 30px 20px;
+    padding-left: 50px;
+}
+
+.auth_form div form input[id=password] {
+    background-image: url('../../../static/icons/password.png');
+    background-position: 15px 15px;
+    background-repeat: no-repeat;
+    background-size: 25px 30px;
+    padding-left: 50px;
+}
+
+.auth_form div form .change_type p[id=del] {
+    opacity: 0.3; 
+}
+
+.auth_form div form .change_type p[id=reg] {
+    opacity: 0.3; 
+}
+
+.auth_form div form .change_type p[id=reg] a {
+    text-decoration: none;
+    color: #aea9af;
+}
+
+.auth_form p[id=reset_password] {
+    text-align: center;
+    color: #aea9af;
+    font-size: 16px;
+    font-family: 'FuturaDemic';
+}
+
+.auth_form p[id=reset_password] a {
+    color: #fda333;
+    text-decoration: none;
+}
