@@ -1,0 +1,83 @@
+.transport {
+    margin-top: 10px;
+    width: 100%;
+    height: 180px;
+    display: grid;
+    background-image: url('../../../static/images/background_mobile.jpg');
+    grid-template-rows: 140px 40px;
+    grid-template-columns: 200px 1fr;
+    border: 1px solid rgb(46, 44, 45);
+    border-radius: 1%;
+}
+
+.transport .photo {
+    grid-column: 1 / 2;
+    grid-row: 1 / 3;
+    height: 180px;
+    width: 200px;
+    background-image: url(../../../static/images/bus1.jpg);
+    background-size: 200px 180px;
+    background-repeat: no-repeat;
+    background-position-x: center;
+    border-radius: 1%;
+}
+
+.transport .info {
+    grid-column: 2 / 3;
+    grid-row: 1 / 2;
+    padding-left: 10px;
+}
+
+.transport .info p {
+    margin: 0;
+    padding: 0;
+    margin-top: 5px;
+}
+
+.transport .info p[class=parametr] {
+   color: #636363;
+   font-family: 'FuturaBookC';
+   font-size: 16px;
+}
+
+.transport .info p[class=parametr] span {
+    color: white;
+    font-size: 16px;
+    font-family: 'FuturaDemiC';
+}
+
+.transport .info p[id=model] {
+    margin-top: 10px;
+    color: #aea9af;
+    font-size: 18px;
+    font-family: 'FuturaMediumC';
+}
+
+/* color: #636363; */
+.transport .controls {
+    border-top: 1px solid #4e4c4c;
+    display: grid;
+    grid-column: 2 / 3;
+    grid-row: 2 / 3;
+    grid-template-columns: repeat(3, 1fr);
+}
+.transport .controls .control_icon {
+    background-position-x: center;
+    background-position-y: center;
+    background-repeat: no-repeat;
+    box-shadow: 5px 2px 0px -4px #4e4c4c;
+}
+.transport .controls div[id=contacts] {
+    background-size: 25px 25px;
+    background-image: url("../../../static/icons/telephone.png");
+}
+
+.transport .controls div[id=info] {
+    background-size: 35px 35px;
+    background-image: url("../../../static/icons/driver-license-card.png");
+}
+
+.transport .controls div[id=offer] {
+    background-size: 15px 25px;
+    background-image: url("../../../static/icons/app.png");
+}
