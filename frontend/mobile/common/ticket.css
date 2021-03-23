@@ -125,7 +125,7 @@ background: transparent;
     color: gray;
 }
 .container .ticket:hover .ticket-content-wrapper .points .annotation {
-    color: rgb(224, 224, 224);
+    color: #413a46;
 }
 
 .ticket-content-wrapper .points .from {
@@ -135,6 +135,10 @@ background: transparent;
 .ticket-content-wrapper .points .to {
 color: #fba333;
 }
+.container .ticket:hover .ticket-content-wrapper .points .from {
+    color: whitesmoke;
+}
+
 .container .ticket:hover .ticket-content-wrapper .points .to {
     color: black;
 }
@@ -167,7 +171,7 @@ color: #fba333;
     padding-top: 5px;
 }
 .container .ticket:hover .ticket-content-wrapper .info {
-    color: black;
+    color: #3a3442;
 }
 
 .ticket-content-wrapper .info p span {
