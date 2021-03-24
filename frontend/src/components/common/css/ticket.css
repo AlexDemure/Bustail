@@ -1,6 +1,6 @@
 .ticket {
     margin: 5px;
-    background-color: #413a46;
+    background-color: #222222;
     width: 380px;
     height: 150px;
     border-radius: 20px;
@@ -22,22 +22,22 @@
 
 .ticket .circle {
     position: absolute;
-    top: 40px;
-    width: 50px;
-    height: 50px;
+    top: 50px;
+    width: 20px;
+    height: 40px;
     border-radius: 50%;
     z-index: 4;
     overflow:hidden;
 }
 
 .ticket #left {
-    left: -35px;
-    background-color: #37313f;
+    left: -10px;
+    background-color: #181818;
 }
 
 .ticket #right {
-    right: -35px;
-    background-color: #3a3442;
+    right: -10px;
+    background-color: #181818;
 }
 
 .ticket_content {
@@ -55,9 +55,9 @@
     width: 100%;
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: 1fr;
-    padding-right: 0px;
     align-items: flex-end;
     justify-self: flex-end;
+    padding-bottom: 10px;
 }
 
 .ticket_content .points p {
@@ -84,7 +84,7 @@
 }
 
 .ticket_content .points .to {
-color: #fba333;
+color: #80AB98;
 }
 
 .ticket_content .date {
@@ -96,8 +96,8 @@ color: #fba333;
 }
 .ticket_content .date p {
     font-size: 16px;
-    font-family: 'FuturaDemiC';
-    color: whitesmoke;
+    font-family: 'FuturaMediumC';
+    color: gray;
 }
 
 
@@ -116,7 +116,7 @@ color: #fba333;
 }
 
 .ticket_content .info p span {
-    font-family: 'FuturaDemic';
+    font-family: 'FuturaMediumC';
     color: whitesmoke;
     font-size: 16px;
 }

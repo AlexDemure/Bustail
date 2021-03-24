@@ -1,0 +1,53 @@
+.navbar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    background-color: #222222;
+    height: 9vh;
+    width: 100vw;
+    bottom: 0;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: 1fr
+}
+
+.navbar .nav_btn {
+    width: 40px;
+    height: 40px;
+    justify-self: center;
+    align-self: center;
+    margin-top: 10px;
+
+    background-size: 25px 25px;
+    background-position-x: center;
+    background-position-y: center;
+    background-repeat: no-repeat;
+}
+
+.navbar a[id=home] {
+    background-image: url('../../../static/icons/home.png');
+}
+.navbar a[id=home]:active {
+    background-image: url('../../../static/icons/home_a.png');
+}
+
+.navbar a[id=search] {
+    background-image: url('../../../static/icons/search.png');
+}
+.navbar a[id=search]:active {
+    background-image: url('../../../static/icons/search_a.png');
+}
+
+.navbar a[id=notifications] {
+    background-image: url('../../../static/icons/notification.png');
+}
+.navbar a[id=notifications]:active {
+    background-image: url('../../../static/icons/notification_a.png');
+}
+
+.navbar a[id=cabinet] {
+    background-image: url('../../../static/icons/cabinet.png');
+}
+.navbar a[id=cabinet]:active {
+    background-image: url('../../../static/icons/cabinet_a.png');
+}

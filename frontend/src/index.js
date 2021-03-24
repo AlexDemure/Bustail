@@ -1,32 +1,43 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
 
-import TicketItem from './components/common/ticket'
-import TransportItem from './components/common/transport'
+import Header from './components/common/header'
+import NavBar from './components/common/navbar'
 
-const ticket = {
-  "from": "Челябинск-Челябинск", "to": "Москва", "date": "16.10.21",
-  "price": 16000, "type_app": "Свадьба", "seats": 24,
-}
+import './index.css'
 
-const transport = {
-  "mark": "Mersedes Benz", "model": "Splinter",
-  "price": 900, "seats": 24, "city": "Челябинск",
-  "description": "Lorem Ipsum is simply dummy \
-  text of the printing and typesetting industry. \
-  Lorem Ipsum has been the industry's \
-  standard dummy text ever since the 1500s, when an unknown printer", 
-  "photo": "base64"
-}
+// const ticket = {
+//   "from": "Челябинск", "to": "Москва", "date": "16.10.21",
+//   "price": 16000, "type_app": "Свадьба", "seats": 24,
+// }
+
+// const transport = {
+//   "mark": "Mersedes Benz", "model": "Splinter",
+//   "price": 900, "seats": 24, "city": "Челябинск",
+//   "description": "Lorem Ipsum is simply dummy \
+//   text of the printing and typesetting industry. \
+//   Lorem Ipsum has been the industry's \
+//   standard dummy text ever since the 1500s, when an unknown printer", 
+//   "photo": "base64"
+// }
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
-    {/* <TicketItem  ticket={ticket} /> */}
-    <TransportItem transport={transport} />
-    <TransportItem transport={transport} />
+    <Header previous_page="test" page_name="Главная" />
+
+   
+    <NavBar/>
   </React.StrictMode>,
   document.getElementById('root')
 );
 
+// #181818 ФОН
+// #222222 ДИВ + БАТТОНС
+// #262626 Уведомления
+// #FBFBFB Белый текст
+// #535353 Серый текст
+// #50816C Зеленый текст
+// #9B5E5D Красный текст
+// #656565 Иконки
+// #80AB98 Иконки активные
+// #0B0B0B Инпуты
