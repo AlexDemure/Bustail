@@ -3,12 +3,12 @@ header {
     margin: 0;
     top: 0;
     left: 0;
-    position: absolute;
+    position: relative;
     background-color: #181818;
     height: 9vh;
-    width: 100vw;
+    width: 100%;
     display: grid;
-    grid-template-columns: 15% 70% 15%;
+    grid-template-columns: 10% 80% 10%;
 }
 
 
