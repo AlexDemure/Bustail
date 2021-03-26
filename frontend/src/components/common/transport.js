@@ -26,7 +26,7 @@ export default class TransportItem extends React.Component {
                     <div className="control_icon" id="offer"></div>
                 </div>
                 
-                { this.state.typeWindow == "transport_card" && (
+                { this.state.typeWindow === "transport_card" && (
                     <div className="transport_card">
                         <div className="close_card" onClick={() => this.setState({typeWindow: ""})}></div>
                         <div id="driver">

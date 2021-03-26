@@ -7,7 +7,7 @@
     grid-template-rows: 130px 50px;
     grid-template-columns: 200px 1fr;
     border: 1px solid rgb(46, 44, 45);
-    border-radius: 1%;
+    border-radius: 5px;
 }
 
 .transport .photo {
@@ -19,7 +19,7 @@
     background-size: 200px 180px;
     background-repeat: no-repeat;
     background-position-x: center;
-    border-radius: 1%;
+    border-radius: 5px;
 }
 
 .transport .info {
@@ -84,6 +84,7 @@
 
 
 .transport .transport_card {
+    opacity: 0.95;
     grid-column: 1 / 3;
     grid-row: 1 / 3;
     background-color: #222222;

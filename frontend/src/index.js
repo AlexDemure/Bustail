@@ -3,7 +3,9 @@ import ReactDOM from 'react-dom';
 
 import Header from './components/common/header'
 import NavBar from './components/common/navbar'
+import SearchInput from './components/common/inputs'
 import TransportItem from './components/common/transport'
+
 import './index.css'
 
 // const ticket = {
@@ -14,10 +16,7 @@ import './index.css'
 const transport = {
   "mark": "Mersedes Benz", "model": "Splinter",
   "price": 900, "seats": 24, "city": "Челябинск",
-  "description": "Lorem Ipsum is simply dummy \
-  text of the printing and typesetting industry. \
-  Lorem Ipsum has been the industry's \
-  standard dummy text ever since the 1500s, when an unknown printer", 
+  "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
   "photo": "base64", "phone": "+79123456789",
   "driver": "Иванов Иван", "driver_license": "312-1251-1231"
 }
@@ -25,7 +24,8 @@ const transport = {
 ReactDOM.render(
   <React.StrictMode>
     <Header previous_page="test" page_name="Главная" />
-      <TransportItem transport={transport} />
+    <SearchInput />
+    <TransportItem transport={transport} />
     
     <NavBar/>
   </React.StrictMode>,
