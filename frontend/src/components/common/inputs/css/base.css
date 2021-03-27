@@ -1,0 +1,45 @@
+input {
+    background: #0B0B0B;
+    border: none;
+    outline: none;
+    color: #FBFBFB;
+    font-family: 'FuturaBookC';
+    font-size: 18px;
+    
+    height: 60px;
+    width: 100%;
+    border-radius: 5px;
+    margin-top: 5px;
+    padding-left: 10px;
+    
+}
+
+input::placeholder {
+    color:#535353;
+    font-size: 18px;
+}
+
+
+.search-selector {
+    background-image: url("../../../../static/icons/selector.png");
+    background-size: 15px 15px;
+    background-position: 95% center;
+    background-repeat: no-repeat;
+}
+
+.default_input.email {
+    background-image: url("../../../../static/icons/email.png");
+    background-size: 20px 15px;
+    background-position: 95% center;
+    background-repeat: no-repeat;
+}
+
+.default_input.password {
+    background-image: url("../../../../static/icons/password.png");
+    background-size: 16px 20px;
+    background-position: 95% center;
+    background-repeat: no-repeat;
+
+    font-size: 12px;
+    font-family: 'FuturaLightC';
+}

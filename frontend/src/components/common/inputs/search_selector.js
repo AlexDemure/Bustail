@@ -1,5 +1,6 @@
 import React from 'react'
-import "./css/inputs.css"
+import "./css/search_selector.css"
+import './css/base.css'
 
 let options = [
     "Hello", "Hells", "World", "Buy"
@@ -8,11 +9,11 @@ let options = [
 
 export default class SearchInput extends React.Component {
 
-    constructor() {
+    constructor(props) {
 
-        super();
+        super(props);
 
-        this.handleLoginKeyUp = this.keyUpHandler.bind(this);
+        this.keyUpHandler = this.keyUpHandler.bind(this);
         this.choiceValue = this.choiceValue.bind(this);
 
         this.state = {
@@ -71,18 +72,18 @@ export default class SearchInput extends React.Component {
     render() {
         return (
             <div className={"search " + (this.state.result.length ? "active" : "")}>
-                <input 
+                <input
+                className="search-selector" 
                 type="text"
                 size="45"
-                placeholder="Введите название города"
-                onChange={this.handleLoginKeyUp}
+                placeholder={this.props.placeholder ? this.props.placeholder : "Введите название города"}
+                onChange={this.keyUpHandler}
                 value={this.state.value}>
                 </input>
                 
                 <div className="option">
                   {this.state.result}
                 </div> 
-                <div className="icon"><i className="fas fa-search"></i></div>  
             </div>
         )
     }

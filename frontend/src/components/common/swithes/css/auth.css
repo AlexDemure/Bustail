@@ -1,0 +1,31 @@
+
+.auth_switches  {
+    margin-bottom: 10px;
+    text-align: left;
+}
+
+.auth_switches p {
+    display: inline;
+    color: #FBFBFB;
+    font-size: 18px;
+    font-family: 'FuturaBookC';
+    padding-right: 5px;
+}
+
+.auth_switches p a {
+    text-decoration: none;
+    color: #FBFBFB;
+}
+
+.auth_switches .active {
+    color: #fba333;
+    opacity: 1;
+}
+
+.auth_switches .no_active {
+    opacity: 0.3;
+    font-size: 16px;
+}
+
+
+

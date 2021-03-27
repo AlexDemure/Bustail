@@ -6,7 +6,7 @@ header {
     position: relative;
     background-color: #181818;
     height: 9vh;
-    width: 100%;
+    width: 95vw;
     display: grid;
     grid-template-columns: 10% 80% 10%;
 }

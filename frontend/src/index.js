@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import Header from './components/common/header'
-import NavBar from './components/common/navbar'
-import SearchInput from './components/common/inputs'
-import TransportItem from './components/common/transport'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+
+import RegistrationMainPage from './pages/registration/main'
+import AuthMainPage from './pages/auth/main'
 
 import './index.css'
 
@@ -21,16 +21,24 @@ const transport = {
   "driver": "Иванов Иван", "driver_license": "312-1251-1231"
 }
 
+class Main extends React.Component{
+  render(){
+      return <h2>Главная</h2>;
+  }
+}
+
 ReactDOM.render(
-  <React.StrictMode>
-    <Header previous_page="test" page_name="Главная" />
-    <SearchInput />
-    <TransportItem transport={transport} />
-    
-    <NavBar/>
-  </React.StrictMode>,
+  <Router>
+      <Switch>
+          <Route exact path="/" component={Main} />
+          <Route path="/registration" component={RegistrationMainPage} />
+          <Route path="/login" component={AuthMainPage} />
+
+      </Switch>
+  </Router>,
   document.getElementById('root')
 );
+
 
 // #181818 ФОН
 // #222222 ДИВ + БАТТОНС
