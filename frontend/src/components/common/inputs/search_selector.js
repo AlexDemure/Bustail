@@ -74,6 +74,7 @@ export default class SearchInput extends React.Component {
             <div className={"search " + (this.state.result.length ? "active" : "")}>
                 <input
                 className="search-selector" 
+                name={this.props.name}
                 type="text"
                 size="45"
                 placeholder={this.props.placeholder ? this.props.placeholder : "Введите название города"}

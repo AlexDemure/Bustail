@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
-import RegistrationMainPage from './pages/registration/main'
+import RegistrationPage from './pages/registration/main'
 import AuthMainPage from './pages/auth/main'
 
 import './index.css'
@@ -31,7 +31,7 @@ ReactDOM.render(
   <Router>
       <Switch>
           <Route exact path="/" component={Main} />
-          <Route path="/registration" component={RegistrationMainPage} />
+          <Route path="/registration" component={RegistrationPage} />
           <Route path="/login" component={AuthMainPage} />
 
       </Switch>
