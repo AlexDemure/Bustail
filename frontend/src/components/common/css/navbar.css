@@ -26,29 +26,29 @@
 }
 
 .navbar a[id=home] {
-    background-image: url('../../../static/icons/home.png');
+    background-image: url('../../../static/icons/default/home.png');
 }
 .navbar a[id=home]:active {
-    background-image: url('../../../static/icons/home_a.png');
+    background-image: url('../../../static/icons/active/home.png');
 }
 
 .navbar a[id=search] {
-    background-image: url('../../../static/icons/search.png');
+    background-image: url('../../../static/icons/default/search.png');
 }
 .navbar a[id=search]:active {
-    background-image: url('../../../static/icons/search_a.png');
+    background-image: url('../../../static/icons/active/search.png');
 }
 
 .navbar a[id=notifications] {
-    background-image: url('../../../static/icons/notification.png');
+    background-image: url('../../../static/icons/default/notification.png');
 }
 .navbar a[id=notifications]:active {
-    background-image: url('../../../static/icons/notification_a.png');
+    background-image: url('../../../static/icons/active/notification.png');
 }
 
 .navbar a[id=cabinet] {
-    background-image: url('../../../static/icons/cabinet.png');
+    background-image: url('../../../static/icons/default/cabinet.png');
 }
 .navbar a[id=cabinet]:active {
-    background-image: url('../../../static/icons/cabinet_a.png');
+    background-image: url('../../../static/icons/active/cabinet.png');
 }

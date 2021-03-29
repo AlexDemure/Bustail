@@ -74,6 +74,7 @@ export default class RegistrationForm extends React.Component {
         console.log(prepared_data);
 
         // TODO FETCH
+        window.location.replace("/main");
     }
 
 

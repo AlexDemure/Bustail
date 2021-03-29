@@ -3,6 +3,10 @@
     width: 80%;
 }
 
+.notify #link a {
+    color: #FBFBFB;
+}
+
 .notify p[id=alert] {
     font-size: 24px;
     font-family: 'FuturaBookC';

@@ -6,6 +6,8 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import RegistrationPage from './pages/registration/main'
 import AuthPage from './pages/auth/main'
 import RecoveryPage from './pages/recovery/main'
+import MainPage from './pages/main/main'
+
 
 import './index.css'
 
@@ -35,6 +37,7 @@ ReactDOM.render(
           <Route path="/registration" component={RegistrationPage} />
           <Route path="/login" component={AuthPage} />
           <Route path="/recovery" component={RecoveryPage} />
+          <Route path="/main" component={MainPage} />
       </Switch>
   </Router>,
   document.getElementById('root')

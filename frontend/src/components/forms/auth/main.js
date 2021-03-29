@@ -21,6 +21,8 @@ export default class AuthForm extends React.Component {
         let prepared_data = SerializeForm(event.target, new FormData(event.target))
         console.log(prepared_data);
         // TODO FETCH
+
+        window.location.replace("/main");
     }
     render() {
         return (
