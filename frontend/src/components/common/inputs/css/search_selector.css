@@ -6,11 +6,12 @@
     position: absolute;
     max-height: 200px;
     width: 100%;
-    padding-left: 10px;
+    padding-right: 10px;
     overflow-y: auto;
-    background-color: #0B0B0B;
+    background-color: #262626;
     opacity: 1;
     pointer-events: none;
+    overflow-x: hidden;
 }
 
 .search.active .option {
@@ -28,6 +29,8 @@
     font-size: 18px;
     display: none;
     text-align: left;
+    width: 100%;
+    
 
 }
 
@@ -42,5 +45,5 @@
 }
 
 .search .option li:hover {
-    background-color: #262626;
+    background-color: #fba333;
 }

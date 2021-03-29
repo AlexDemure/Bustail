@@ -1,5 +1,5 @@
 import React from 'react'
-import './css/base.css'
+import '../css/base.css'
 
 import NewSendMessageForm from '../common/new_send_msg'
 

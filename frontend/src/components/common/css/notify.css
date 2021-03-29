@@ -1,0 +1,17 @@
+.notify {
+    text-align: center;
+    width: 80%;
+}
+
+.notify p[id=alert] {
+    font-size: 24px;
+    font-family: 'FuturaBookC';
+    color: gray;
+}
+
+
+.notify p[id=information] {
+    font-size: 20px;
+    font-family: 'FuturaBookC';
+    color: gray;
+}

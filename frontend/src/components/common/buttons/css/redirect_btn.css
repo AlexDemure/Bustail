@@ -1,0 +1,25 @@
+div[id=link] {
+    display: grid;
+    align-content: center;
+    background-color: #262626;
+    height: 50px;
+    width: 50%;
+    margin-left: 25%;
+    border-radius: 10px;
+}
+
+div[id=link] a {
+    font-size: 18px;
+    text-decoration: none;
+    color: #535353;
+    font-family: 'FuturaBookC';
+}
+
+
+div[id=link]:hover {
+    background-color: #fba333;
+}
+
+div[id=link]:hover a {
+    color: #FBFBFB;
+}
