@@ -1,4 +1,4 @@
-.container {
+.main {
     display: grid;
     padding: 0;
     margin: 0;
@@ -71,8 +71,8 @@
     
     background-image: url('../../../static/icons/default/create_app.png');
     background-repeat: no-repeat;
-    background-position: center 25px;
-    background-size: 45px 45px;
+    background-position: center center;
+    background-size: 65px 40px;
     
     
 }
@@ -83,8 +83,8 @@
 
     background-image: url('../../../static/icons/default/create_transport.png');
     background-repeat: no-repeat;
-    background-position: center 30px;
-    background-size: 50px 40px;
+    background-position: center center;
+    background-size: 65px 40px;
    
 }
 
@@ -101,13 +101,13 @@
     background-image: url('../../../static/icons/default/cabinet.png');
     background-repeat: no-repeat;
     background-position: 20px center;
-    background-size: 35px 30px; 
+    background-size: 30px 30px; 
 }
 
 .menu div[class=cabinet] p {
     font-size: 18px;
     font-family: 'FuturaMediumC';
-    margin-left: 80px;
+    margin-left: 70px;
 }
 
 
@@ -144,7 +144,7 @@
     background-image: url('../../../static/icons/default/search.png');
     background-repeat: no-repeat;
     background-position: 20% center;
-    background-size: 25px 25px; 
+    background-size: 30px 30px; 
 }
 
 .menu .find #text p {

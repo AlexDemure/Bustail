@@ -5,7 +5,7 @@ import PreviewBanner from '../../components/common/preview_banner'
 
 function RegistrationPage() {
     return (
-        <div className="container">
+        <div className="container reg">
             <PreviewBanner/>
             <RegistrationForm/>
             <div className="footer"></div>

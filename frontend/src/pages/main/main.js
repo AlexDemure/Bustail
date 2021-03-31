@@ -1,31 +1,34 @@
-import './css/main.css'
+import React from 'react'
 
 import NavBar from '../../components/common/navbar'
 import Header from '../../components/common/header'
 
+import './css/main.css'
+
+
 function MainPage() {
     return (
-        <div className="container">
+        <div className="container main">
             <Header/>
             <div className="menu">
-                <div className="create_app">
+                <div onClick={() => window.location.replace('/app/create')} className="create_app">
                     <p>Создать заявку</p>
                 </div>
-                <div className="create_transport">
+                <div onClick={() => window.location.replace('/transport/create')} className="create_transport">
                     <p>Предложить аренду</p>
                 </div>
                 <div className="find">
                     <div id="text">
                         <p>Поиск</p>
                     </div>
-                    <div id="transport">
+                    <div onClick={() => window.location.replace('/transport/search')} id="transport">
                         <p>Транспорт</p>
                     </div>
-                    <div id="apps">
+                    <div onClick={() => window.location.replace('/app/search')} id="apps">
                         <p>Заказы</p>
                     </div>
                 </div>
-                <div className="cabinet">
+                <div onClick={() => window.location.replace('/cabinet')} className="cabinet">
                     <p>Личный кабинет</p>
                 </div>
             </div>

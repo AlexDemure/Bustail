@@ -1,8 +1,8 @@
-.container {
+.reg {
     display: grid;
     padding: 0;
     margin: 0;
-    height: 95vh;
+    height: 100vh;
     width: 95vw;
     display: grid;
     grid-template-rows: 25% auto 15%;
@@ -12,16 +12,16 @@
     overflow: hidden;
 }
 
-.container .preview_banner {
+.reg .preview_banner {
     grid-row: 1/2;
     align-self: flex-end;
 }
 
-.container .form {
+.reg .form {
     margin-top: 30px;
     grid-row: 2/3;
 }
 
-.container .footer {
+.reg .footer {
     grid-row: 3/4;
 }

@@ -5,7 +5,7 @@ import PreviewBanner from '../../components/common/preview_banner'
 
 function RecoveryPage() {
     return (
-        <div className="container">
+        <div className="container recovery">
             <PreviewBanner/>
             <RecoveryForm/>
             <div className="footer"></div>

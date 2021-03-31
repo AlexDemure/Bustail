@@ -5,7 +5,7 @@ import PreviewBanner from '../../components/common/preview_banner'
 
 function AuthPage() {
     return (
-        <div className="container">
+        <div className="container auth">
             <PreviewBanner/>
             <div className="form">
                 <AuthForm/>

@@ -1,5 +1,5 @@
 .transport {
-    margin-top: 10px;
+    margin-bottom: 10px;
     width: 95vw;
     height: 180px;
     display: grid;
@@ -66,22 +66,28 @@
     background-position-y: center;
     background-repeat: no-repeat;
     box-shadow: 5px 2px 0px -4px #2e2e2e;
+    background-size: 30px 30px;
 }
 .transport .controls a[id=contacts] {
-    background-size: 25px 25px;
-    background-image: url("../../../static/icons/telephone.png");
+    background-image: url("../../../static/icons/default/call.png");
+}
+.transport .controls a[id=contacts]:hover {
+    background-image: url("../../../static/icons/active/call.png");
 }
 
 .transport .controls div[id=info] {
-    background-size: 35px 35px;
-    background-image: url("../../../static/icons/driver-license-card.png");
+    background-image: url("../../../static/icons/default/description.png");
+}
+.transport .controls div[id=info]:hover {
+    background-image: url("../../../static/icons/active/description.png");
 }
 
 .transport .controls div[id=offer] {
-    background-size: 18px 25px;
-    background-image: url("../../../static/icons/app.png");
+    background-image: url("../../../static/icons/default/offer.png");
 }
-
+.transport .controls div[id=offer]:hover {
+    background-image: url("../../../static/icons/active/offer.png");
+}
 
 .transport .transport_card {
     opacity: 0.95;

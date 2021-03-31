@@ -1,8 +1,8 @@
-.container {
+.auth {
     display: grid;
     padding: 0;
     margin: 0;
-    height: 95vh;
+    height: 100vh;
     width: 95vw;
     display: grid;
     grid-template-rows: 25% auto 15%;
@@ -12,28 +12,28 @@
     overflow: hidden;
 }
 
-.container .preview_banner {
+.auth .preview_banner {
     grid-row: 1/2;
     align-self: flex-end;
 }
 
-.container .form {
+.auth .form {
     margin-top: 30px;
     grid-row: 2/3;
 }
 
-.container .form #reset_password {
+.auth .form #reset_password {
     margin-top: 30px;
     text-align: center;
     color: #535353;
     font-family: 'FuturaDemic';
 }
 
-.container .form #reset_password a {
+.auth .form #reset_password a {
     text-decoration: none;
     color: #fba333;
 }
 
-.container .footer {
+.auth .footer {
     grid-row: 3/4;
 }

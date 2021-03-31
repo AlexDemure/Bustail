@@ -1,7 +1,8 @@
 .ticket {
     margin: 5px;
+    margin-bottom: 10px;
     background-color: #222222;
-    width: 380px;
+    width: 95vw;
     height: 150px;
     border-radius: 20px;
     position: relative;
@@ -84,7 +85,7 @@
 }
 
 .ticket_content .points .to {
-color: #80AB98;
+color: #fba333;
 }
 
 .ticket_content .date {

@@ -2,10 +2,6 @@ import React from 'react'
 import "./css/search_selector.css"
 import './css/base.css'
 
-let options = [
-    "Hello", "Hells", "World", "Buy"
-]
-
 
 export default class SearchInput extends React.Component {
 
@@ -45,7 +41,7 @@ export default class SearchInput extends React.Component {
         }
 
         if (userData) {
-            emptyArray = options.filter(
+            emptyArray = this.props.options.filter(
                 (data) => {
                     return data.toLocaleLowerCase().startsWith(userData.toLocaleLowerCase());
                 }

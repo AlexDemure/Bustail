@@ -7,22 +7,12 @@ import RegistrationPage from './pages/registration/main'
 import AuthPage from './pages/auth/main'
 import RecoveryPage from './pages/recovery/main'
 import MainPage from './pages/main/main'
-
+import SearchTransportPage from './pages/transport/search'
+import SearchAppPage from './pages/app/search'
+import CreateAppPage from './pages/app/create'
 
 import './index.css'
 
-// const ticket = {
-//   "from": "Челябинск", "to": "Москва", "date": "16.10.21",
-//   "price": 16000, "type_app": "Свадьба", "seats": 24,
-// }
-
-const transport = {
-  "mark": "Mersedes Benz", "model": "Splinter",
-  "price": 900, "seats": 24, "city": "Челябинск",
-  "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-  "photo": "base64", "phone": "+79123456789",
-  "driver": "Иванов Иван", "driver_license": "312-1251-1231"
-}
 
 class Main extends React.Component{
   render(){
@@ -34,6 +24,11 @@ ReactDOM.render(
   <Router>
       <Switch>
           <Route exact path="/" component={Main} />
+          <Route path="/transport/search" component={SearchTransportPage} />
+          
+          <Route path="/app/search" component={SearchAppPage} />
+          <Route path="/app/create" component={CreateAppPage} />
+
           <Route path="/registration" component={RegistrationPage} />
           <Route path="/login" component={AuthPage} />
           <Route path="/recovery" component={RecoveryPage} />

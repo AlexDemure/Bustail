@@ -1,14 +1,15 @@
 .navbar {
+    z-index: 100;
+    border-top: 1px solid #262626;
     position: absolute;
     bottom: 0;
     left: 0;
     background-color: #222222;
-    height: 9vh;
+    height: 70px;
     width: 100vw;
-    bottom: 0;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: 1fr
+    grid-template-rows: 1fr;
 }
 
 .navbar .nav_btn {
@@ -19,7 +20,7 @@
     align-self: center;
     margin-top: 10px;
 
-    background-size: 25px 25px;
+    background-size: 30px 30px;
     background-position-x: center;
     background-position-y: center;
     background-repeat: no-repeat;
@@ -32,11 +33,11 @@
     background-image: url('../../../static/icons/active/home.png');
 }
 
-.navbar a[id=search] {
-    background-image: url('../../../static/icons/default/search.png');
+.navbar a[id=history] {
+    background-image: url('../../../static/icons/default/history.png');
 }
-.navbar a[id=search]:active {
-    background-image: url('../../../static/icons/active/search.png');
+.navbar a[id=history]:active {
+    background-image: url('../../../static/icons/active/history.png');
 }
 
 .navbar a[id=notifications] {

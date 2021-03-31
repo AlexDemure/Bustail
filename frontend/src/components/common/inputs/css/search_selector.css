@@ -1,5 +1,6 @@
 .search {
     position: relative;
+    
 }
 
 .search .option {
@@ -12,6 +13,7 @@
     opacity: 1;
     pointer-events: none;
     overflow-x: hidden;
+    z-index: 2;
 }
 
 .search.active .option {
@@ -30,7 +32,7 @@
     display: none;
     text-align: left;
     width: 100%;
-    
+    z-index: 101;
 
 }
 

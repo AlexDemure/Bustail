@@ -7,11 +7,27 @@ input {
     font-size: 18px;
     
     height: 60px;
-    width: 100%;
+    width: 95%;
     border-radius: 5px;
     margin-top: 5px;
     padding-left: 10px;
     
+}
+
+textarea {
+    background: #222222;
+    border: none;
+    outline: none;
+    color: #FBFBFB;
+    font-family: 'FuturaBookC';
+    font-size: 18px;
+    
+    height: 120px;
+    width: 100%;
+    border-radius: 5px;
+    margin-top: 5px;
+    padding-left: 10px;
+    padding-top: 10px;
 }
 
 input::placeholder {
@@ -19,27 +35,48 @@ input::placeholder {
     font-size: 18px;
 }
 
+textarea::placeholder {
+    color:#535353;
+    font-size: 18px;
+}
 
-.search-selector {
-    background-image: url("../../../../static/icons/selector.png");
-    background-size: 15px 15px;
+input {
+    background-size: 25px 25px;
     background-position: 95% center;
     background-repeat: no-repeat;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator,
+input[type="date"]::-webkit-inner-spin-button{
+    display: none;
+}
+
+.search-selector {
+    background-image: url("../../../../static/icons/default/search.png");
 }
 
 .default_input.email {
     background-image: url("../../../../static/icons/email.png");
-    background-size: 20px 15px;
-    background-position: 95% center;
-    background-repeat: no-repeat;
 }
 
 .default_input.password {
     background-image: url("../../../../static/icons/password.png");
-    background-size: 16px 20px;
-    background-position: 95% center;
-    background-repeat: no-repeat;
-
+    background-size: 20px 23px;
+    background-position: 94% center;
     font-size: 12px;
     font-family: 'FuturaLightC';
+}
+
+.default_input.date {
+    background-image: url("../../../../static/icons/calendar.png");
+}
+
+input[name=seats] {
+    background-image: url("../../../../static/icons/seats.png");
+}
+
+input[name=price] {
+    background-image: url("../../../../static/icons/price.png");
+    width: 75%;
+    float: left;
 }
