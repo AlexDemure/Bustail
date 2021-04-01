@@ -1,18 +1,13 @@
-.container.search-app {
+.container.create-transport {
     display: grid;
     padding: 0;
     margin: 0;
     height: 95vh;
     width: 95vw;
     display: grid;
-    grid-template-rows: 10% 10% 75% 1fr;
+    grid-template-rows: 20% 75% 1fr;
     grid-template-columns: 1fr;
     justify-items: center;
     align-items: flex-start;
 }
 
-.container.search-app .apps {
-    margin-top: 10px;
-    overflow: scroll;
-    height: 100%;
-}

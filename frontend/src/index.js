@@ -7,7 +7,11 @@ import RegistrationPage from './pages/registration/main'
 import AuthPage from './pages/auth/main'
 import RecoveryPage from './pages/recovery/main'
 import MainPage from './pages/main/main'
+import CabinetPage from './pages/cabinet/main'
+
 import SearchTransportPage from './pages/transport/search'
+import CreateTransportPage from './pages/transport/create'
+
 import SearchAppPage from './pages/app/search'
 import CreateAppPage from './pages/app/create'
 
@@ -25,9 +29,12 @@ ReactDOM.render(
       <Switch>
           <Route exact path="/" component={Main} />
           <Route path="/transport/search" component={SearchTransportPage} />
-          
+          <Route path="/transport/create" component={CreateTransportPage} />
+
           <Route path="/app/search" component={SearchAppPage} />
           <Route path="/app/create" component={CreateAppPage} />
+
+          <Route path="/cabinet" component={CabinetPage} />
 
           <Route path="/registration" component={RegistrationPage} />
           <Route path="/login" component={AuthPage} />

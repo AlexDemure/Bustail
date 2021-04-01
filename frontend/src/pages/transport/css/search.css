@@ -1,4 +1,4 @@
-.search-transport {
+.container.search-transport {
     display: grid;
     padding: 0;
     margin: 0;
@@ -11,7 +11,7 @@
     align-items: flex-start;
 }
 
-.search-transport .transports {
+.container.search-transport .transports {
     margin-top: 10px;
     overflow: scroll;
     height: 100%;

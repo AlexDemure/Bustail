@@ -1,0 +1,32 @@
+.container.cabinet {
+    display: grid;
+    padding: 0;
+    margin: 0;
+    height: 95vh;
+    grid-template-columns: 1fr;
+    justify-items: center;
+    align-items: flex-start;
+    overflow: hidden;
+}
+.container.cabinet.common {
+    grid-template-rows: 10% 5% 15% auto 15%;
+}
+
+.container.cabinet.driver {
+    grid-template-rows: 10% 5% auto 7%;
+}
+
+.container.cabinet.driver p[id=warning] {
+    margin-left: 10%;
+}
+
+.container.cabinet.driver .driver {
+    overflow: scroll;
+    height: 100%;
+}
+
+.container.cabinet.driver .driver .transports p[id=header] {
+    color: #fbfbfb;
+    font-size: 18px;
+    font-family: 'FuturaDemiC';
+}

@@ -1,4 +1,4 @@
-.reg {
+.container.reg {
     display: grid;
     padding: 0;
     margin: 0;
@@ -12,16 +12,16 @@
     overflow: hidden;
 }
 
-.reg .preview_banner {
+.container.reg .preview_banner {
     grid-row: 1/2;
     align-self: flex-end;
 }
 
-.reg .form {
+.container.reg .form {
     margin-top: 30px;
     grid-row: 2/3;
 }
 
-.reg .footer {
+.container.reg .footer {
     grid-row: 3/4;
 }

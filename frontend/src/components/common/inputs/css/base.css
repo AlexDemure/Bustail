@@ -80,3 +80,7 @@ input[name=price] {
     width: 75%;
     float: left;
 }
+
+input[name=phone] {
+    background-image: url("../../../../static/icons/default/call.png");
+}
