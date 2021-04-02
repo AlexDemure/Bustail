@@ -8,7 +8,7 @@ import Header from '../../components/common/header'
 
 import ClientInfoForm from '../../components/forms/cabinet/client'
 import PaymentData from '../../components/common/payment_data'
-import TransportItem from '../../components/common/transport'
+import TransportItem from '../../components/common/transports/transport_min'
 
 const cities = [
     "Челябинск", "Уфа", "Москва"

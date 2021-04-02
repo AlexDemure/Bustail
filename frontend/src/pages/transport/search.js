@@ -1,7 +1,7 @@
 import NavBar from '../../components/common/navbar'
 import Header from '../../components/common/header'
 import SearchInput from '../../components/common/inputs/search_selector'
-import TransportItem from '../../components/common/transport'
+import TransportItem from '../../components/common/transports/transport'
 
 import './css/search.css'
 
