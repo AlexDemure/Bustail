@@ -1,128 +1,187 @@
 .ticket {
-    margin: 5px;
     margin-bottom: 10px;
-    background-color: #222222;
     width: 95vw;
-    height: 150px;
-    border-radius: 20px;
+    height: 100px;
+    border-radius: 10px;
+
+    display: grid;
+    grid-template-columns: 35% 65%;
     position: relative;
 }
 
+.ticket div p {
+    margin: 0;
+    padding: 0;
+}
 
-.ticket .ticket_design {
+.ticket div[id=left] {
+    grid-column: 1 / 2;
+    background-color: #222222;
+    
+}
+
+.ticket div[id=left] p {
+    margin-left: 10px;
+}
+
+.ticket div .annotation {
+    font-size: 14px;
+    color: #6e6e6e;
+    font-family: "FuturaMediumC";
+    margin-top: 10px;
+
+}
+
+.ticket div .city {
+    font-size: 18px;
+    color: #fbfbfb;
+    font-family: "FuturaDemiC";
+    margin-top: 5px;
+
+}
+.ticket div p[id=to] {
+    color: #fba333;
+}
+
+.ticket div .about {
+    font-size: 15px;
+    color: #fba333;
+    font-family: "FuturaBookC";
+    margin-top: 15px;
+}
+
+.ticket div .app_type {
+    font-size: 15px;
+    color: #fbfbfb;
+    font-family: "FuturaBookC";
+    margin-top: 15px;
+}
+
+.ticket div .date {
+    font-size: 14px;
+    color: #fba333;
+    font-family: "FuturaDemiC";
+    margin-top: 15px;
+}
+
+.ticket div .price {
+    font-size: 14px;
+    color: #fbfbfb;
+    font-family: "FuturaBookC";
+    margin-top: 5px;
+}
+
+.ticket div[id=right] {
+    grid-column: 2 / 3;
+    background-color: #262626;
+    display: grid;
+    grid-template-columns: 55% 45%;
+}
+
+
+.ticket div[id=right] div[id=right-div-left] {
+    grid-column: 1 / 2;
+    
+}
+
+.ticket div[id=right] div[id=right-div-left] p {
+    margin-left: 10px;
+}
+
+.ticket div[id=right] div[id=right-div-right] {
+    grid-column: 2 / 3;
+    display: grid;
+    grid-template-rows: 30% 30% 40%;
+    grid-template-columns: 80%;
+
+    justify-content: center;
+    align-content: center;
+
+    width: 100%;
+}
+
+.ticket div[id=right] div[id=right-div-right] p {
+    text-align: end;
+}
+
+.ticket div[id=right] div[id=right-div-right] .offer {
+    height: 80%;
+    width: 100%;
+    
+
+    display: grid;
+    align-content: center;
+    justify-content: center;
+
+    background-color: #222222;
+    border-radius: 5px;
+}
+
+.ticket div[id=right] div[id=right-div-right] .offer:hover {
+    background-color: #fba333;
+}
+
+.ticket div[id=right] div[id=right-div-right] .offer p {
+    font-size: 14px;
+    color: #6e6e6e;
+    font-family: "FuturaBookC";
+}
+
+.ticket div[id=right] div[id=right-div-right] .offer:hover p {
+    color: #181818;
+}
+
+.ticket .about_card {
+    grid-column: 1 / 3;
+    grid-row: 1 / 3;
+
+    display: grid;
+    grid-template-columns: 85% 15%;
+    align-content: flex-start;
+    justify-content: flex-start;
+
+    background-color: #222222;
+    height: 100px;
+    width: 100%;
     position: absolute;
-    width: 80vw;
-    height: 150px;
-    background-image: url(../../../static/images/russia.png);
-    background-size: 80vw 150px;
+    border: 1px solid #262626;
+}
+
+.ticket .about_card .close_card {
+    grid-column: 2 / 3;
+    grid-row: 1 / 2;
+    width: 50px;
+    height: 50px;
+    background-image: url('../../../static/icons/close.png');
+    background-size: 30px 30px;
     background-position-x: center;
-    margin-left: 20px;
-    opacity: 0.1;
-    z-index: 3;
+    background-position-y: center;
+    background-repeat: no-repeat;
+    float: right;
 }
 
-.ticket .circle {
-    position: absolute;
-    top: 50px;
-    width: 20px;
-    height: 40px;
-    border-radius: 50%;
-    z-index: 4;
-    overflow:hidden;
-}
-
-.ticket #left {
-    left: -10px;
-    background-color: #181818;
-}
-
-.ticket #right {
-    right: -10px;
-    background-color: #181818;
-}
-
-.ticket_content {
+.ticket .about_card .card_data {
+    grid-column: 1 / 2;
+    grid-row: 1 / 2;
     width: 100%;
     height: 100%;
-    display: grid;
-    grid-template-columns: 35% 45% 20%;
-    grid-template-rows: 65% 35%;
+
 }
 
-.ticket_content .points {
-    grid-column: 1 / 3;
-    grid-row: 1 / 2;
-    display: grid;
-    width: 100%;
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: 1fr;
-    align-items: flex-end;
-    justify-self: flex-end;
-    padding-bottom: 10px;
+.ticket .about_card .card_data .description {
+    color: #6e6e6e;
+    font-family: 'FuturaMediumC';
+    font-size: 16px;
+    margin-top: 10px;
+    margin-left: 10px;
 }
 
-.ticket_content .points p {
-    justify-self: end;
-    padding: 0;
-    margin: 0;
-    text-align: center;
-}
-
-.ticket_content .points .city {
-    font-size: 18px;
+.ticket .about_card .card_data p span {
+    color: #FBFBFB;
+    font-size: 16px;
     font-family: 'FuturaDemiC';
 }
 
-.ticket_content .points .annotation {
-    font-size: 15px;
-    font-family: 'FuturaBookC';
-    color: gray;
-}
-
-.ticket_content .points .from {
-    padding-left: 10px;
-    color: whitesmoke;
-}
-
-.ticket_content .points .to {
-color: #fba333;
-}
-
-.ticket_content .date {
-    grid-column: 3 / 4;
-    grid-row: 1 / 2;
-    margin: 0;
-    padding: 0;
-
-}
-.ticket_content .date p {
-    font-size: 16px;
-    font-family: 'FuturaMediumC';
-    color: gray;
-}
-
-
-.ticket_content .info {
-    grid-column: 1 / 4;
-    grid-row: 2 / 3;
-    display: grid;
-    grid-template-columns: 25% 35% 40%;
-    grid-template-rows: 1fr;
+.ticket .about_card .card_data p span {
     font-size: 14px;
-    font-family: 'FuturaBookC';
-    color: gray;
-    text-align: right;
-    padding-right: 10px;
-    padding-top: 5px;
-}
-
-.ticket_content .info p span {
-    font-family: 'FuturaMediumC';
-    color: whitesmoke;
-    font-size: 16px;
-}
-
-.ticket_content .info .type_app {
-    text-align: left;
-    padding-left: 15px;
 }

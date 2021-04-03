@@ -10,7 +10,7 @@ import './css/search.css'
 const tickets = [
     {
     "from": "Челябинск", "to": "Москва", "date": "16.10.21",
-    "price": 16000, "type_app": "Свадьба", "seats": 24,
+    "price": 16000, "type_app": "Свадьба", "seats": 24, "description": "Hellodsadasd"
    },
    {
     "from": "Челябинск", "to": "Москва", "date": "16.10.21",
