@@ -1,8 +1,8 @@
 import NavBar from '../../components/common/navbar'
 import Header from '../../components/common/header'
 import SearchInput from '../../components/common/inputs/search_selector'
-import TicketItem from '../../components/common/ticket'
-
+import TicketItem from '../../components/common/tickets/ticket_search'
+import TransportItem from '../../components/common/transports/transport_offer'
 
 import './css/search.css'
 
@@ -40,6 +40,42 @@ const cities = tickets.map(
     }
 )
 
+const me_transports = [
+    {
+    "mark": "Mersedes Benz", "model": "Splinter",
+    "price": 900, "seats": 24, "city": "Челябинск",
+    "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+    "photo": "base64", "phone": "+79123456789",
+    "driver": "Иванов Иван", "driver_license": "312-1251-1231"
+   },
+   {
+    "mark": "Mersedes Benz", "model": "Splinter",
+    "price": 900, "seats": 24, "city": "Москва",
+    "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+    "photo": "base64", "phone": "+79123456789",
+    "driver": "Иванов Иван", "driver_license": "312-1251-1231"
+   },
+   {
+    "mark": "Mersedes Benz", "model": "Splinter",
+    "price": 900, "seats": 24, "city": "Москва",
+    "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+    "photo": "base64", "phone": "+79123456789",
+    "driver": "Иванов Иван", "driver_license": "312-1251-1231"
+   },
+   {
+    "mark": "Mersedes Benz", "model": "Splinter",
+    "price": 900, "seats": 24, "city": "Москва",
+    "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+    "photo": "base64", "phone": "+79123456789",
+    "driver": "Иванов Иван", "driver_license": "312-1251-1231"
+   },
+]
+
+const me_transport_in_html =  me_transports.map(
+    (transport) => <TransportItem transport={transport}/>
+)
+
+
 function SearchAppPage() {
     return (
         <div className="container search-app">
@@ -48,7 +84,7 @@ function SearchAppPage() {
             <div className="apps">
                 {
                     tickets.map(
-                        (ticket) => <TicketItem ticket={ticket}/>
+                        (ticket) => <TicketItem choices={me_transport_in_html} ticket={ticket}/>
                     )
                 }
             </div>

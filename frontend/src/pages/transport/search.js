@@ -1,7 +1,8 @@
 import NavBar from '../../components/common/navbar'
 import Header from '../../components/common/header'
 import SearchInput from '../../components/common/inputs/search_selector'
-import TransportItem from '../../components/common/transports/transport'
+import TransportItem from '../../components/common/transports/transport_search'
+import TicketItem from '../../components/common/tickets/ticket_choices'
 
 import './css/search.css'
 
@@ -56,6 +57,35 @@ const cities = transports.map(
     }
 )
 
+
+const me_apps = [
+    {
+    "from": "Челябинск", "to": "Москва", "date": "16.10.21",
+    "price": 16000, "type_app": "Свадьба", "seats": 24, "description": "Hellodsadasd"
+   },
+   {
+    "from": "Челябинск", "to": "Москва", "date": "16.10.21",
+    "price": 16000, "type_app": "Свадьба", "seats": 24,
+   },
+   {
+    "from": "Челябинск", "to": "Москва", "date": "16.10.21",
+    "price": 16000, "type_app": "Свадьба", "seats": 24,
+   },
+   {
+    "from": "Челябинск", "to": "Москва", "date": "16.10.21",
+    "price": 16000, "type_app": "Свадьба", "seats": 24,
+   },
+   {
+    "from": "Челябинск", "to": "Москва", "date": "16.10.21",
+    "price": 16000, "type_app": "Свадьба", "seats": 24,
+   },
+]
+
+const me_apps_in_html = me_apps.map(
+    (ticket) => <TicketItem ticket={ticket}/>
+)
+
+
 function SearchTransportPage() {
     return (
         <div className="container search-transport">
@@ -64,7 +94,7 @@ function SearchTransportPage() {
             <div className="transports">
                 {
                     transports.map(
-                        (transport) => <TransportItem transport={transport}/>
+                        (transport) => <TransportItem choices={me_apps_in_html} transport={transport}/>
                     )
                 }
             </div>

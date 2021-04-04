@@ -1,0 +1,7 @@
+.transport.cabinet .card #remove:hover {
+    background-color: #9B5E5D;
+}
+
+.transport.cabinet .card #remove:hover p {
+    color: #fbfbfb;
+}

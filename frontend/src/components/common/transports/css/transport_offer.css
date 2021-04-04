@@ -1,0 +1,20 @@
+.transport.offer {
+    height: 100px;
+    grid-template-columns: 110px 1fr;
+}
+
+.transport.offer .photo {
+    height: 100px;
+    width: 110px;
+
+    background-size: 110px 100px;  /* x y*/
+}
+
+.transport.offer .card {
+    grid-template-rows: 30px 70px;
+}
+
+.transport.offer .transport_card {
+    height: 100px;
+    width: 95vw;
+}

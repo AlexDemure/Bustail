@@ -104,7 +104,7 @@
     text-align: end;
 }
 
-.ticket div[id=right] div[id=right-div-right] .offer {
+.ticket div[id=right] div[id=right-div-right] .offer-btn {
     height: 80%;
     width: 100%;
     
@@ -117,17 +117,17 @@
     border-radius: 5px;
 }
 
-.ticket div[id=right] div[id=right-div-right] .offer:hover {
+.ticket div[id=right] div[id=right-div-right] .offer-btn:hover {
     background-color: #fba333;
 }
 
-.ticket div[id=right] div[id=right-div-right] .offer p {
+.ticket div[id=right] div[id=right-div-right] .offer-btn p {
     font-size: 14px;
     color: #6e6e6e;
     font-family: "FuturaBookC";
 }
 
-.ticket div[id=right] div[id=right-div-right] .offer:hover p {
+.ticket div[id=right] div[id=right-div-right] .offer-btn:hover p {
     color: #181818;
 }
 
@@ -152,7 +152,7 @@
     grid-row: 1 / 2;
     width: 50px;
     height: 50px;
-    background-image: url('../../../static/icons/close.png');
+    background-image: url('../../../../static/icons/close.png');
     background-size: 30px 30px;
     background-position-x: center;
     background-position-y: center;

@@ -2,6 +2,9 @@ import React from 'react'
 
 import "./css/ticket.css"
 
+import OfferForm from '../../forms/offer/main'
+
+
 export default class TicketItem extends React.Component {
     constructor(props) {
         super(props)
@@ -9,13 +12,18 @@ export default class TicketItem extends React.Component {
             typeWindow: "",
         }
     }
+
+    onClick(window) {
+        this.setState({typeWindow: window})
+    }
+
     render() {
         return (
             <div className="ticket">
                 <div id="left">
                     <p className="annotation">откуда</p>
                     <p id='from' className="city">{this.props.ticket.from}</p>
-                    <p className="about" onClick={() => this.setState({typeWindow: "about"})}>подробнее</p>
+                    <p className="about" onClick={() => this.onClick("about")}>подробнее</p>
                 </div>
                 <div id="right">
                     <div id="right-div-left">
@@ -26,18 +34,27 @@ export default class TicketItem extends React.Component {
                     <div id="right-div-right">
                         <p className="date">{this.props.ticket.date}</p>
                         <p className="price">{this.props.ticket.price}</p>
-                        <div className="offer" onClick={this.props.onClick}>
+                        <div className="offer-btn" onClick={() => this.onClick("offer")}>
                             <p>Предложить</p>
                         </div>
                     </div>
                 </div>
                 { this.state.typeWindow === "about" && (
                     <div className="about_card">
-                        <div className="close_card" onClick={() => this.setState({typeWindow: ""})}></div>
+                        <div className="close_card" onClick={() => this.onClick("")}></div>
                         <div className="card_data">
                             <p className="description">Комментарий к заказу: <span>{this.props.ticket.description}</span></p>
                         </div>
                     </div>
+                    )   
+                }
+                { this.state.typeWindow === "offer" && (
+                        <OfferForm
+                        onClick={() => this.onClick("")}
+                        offer_type="Предложение аренды"
+                        create_link="/transport/create"
+                        choices={this.props.choices}
+                        />
                     )   
                 }
             </div>

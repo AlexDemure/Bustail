@@ -1,0 +1,65 @@
+.transport.search {
+    height: 180px;
+    grid-template-rows: 130px 50px;
+    grid-template-columns: 200px 1fr;
+}
+
+.transport.search .photo {
+    height: 180px;
+    width: 200px;
+    background-size: 200px 180px; 
+}
+
+.transport .card {
+    grid-template-rows: 30px 100px 50px;
+
+}
+
+.transport.search .card .body {
+    grid-column: 1 / 3;
+    grid-row: 2 / 3;
+}
+
+.transport.search .card .controls {
+    grid-column: 1 / 3;
+    grid-row: 3 / 4;
+
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    border-top: 1px solid #2e2e2e;
+}
+
+
+.transport.search .card .controls .control_icon {
+    background-position-x: center;
+    background-position-y: center;
+    background-repeat: no-repeat;
+    box-shadow: 5px 2px 0px -4px #2e2e2e;
+    background-size: 30px 30px;
+}
+
+.transport.search .card .controls a[id=contacts] {
+    background-image: url("../../../../static/icons/default/call.png");
+}
+.transport.search .card .controls a[id=contacts]:hover {
+    background-image: url("../../../../static/icons/active/call.png");
+}
+
+.transport.search .card .controls div[id=info] {
+    background-image: url("../../../../static/icons/default/description.png");
+}
+.transport.search .card .controls div[id=info]:hover {
+    background-image: url("../../../../static/icons/active/description.png");
+}
+
+.transport.search .card .controls div[id=offer] {
+    background-image: url("../../../../static/icons/default/offer.png");
+}
+.transport.search .card .controls div[id=offer]:hover {
+    background-image: url("../../../../static/icons/active/offer.png");
+}
+
+.transport.search .transport_card {
+    height: 180px;
+    width: 95vw;
+}
