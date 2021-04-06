@@ -1,0 +1,16 @@
+.ticket div[id=right] div[id=right-div-right] .price,
+.ticket div[id=right] div[id=right-div-right] .date {
+    margin-right: 20px;
+}
+
+.ticket div[id=reject] {
+    background-image: url("../../../../static/icons/reject.png");
+    height: 35px;
+    width: 35px;
+    background-size: 30px 30px;
+    background-repeat: no-repeat;
+    background-position: center;
+    position: absolute;
+    right: 0;
+    background-color: #262626;
+}

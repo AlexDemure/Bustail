@@ -9,6 +9,7 @@ import RecoveryPage from './pages/recovery/main'
 import MainPage from './pages/main/main'
 import CabinetPage from './pages/cabinet/main'
 import HistoryPage from './pages/history/main'
+import NotificationPage from './pages/notifications/main'
 
 import SearchTransportPage from './pages/transport/search'
 import CreateTransportPage from './pages/transport/create'
@@ -37,6 +38,7 @@ ReactDOM.render(
 
           <Route path="/cabinet" component={CabinetPage} />
           <Route path="/history" component={HistoryPage} />
+          <Route path="/notifications" component={NotificationPage} />
 
           <Route path="/registration" component={RegistrationPage} />
           <Route path="/login" component={AuthPage} />

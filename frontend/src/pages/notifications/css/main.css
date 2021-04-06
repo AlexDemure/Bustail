@@ -1,0 +1,11 @@
+.container.history {
+    display: grid;
+    padding: 0;
+    margin: 0;
+    height: 95vh;
+    grid-template-columns: 1fr;
+    justify-items: center;
+    align-items: flex-start;
+    overflow: hidden;
+    grid-template-rows: 10% 10% auto;
+}
