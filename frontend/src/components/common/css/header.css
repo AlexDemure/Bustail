@@ -20,7 +20,7 @@ header a[id=left] {
     background-position-y: center;
 }
 
-header div[id=menu] {
+header div[id=menu-btn] {
     background-image: url('../../../static/icons/menu.png');
     background-size: 25px 25px;
     background-repeat: no-repeat;

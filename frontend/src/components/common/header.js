@@ -1,8 +1,33 @@
 import React from 'react'
 
 import './css/header.css'
+import './css/menu.css'
 
-import Menu from './menu'
+import RedirectBtn from '../common/buttons/redirect_btn'
+
+function Menu() {
+    return (
+        <div className="form-menu">
+            <div id="choices">
+                <ul>
+                    <li><a href="/">Главная</a></li>
+                    <li><a href="/main">Меню</a></li>
+                    <li><a href="/history">История</a></li>
+                    <li><a href="/notifications">Уведомления</a></li>
+                    <li><a href="/cabinet">Личный кабинет</a></li>
+                    <li><a href="/#contacts">Контакты</a></li>
+                </ul>
+            </div>
+            <RedirectBtn link="/" text="Выйти"/>
+            <div id="contacts">
+                <p id="email">Email: <span>bustail@support.com</span></p>
+                <a href="tel:+79191231251" id="phone">Телефон: <span>+7 (351) 223-12-51</span></a>
+            </div>
+            
+        </div>
+    )
+} 
+
 
 export default class Header extends React.Component {
     constructor(props) {
@@ -34,13 +59,12 @@ export default class Header extends React.Component {
                 <div id="page_name">
                     {this.props.page_name ? this.props.page_name : "Bustail"}
                 </div>
-                <div id="menu" onClick={this.changeState}>
-                    {
-                        this.state.is_active && (
-                            <Menu changeState={this.changeState}/>
-                        )
-                    }
-                </div>
+                <div id="menu-btn" onClick={this.changeState}></div>
+                {
+                    this.state.is_active && (
+                        <Menu/>
+                    )
+                }
             </header>
         )
     }
