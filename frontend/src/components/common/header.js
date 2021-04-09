@@ -23,9 +23,9 @@ export default class Header extends React.Component {
         let divItem;
     
         if (this.props.previous_page) {
-            divItem = <a href={this.props.previous_page} id="left"><div id="left"></div></a>
+            divItem = <a href={this.props.previous_page} id="left"><div id="left"/></a>
         } else {
-            divItem = <div id="none"></div>
+            divItem = <div id="none"/>
         }
 
         return (
@@ -34,7 +34,8 @@ export default class Header extends React.Component {
                 <div id="page_name">
                     {this.props.page_name ? this.props.page_name : "Bustail"}
                 </div>
-                <div id="menu" onClick={this.changeState}>
+                <div id="menu">
+                    <div id="icon" onClick={this.changeState}/>
                     {
                         this.state.is_active && (
                             <Menu changeState={this.changeState}/>

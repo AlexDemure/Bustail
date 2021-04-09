@@ -7,28 +7,31 @@ import './css/main.css'
 
 
 function MainPage() {
+    let redirect = (path) => {
+        window.location.replace(path);
+    }
     return (
         <div className="container main">
             <Header/>
             <div className="menu">
-                <div onClick={() => window.location.replace('/app/create')} className="create_app">
+                <div onClick={() => redirect('/app/create')} className="create_app">
                     <p>Создать заявку</p>
                 </div>
-                <div onClick={() => window.location.replace('/transport/create')} className="create_transport">
+                <div onClick={() => redirect('/transport/create')} className="create_transport">
                     <p>Предложить аренду</p>
                 </div>
                 <div className="find">
                     <div id="text">
                         <p>Поиск</p>
                     </div>
-                    <div onClick={() => window.location.replace('/transport/search')} id="transport">
+                    <div onClick={() => redirect('/transport/search')} id="transport">
                         <p>Транспорт</p>
                     </div>
-                    <div onClick={() => window.location.replace('/app/search')} id="apps">
+                    <div onClick={() => redirect('/app/search')} id="apps">
                         <p>Заказы</p>
                     </div>
                 </div>
-                <div onClick={() => window.location.replace('/cabinet')} className="cabinet">
+                <div onClick={() => redirect('/cabinet')} className="cabinet">
                     <p>Личный кабинет</p>
                 </div>
             </div>
