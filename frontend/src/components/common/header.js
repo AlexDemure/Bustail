@@ -58,8 +58,7 @@ export default class Header extends React.Component {
                 <div id="page-name">
                     {this.props.page_name ? this.props.page_name : ""}
                 </div>
-                <div id="dropdown-btn"></div>
-                <div id="icon" onClick={this.changeState}/>
+                <div id="dropdown-btn" onClick={this.changeState}/>
                 {
                     this.state.is_active && (
                         <DropdownMenu/>
