@@ -9,7 +9,7 @@ function Menu(props) {
         <div className="form-menu">
             <div id="header">
                 <div id="page_name">Меню</div>
-                <div id="menu" onClick={props.changeState}/>
+                <div id="menu" onClick={props.changeState}></div>
             </div>
             <div id="choices">
                 <ul>

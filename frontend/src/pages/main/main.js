@@ -12,7 +12,7 @@ function MainPage() {
     }
     return (
         <div className="container main">
-            <Header/>
+            <Header page_name="Bustail"/>
             <div className="menu">
                 <div onClick={() => redirect('/app/create')} className="create_app">
                     <p>Создать заявку</p>

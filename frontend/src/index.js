@@ -3,9 +3,11 @@ import ReactDOM from 'react-dom';
 
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
+import LangingPage from './pages/langing/main'
 import RegistrationPage from './pages/registration/main'
 import AuthPage from './pages/auth/main'
 import RecoveryPage from './pages/recovery/main'
+import ChangePasswordPage from './pages/recovery/change_password'
 import MainPage from './pages/main/main'
 import CabinetPage from './pages/cabinet/main'
 import HistoryPage from './pages/history/main'
@@ -20,21 +22,17 @@ import CreateAppPage from './pages/app/create'
 import './index.css'
 
 
-class Main extends React.Component{
-  render(){
-      return <h2>Главная</h2>;
-  }
-}
-
 ReactDOM.render(
   <Router>
       <Switch>
-          <Route exact path="/" component={Main} />
+          <Route exact path="/" component={LangingPage} />
           <Route path="/transport/search" component={SearchTransportPage} />
           <Route path="/transport/create" component={CreateTransportPage} />
 
           <Route path="/app/search" component={SearchAppPage} />
           <Route path="/app/create" component={CreateAppPage} />
+
+          <Route path="/recovery/password" component={ChangePasswordPage} />
 
           <Route path="/cabinet" component={CabinetPage} />
           <Route path="/history" component={HistoryPage} />
@@ -44,6 +42,8 @@ ReactDOM.render(
           <Route path="/login" component={AuthPage} />
           <Route path="/recovery" component={RecoveryPage} />
           <Route path="/main" component={MainPage} />
+
+
       </Switch>
   </Router>,
   document.getElementById('root')

@@ -1,8 +1,32 @@
 import React from 'react'
 
 import './css/header.css'
+import './css/dropdown_menu.css'
 
-import Menu from './menu'
+import RedirectBtn from '../common/buttons/redirect_btn'
+
+function DropdownMenu() {
+    return (
+        <div className="dropdown-menu">
+            <div className="dropdown-menu__list">
+                <ul>
+                    <li><a href="/">Главная</a></li>
+                    <li><a href="/main">Меню</a></li>
+                    <li><a href="/history">История</a></li>
+                    <li><a href="/notifications">Уведомления</a></li>
+                    <li><a href="/cabinet">Личный кабинет</a></li>
+                </ul>
+            </div>
+            <RedirectBtn link="/" text="Выйти"/>
+            <div className="dropdown-menu__contacts">
+                <p id="email">Email: <span>bustail@support.com</span></p>
+                <a href="tel:+79191231251" id="phone">Телефон: <span>+7 (351) 223-12-51</span></a>
+            </div>
+
+        </div>
+    )
+}
+
 
 export default class Header extends React.Component {
     constructor(props) {
@@ -31,17 +55,16 @@ export default class Header extends React.Component {
         return (
             <header>
                 {divItem}
-                <div id="page_name">
-                    {this.props.page_name ? this.props.page_name : "Bustail"}
+                <div id="page-name">
+                    {this.props.page_name ? this.props.page_name : ""}
                 </div>
-                <div id="menu">
-                    <div id="icon" onClick={this.changeState}/>
-                    {
-                        this.state.is_active && (
-                            <Menu changeState={this.changeState}/>
-                        )
-                    }
-                </div>
+                <div id="dropdown-btn"></div>
+                <div id="icon" onClick={this.changeState}/>
+                {
+                    this.state.is_active && (
+                        <DropdownMenu/>
+                    )
+                }
             </header>
         )
     }
