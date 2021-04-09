@@ -20,7 +20,7 @@ header a[id=left] {
     background-position-y: center;
 }
 
-header div[id=menu-btn] {
+header div[id=dropdown-btn] {
     background-image: url('../../../static/icons/menu.png');
     background-size: 25px 25px;
     background-repeat: no-repeat;
@@ -28,7 +28,7 @@ header div[id=menu-btn] {
     background-position-y: center;
 }
 
-header div[id=page_name] {
+header div[id=page-name] {
     color: #FBFBFB;
     font-size: 24px;
     font-family: 'FuturaDemiC';

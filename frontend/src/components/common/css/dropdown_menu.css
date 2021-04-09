@@ -1,4 +1,4 @@
-.form-menu {
+.dropdown-menu {
     position: fixed;
     z-index: 1000;
     background-color: #181818;
@@ -15,71 +15,42 @@
 }
 
 
-.form-menu #choices {
+.dropdown-menu .dropdown-menu__list {
     grid-row: 1 / 2;
 
     justify-self: center;
     align-self: center;
 }
 
-.form-menu #contacts {
+.dropdown-menu .dropdown-menu__contacts {
     grid-row: 3 / 4;
     margin-left: 20px;
+    text-align: left;
 }
 
-.form-menu #contacts a,
-.form-menu #contacts p {
+.dropdown-menu .dropdown-menu__contacts a,
+.dropdown-menu .dropdown-menu__contacts p {
     color: #535353;
     font-size: 18px;
     font-family: 'FuturaMediumC';
     text-decoration: none;
 }
-.form-menu #contacts a span,
-.form-menu #contacts p span {
+.dropdown-menu .dropdown-menu__contacts a span,
+.dropdown-menu .dropdown-menu__contacts p span {
     color: #fba333;
     font-size: 20px;
     font-family: 'FuturaDemiC';
     text-decoration: none;
 }
 
-.form-menu #header div[id=menu] {
-    justify-self: flex-end;
-    height: 25px;
-    width: 50px;
-    background-image: url('../../../static/icons/menu.png');
-    background-size: 25px 25px;
-    background-repeat: no-repeat;
-    background-position-x: center;
-    background-position-y: center;
 
-}
-
-.form-menu #header div[id=page_name] {
-    text-align: center;
-    color: #FBFBFB;
-    font-size: 22px;
-    font-family: 'FuturaDemiC';
-    margin-left: 50px;
-}
-
-.form-menu #link {
-    text-align: center;
-    width: 30%;
-    margin-left: 35%;
-    border-radius: 5px;
-}
-
-.form-menu #link a {
-    color: #FBFBFB
-}
-
-.form-menu #choices ul {
+.dropdown-menu .dropdown-menu__list ul {
     padding: 0;
     margin: 0;
     width: 80vw
 }
 
-.form-menu #choices ul li {
+.dropdown-menu .dropdown-menu__list ul li {
     text-align: center;
     list-style: none;
     width: 100%;
@@ -87,15 +58,26 @@
     margin-bottom: 10px;
 }
 
-.form-menu #choices ul li a {
+.dropdown-menu .dropdown-menu__list ul li a {
     text-decoration: none;
     color: #535353;
     font-size: 20px;
     font-family: 'FuturaMediumC';
 }
 
-.form-menu #choices ul li a:hover {
+.dropdown-menu .dropdown-menu__list ul li a:hover {
     color: #fba333;
     font-size: 24px;
     font-family: 'FuturaDemiC';
+}
+
+.dropdown-menu #link {
+    text-align: center;
+    width: 30%;
+    margin-left: 35%;
+    border-radius: 5px;
+}
+
+.dropdown-menu #link a {
+    color: #FBFBFB
 }

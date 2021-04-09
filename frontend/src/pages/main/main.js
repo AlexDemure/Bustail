@@ -9,7 +9,7 @@ import './css/main.css'
 function MainPage() {
     return (
         <div className="container main">
-            <Header/>
+            <Header page_name="Bustail"/>
             <div className="menu">
                 <div onClick={() => window.location.replace('/app/create')} className="create_app">
                     <p>Создать заявку</p>
