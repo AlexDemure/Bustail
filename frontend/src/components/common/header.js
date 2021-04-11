@@ -22,10 +22,10 @@ function DropdownMenu() {
                 <p id="email">Email: <span>bustail@support.com</span></p>
                 <a href="tel:+79191231251" id="phone">Телефон: <span>+7 (351) 223-12-51</span></a>
             </div>
-            
+
         </div>
     )
-} 
+}
 
 
 export default class Header extends React.Component {
@@ -47,9 +47,9 @@ export default class Header extends React.Component {
         let divItem;
     
         if (this.props.previous_page) {
-            divItem = <a href={this.props.previous_page} id="left"><div id="left"></div></a>
+            divItem = <a href={this.props.previous_page} id="left"><div id="left"/></a>
         } else {
-            divItem = <div id="none"></div>
+            divItem = <div id="none"/>
         }
 
         return (
@@ -58,7 +58,7 @@ export default class Header extends React.Component {
                 <div id="page-name">
                     {this.props.page_name ? this.props.page_name : ""}
                 </div>
-                <div id="dropdown-btn" onClick={this.changeState}></div>
+                <div id="dropdown-btn" onClick={this.changeState}/>
                 {
                     this.state.is_active && (
                         <DropdownMenu/>
