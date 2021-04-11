@@ -8,7 +8,9 @@
     grid-template-rows: 10% 10% 75% 1fr;
     grid-template-columns: 1fr;
     justify-items: center;
+    justify-content: center;
     align-items: flex-start;
+    margin-left: 10px;
 }
 
 .container.search-transport .transports {

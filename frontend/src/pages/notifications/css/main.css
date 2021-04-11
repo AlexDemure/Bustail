@@ -1,4 +1,4 @@
-.container.history {
+.container.notifications {
     display: grid;
     padding: 0;
     margin: 0;
@@ -9,3 +9,7 @@
     overflow: hidden;
     grid-template-rows: 10% 10% auto;
 }
+
+.container.notifications .notification_switches {
+    margin-left: 10px;
+} 

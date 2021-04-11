@@ -23,6 +23,7 @@
 .container.cabinet.driver .driver {
     overflow: scroll;
     height: 100%;
+    margin-left: 5px;
 }
 
 .container.cabinet.driver .driver .transports p[id=header] {

@@ -118,7 +118,7 @@ export default class NotificationPage extends React.Component {
         }
 
         return (
-            <div className="container history">
+            <div className="container notifications">
                 <Header previous_page="/main" page_name="Уведомления"/>
                 <NotificationSwitch
                 is_active={this.state.form}
