@@ -1,9 +1,9 @@
-.search {
+.search-selector {
     position: relative;
     
 }
 
-.search .option {
+.search-selector .option {
     position: absolute;
     max-height: 200px;
     width: 100%;
@@ -16,12 +16,12 @@
     z-index: 2;
 }
 
-.search.active .option {
+.search-selector.active .option {
     opacity: 1;
     pointer-events: auto;
 }
 
-.search .option li {
+.search-selector .option li {
     list-style: none;
     padding: 8px 12px;
     cursor: default;
@@ -36,16 +36,16 @@
 
 }
 
-.search.active .option li {
+.search-selector.active .option li {
     display: block;
 }
 
-.search.active .option li span {
+.search-selector.active .option li span {
     color: #535353;
     font-family: 'FuturaBookC';
     font-size: 16px;
 }
 
-.search .option li:hover {
+.search-selector .option li:hover {
     background-color: #fba333;
 }

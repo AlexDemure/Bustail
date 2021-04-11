@@ -67,9 +67,9 @@ export default class SearchInput extends React.Component {
     
     render() {
         return (
-            <div className={"search " + (this.state.result.length ? "active" : "")}>
+            <div className={"search-selector " + (this.state.result.length ? "active" : "")}>
                 <input
-                className="search-selector" 
+                className="search-selector__input__common" 
                 name={this.props.name}
                 type="text"
                 size="45"

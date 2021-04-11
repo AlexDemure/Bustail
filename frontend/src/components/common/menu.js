@@ -2,7 +2,7 @@ import React from 'react'
 
 import './css/menu.css'
 
-import RedirectBtn from '../common/buttons/redirect_btn'
+import RedirectButton from '../common/buttons/redirect_btn'
 
 function Menu(props) {
     return (
@@ -21,7 +21,7 @@ function Menu(props) {
                     <li><a href="/#contacts">Контакты</a></li>
                 </ul>
             </div>
-            <RedirectBtn link="/" text="Выйти"/>
+            <RedirectButton link="/" text="Выйти"/>
             <div id="contacts">
                 <p id="email">Email: <span>bustail@support.com</span></p>
                 <a href="tel:+79191231251" id="phone">Телефон: <span>+7 (351) 223-12-51</span></a>

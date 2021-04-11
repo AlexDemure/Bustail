@@ -1,12 +1,12 @@
-import './css/redirect_btn.css'
+import './css/base.css'
 
 
-function RedirectBtn(props) {
+function RedirectButton(props) {
     return (
-        <div id="link">
+        <div className="button__common__redirect">
             <a href={props.link}>{props.text}</a>
         </div>
     )
 }
 
-export default RedirectBtn
+export default RedirectButton

@@ -2,11 +2,11 @@ import React from 'react'
 
 import './css/main.css'
 
-import NotificationSwitch from '../../components/common/swithes/notification'
+import NotificationSwitch from '../transport/components/notification'
 import NavBar from '../../components/common/navbar'
 import Header from '../../components/common/header'
 import TransportItem from '../../components/common/transports/transport_notification'
-import TicketItem from '../../components/common/tickets/ticket_notification'
+import TicketNotification from '../../components/common/tickets/ticket_notification'
 
 
 const transports = [
@@ -60,7 +60,7 @@ function AppForm(props) {
         <div className="apps">
             {
                 tickets.map(
-                    (ticket) => <TicketItem ticket={ticket}/>
+                    (ticket) => <TicketNotification ticket={ticket}/>
                 )
             }
         </div>

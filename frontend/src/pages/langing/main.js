@@ -1,5 +1,5 @@
 import React from 'react'
-import './css/main.css'
+import './css/base.css'
 
 import Header from '../../components/common/header'
 import ContactsPage from './contacts'

@@ -3,7 +3,7 @@ import React from 'react'
 import './css/header.css'
 import './css/dropdown_menu.css'
 
-import RedirectBtn from '../common/buttons/redirect_btn'
+import RedirectButton from '../common/buttons/redirect_btn'
 
 function DropdownMenu() {
     return (
@@ -17,7 +17,7 @@ function DropdownMenu() {
                     <li><a href="/cabinet">Личный кабинет</a></li>
                 </ul>
             </div>
-            <RedirectBtn link="/" text="Выйти"/>
+            <RedirectButton link="/" text="Выйти"/>
             <div className="dropdown-menu__contacts">
                 <p id="email">Email: <span>bustail@support.com</span></p>
                 <a href="tel:+79191231251" id="phone">Телефон: <span>+7 (351) 223-12-51</span></a>

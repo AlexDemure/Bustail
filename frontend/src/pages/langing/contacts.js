@@ -1,6 +1,6 @@
 import React from 'react'
 
-import ContactsFeedBackForm from '../../components/forms/landing/contacts'
+import ContactsFeedBackForm from './forms/form_contacts'
 
 
 function ContactsPage(props) {

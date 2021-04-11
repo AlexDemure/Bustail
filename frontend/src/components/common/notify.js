@@ -1,6 +1,6 @@
 import './css/notify.css'
 
-import RedirectBtn from '../common/buttons/redirect_btn'
+import RedirectButton from '../common/buttons/redirect_btn'
 
 const NotifyTexts = {
     recovery: (
@@ -36,7 +36,7 @@ function Notify(props) {
         <div className="notify">
             <p id="alert">Уведомление</p>
             <p id="information">{NotifyTexts[props.type]}</p>
-            <RedirectBtn link={props.link} text={props.text}/>
+            <RedirectButton link={props.link} text={props.text}/>
             
         </div>
     )

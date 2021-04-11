@@ -1,0 +1,43 @@
+.button__common__redirect,
+.input__common__submit {
+    background-color: #262626;
+    height: 50px;
+    width: 150px;
+    border-radius: 10px;
+    
+    
+}
+
+.input__common__submit {
+    font-family: 'FuturaBookC';
+    font-size: 16px; 
+}
+
+
+.input__common__submit:hover {
+    background-color: #fba333;
+    color: #262626
+    
+}
+
+.button__common__redirect {
+    display: grid;
+    align-content: center;
+    justify-content: center;
+}
+
+.button__common__redirect a {
+    font-size: 18px;
+    text-decoration: none;
+    color: #fbfbfb;
+    font-family: 'FuturaBookC';
+}
+
+
+.button__common__redirect:hover {
+    background-color: #fba333;
+}
+
+.button__common__redirect:hover a {
+    color: #222222;
+}

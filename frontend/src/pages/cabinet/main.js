@@ -2,7 +2,7 @@ import React from 'react'
 
 import './css/main.css'
 
-import CabinetSwitch from '../../components/common/swithes/cabinet'
+import CabinetSwitch from '../../components/switches/cabinet'
 import NavBar from '../../components/common/navbar'
 import Header from '../../components/common/header'
 
