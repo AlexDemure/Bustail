@@ -51,9 +51,6 @@ input[type="date"]::-webkit-inner-spin-button{
     display: none;
 }
 
-.search-selector {
-    background-image: url("../../../../static/icons/default/search.png");
-}
 
 .input__common.email {
     background-image: url("../../../../static/icons/email.png");

@@ -1,11 +1,15 @@
 .notify__common {
+    justify-self: center;
+
+    display: grid;
+    justify-content: center;
+    justify-items: center;
     text-align: center;
     width: 80%;
 }
 
-
-
 .notify__common .notify__common__title {
+    align-self: flex-end;
     font-size: 24px;
     font-family: 'FuturaBookC';
     color: gray;
@@ -13,7 +17,13 @@
 
 
 .notify__common .notify__common__text {
+    padding: 0;
+    margin: 0;
     font-size: 20px;
     font-family: 'FuturaBookC';
     color: gray;
+}
+
+.notify__common .button__common__redirect {
+    margin-top: 30px;
 }

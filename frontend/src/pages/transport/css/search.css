@@ -13,7 +13,7 @@
     margin-left: 10px;
 }
 
-.container.search-transport .transports {
+.container.search-transport .search-transport__transports {
     margin-top: 10px;
     overflow: scroll;
     height: 100%;

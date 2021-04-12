@@ -1,2 +1,25 @@
 
+.container.landing .contacts .contacts__form__feedback {
+    text-align: center;
+    width: 80%;
 
+    justify-self: center;
+    align-self: center;
+}
+
+.container.landing .contacts .contacts__form__feedback input, 
+.container.landing .contacts .contacts__form__feedback textarea {
+    margin-bottom: 5px;
+} 
+
+.container.landing .contacts .contacts__form__feedback p {
+    text-align: right;
+    color: #fba333;
+    font-family: "FuturaDemiC";
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+
+.container.landing .contacts .contacts__form__feedback .input__common__submit {
+    margin-top: 20px;
+}

@@ -1,24 +1,27 @@
 import React from 'react'
-import '../css/base.css'
-
-import NewSendMessageForm from '../common/new_send_msg'
-
-import SerializeForm from '../../../utils/form_serializer'
 
 import DefaultInput from '../../../components/common/inputs/default'
 import SearchInput from '../../../components/common/inputs/search_selector'
-
 import SubmitButton from '../../../components/common/buttons/submit_btn'
 import AuthSwitch from '../../../components/switches/auth'
 
+import SerializeForm from '../../../utils/form_serializer'
+
+import NewSendMessageForm from './new_send_msg'
 
 
 function MainFormRegistration(props) {
+    
+    // TODO FETCH CITIES
+    let cities = [
+        "Челябинск", "Чебоксары", "Уфа", "Москва"
+    ]
+
     return (
         <React.Fragment>
             <AuthSwitch is_active="reg"/>
-            <form className="form_new_user" onSubmit={props.onSubmit}>
-                <SearchInput name="city" placeholder="Город"/>
+            <form className="registration__form__create-new-user" onSubmit={props.onSubmit}>
+                <SearchInput name="city" placeholder="Город"  options={cities}/>
                 <DefaultInput parser="lowercase" name="email" input_type="email" size="25" placeholder="Электронная почта"/>
                 <DefaultInput name="password" input_type="password" size="25" placeholder="Пароль"/>
                 <SubmitButton/>
@@ -30,7 +33,7 @@ function MainFormRegistration(props) {
 function ConfirmEmailFormRegistration(props) {
     return (
         <React.Fragment>
-            <form className="form_confirm_email" onSubmit={props.onSubmit}>
+            <form className="registration__form__confirm-email" onSubmit={props.onSubmit}>
                 <DefaultInput name="code" input_type="text" size="25" placeholder="Код подтверждения"/>
                 <SubmitButton/>
             </form>
@@ -87,7 +90,7 @@ export default class RegistrationForm extends React.Component {
             form = <MainFormRegistration onSubmit={this.newUser}/>
         }
         return (
-            <div className="form">
+            <div className="registration__form">
                 {form}
             </div>
         )

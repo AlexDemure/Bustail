@@ -1,6 +1,6 @@
-import './css/main.css'
+import './css/index.css'
 
-import AuthForm from '../../components/forms/auth/main'
+import AuthForm from './forms/login'
 import PreviewBanner from '../../components/common/preview_banner'
 
 function AuthPage() {

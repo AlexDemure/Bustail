@@ -4,7 +4,6 @@ import SerializeForm from '../../../utils/form_serializer'
 
 import DefaultInput from '../../../components/common/inputs/default'
 import SearchInput from '../../../components/common/inputs/search_selector'
-
 import SubmitButton from '../../../components/common/buttons/submit_btn'
 
 

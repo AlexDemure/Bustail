@@ -1,6 +1,5 @@
 .search-selector {
     position: relative;
-    
 }
 
 .search-selector .search-selector__option {
@@ -21,13 +20,18 @@
     pointer-events: auto;
 }
 
+.search-selector .search-selector__input__common {
+    background-image: url("../../../../static/icons/default/search.png");
+}
+
 .search-selector .search-selector__option li {
     list-style: none;
-    padding: 8px 12px;
+    padding: 10px;
     cursor: default;
     border-radius: 3px;
     color: #FBFBFB;
     font-family: 'FuturaBookC';
+    border: 1px solid #222222;
     font-size: 18px;
     display: none;
     text-align: left;

@@ -1,9 +1,10 @@
 import React from 'react'
 
-import './css/new_send_msg.css'
-
 import SubmitButton from '../../../components/common/buttons/submit_btn'
+
 import CountDown from '../components/count_down'
+
+import './css/new_send_msg.css'
 
 
 export default class NewSendMessageForm extends React.Component {
@@ -36,7 +37,7 @@ export default class NewSendMessageForm extends React.Component {
         // BEST ФИЧА
         let { seconds } = this.state
         return (
-            <form className="form_new_send_msg" onSubmit={this.sendMessage}>
+            <form className="registration__form__new-send-msg" onSubmit={this.sendMessage}>
                 { 
                    seconds !== 0 && 
                    <CountDown setTime={this.setTime} seconds={this.state.seconds}/>

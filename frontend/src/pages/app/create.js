@@ -1,11 +1,11 @@
 import React from 'react'
 
-import './css/create.css'
-
 import NavBar from '../../components/common/navbar'
 import Header from '../../components/common/header'
 
-import CreateAppForm from '../../components/forms/app/create'
+import CreateAppForm from './forms/create'
+
+import './css/create.css'
 
 
 const cities = [

@@ -1,6 +1,5 @@
 import React from 'react'
 
-import '../css/base.css'
 
 import Notify from '../../../components/common/notify'
 import DefaultInput from '../../../components/common/inputs/default'
@@ -11,12 +10,10 @@ import SerializeForm from '../../../utils/form_serializer'
 
 function SendCodeForm(props) {
     return (
-        <div className="form">
-            <form className="form_recovery" onSubmit={props.onSubmit}>
-                <DefaultInput input_type="email" size="25" placeholder="Электронная почта"/>
-                <SubmitButton value="Отправить код"/>
-            </form>
-        </div>
+        <form className="recovery__form__send-code" onSubmit={props.onSubmit}>
+            <DefaultInput input_type="email" size="25" placeholder="Электронная почта"/>
+            <SubmitButton value="Отправить код"/>
+        </form>
     )
 }
 

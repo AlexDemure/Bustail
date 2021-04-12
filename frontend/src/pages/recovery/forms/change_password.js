@@ -1,7 +1,5 @@
 import React from 'react'
 
-import '../css/base.css'
-
 import Notify from '../../../components/common/notify'
 import DefaultInput from '../../../components/common/inputs/default'
 import SubmitButton from '../../../components/common/buttons/submit_btn'
@@ -11,13 +9,11 @@ import SerializeForm from '../../../utils/form_serializer'
 
 function ChangePasswordForm(props) {
     return (
-        <div className="form">
-            <form className="form_recovery" onSubmit={props.onSubmit}>
-                <DefaultInput input_type="password" size="25" placeholder="Новый пароль"/>
-                <DefaultInput input_type="password" size="25" placeholder="Подтверждение пароля"/>
-                <SubmitButton value="Сменить пароль"/>
-            </form>
-        </div>
+        <form className="recovery__form__change-password" onSubmit={props.onSubmit}>
+            <DefaultInput input_type="password" size="25" placeholder="Новый пароль"/>
+            <DefaultInput input_type="password" size="25" placeholder="Подтверждение пароля"/>
+            <SubmitButton value="Сменить пароль"/>
+        </form>
     )
 }
 

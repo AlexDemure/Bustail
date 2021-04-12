@@ -3,7 +3,7 @@ import React from 'react'
 import NavBar from '../../components/common/navbar'
 import Header from '../../components/common/header'
 
-import './css/main.css'
+import './css/index.css'
 
 
 function MainPage() {
@@ -13,14 +13,14 @@ function MainPage() {
     return (
         <div className="container main">
             <Header page_name="Bustail"/>
-            <div className="menu">
-                <div onClick={() => redirect('/app/create')} className="create_app">
+            <div className="main__menu">
+                <div onClick={() => redirect('/app/create')} className="main__menu__btn__create-app">
                     <p>Создать заявку</p>
                 </div>
-                <div onClick={() => redirect('/transport/create')} className="create_transport">
+                <div onClick={() => redirect('/transport/create')} className="main__menu__btn__create-transport">
                     <p>Предложить аренду</p>
                 </div>
-                <div className="find">
+                <div className="main__menu__btn__find">
                     <div id="text">
                         <p>Поиск</p>
                     </div>
@@ -31,7 +31,7 @@ function MainPage() {
                         <p>Заказы</p>
                     </div>
                 </div>
-                <div onClick={() => redirect('/cabinet')} className="cabinet">
+                <div onClick={() => redirect('/cabinet')} className="main__menu__btn__cabinet">
                     <p>Личный кабинет</p>
                 </div>
             </div>

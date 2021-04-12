@@ -1,4 +1,4 @@
-import './css/base.css'
+import './css/switch_cabinet.css'
 
 
 function CabinetSwitch(props) {

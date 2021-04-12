@@ -4,7 +4,7 @@ import './css/transport_offer.css'
 import './css/base.css'
 
 
-export default class TransportItem extends React.Component {
+export default class TransportOffer extends React.Component {
     constructor(props) {
         super(props)
         this.state = {

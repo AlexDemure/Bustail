@@ -1,14 +1,15 @@
 import React from 'react'
 
-import './css/main.css'
+import './css/index.css'
 
-import CabinetSwitch from '../../components/switches/cabinet'
 import NavBar from '../../components/common/navbar'
 import Header from '../../components/common/header'
 
-import ClientInfoForm from '../../components/forms/cabinet/client'
-import PaymentData from '../../components/common/payment_data'
-import TransportItem from '../../components/common/transports/transport_cabinet'
+import ClientInfoForm from './forms/client'
+import CabinetSwitch from './components/switch_cabinet'
+import PaymentData from './components/payment_data'
+import TransportItem from './components/transport'
+
 
 const cities = [
     "Челябинск", "Уфа", "Москва"

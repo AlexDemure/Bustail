@@ -1,9 +1,10 @@
 import React from 'react'
-import './css/base.css'
 
 import Header from '../../components/common/header'
+
 import ContactsPage from './contacts'
 
+import './css/index.css'
 
 function PreviewPage(props) {
     return (

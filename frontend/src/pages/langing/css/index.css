@@ -248,6 +248,10 @@ body {
     padding-bottom: 20px;
 }
 
+.container.landing .faq .faq__questions {
+    overflow-y: scroll;
+}
+
 .container.landing .faq .faq__questions .faq__accordion {
     background-color: transparent;
     color: #fbfbfb;
@@ -353,6 +357,7 @@ body {
 }
 .container.landing .contacts .contacts__title {
     align-self: flex-end;
+    margin-left: 10px;
 }
 
 .container.landing .contacts .contacts__title p,
@@ -386,24 +391,6 @@ body {
     text-align: center;
 }
 
-.container.landing .contacts .form_feedback {
-    text-align: center;
-    justify-self: center;
-    align-self: center;
-}
-
-.container.landing .contacts .form_feedback p {
-    text-align: right;
-    color: #fba333;
-    font-family: "FuturaDemiC";
-    font-size: 16px;
-}
-
-.container.landing .contacts .form_feedback textarea {
-    width: 95%;
-}
-
-
 .container.landing .contacts .contacts__footer {
     align-self: flex-end;   
     display: grid;
@@ -431,11 +418,3 @@ body {
     background-position: center;
     background-repeat: no-repeat;
 }
-
-/*.container.landing .faq {
-    display: grid;    
-}
-
-.container.landing .contacts {
-    display: grid;
-} */

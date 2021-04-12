@@ -1,12 +1,14 @@
 import React from 'react'
 
-import './css/main.css'
-
-import NotificationSwitch from '../transport/components/notification'
 import NavBar from '../../components/common/navbar'
 import Header from '../../components/common/header'
-import TransportItem from '../../components/common/transports/transport_notification'
-import TicketNotification from '../../components/common/tickets/ticket_notification'
+
+import NotificationSwitch from './components/notification'
+
+import TransportNotification from './components/transport'
+import TicketNotification from './components/ticket'
+
+import './css/index.css'
 
 
 const transports = [
@@ -45,10 +47,10 @@ const tickets = [
 
 function TransportForm(props) {
     return (
-        <div className="transports">
+        <div className="notifications__transports">
            {
                 transports.map(
-                    (transport) => <TransportItem rejectOffer={props.rejectOffer} transport={transport}/>
+                    (transport) => <TransportNotification rejectOffer={props.rejectOffer} transport={transport}/>
                 )
             }
         </div>
@@ -57,7 +59,7 @@ function TransportForm(props) {
 
 function AppForm(props) {
     return (
-        <div className="apps">
+        <div className="notifications__apps">
             {
                 tickets.map(
                     (ticket) => <TicketNotification ticket={ticket}/>

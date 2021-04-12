@@ -1,14 +1,14 @@
-import './css/main.css'
-
-import RegistrationForm from '../../components/forms/registration/main'
+import RegistrationForm from './forms/registration'
 import PreviewBanner from '../../components/common/preview_banner'
+
+import './css/index.css'
 
 function RegistrationPage() {
     return (
-        <div className="container reg">
+        <div className="container registration">
             <PreviewBanner/>
             <RegistrationForm/>
-            <div className="footer"></div>
+            <div className="registration__footer"></div>
         </div>
     )
 }

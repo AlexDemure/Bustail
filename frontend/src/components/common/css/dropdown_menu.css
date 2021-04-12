@@ -14,7 +14,6 @@
    
 }
 
-
 .dropdown-menu .dropdown-menu__list {
     grid-row: 1 / 2;
 
@@ -26,6 +25,7 @@
     grid-row: 3 / 4;
     margin-left: 20px;
     text-align: left;
+    align-self: center;
 }
 
 .dropdown-menu .dropdown-menu__contacts a,
@@ -80,4 +80,9 @@
 
 .dropdown-menu #link a {
     color: #FBFBFB
+}
+
+.dropdown-menu .button__common__redirect {
+    justify-self: center;
+    align-self: center;
 }

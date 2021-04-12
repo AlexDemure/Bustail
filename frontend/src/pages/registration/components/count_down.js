@@ -54,7 +54,7 @@ export default class CountDown extends React.Component {
   
     render() {
       return ( 
-          <p className="count_down_timer">Повторная отправка доступна через: {this.state.time.m}:{this.state.time.s}</p>
+          <p className="registration__form__countdown-timer">Повторная отправка доступна через: {this.state.time.m}:{this.state.time.s}</p>
       );
     }
   }

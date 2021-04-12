@@ -2,8 +2,8 @@ import './css/history.css'
 
 function HistoryTable(props) {
     return (
-        <table className="history_table">
-            <thead className="columns">
+        <table>
+            <thead className="history__table__columns">
                 <tr>
                     {
                         props.table_columns.map(
@@ -12,7 +12,7 @@ function HistoryTable(props) {
                     }
                 </tr>
             </thead>
-            <tbody className="rows">
+            <tbody className="history__table__rows">
                     {
                         props.table_rows.map(
                             (item) => 
@@ -23,7 +23,7 @@ function HistoryTable(props) {
                                 <td>{item.date}</td>
                                 <td>{item.price}</td>
                                 <td>
-                                   <div className={item.status}></div>
+                                   <div className={"history__table__item__" + item.status}></div>
                                 </td>
                             </tr>
                         )

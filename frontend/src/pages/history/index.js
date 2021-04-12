@@ -21,7 +21,7 @@ function HistoryPage() {
     return (
         <div className="container history">
             <Header previous_page="/main" page_name="История"/>
-            <div className="data">
+            <div className="history__table">
                 <HistoryTable table_columns={table_columns} table_rows={table_rows}/>
             </div>
             <NavBar/>

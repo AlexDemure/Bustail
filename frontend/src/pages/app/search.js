@@ -1,8 +1,9 @@
 import NavBar from '../../components/common/navbar'
 import Header from '../../components/common/header'
 import SearchInput from '../../components/common/inputs/search_selector'
-import TicketSearch from '../../components/common/tickets/ticket_search'
-import TransportItem from '../../components/common/transports/transport_offer'
+
+import TicketSearch from './components/ticket'
+import TransportOffer from './components/transport'
 
 import './css/search.css'
 
@@ -72,7 +73,7 @@ const me_transports = [
 ]
 
 const me_transport_in_html =  me_transports.map(
-    (transport) => <TransportItem transport={transport}/>
+    (transport) => <TransportOffer transport={transport}/>
 )
 
 

@@ -1,26 +1,26 @@
-.transport.notification {
+.transport__notification {
     height: 180px;
     grid-template-rows: 130px 50px;
     grid-template-columns: 200px 1fr;
 }
 
-.transport.notification .photo {
+.transport__notification .transport__notification__photo {
     height: 180px;
     width: 200px;
     background-size: 200px 180px; 
 }
 
-.transport .card {
+.transport__notification .transport__notification__card {
     grid-template-rows: 30px 100px 50px;
 
 }
 
-.transport.notification .card .body {
+.transport__notification .transport__notification__card .transport__notification__card__body {
     grid-column: 1 / 3;
     grid-row: 2 / 3;
 }
 
-.transport.notification .card .controls {
+.transport__notification .transport__notification__card .transport__notification__card__controls {
     grid-column: 1 / 3;
     grid-row: 3 / 4;
 
@@ -30,33 +30,36 @@
 }
 
 
-.transport.notification .card .controls .control_icon {
+.transport__notification .transport__notification__card .transport__notification__card__controls .transport__notification__control {
     background-position-x: center;
     background-position-y: center;
     background-repeat: no-repeat;
     box-shadow: 5px 2px 0px -4px #2e2e2e;
     background-size: 30px 30px;
-}
+}    
 
-.transport.notification .card .controls a[id=contacts] {
+
+.transport__notification .transport__notification__card .transport__notification__card__controls.contacts {
     background-image: url("../../../../static/icons/default/call.png");
 }
-.transport.notification .card .controls a[id=contacts]:hover {
+
+.transport__notification .transport__notification__card .transport__notification__card__controls.contacts:hover {
     background-image: url("../../../../static/icons/active/call.png");
 }
 
-.transport.notification .card .controls div[id=info] {
+.transport__notification .transport__notification__card .transport__notification__card__controls.info {
     background-image: url("../../../../static/icons/default/description.png");
 }
-.transport.notification .card .controls div[id=info]:hover {
+
+.transport__notification .transport__notification__card .transport__notification__card__controls.info:hover {
     background-image: url("../../../../static/icons/active/description.png");
 }
 
-.transport.notification .card .controls div[id=accept] {
+.transport__notification .transport__notification__card .transport__notification__card__controls.accept {
     background-image: url("../../../../static/icons/accept.png");
 }
 
-.transport.notification .card div[id=reject] {
+.transport__notification .transport__notification__card .transport__notification__card__controls.reject {
     background-image: url("../../../../static/icons/reject.png");
     height: 35px;
     width: 35px;
@@ -68,7 +71,7 @@
     background-color: #222222;
 }
 
-.transport.notification .transport_card {
+.transport__notification .transport__notification__about {
     height: 180px;
     width: 95vw;
 }

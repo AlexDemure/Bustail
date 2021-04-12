@@ -91,7 +91,7 @@ function SearchTransportPage() {
         <div className="container search-transport">
             <Header previous_page="/main" page_name="Поиск транспорта"/>
             <SearchInput options={cities}/>
-            <div className="transports">
+            <div className="search-transport__transports">
                 {
                     transports.map(
                         (transport) => <TransportItem choices={me_apps_in_html} transport={transport}/>

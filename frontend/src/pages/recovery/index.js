@@ -1,14 +1,16 @@
-import './css/main.css'
-
-import RecoveryForm from '../../components/forms/recovery/main'
 import PreviewBanner from '../../components/common/preview_banner'
+
+import RecoveryForm from './forms/send_code'
+
+import './css/index.css'
+
 
 function RecoveryPage() {
     return (
         <div className="container recovery">
             <PreviewBanner/>
             <RecoveryForm/>
-            <div className="footer"></div>
+            <div className="recovery__footer"></div>
         </div>
     )
 }

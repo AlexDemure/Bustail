@@ -1,5 +1,4 @@
 import React from 'react'
-import '../css/base.css'
 
 import Notify from '../../../components/common/notify'
 

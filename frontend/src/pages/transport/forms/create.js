@@ -1,5 +1,4 @@
 import React from 'react'
-import '../css/base.css'
 
 import Notify from '../../../components/common/notify'
 
@@ -16,7 +15,7 @@ import SubmitButton from '../../../components/common/buttons/submit_btn'
 
 function MainFormCreateTransport(props) {
     return (
-        <form className="form_create_transport" onSubmit={props.onSubmit}>
+        <form className="create-transport__form__create-transport" onSubmit={props.onSubmit}>
             <SearchInput name="city" placeholder="Город" options={props.cities}/>
             
             <DefaultInput name="mark" input_type="text" size="25" placeholder="Марка"/>
@@ -30,7 +29,7 @@ function MainFormCreateTransport(props) {
 
 function AdditionalFormCreateTransport(props) {
     return (
-        <form className="form_additional_info" onSubmit={props.onSubmit}>
+        <form className="create-transport__form__additional-info" onSubmit={props.onSubmit}>
             <TextAreaInput name="description" rows="5" placeholder="Описание автомобиля"/>
             <DefaultInput name="price" input_type="number" size="25" placeholder="Стоимость (в час)"/>
             <SubmitButton value="Далее"/>
@@ -40,7 +39,7 @@ function AdditionalFormCreateTransport(props) {
 
 function ImageFormCreateTransport(props) {
     return (
-        <form className="form_additional_info" onSubmit={props.onSubmit}>
+        <form className="create-transport__form__upload-cover" onSubmit={props.onSubmit}>
             <DefaultInput name="cover" input_type="file" placeholder="Обложка автомобиля"/>
             <SubmitButton value="Создать"/>
         </form>

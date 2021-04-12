@@ -1,8 +1,8 @@
-form[class=form_new_send_msg] {
+.registration .registration__form .registration__form__new-send-msg {
     margin-top: 20px;
 }
 
-form[class=form_new_send_msg] input[type=submit] {
+.registration .registration__form .registration__form__new-send-msg input[type=submit] {
     margin-top: 5px;
     opacity: 0.2;
     pointer-events: none;
@@ -10,7 +10,7 @@ form[class=form_new_send_msg] input[type=submit] {
     color: #FBFBFB;
 }
 
-form[class=form_new_send_msg] .default_btn.active {
+.registration .registration__form .registration__form__new-send-msg .input__common__submit.active {
     pointer-events: auto;
     opacity: 1;
     background-color: #fba333;

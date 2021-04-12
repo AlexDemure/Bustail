@@ -1,10 +1,9 @@
 import React from 'react';
 
-import './css/transport_cabinet.css'
-import './css/base.css'
+import './css/transport.css'
 
 
-export default class TransportItem extends React.Component {
+export default class TransportCabinet extends React.Component {
     constructor(props) {
         super(props)
         this.state = {

@@ -1,14 +1,9 @@
 import React from 'react';
 
+import './css/transport.css'
 
 
-import './css/transport_notification.css'
-import './css/base.css'
-
-import AboutCard from '../../../components/transports/about'
-
-
-export default class TransportItem extends React.Component {
+export default class TransportNotification extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -22,33 +17,34 @@ export default class TransportItem extends React.Component {
 
     render() {
         return (
-            <div id={this.props.transport.id} className="transport notification">
-                <div className="photo"></div>
-                <div className="card">
-                    <div className="control_icon" id="reject" onClick={() => this.props.rejectOffer(this.props.transport.id)}></div>
-                    <div className="title">
+            <div id={this.props.transport.id} className="transport__notification">
+                <div className="transport__notification__photo"></div>
+                <div className="transport__notification__card">
+                    <div className="transport__notification__control reject" onClick={() => this.props.rejectOffer(this.props.transport.id)}></div>
+                    <div className="transport__notification__card__title">
                         <p id="model">{this.props.transport.mark} {this.props.transport.model}</p>
                     </div>
-                    <div className="body">
+                    <div className="transport__notification__card__body">
                         <div id="info">
-                            <p className="parametr">вместимость: <span>{this.props.transport.seats}</span></p>
-                            <p className="parametr">стоимость: <span>{this.props.transport.price}</span></p>
-                            <p className="parametr">город: <span>{this.props.transport.city}</span></p>
+                            <p className="transport__notification__item">вместимость: <span>{this.props.transport.seats}</span></p>
+                            <p className="transport__notification__item">стоимость: <span>{this.props.transport.price}</span></p>
+                            <p className="transport__notification__item">город: <span>{this.props.transport.city}</span></p>
                         </div>
                     </div>
-                    <div className="controls">
-                        <a href={"tel:"+ this.props.phone} className="control_icon" id="contacts"><div></div></a>
-                        <div className="control_icon" id="info" onClick={() => this.onClick("transport_card")}></div>
-                        <div className="control_icon" id="accept" onClick={() => this.onClick("accept")}></div>
+                    <div className="transport__notification__card__controls">
+                        <a href={"tel:"+ this.props.phone} className="transport__notification__control contacts"><div></div></a>
+                        <div className="transport__notification__control info" onClick={() => this.onClick("transport_card")}></div>
+                        <div className="transport__notification__control accept" onClick={() => this.onClick("accept")}></div>
                     </div>
                 </div>
-                
-                
+
                 { this.state.typeWindow === "transport_card" && (
-                        <AboutCard
-                        onClick={() => this.setState({typeWindow: ""})}
-                        description={this.props.transport.description}
-                        />
+                        <div className="transport__notification__about">
+                            <div id="transport__notification__about__close-btn" onClick={() => this.setState({typeWindow: ""})}></div>
+                            <div id="transport__notification__about__details">
+                                <p className="transport__notification__about__item">Описание: <span>{this.props.transport.description}</span></p>
+                            </div>
+                        </div>
                     )   
                 }
 
