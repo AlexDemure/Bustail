@@ -1,4 +1,4 @@
-.navbar {
+.navbar__common {
     z-index: 100;
     border-top: 1px solid #262626;
     position: absolute;
@@ -12,7 +12,7 @@
     grid-template-rows: 1fr;
 }
 
-.navbar .nav_btn {
+.navbar__common .navbar__common__btn {
     color: transparent;
     width: 40px;
     height: 40px;
@@ -26,30 +26,30 @@
     background-repeat: no-repeat;
 }
 
-.navbar a[id=home] {
+.navbar__common a[id=home] {
     background-image: url('../../../static/icons/default/home.png');
 }
-.navbar a[id=home]:active {
+.navbar__common a[id=home]:active {
     background-image: url('../../../static/icons/active/home.png');
 }
 
-.navbar a[id=history] {
+.navbar__common a[id=history] {
     background-image: url('../../../static/icons/default/history.png');
 }
-.navbar a[id=history]:active {
+.navbar__common a[id=history]:active {
     background-image: url('../../../static/icons/active/history.png');
 }
 
-.navbar a[id=notifications] {
+.navbar__common a[id=notifications] {
     background-image: url('../../../static/icons/default/notification.png');
 }
-.navbar a[id=notifications]:active {
+.navbar__common a[id=notifications]:active {
     background-image: url('../../../static/icons/active/notification.png');
 }
 
-.navbar a[id=cabinet] {
+.navbar__common a[id=cabinet] {
     background-image: url('../../../static/icons/default/cabinet.png');
 }
-.navbar a[id=cabinet]:active {
+.navbar__common a[id=cabinet]:active {
     background-image: url('../../../static/icons/active/cabinet.png');
 }

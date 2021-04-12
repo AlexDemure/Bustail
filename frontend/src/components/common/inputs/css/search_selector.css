@@ -3,7 +3,7 @@
     
 }
 
-.search-selector .option {
+.search-selector .search-selector__option {
     position: absolute;
     max-height: 200px;
     width: 100%;
@@ -16,12 +16,12 @@
     z-index: 2;
 }
 
-.search-selector.active .option {
+.search-selector.active .search-selector__option {
     opacity: 1;
     pointer-events: auto;
 }
 
-.search-selector .option li {
+.search-selector .search-selector__option li {
     list-style: none;
     padding: 8px 12px;
     cursor: default;
@@ -36,16 +36,16 @@
 
 }
 
-.search-selector.active .option li {
+.search-selector.active .search-selector__option li {
     display: block;
 }
 
-.search-selector.active .option li span {
+.search-selector.active .search-selector__option li span {
     color: #535353;
     font-family: 'FuturaBookC';
     font-size: 16px;
 }
 
-.search-selector .option li:hover {
+.search-selector .search-selector__option li:hover {
     background-color: #fba333;
 }

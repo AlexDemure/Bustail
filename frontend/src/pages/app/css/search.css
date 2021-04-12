@@ -14,7 +14,7 @@
 
 }
 
-.container.search-app .apps {
+.container.search-app .search-app__apps {
     margin-top: 10px;
     overflow: scroll;
     height: 100%;

@@ -14,7 +14,7 @@ import SubmitButton from '../../../components/common/buttons/submit_btn'
 
 function MainFormCreateApp(props) {
     return (
-        <form className="form_create_app" onSubmit={props.onSubmit}>
+        <form className="create-app__form__main" onSubmit={props.onSubmit}>
             <SearchInput name="app_type" placeholder="Тип услуги" options={props.app_types}/>
             <SearchInput name="from" placeholder="Откуда" options={props.cities}/>
             <SearchInput name="to" placeholder="Куда" options={props.cities}/>
@@ -27,7 +27,7 @@ function MainFormCreateApp(props) {
 
 function AdditionalFormCreateApp(props) {
     return (
-        <form className="form_additional_info" onSubmit={props.onSubmit}>
+        <form className="create-app__form__additional" onSubmit={props.onSubmit}>
             <TextAreaInput name="comment" rows="5" placeholder="Комментарий"/>
             <DefaultInput name="price" input_type="number" size="25" placeholder="Стоимость к заказу"/>
             <SubmitButton value="Создать"/>

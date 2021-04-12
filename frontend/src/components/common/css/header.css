@@ -12,7 +12,7 @@ header {
 }
 
 
-header a[id=left] {
+header .header__common__previous-page {
     background-image: url('../../../static/icons/left.png');
     background-size: 30px 30px;
     background-repeat: no-repeat;
@@ -20,7 +20,7 @@ header a[id=left] {
     background-position-y: center;
 }
 
-header div[id=dropdown-btn] {
+header .header__common__dropdown-btn {
     background-image: url('../../../static/icons/menu.png');
     background-size: 25px 25px;
     background-repeat: no-repeat;
@@ -28,7 +28,7 @@ header div[id=dropdown-btn] {
     background-position-y: center;
 }
 
-header div[id=page-name] {
+header .header__common__page-name {
     color: #FBFBFB;
     font-size: 24px;
     font-family: 'FuturaDemiC';

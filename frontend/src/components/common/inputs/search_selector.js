@@ -1,4 +1,5 @@
 import React from 'react'
+
 import "./css/search_selector.css"
 import './css/base.css'
 
@@ -78,7 +79,7 @@ export default class SearchInput extends React.Component {
                 value={this.state.value}>
                 </input>
                 
-                <div className="option">
+                <div className="search-selector__option">
                   {this.state.result}
                 </div> 
             </div>

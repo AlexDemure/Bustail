@@ -1,20 +1,18 @@
-.notify {
+.notify__common {
     text-align: center;
     width: 80%;
 }
 
-.notify #link a {
-    color: #FBFBFB;
-}
 
-.notify p[id=alert] {
+
+.notify__common .notify__common__title {
     font-size: 24px;
     font-family: 'FuturaBookC';
     color: gray;
 }
 
 
-.notify p[id=information] {
+.notify__common .notify__common__text {
     font-size: 20px;
     font-family: 'FuturaBookC';
     color: gray;

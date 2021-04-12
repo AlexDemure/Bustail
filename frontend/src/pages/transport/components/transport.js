@@ -5,7 +5,6 @@ import OfferForm from "../../forms/offer/main"
 import './css/transport_search.css'
 import './css/base.css'
 
-import AboutCard from '../../../components/transports/about'
 
 
 export default class TransportItem extends React.Component {
@@ -44,10 +43,12 @@ export default class TransportItem extends React.Component {
                 
                 
                 { this.state.typeWindow === "transport_card" && (
-                        <AboutCard
-                        onClick={() => this.setState({typeWindow: ""})}
-                        description={this.props.transport.description}
-                        />
+                        <div className="transport_card">
+                            <div id="close_btn" onClick={() => this.setState({typeWindow: ""})}></div>
+                            <div id="transport_info">
+                                <p className="parametr">Описание: <span>{this.props.transport.description}</span></p>
+                            </div>
+                        </div>
                     )   
                 }
                 { this.state.typeWindow === "offer" && (

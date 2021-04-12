@@ -81,7 +81,7 @@ function SearchAppPage() {
         <div className="container search-app">
             <Header previous_page="/main" page_name="Поиск заявки"/>
             <SearchInput options={cities}/>
-            <div className="apps">
+            <div className="search-app__apps">
                 {
                     tickets.map(
                         (ticket) => <TicketSearch choices={me_transport_in_html} ticket={ticket}/>

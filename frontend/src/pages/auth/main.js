@@ -7,11 +7,11 @@ function AuthPage() {
     return (
         <div className="container auth">
             <PreviewBanner/>
-            <div className="form">
+            <div className="auth__body">
                 <AuthForm/>
-                <p id="reset_password">Забыли пароль? <a href="/recovery">Восстановить</a></p>
+                <p className="auth__body__reset-password">Забыли пароль? <a href="/recovery">Восстановить</a></p>
             </div>
-            <div className="footer"></div>
+            <div className="auth__footer"></div>
         </div>
     )
 }

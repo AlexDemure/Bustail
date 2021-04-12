@@ -33,11 +33,10 @@ const NotifyTexts = {
 
 function Notify(props) {
     return (
-        <div className="notify">
-            <p id="alert">Уведомление</p>
-            <p id="information">{NotifyTexts[props.type]}</p>
+        <div className="notify__common">
+            <p className="notify__common__title">Уведомление</p>
+            <p className="notify__common__text">{NotifyTexts[props.type]}</p>
             <RedirectButton link={props.link} text={props.text}/>
-            
         </div>
     )
 }   

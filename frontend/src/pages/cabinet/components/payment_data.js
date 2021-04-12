@@ -2,28 +2,28 @@ import './css/payment_data.css'
 
 function PaymentData(props) {
     return (
-        <div className="payment_data">
-            <div className="card_design">
-                <p id="text">Bustail</p>
+        <div className="cabinet__driver__payment-data">
+            <div className="cabinet__driver__payment-data__card-design">
+                <p className="cabinet__driver__payment-data__item__text">Bustail</p>
             </div>
-            <div className="total">
-                <p id="number">{props.total}</p>
-                <p id="text">Заработано</p>
+            <div className="cabinet__driver__payment-data__total-amount">
+                <p className="cabinet__driver__payment-data__item__number">{props.total}</p>
+                <p className="cabinet__driver__payment-data__item__text">Заработано</p>
             </div>
-            <div className="pay">
+            <div className="cabinet__driver__payment-data__pay-btn">
                 <p>Оплатить</p>
             </div>
-            <div className="commission">
-                <p id="number">{props.commission}</p>
+            <div className="cabinet__driver__payment-data__commission-amount">
+                <p className="cabinet__driver__payment-data__item__number">{props.commission}</p>
                 <p id="text">Коммиссия</p>
             </div>
-            <div className="debt">
-                <p id="number">{props.debt}</p>
-                <p id="text">Долг</p>
+            <div className="cabinet__driver__payment-data__debt-amount">
+                <p className="cabinet__driver__payment-data__item__number">{props.debt}</p>
+                <p className="cabinet__driver__payment-data__item__text">Долг</p>
             </div>
-            <div className="limit">
-                <p id="number">{props.limit}</p>
-                <p id="text">Лимит</p>
+            <div className="cabinet__driver__payment-data__limit-amount">
+                <p className="cabinet__driver__payment-data__item__number">{props.limit}</p>
+                <p  className="cabinet__driver__payment-data__item__text">Лимит</p>
             </div>
         </div>
     )

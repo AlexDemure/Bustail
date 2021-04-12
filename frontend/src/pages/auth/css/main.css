@@ -12,28 +12,28 @@
     overflow: hidden;
 }
 
-.container.auth .preview_banner {
+.container.auth .preview-banner__common {
     grid-row: 1/2;
     align-self: flex-end;
 }
 
-.container.auth .form {
+.container.auth .auth__body {
     margin-top: 30px;
     grid-row: 2/3;
 }
 
-.container.auth .form #reset_password {
+.container.auth .auth__body .auth__body__reset-password {
     margin-top: 30px;
     text-align: center;
     color: #535353;
     font-family: 'FuturaDemic';
 }
 
-.container.auth .form #reset_password a {
+.container.auth .auth__body .auth__body__reset-password a {
     text-decoration: none;
     color: #fba333;
 }
 
-.container.auth .footer {
+.container.auth .auth__footer {
     grid-row: 3/4;
 }

@@ -1,7 +1,5 @@
 import React from 'react'
 
-import '../css/base.css'
-
 import DefaultInput from '../../../components/common/inputs/default'
 
 import SubmitButton from '../../../components/common/buttons/submit_btn'
@@ -28,7 +26,7 @@ export default class AuthForm extends React.Component {
         return (
             <React.Fragment>
                 <AuthSwitch is_active="login"/>
-                <form className="form_login" onSubmit={this.login}>
+                <form className="auth__form__login" onSubmit={this.login}>
                     <DefaultInput input_type="email" size="25" placeholder="Электронная почта"/>
                     <DefaultInput input_type="password" size="25" placeholder="Пароль"/>
                     <SubmitButton value="Войти"/>

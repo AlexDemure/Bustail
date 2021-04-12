@@ -32,13 +32,13 @@ const transports = [
    }
 ]
 
-function DriverForm(params) {
+function DriverPage(params) {
     return (
-        <div className="driver">
+        <div className="cabinet__driver">
             <PaymentData total={15500} commission={502} debt={250} limit={5000}/>
-            <p id="warning">При достижении лимита подбор заявок будет не доступен</p>
-            <div className="transports">
-                <p id="header">Автопарк</p>
+            <p className="cabinet__driver__notify">При достижении лимита подбор заявок будет не доступен</p>
+            <div className="cabinet__driver__transports">
+                <p className="cabinet__driver__title">Автопарк</p>
                 {
                     transports.map(
                         (transport) => <TransportItem transport={transport}/>
@@ -79,7 +79,7 @@ export default class CabinetPage extends React.Component {
         let form;
 
         if (this.state.form === "driver") {
-            form = <DriverForm/>
+            form = <DriverPage/>
         }else {
             form = <ClientInfoForm cities={cities}/>
         }

@@ -1,4 +1,4 @@
-.modal {
+.offer__common__modal-window__bg {
     z-index: 10;
     position: fixed;
     height: 100vh;
@@ -9,7 +9,7 @@
 
 }
 
-.form-offer {
+.offer__common__modal-window__content {
     z-index: 11;
     position: absolute;
     height: 80vh;
@@ -24,7 +24,7 @@
     grid-template-rows: 10% 7% 1fr;
 }
 
-.modal .form-offer .offer_type {
+.offer__common__modal-window__content .offer__common__modal-window__title {
     float: left;
     margin-left: 20px;
     margin-top: 10px;
@@ -38,7 +38,7 @@
     color: #fbfbfb;
 }
 
-.modal .form-offer .close_modal {
+.offer__common__modal-window__content .offer__common__modal-window__close-btn {
     margin-right: 10px;
     margin-top: 10px;
     width: 50px;
@@ -51,7 +51,7 @@
     float: right;
 }
 
-.modal .form-offer div p[id=choose-text] {
+.offer__common__modal-window__content .offer__common__modal-window__text {
     font-size: 16px;
     font-family: "FuturaDemiC";
     color: #535353;
@@ -66,7 +66,7 @@
 }
 
 
-.modal .form-offer div .create_object {
+.offer__common__modal-window__content .offer__common__modal-window__create-object {
     font-size: 16px;
     font-family: "FuturaDemiC";
     color: #fba333;
@@ -82,7 +82,7 @@
 }
 
 
-.modal .form-offer .choices {
+.offer__common__modal-window__content offer__common__modal-window__choices {
     justify-self: center;
     overflow: scroll;
     height: 85%;

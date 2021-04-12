@@ -47,18 +47,18 @@ export default class Header extends React.Component {
         let divItem;
     
         if (this.props.previous_page) {
-            divItem = <a href={this.props.previous_page} id="left"><div id="left"/></a>
+            divItem = <a href={this.props.previous_page} className="header__common__previous-page"><div id="left"/></a>
         } else {
-            divItem = <div id="none"/>
+            divItem = <div/>
         }
 
         return (
             <header>
                 {divItem}
-                <div id="page-name">
+                <div className="header__common__page-name">
                     {this.props.page_name ? this.props.page_name : ""}
                 </div>
-                <div id="dropdown-btn" onClick={this.changeState}/>
+                <div className="header__common__dropdown-btn" onClick={this.changeState}/>
                 {
                     this.state.is_active && (
                         <DropdownMenu/>
