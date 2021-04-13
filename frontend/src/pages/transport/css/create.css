@@ -7,6 +7,7 @@
     grid-template-rows: 10% 1fr;
     grid-template-columns: 1fr;
     justify-content: center;
+    justify-items: center;
     align-content: flex-start;
     overflow: hidden;
 }
@@ -31,4 +32,10 @@
 .container.create-transport .create-transport__form__additional-info .input__common__submit,
 .container.create-transport .create-transport__form__create-transport .input__common__submit {
     margin-top: 20px;
+}
+
+
+.container.create-transport .create-transport__form__upload-cover .input__common__submit.disabled {
+    pointer-events: none;
+    opacity: 0.3;
 }

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 
 import Notify from '../../../components/common/notify'
 import DefaultInput from '../../../components/common/inputs/default'
@@ -7,6 +7,8 @@ import TextAreaInput from '../../../components/common/inputs/textarea'
 import SubmitButton from '../../../components/common/buttons/submit_btn'
 
 import SerializeForm from '../../../utils/form_serializer'
+
+import DragAndDrop from '../components/drag_and_drop'
 
 
 function MainFormCreateTransport(props) {
@@ -34,10 +36,12 @@ function AdditionalFormCreateTransport(props) {
 }
 
 function ImageFormCreateTransport(props) {
+    const [uploaded, isUploaded] = useState(false)
+    
     return (
         <form className="create-transport__form__upload-cover" onSubmit={props.onSubmit}>
-            <DefaultInput name="cover" input_type="file" placeholder="Обложка автомобиля"/>
-            <SubmitButton value="Создать"/>
+            <DragAndDrop isUploaded={isUploaded}/>
+            <SubmitButton className={uploaded ? "" : "disabled"} value="Далее"/>
         </form>
     )
 }
