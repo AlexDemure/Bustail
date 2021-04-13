@@ -15,7 +15,7 @@ function PaymentData(props) {
             </div>
             <div className="cabinet__driver__payment-data__commission-amount">
                 <p className="cabinet__driver__payment-data__item__number">{props.commission}</p>
-                <p id="text">Коммиссия</p>
+                <p className="cabinet__driver__payment-data__item__text">Коммиссия</p>
             </div>
             <div className="cabinet__driver__payment-data__debt-amount">
                 <p className="cabinet__driver__payment-data__item__number">{props.debt}</p>

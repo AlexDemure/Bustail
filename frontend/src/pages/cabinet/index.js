@@ -1,15 +1,15 @@
 import React from 'react'
 
-import './css/index.css'
-
 import NavBar from '../../components/common/navbar'
 import Header from '../../components/common/header'
-
-import ClientInfoForm from './forms/client'
 import CabinetSwitch from './components/switch_cabinet'
 import PaymentData from './components/payment_data'
-import TransportItem from './components/transport'
+import TransportCabinet from './components/transport'
 
+
+import ClientInfoForm from './forms/client'
+
+import './css/index.css'
 
 const cities = [
     "Челябинск", "Уфа", "Москва"
@@ -37,12 +37,12 @@ function DriverPage(params) {
     return (
         <div className="cabinet__driver">
             <PaymentData total={15500} commission={502} debt={250} limit={5000}/>
-            <p className="cabinet__driver__notify">При достижении лимита подбор заявок будет не доступен</p>
+            <p className="cabinet__driver__notify">При достижении суммы коммиссии свыше допустимого лимита подбор заявок будет не доступен</p>
             <div className="cabinet__driver__transports">
                 <p className="cabinet__driver__title">Автопарк</p>
                 {
                     transports.map(
-                        (transport) => <TransportItem transport={transport}/>
+                        (transport) => <TransportCabinet transport={transport}/>
                     )
                 }
             </div>

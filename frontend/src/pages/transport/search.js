@@ -1,8 +1,9 @@
 import NavBar from '../../components/common/navbar'
 import Header from '../../components/common/header'
 import SearchInput from '../../components/common/inputs/search_selector'
-import TransportItem from '../../components/common/transports/transport_search'
-import TicketChoice from '../../components/common/tickets/ticket_choices'
+
+import TransportSearch from './components/transport'
+import TicketOffer from './components/ticket'
 
 import './css/search.css'
 
@@ -82,7 +83,7 @@ const me_apps = [
 ]
 
 const me_apps_in_html = me_apps.map(
-    (ticket) => <TicketChoice ticket={ticket}/>
+    (ticket) => <TicketOffer ticket={ticket}/>
 )
 
 
@@ -94,7 +95,7 @@ function SearchTransportPage() {
             <div className="search-transport__transports">
                 {
                     transports.map(
-                        (transport) => <TransportItem choices={me_apps_in_html} transport={transport}/>
+                        (transport) => <TransportSearch choices={me_apps_in_html} transport={transport}/>
                     )
                 }
             </div>

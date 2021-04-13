@@ -6,19 +6,18 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import LangingPage from './pages/langing/index'
 import RegistrationPage from './pages/registration/index'
 import AuthPage from './pages/auth/index'
-
 import RecoveryPage from './pages/recovery/index'
 import ChangePasswordPage from './pages/recovery/change_password'
 import MainPage from './pages/main/index'
-// import CabinetPage from './pages/cabinet/main'
-// import HistoryPage from './pages/history/main'
-// import NotificationPage from './pages/notifications/main'
+import CabinetPage from './pages/cabinet/index'
+import HistoryPage from './pages/history/index'
+import NotificationPage from './pages/notifications/index'
 
-// import SearchTransportPage from './pages/transport/search'
-// import CreateTransportPage from './pages/transport/create'
+import SearchTransportPage from './pages/transport/search'
+import CreateTransportPage from './pages/transport/create'
 
-// import SearchAppPage from './pages/app/search'
-// import CreateAppPage from './pages/app/create'
+import SearchAppPage from './pages/app/search'
+import CreateAppPage from './pages/app/create'
 
 import './index.css'
 
@@ -28,27 +27,22 @@ ReactDOM.render(
       <Switch>
           <Route exact path="/" component={LangingPage} />
 
+          <Route path="/transport/search" component={SearchTransportPage} />
+          <Route path="/transport/create" component={CreateTransportPage} />
+          
+          <Route path="/app/search" component={SearchAppPage} />
+          <Route path="/app/create" component={CreateAppPage} />
+          
           <Route path="/recovery/password" component={ChangePasswordPage} />
-
+          
           <Route path="/registration" component={RegistrationPage} />
           <Route path="/login" component={AuthPage} />
           <Route path="/recovery" component={RecoveryPage} />
+
           <Route path="/main" component={MainPage} />
-          {/* <Route path="/transport/search" component={SearchTransportPage} />
-          <Route path="/transport/create" component={CreateTransportPage} />
-
-          <Route path="/app/search" component={SearchAppPage} />
-          <Route path="/app/create" component={CreateAppPage} />
-
-
-          <Route path="/cabinet" component={CabinetPage} />
           <Route path="/history" component={HistoryPage} />
           <Route path="/notifications" component={NotificationPage} />
-
-
-          
-          <Route path="/main" component={MainPage} /> */}
-
+          <Route path="/cabinet" component={CabinetPage} />
 
       </Switch>
   </Router>,

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import OfferForm from "../../forms/offer/main"
+import OfferForm from "../../../components/forms/offer"
 
 import './css/transport.css'
 

@@ -20,7 +20,7 @@
     font-family: "FuturaLightC";
 }
 
-.history .history__table .history__table__rowstr td a {
+.history .history__table .history__table__rows tr td a {
     text-decoration: none;
     color: #fba333;
 }

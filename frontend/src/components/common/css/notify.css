@@ -2,10 +2,12 @@
     justify-self: center;
 
     display: grid;
+    grid-template-rows: 50px 150px 50px;
     justify-content: center;
     justify-items: center;
+    align-content: center;
     text-align: center;
-    width: 80%;
+    width: 85%;
 }
 
 .notify__common .notify__common__title {
@@ -25,5 +27,5 @@
 }
 
 .notify__common .button__common__redirect {
-    margin-top: 30px;
+    align-self: center;
 }

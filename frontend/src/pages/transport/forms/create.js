@@ -1,16 +1,12 @@
 import React from 'react'
 
 import Notify from '../../../components/common/notify'
-
-import SerializeForm from '../../../utils/form_serializer'
-
 import DefaultInput from '../../../components/common/inputs/default'
 import SearchInput from '../../../components/common/inputs/search_selector'
 import TextAreaInput from '../../../components/common/inputs/textarea'
-
 import SubmitButton from '../../../components/common/buttons/submit_btn'
 
-
+import SerializeForm from '../../../utils/form_serializer'
 
 
 function MainFormCreateTransport(props) {

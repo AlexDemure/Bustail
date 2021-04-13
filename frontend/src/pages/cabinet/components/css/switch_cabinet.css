@@ -1,48 +1,23 @@
-.switch__authorization,
-.switch__cabinet,
-.switch__notification {
+.switch__cabinet {
     text-align: left;
+    margin-left: 10px;
 }
 
-
-.switch__authorization p,
-.switch__cabinet p,
-.switch__notification p {
+.switch__cabinet p {
     display: inline;
 
     color: #FBFBFB;
     font-size: 18px;
-    font-family: 'FuturaBookC';
+    font-family: 'FuturaDemiC';
     padding-right: 5px;
 }
 
-.switch__authorization p a {
-    text-decoration: none;
-    color: #FBFBFB;
-}
-
-
-.switch__authorization .switch__authorization__item.active,
-.switch__cabinet .switch__cabinet__item.active,
-.switch__notification .switch__notification__item.active {
+.switch__cabinet .switch__cabinet__item.active {
     color: #fba333;
     opacity: 1;
 }
 
-
-.switch__authorization .switch__authorization__item.no-active,
-.switch__cabinet .switch__cabinet__item.no-active,
-.switch__notification .switch__notification__item.no-active {
+.switch__cabinet .switch__cabinet__item.no-active {
     opacity: 0.3;
     font-size: 16px;
-}
-
-
-.switch__notification .switch__notification__circle {
-    height: 20px;
-    width: 20px;
-    border-radius: 50%;
-    margin-top: 10px;
-    background-color: #9B5E5D;
-    
 }

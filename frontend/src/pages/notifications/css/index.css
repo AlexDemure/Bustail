@@ -1,15 +1,26 @@
 .container.notifications {
-    display: grid;
     padding: 0;
     margin: 0;
-    height: 95vh;
-    grid-template-columns: 1fr;
-    justify-items: center;
-    align-items: flex-start;
-    overflow: hidden;
-    grid-template-rows: 10% 10% auto;
+    height: 100vh;
+    width: 100vw;
+
+    display: grid;
+    grid-template-rows: 10% 10% 1fr;
+    justify-content: center;
+    align-content: flex-start;
+    overflow: scroll;
 }
 
-.container.notifications .notification_switches {
-    margin-left: 10px;
-} 
+.container.notifications .notifications__apps,
+.container.notifications .notifications__transports {
+    width: 95%;
+    height: 100%;
+    justify-self: center;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+
+.container.notifications .notifications__apps .ticket__notification {
+    margin-bottom: 0;
+}

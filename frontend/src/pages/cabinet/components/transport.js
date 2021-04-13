@@ -21,20 +21,18 @@ export default class TransportCabinet extends React.Component {
                     </div>
                     <div className="transport__cabinet__card__body">
                         <div id="info">
-                            <p className="transport__cabinet__item">вместимость: <span>{this.props.transport.seats}</span></p>
-                            <p className="transport__cabinet__item">стоимость: <span>{this.props.transport.price}</span></p>
                             <p className="transport__cabinet__item">город: <span>{this.props.transport.city}</span></p>
                         </div>
                     </div>
-                    <div className="transport__cabinet__footer" id="remove">
+                    <div className="transport__cabinet__card__footer" id="remove">
                         <p>Удалить</p>
                     </div>
                 </div>
 
                 { this.state.typeWindow === "transport_card" && (
                     <div className="transport__cabinet__about">
-                        <div id="transport__cabinet__about__close-btn" onClick={() => this.setState({typeWindow: ""})}></div>
-                        <div id="transport__cabinet__about__details">
+                        <div className="transport__cabinet__about__close-btn" onClick={() => this.setState({typeWindow: ""})}></div>
+                        <div className="transport__cabinet__about__details">
                             <p className="transport__cabinet__about__item">Описание: <span>{this.props.transport.description}</span></p>
                         </div>
                     </div>

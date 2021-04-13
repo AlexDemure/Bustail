@@ -1,7 +1,6 @@
 import React from 'react';
 
-import './css/transport_offer.css'
-import './css/base.css'
+import './css/transport.css'
 
 
 export default class TransportOffer extends React.Component {

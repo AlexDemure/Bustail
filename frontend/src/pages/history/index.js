@@ -1,7 +1,9 @@
 import NavBar from '../../components/common/navbar'
 import Header from '../../components/common/header'
 
-import HistoryTable from '../../components/common/tables/history'
+import HistoryTable from './tables/history'
+
+import './css/index.css'
 
 const table_columns = ["Транспорт", "Откуда", "Куда", "Дата", "Цена", "Статус"]
 

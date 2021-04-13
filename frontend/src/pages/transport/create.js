@@ -1,12 +1,11 @@
 import React from 'react'
 
-import './css/create.css'
-
 import NavBar from '../../components/common/navbar'
 import Header from '../../components/common/header'
 
-import CreateTransportForm from '../../components/forms/transport/create'
+import CreateTransportForm from './forms/create'
 
+import './css/create.css'
 
 const cities = [
     "Челябинск", "Уфа", "Москва"

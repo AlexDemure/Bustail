@@ -28,7 +28,7 @@ export default class ClientInfoForm extends React.Component {
         return (
             <React.Fragment>
                 <p id="warning">Сервис не несет ответственность за качество оказания услуг или спорных ситуаций при выполнении заказов.</p>
-                <form className="cabinet__common__form__client-info" onSubmit={this.changeInfo}>
+                <form className="cabinet__form__client-info" onSubmit={this.changeInfo}>
                     <SearchInput name="city" placeholder="Город" options={this.props.cities}/>
                     <DefaultInput name="email" input_type="email" size="25" placeholder="Почта"/>
                     <DefaultInput name="phone" input_type="text" size="25" placeholder="Телефон"/>

@@ -1,9 +1,8 @@
 import React from 'react'
 
+import OfferForm from '../../../components/forms/offer'
+
 import "./css/ticket.css"
-
-import OfferForm from '../../forms/offer/main'
-
 
 export default class TicketSearch extends React.Component {
     constructor(props) {
