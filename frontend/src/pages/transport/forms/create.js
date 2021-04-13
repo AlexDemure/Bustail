@@ -5,10 +5,9 @@ import DefaultInput from '../../../components/common/inputs/default'
 import SearchInput from '../../../components/common/inputs/search_selector'
 import TextAreaInput from '../../../components/common/inputs/textarea'
 import SubmitButton from '../../../components/common/buttons/submit_btn'
+import DragAndDrop from '../../../components/common/drag_and_drop'
 
 import SerializeForm from '../../../utils/form_serializer'
-
-import DragAndDrop from '../components/drag_and_drop'
 
 
 function MainFormCreateTransport(props) {
@@ -37,7 +36,7 @@ function AdditionalFormCreateTransport(props) {
 
 function ImageFormCreateTransport(props) {
     const [uploaded, isUploaded] = useState(false)
-    
+
     return (
         <form className="create-transport__form__upload-cover" onSubmit={props.onSubmit}>
             <DragAndDrop isUploaded={isUploaded}/>

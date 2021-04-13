@@ -39,3 +39,7 @@
     pointer-events: none;
     opacity: 0.3;
 }
+
+.container.create-transport .create-transport__form__upload-cover .drag-drop .drag-drop__drop-area {
+    height: 50vh;
+}

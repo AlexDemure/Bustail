@@ -27,23 +27,42 @@ const DragAndDrop = (props) => {
         setDrag(false);
         props.isUploaded(true)
     }
+
+    function uploadHandler(e) {
+        e.preventDefault()
+        let files = [...e.target.files]
+        console.log(files);
+
+        const formData = new FormData()
+        formData.append('file', files[0])
+
+        // TODO FETCH
+        setDrag(false);
+        props.isUploaded(true)
+    }
+
     return (
-        <div className="drag_drop">
+        <div className="drag-drop">
             {
                 drag
                 ? <div
-                    className="drop-area focused"
+                    className="drag-drop__drop-area focused"
                     onDragStart={e => dragStartHandler(e)}
                     onDragLeave={e => dragLeaveHandler(e)}
                     onDragOver={e => dragStartHandler(e)}
                     onDrop={e => onDropHandler(e)}
-                  >Отпустите файлы, чтобы загрузить их</div>
+                  >
+                      <p>Отпустите файлы, чтобы загрузить их</p>
+                  </div>
                 : <div
-                    className="drop-area"
+                    className="drag-drop__drop-area"
                     onDragStart={e => dragStartHandler(e)}
                     onDragLeave={e => dragLeaveHandler(e)}
                     onDragOver={e => dragStartHandler(e)}
-                  >Перетащите файлы или нажмите на форму</div>
+                  >
+                      <p>Перетащите файлы или нажмите на форму</p>
+                      <input type="file" onChange={(e) => uploadHandler(e)}></input>
+                  </div>
             }
         </div>
     )

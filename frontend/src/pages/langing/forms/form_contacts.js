@@ -3,10 +3,12 @@ import React from 'react'
 import DefaultInput from '../../../components/common/inputs/default'
 import TextAreaInput from '../../../components/common/inputs/textarea'
 import SubmitButton from '../../../components/common/buttons/submit_btn'
+import DragAndDrop from '../../../components/common/drag_and_drop'
 
 import SerializeForm from '../../../utils/form_serializer'
 
 import './css/form_contacts.css'
+
 
 function FeedBackForm(props) {
     return (
@@ -19,7 +21,7 @@ function FeedBackForm(props) {
                 <p>Форма обратной связи</p>
                 <DefaultInput input_type="email" size="25" placeholder="Электронная почта"/>
                 <TextAreaInput name="description" rows="5" placeholder="Текст сообщения"/>
-                <DefaultInput name="cover" input_type="file" placeholder="Файл (опционально)"/>
+                <DragAndDrop/>
                 <SubmitButton value="Отправить"/>
             </form>
         </React.Fragment>

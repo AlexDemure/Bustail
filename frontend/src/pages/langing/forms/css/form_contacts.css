@@ -23,3 +23,7 @@
 .container.landing .contacts .contacts__form__feedback .input__common__submit {
     margin-top: 20px;
 }
+
+.container.landing .contacts .contacts__form__feedback .drag-drop .drag-drop__drop-area p {
+    color: #6e6e6e;
+}
