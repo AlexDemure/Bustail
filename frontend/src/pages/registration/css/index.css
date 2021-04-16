@@ -25,6 +25,21 @@
     text-align: center;
 }
 
+.container.registration .registration__form__confirm-email__error-text,
+.container.registration .registration__form__create-new-user__error-text {
+    display: block;
+    height: 30px;
+    width: 80%;
+    margin-left: 10%;
+}
+
+.container.registration .registration__form__confirm-email__error-text p,
+.container.registration .registration__form__create-new-user__error-text p {
+    color: #9B5E5D;
+    font-size: 16px;
+    font-family: "FuturaDemiC";
+}
+
 .container.registration .registration__form input  {
     margin-bottom: 5px;
 }

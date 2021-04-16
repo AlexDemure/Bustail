@@ -131,4 +131,4 @@ async def change_password(password: str, security_token: str) -> None:
 
 async def find_account_by_email(email: EmailStr) -> Optional[AccountData]:
     account = await account_crud.find_by_email(email=email)
-    return AccountData(**account.__dict__)
+    return AccountData(**account.__dict__) if account else None

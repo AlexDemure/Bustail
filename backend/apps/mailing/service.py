@@ -28,6 +28,6 @@ async def service_mailing():
 
                 else:
                     logger.debug(f"Service:{SERVICE_NAME} message_type is not found")
-            except:
-                print("error")
+            except Exception as e:
+                print(f"Service:{SERVICE_NAME} error:{str(e)}")
                 await redis.append_task_first(SERVICE_NAME, task)

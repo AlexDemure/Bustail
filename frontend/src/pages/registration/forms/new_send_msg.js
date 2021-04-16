@@ -4,6 +4,8 @@ import SubmitButton from '../../../components/common/buttons/submit_btn'
 
 import CountDown from '../components/count_down'
 
+import sendRequest from '../../../utils/fetch'
+
 import './css/new_send_msg.css'
 
 
@@ -26,15 +28,24 @@ export default class NewSendMessageForm extends React.Component {
 
     sendMessage(event) {
         event.preventDefault();
-        console.log(this.props.email);
-        // TODO FETCH
-        this.setState({
-            seconds: 60
-        })
+        
+        let data = {email: this.props.email}
+
+        sendRequest('/api/v1/mailing/verify_code/', "POST", data, localStorage.getItem("token"))
+        .then(
+            (result) => {
+                console.log(result);
+                this.setState({
+                    seconds: 60
+                })
+            },
+            (error) => {
+                console.log(error.message);
+            }
+        )
     }
 
     render() {
-        // BEST ФИЧА
         let { seconds } = this.state
         return (
             <form className="registration__form__new-send-msg" onSubmit={this.sendMessage}>

@@ -70,10 +70,13 @@ export default class SearchInput extends React.Component {
         return (
             <div className={"search-selector " + (this.state.result.length ? "active" : "")}>
                 <input
+                required={this.props.isRequired === false ? false : true}
                 className="search-selector__input__common" 
                 name={this.props.name}
                 type="text"
                 size="45"
+                minlength="1"
+                maxlength="255"
                 placeholder={this.props.placeholder ? this.props.placeholder : "Введите название города"}
                 onChange={this.keyUpHandler}
                 value={this.state.value}>

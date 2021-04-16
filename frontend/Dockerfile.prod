@@ -11,9 +11,9 @@ RUN npm install -g serve
 
 COPY . /app
 
-EXPOSE 4000
+EXPOSE 3000
 
 RUN npm run build
 
-# Запуск сервера на 4000 порту.
-CMD ["serve", "-s", "build", "-l", "4000"]
+# Запуск сервера на 3000 порту.
+CMD ["serve", "-s", "build", "-l", "3000"]

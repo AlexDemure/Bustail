@@ -5,11 +5,18 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "type": "pwa-chrome",
+            "type": "chrome",
             "request": "launch",
-            "name": "Launch Chrome against localhost",
-            "url": "http://localhost:3000",
-            "webRoot": "${workspaceFolder}"
+            "name": "Launch Chromium against localhost",
+            "url": "http://127.0.0.1/",
+            "webRoot": "${workspaceFolder}",
+            "runtimeExecutable": "/usr/bin/chromium-browser",
+            "runtimeArgs": [
+              "--new-window",
+              "-user-data-dir=\"/${workspaceFolder}/DevProfile\"",
+              "--remote-debugging-port=9222",
+              "--disable-background-networking"
+            ]
         }
     ]
 }

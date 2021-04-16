@@ -7,17 +7,17 @@ body {
 
 @font-face {
   font-family: "FuturaBookC";
-  src: url("./static/fonts/FuturaBookC.eot");
+  src: url("./static/fonts/FuturaBookC.woff");
 }
 @font-face {
   font-family: "FuturaDemiC";
-  src: url("./static/fonts/FuturaDemiC.eot");
+  src: url("./static/fonts/FuturaDemiC.woff");
 }
 @font-face {
   font-family: "FuturaLightC";
-  src: url("./static/fonts/FuturaLightC.eot");
+  src: url("./static/fonts/FuturaLightC.woff");
 }
 @font-face {
   font-family: "FuturaMediumC";
-  src: url("./static/fonts/FuturaMediumC.eot");
+  src: url("./static/fonts/FuturaMediumC.woff");
 }
