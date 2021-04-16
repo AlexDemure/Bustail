@@ -16,7 +16,7 @@
 
 .cabinet__driver__payment-data .cabinet__driver__payment-data__item__text {
   font-size: 16px;
-  color: #535353;
+  color: #6e6e6e;
   font-family: 'FuturaBookC';
 }
 
@@ -50,14 +50,17 @@
 
 .cabinet__driver__payment-data .cabinet__driver__payment-data__total-amount p {
   margin-left: 10px;
+  
 }
 
 .cabinet__driver__payment-data .cabinet__driver__payment-data__total-amount .cabinet__driver__payment-data__item__number {
   font-size: 24px;
+  
 }
 
 .cabinet__driver__payment-data .cabinet__driver__payment-data__total-amount .cabinet__driver__payment-data__item__text {
   font-size: 18px;
+  color: #fba333;
 }
 
 .cabinet__driver__payment-data .cabinet__driver__payment-data__commission-amount,
@@ -83,7 +86,7 @@
   margin: 10px;
   text-align: center;
   border-radius: 10px;
-  border: 1px solid #fba333;
+  border: 1px solid #222222;
 }
 
 .cabinet__driver__payment-data .cabinet__driver__payment-data__pay-btn:hover {
@@ -93,9 +96,9 @@
 .cabinet__driver__payment-data .cabinet__driver__payment-data__pay-btn p {
   font-family: 'FuturaBookC';
   font-size: 16px;
-  color: #fba333;
+  color: #6e6e6e;
 }
 
 .cabinet__driver__payment-data .cabinet__driver__payment-data__pay-btn:hover p {
-  color: #fbfbfb;
+  color: #181818;
 }

@@ -1,4 +1,3 @@
-
 .drag-drop .drag-drop__drop-area {
     width: 100%;
     height: 100px;
@@ -6,13 +5,19 @@
     display: grid;
     align-items: center;
     justify-content: center;
+    justify-items: center;
     position: relative;
 
 }
 
 .drag-drop .drag-drop__drop-area p {
     font-family: "FuturaDemiC";
+    width: 80%;
+    justify-self: center;
+    align-self: center;
     color: #6e6e6e;
+    text-align: center !important;
+    font-size: 15px;
 }
 
 .drag-drop .drag-drop__drop-area.focused {
@@ -25,4 +30,12 @@
     height: 100%;
     position: absolute;
     opacity: 0;
+}
+
+@media screen and (min-width:361px) and (max-width:400px) {
+    
+}
+
+@media screen and (min-width:401px) and (max-width:414px) {
+    
 }

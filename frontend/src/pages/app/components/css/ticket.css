@@ -94,10 +94,10 @@
     grid-template-rows: 30% 30% 40%;
     grid-template-columns: 80%;
 
-    justify-content: center;
+    justify-content: flex-end;
     align-content: center;
 
-    width: 100%;
+    width: 95%;
 }
 
 .ticket__search div[id=right] div[id=right-div-right] p {
@@ -122,7 +122,7 @@
 }
 
 .ticket__search div[id=right] div[id=right-div-right] .ticket__search__offer-btn p {
-    font-size: 14px;
+    font-size: 13px;
     color: #6e6e6e;
     font-family: "FuturaBookC";
 }
@@ -151,9 +151,9 @@
     grid-column: 2 / 3;
     grid-row: 1 / 2;
     width: 50px;
-    height: 50px;
+    height: 40px;
     background-image: url('../../../../static/icons/close.png');
-    background-size: 30px 30px;
+    background-size: 25px 25px;
     background-position-x: center;
     background-position-y: center;
     background-repeat: no-repeat;
@@ -171,14 +171,14 @@
 .ticket__search .ticket__search__about .ticket__search__about__details .ticket__search__about__item.description {
     color: #6e6e6e;
     font-family: 'FuturaMediumC';
-    font-size: 16px;
+    font-size: 15px;
     margin-top: 10px;
     margin-left: 10px;
 }
 
 .ticket__search .ticket__search__about .ticket__search__about__details p span {
     color: #FBFBFB;
-    font-size: 16px;
+    font-size: 15px;
     font-family: 'FuturaDemiC';
 }
 

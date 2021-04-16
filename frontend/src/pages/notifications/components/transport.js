@@ -40,8 +40,8 @@ export default class TransportNotification extends React.Component {
 
                 { this.state.typeWindow === "transport_card" && (
                         <div className="transport__notification__about">
-                            <div id="transport__notification__about__close-btn" onClick={() => this.setState({typeWindow: ""})}></div>
-                            <div id="transport__notification__about__details">
+                            <div className="transport__notification__about__close-btn" onClick={() => this.setState({typeWindow: ""})}></div>
+                            <div className="transport__notification__about__details">
                                 <p className="transport__notification__about__item">Описание: <span>{this.props.transport.description}</span></p>
                             </div>
                         </div>

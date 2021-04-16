@@ -36,7 +36,7 @@
     grid-row: 4 / 5;
     width: 80%;
     justify-self: center;
-    align-self: center;
+    align-self: flex-start;
     text-align: center;
 }
 
@@ -59,7 +59,7 @@
 }
 
 .container.cabinet.driver .cabinet__driver__payment-data {
-    width: 95%;
+    width: 93%;
 } 
 
 .container.cabinet.driver .cabinet__driver .cabinet__driver__notify {

@@ -94,10 +94,10 @@
     grid-template-rows: 30% 30% 40%;
     grid-template-columns: 80%;
 
-    justify-content: center;
+    justify-content: flex-end;
     align-content: center;
 
-    width: 100%;
+    width: 95%;
 }
 
 .ticket__notification div[id=right] div[id=right-div-right] p {
@@ -151,9 +151,9 @@
     grid-column: 2 / 3;
     grid-row: 1 / 2;
     width: 50px;
-    height: 50px;
+    height: 40px;
     background-image: url('../../../../static/icons/close.png');
-    background-size: 30px 30px;
+    background-size: 25px 25px;
     background-position-x: center;
     background-position-y: center;
     background-repeat: no-repeat;
@@ -171,17 +171,36 @@
 .ticket__notification .ticket__notification__about .ticket__notification__about__details .ticket__notification__about__item.description {
     color: #6e6e6e;
     font-family: 'FuturaMediumC';
-    font-size: 16px;
+    font-size: 15px;
     margin-top: 10px;
     margin-left: 10px;
 }
 
 .ticket__notification .ticket__notification__about .ticket__notification__about__details p span {
     color: #FBFBFB;
-    font-size: 16px;
+    font-size: 14px;
     font-family: 'FuturaDemiC';
 }
 
 .ticket__notification .ticket__notification__about .ticket__notification__about__details p span {
     font-size: 14px;
+}
+
+
+
+.ticket__notification .ticket__notification__date {
+    margin-right: 10px;
+}
+
+.ticket__notification__control.reject {
+    background-image: url("../../../../static/icons/reject.png");
+    height: 35px;
+    width: 35px;
+    background-size: 25px 25px;
+    background-repeat: no-repeat;
+    background-position: center;
+    position: absolute;
+    right: 0;
+    
+    background-color: #262626;
 }

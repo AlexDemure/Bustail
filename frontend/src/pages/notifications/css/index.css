@@ -22,5 +22,5 @@
 
 
 .container.notifications .notifications__apps .ticket__notification {
-    margin-bottom: 0;
+    margin-bottom: 10px;
 }

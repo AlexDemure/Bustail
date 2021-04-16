@@ -30,8 +30,21 @@ header .header__common__dropdown-btn {
 
 header .header__common__page-name {
     color: #FBFBFB;
-    font-size: 24px;
+    font-size: 20px;
     font-family: 'FuturaDemiC';
     justify-self: center;
     align-self: center;
+}
+
+
+@media screen and (min-width:361px) and (max-width:400px) {
+    header .header__common__page-name {
+        font-size: 22px;
+    }
+}
+
+@media screen and (min-width:401px) and (max-width:414px) {
+    header .header__common__page-name {
+        font-size: 24px;
+    }
 }
