@@ -15,7 +15,15 @@ export default class SearchInput extends React.Component {
 
         this.state = {
             result: [],
-            value: ""
+            value: this.props.value
+        }
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+        if (prevProps.value !== this.props.value) {
+            this.setState({
+                value: this.props.value
+            })
         }
     }
 
@@ -77,9 +85,9 @@ export default class SearchInput extends React.Component {
                 size="45"
                 minlength="1"
                 maxlength="255"
+                value={this.state.value}
                 placeholder={this.props.placeholder ? this.props.placeholder : "Введите название города"}
-                onChange={this.keyUpHandler}
-                value={this.state.value}>
+                onChange={this.keyUpHandler}>
                 </input>
                 
                 <div className="search-selector__option">

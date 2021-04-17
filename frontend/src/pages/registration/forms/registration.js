@@ -38,7 +38,7 @@ class MainFormRegistration extends React.Component {
         return (
         <React.Fragment>
             <AuthSwitch is_active="reg"/>
-            <form className="registration__form__create-new-user" onSubmit={this.props.onSubmit}>
+            <form className="registration__form__create-new-user" onSubmit={this.props.onSubmit} autocomplete="off">
                 <SearchInput name="city" placeholder="Город"  options={this.state.cities}/>
                 <DefaultInput parser="lowercase" name="email" input_type="email" size="25" placeholder="Электронная почта"/>
                 <DefaultInput name="hashed_password" input_type="password" size="25" placeholder="Пароль"/>
@@ -103,7 +103,7 @@ export default class RegistrationForm extends React.Component {
         sendRequest('/api/v1/accounts/', "POST", data)
         .then(
             (result) => {
-                console.log(data);
+                console.log(result);
                 
                 localStorage.setItem('token', result.access_token);
                 

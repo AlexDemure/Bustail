@@ -12,6 +12,7 @@ function DefaultInput(props) {
         maxlength={255}
         placeholder={props.placeholder}
         data-parse={props.parser}
+        value={props.value}
         ></input>
     )
 }
