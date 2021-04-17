@@ -18,7 +18,8 @@ class CRUDAccount(CRUDBase[Account, AccountCreate, AccountUpdate]):
         user = await self.find_by_email(email=email)
         if user:
             if verify_password(password, user.hashed_password):
-                return user
+                if user.verified_at is not None:
+                    return user
 
         return None
 

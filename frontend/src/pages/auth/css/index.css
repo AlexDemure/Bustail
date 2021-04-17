@@ -51,3 +51,16 @@
 .container.auth .auth__footer {
     grid-row: 3/4;
 }
+
+.container.auth .auth__body .auth__form__login .auth__form__login__error-text {
+    display: block;
+    height: 30px;
+    width: 80%;
+    margin-left: 10%;
+}
+
+.container.auth .auth__body .auth__form__login .auth__form__login__error-text p {
+    color: #9B5E5D;
+    font-size: 16px;
+    font-family: "FuturaDemiC";
+}

@@ -6,6 +6,10 @@ import './css/dropdown_menu.css'
 import RedirectButton from '../common/buttons/redirect_btn'
 
 function DropdownMenu() {
+    let logout = () => {
+        localStorage.removeItem("token")
+    }
+
     return (
         <div className="dropdown-menu">
             <div className="dropdown-menu__list">
@@ -17,7 +21,7 @@ function DropdownMenu() {
                     <li><a href="/cabinet">Личный кабинет</a></li>
                 </ul>
             </div>
-            <RedirectButton link="/" text="Выйти"/>
+            <RedirectButton onClick={() => logout()} link="/login" text="Выйти"/>
             <div className="dropdown-menu__contacts">
                 <p id="email">Email: <span>bustail@support.com</span></p>
                 <a href="tel:+79191231251" id="phone">Телефон: <span>+7 (351) 223-12-51</span></a>

@@ -84,7 +84,7 @@ async def confirm_account(payload: ConfirmAccount, account: Account = Depends(cu
 
 
 @router.put(
-    "/change_password/",
+    "/change_password",
     response_model=Message,
     responses={
         status.HTTP_200_OK: {"description": BaseMessage.obj_is_changed.value},

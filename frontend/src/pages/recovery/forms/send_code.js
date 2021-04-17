@@ -6,12 +6,19 @@ import DefaultInput from '../../../components/common/inputs/default'
 import SubmitButton from '../../../components/common/buttons/submit_btn'
 
 import SerializeForm from '../../../utils/form_serializer'
+import sendRequest from '../../../utils/fetch'
 
 
 function SendCodeForm(props) {
     return (
         <form className="recovery__form__send-code" onSubmit={props.onSubmit}>
-            <DefaultInput input_type="email" size="25" placeholder="Электронная почта"/>
+            <DefaultInput name="email" input_type="email" size="25" placeholder="Электронная почта"/>
+            {
+                props.error &&
+                <div className="recovery__form__send-code__error-text">
+                    <p>{props.error}</p>
+                </div>
+            }
             <SubmitButton value="Отправить код"/>
         </form>
     )
@@ -23,6 +30,7 @@ export default class RecoveryForm extends React.Component {
         super();
         this.state = {
             form: "recovery",
+            error: null
         };
 
         this.sendCode = this.sendCode.bind(this);
@@ -31,20 +39,34 @@ export default class RecoveryForm extends React.Component {
     sendCode(event) {
         event.preventDefault();
         let prepared_data = SerializeForm(event.target, new FormData(event.target))
-        this.setState({
-            form: "notify"
-        })
-        console.log(prepared_data);
+        
+        let data = {email: prepared_data.get("email")}
 
-        // TODO FETCH
+        sendRequest('/api/v1/mailing/change_password/', "POST", data)
+        .then(
+            (result) => {
+                console.log(result);
+                
+                this.setState({
+                    form: "notify",
+                    error: null
+                })
+            },
+            (error) => {
+                console.log(error.message);
+                this.setState({
+                    error: error.message
+                })
+            }
+        )
     }
     render() {
         let form;
 
         if (this.state.form === "recovery") {
-            form = <SendCodeForm onSubmit={this.sendCode}/>
+            form = <SendCodeForm error={this.state.error} onSubmit={this.sendCode}/>
         }else{
-            form = <Notify type="recovery" link="/main" text="На главную"/>
+            form = <Notify type="recovery" link="/login" text="Войти"/>
         }
 
         return (

@@ -43,3 +43,18 @@
 .container.recovery .footer {
     grid-row: 3/4;
 }
+
+.container.recovery .recovery__form__change-password .recovery__form__change-password__error-text,
+.container.recovery .recovery__form__send-code .recovery__form__send-code__error-text {
+    display: block;
+    height: 30px;
+    width: 80%;
+    margin-left: 10%;
+}
+
+.container.recovery .recovery__form__change-password .recovery__form__change-password__error-text p,
+.container.recovery .recovery__form__send-code .recovery__form__send-code__error-text p {
+    color: #9B5E5D;
+    font-size: 16px;
+    font-family: "FuturaDemiC";
+}

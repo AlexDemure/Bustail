@@ -1,5 +1,6 @@
 
 async function sendRequest(url, method, data, token = "") {
+    const bad_responses = [400, 401, 403, 404]
     const response = await fetch(url, {
         method: method,
         headers: {
@@ -12,7 +13,7 @@ async function sendRequest(url, method, data, token = "") {
     if (response.ok) {
         return await response.json()
     } else {
-        if ([400, 404].includes(response.status)) {
+        if (bad_responses.includes(response.status)) {
             let error = await response.json()
             throw new Error(error.detail) 
         } else {
