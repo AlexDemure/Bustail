@@ -1,4 +1,4 @@
-import inputParsers from '../constants/input_parsers'
+import { inputParsers } from '../constants/input_parsers'
 
 export default function SerializeForm(form, data) {
     // Сериализация данных из Form

@@ -11,6 +11,7 @@ import SerializeForm from '../../utils/form_serializer'
 import sendRequest from '../../utils/fetch'
 
 import { getCities } from '../../constants/cities'
+import { selectErrorInputs } from '../../constants/input_parsers'
 
 import ClientInfoForm from './forms/client'
 
@@ -65,7 +66,8 @@ export default class CabinetPage extends React.Component {
                 phone: null,
                 id: null,
             },
-            cities: []
+            cities: [],
+            error: null
             
 
         };
@@ -88,9 +90,19 @@ export default class CabinetPage extends React.Component {
         .then(
             (result) => {
                 console.log(result);
+                if (this.state.error) {
+                    selectErrorInputs(this.state.error, false)
+                }
+                
             },
             (error) => {
                 console.log(error.message);
+                this.setState({error: error.message})
+
+                if (error.name === "ValidationError") {
+                    selectErrorInputs(error.message)
+                }
+                
             }
         )
     }

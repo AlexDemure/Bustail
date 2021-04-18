@@ -20,7 +20,7 @@ class AccountCreate(AccountBase):
 
 
 class AccountUpdate(BaseModel):
-    phone: constr(min_length=6, max_length=255) = None
+    phone: constr(min_length=11, max_length=12) = None
     fullname: constr(min_length=1, max_length=255) = None
     city: constr(min_length=1, max_length=255)
 
