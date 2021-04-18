@@ -5,30 +5,28 @@ import Header from '../../components/common/header'
 
 import CreateAppForm from './forms/create'
 
+import isAuth from '../../utils/is_auth'
+
 import './css/create.css'
 
 
-const cities = [
-    "Челябинск", "Уфа", "Москва"
-]
+export default class CreateAppPage extends React.Component {
+    constructor() {
+        super()
+    }
 
-const app_types = [
-    "Свадьба", "Межгород", "Вахта"
-]
+    async componentDidMount(){
+        isAuth()
+    }
 
-
-function CreateAppPage() {
-    return (
-        <div className="container create-app">
-            <Header previous_page="/main" page_name="Создание заявки"/>
-            <CreateAppForm 
-            cities={cities}
-            app_types={app_types}
-            />
-            <NavBar/>
-        </div>
-        
-    )
+    render() {
+        return (
+            <div className="container create-app">
+                <Header previous_page="/main" page_name="Создание заявки"/>
+                <CreateAppForm/>
+                <NavBar/>
+            </div>
+        )
+    }
+    
 }
-
-export default CreateAppPage

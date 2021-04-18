@@ -24,23 +24,27 @@ class ApplicationStatus(Enum):
 
 class ApplicationTypes(Enum):
     wedding = "wedding"
-    watch = "watch"
     tour = "tour"
     intercity = "intercity"
+    funeral = "funeral"
     other = "other"
 
     @property
     def description(self):
         if self is self.wedding:
             return "Свадьба"
-        elif self is self.watch:
-            return "Вахта"
         elif self is self.tour:
             return "Путешествие"
         elif self is self.intercity:
             return "Междугородние"
+        elif self is self.funeral:
+            return "Похороны"
         elif self is self.other:
             return "Другое"
+
+    @classmethod
+    def get_types(cls) -> dict:
+        return {x.value: x.description for x in cls}
 
 
 class ApplicationErrors(Enum):

@@ -64,8 +64,6 @@ export default class CabinetPage extends React.Component {
                 city: null,
                 phone: null,
                 id: null,
-                isUpdated: false,
-                error: null
             },
             cities: []
             
@@ -90,7 +88,6 @@ export default class CabinetPage extends React.Component {
         .then(
             (result) => {
                 console.log(result);
-                // this.setState()
             },
             (error) => {
                 console.log(error.message);

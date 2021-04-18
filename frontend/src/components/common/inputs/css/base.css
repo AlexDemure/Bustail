@@ -13,6 +13,9 @@ input {
     padding-left: 10px;
     
 }
+input:read-only {
+    opacity: 0.5;
+}
 
 textarea {
     background: #222222;

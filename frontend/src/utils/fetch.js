@@ -1,6 +1,6 @@
 
 async function sendRequest(url, method, data, token = localStorage.getItem("token")) {
-    const bad_responses = [400, 401, 403, 404]
+    const bad_responses = [400, 401, 403, 404, 422]
     const response = await fetch(url, {
         method: method,
         headers: {
@@ -15,6 +15,7 @@ async function sendRequest(url, method, data, token = localStorage.getItem("toke
     } else {
         if (bad_responses.includes(response.status)) {
             let error = await response.json()
+            console.log(error)
             throw new Error(error.detail) 
         } else {
             throw new Error(response.statusText)

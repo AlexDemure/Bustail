@@ -18,7 +18,7 @@ def get_cities() -> list:
     """Получение списка городов России из списка."""
     path = f'static/cities.csv'
     cities = read_csv_file(path)
-    return [x[2] for x in cities]  # x[2] - Индекс №2 отвечает за столбец "Название города"
+    return [x[0] for x in cities]  # x[2] - Индекс №0 отвечает за столбец "Название города"
 
 
 def get_current_domain():

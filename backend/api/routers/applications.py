@@ -14,7 +14,7 @@ from backend.apps.applications.logic import (
     get_driver_applications as logic_get_driver_applications,
 )
 from backend.apps.drivers.logic import get_driver_by_account_id
-from backend.enums.applications import ApplicationErrors
+from backend.enums.applications import ApplicationErrors, ApplicationTypes
 from backend.enums.system import SystemLogs
 from backend.schemas.applications import ListApplications, ApplicationData, ApplicationBase, ApplicationCreate
 from backend.submodules.common.enums import BaseMessage
@@ -22,6 +22,27 @@ from backend.submodules.common.responses import auth_responses
 from backend.submodules.common.schemas import Message
 
 router = APIRouter()
+
+
+@router.get(
+    "/types/",
+    responses={
+        status.HTTP_200_OK: {
+            "description": "Getting a dict with of app types in the system.",
+            "content": {
+                "application/json": {
+                    "example": {
+                        "wedding": "Свадьба",
+                        "watch": "Вахта"
+                    },
+                }
+            },
+        },
+    }
+)
+def get_app_types() -> dict:
+    """Получение списка типов заявок."""
+    return ApplicationTypes.get_types()
 
 
 @router.get(
