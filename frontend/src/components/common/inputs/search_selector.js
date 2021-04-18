@@ -15,7 +15,7 @@ export default class SearchInput extends React.Component {
 
         this.state = {
             result: [],
-            value: this.props.value
+            value: ""
         }
     }
 
@@ -28,6 +28,8 @@ export default class SearchInput extends React.Component {
     }
 
     choiceValue = (e) =>  {
+        e.target.offsetParent.previousElementSibling.value = e.currentTarget.textContent
+
         this.setState({
             value: e.currentTarget.textContent,
             result: []
@@ -39,7 +41,7 @@ export default class SearchInput extends React.Component {
         let emptyArray = [];
 
         let userData = e.target.value;
-        
+
         if (userData === '') {
             if (this.state.result.length > 0) {
                 this.setState({
@@ -83,11 +85,12 @@ export default class SearchInput extends React.Component {
                 name={this.props.name}
                 type="text"
                 size="45"
-                minlength="1"
-                maxlength="255"
-                value={this.state.value}
+                minLength="1"
+                maxLength="255"
+                defaultValue={this.props.value}
                 placeholder={this.props.placeholder ? this.props.placeholder : "Введите название города"}
-                onChange={this.keyUpHandler}>
+                onChange={this.keyUpHandler}
+                >
                 </input>
                 
                 <div className="search-selector__option">

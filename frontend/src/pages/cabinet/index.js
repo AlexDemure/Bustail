@@ -10,6 +10,8 @@ import isAuth from '../../utils/is_auth'
 import SerializeForm from '../../utils/form_serializer'
 import sendRequest from '../../utils/fetch'
 
+import { getCities } from '../../constants/cities'
+
 import ClientInfoForm from './forms/client'
 
 import './css/index.css'
@@ -61,7 +63,9 @@ export default class CabinetPage extends React.Component {
                 email: null,
                 city: null,
                 phone: null,
-                id: null
+                id: null,
+                isUpdated: false,
+                error: null
             },
             cities: []
             
@@ -86,6 +90,7 @@ export default class CabinetPage extends React.Component {
         .then(
             (result) => {
                 console.log(result);
+                // this.setState()
             },
             (error) => {
                 console.log(error.message);
@@ -105,16 +110,6 @@ export default class CabinetPage extends React.Component {
                 form: "common",
             }) 
         }
-    }
-
-    getCities() {
-        sendRequest('/api/v1/cities/', "GET")
-        .then(
-            (data) => {
-                console.log(data);
-                this.setState({cities: data});
-            }
-        )
     }
 
     aboutMe() {
@@ -138,18 +133,12 @@ export default class CabinetPage extends React.Component {
         )
     }
 
-    componentDidUpdate(prevProps, prevState) {
-        if (prevProps.cities !== this.props.cities) {
-            this.setState({
-                cities: this.props.cities
-            })
-        }
-    }
-
-    componentDidMount() {
+    async componentDidMount(){
         isAuth()
         this.aboutMe()
-        this.getCities()
+
+        let data = await getCities()
+        this.setState({cities: data});
     }
 
     render() {

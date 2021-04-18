@@ -8,6 +8,8 @@ import AuthSwitch from '../../../components/switches/auth'
 import SerializeForm from '../../../utils/form_serializer'
 import sendRequest from '../../../utils/fetch'
 
+import { getCities } from '../../../constants/cities'
+
 import NewSendMessageForm from './new_send_msg'
 
 
@@ -19,18 +21,9 @@ class MainFormRegistration extends React.Component {
         }
     }
 
-    getCities() {
-        sendRequest('/api/v1/cities/', "GET")
-        .then(
-            (data) => {
-                console.log(data);
-                this.setState({cities: data});
-            }
-        )
-    }
-
-    componentDidMount(){
-        this.getCities()
+    async componentDidMount(){
+        let data = await getCities()
+        this.setState({cities: data});
     }
 
 
@@ -38,7 +31,7 @@ class MainFormRegistration extends React.Component {
         return (
         <React.Fragment>
             <AuthSwitch is_active="reg"/>
-            <form className="registration__form__create-new-user" onSubmit={this.props.onSubmit} autocomplete="off">
+            <form className="registration__form__create-new-user" onSubmit={this.props.onSubmit} autoComplete="off">
                 <SearchInput name="city" placeholder="Город"  options={this.state.cities}/>
                 <DefaultInput parser="lowercase" name="email" input_type="email" size="25" placeholder="Электронная почта"/>
                 <DefaultInput name="hashed_password" input_type="password" size="25" placeholder="Пароль"/>
