@@ -30,7 +30,7 @@ function AdditionalFormCreateApp(props) {
     return (
         <form className="create-app__form__additional" onSubmit={props.onSubmit}>
             <TextAreaInput name="description" rows="5" placeholder="Комментарий"/>
-            <DefaultInput name="price" input_type="number" size="25" placeholder="Стоимость к заказу"/>
+            <DefaultInput name="price" input_type="number" size="25" placeholder="Стоимость (Не обязательно)" isRequired={false}/>
             <SubmitButton value="Создать"/>
         </form>
     )
@@ -98,7 +98,7 @@ export default class CreateAppForm extends React.Component {
         let prepared_data = SerializeForm(event.target, new FormData(event.target))
         let data = this.state.app_data
 
-        data.price = parseInt(prepared_data.get("price"))
+        data.price = prepared_data.get("price") !== "" ? parseInt(prepared_data.get("price")) : 0
         data.description = prepared_data.get("description") !== "" ? prepared_data.get("description") : null
 
         console.log(data)
@@ -122,7 +122,7 @@ export default class CreateAppForm extends React.Component {
         let cities = await getCities()
         let app_types = await appTypes()
         let app_types_list = [] // Формирование в стиле [] для SearchInput
-        
+
         Object.keys(app_types).forEach(
             function(key) {
                 app_types_list.push(app_types[key])
