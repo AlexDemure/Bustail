@@ -49,7 +49,7 @@ def generate_token(subject: str) -> Token:
         refresh_token=encode_token(
             sub=subject,
             purpose=TokenPurpose.refresh,
-            exp=now + timedelta(minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES),
+            exp=now + timedelta(minutes=settings.REFRESH_TOKEN_EXPIRE_MINUTES),
             jti=jwt_identifier
         ),
     )

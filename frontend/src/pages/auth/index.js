@@ -1,19 +1,36 @@
-import './css/index.css'
+import React from 'react'
 
-import AuthForm from './forms/login'
 import PreviewBanner from '../../components/common/preview_banner'
 
-function AuthPage() {
-    return (
-        <div className="container auth">
-            <PreviewBanner/>
-            <div className="auth__body">
-                <AuthForm/>
-                <p className="auth__body__reset-password">Забыли пароль? <a href="/recovery">Восстановить</a></p>
-            </div>
-            <div className="auth__footer"></div>
-        </div>
-    )
-}
+import AuthForm from './forms/login'
+import isAuth from '../../utils/is_auth'
 
-export default AuthPage
+import './css/index.css'
+
+
+export default class AuthPage extends React.Component {
+    constructor() {
+        super()
+    }
+
+    componentDidMount() {
+        let clientIsAuth = isAuth()
+        if (clientIsAuth === true) {
+            window.location.replace('/main')
+        }
+    }
+
+    render() {
+        return (
+            <div className="container auth">
+                <PreviewBanner/>
+                <div className="auth__body">
+                    <AuthForm/>
+                    <p className="auth__body__reset-password">Забыли пароль? <a href="/recovery">Восстановить</a></p>
+                </div>
+                <div className="auth__footer"></div>
+            </div>
+        )
+    }
+    
+}

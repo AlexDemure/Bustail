@@ -1,15 +1,15 @@
-from pydantic import BaseModel, root_validator
+from pydantic import BaseModel, root_validator, constr, EmailStr
 
 from backend.utils import get_cities
 
 
 class AccountBase(BaseModel):
-    email: str
-    city: str = None
+    email: EmailStr
+    city: constr(min_length=1, max_length=255) = None
 
 
 class AccountCreate(AccountBase):
-    hashed_password: str
+    hashed_password: constr(min_length=6, max_length=255)
 
     @root_validator
     def check_values(cls, values):
@@ -20,9 +20,9 @@ class AccountCreate(AccountBase):
 
 
 class AccountUpdate(BaseModel):
-    phone: str = None
-    fullname: str = None
-    city: str
+    phone: constr(min_length=6, max_length=255) = None
+    fullname: constr(min_length=1, max_length=255) = None
+    city: constr(min_length=1, max_length=255)
 
     @root_validator
     def check_values(cls, values):
@@ -40,13 +40,13 @@ class AccountUpdate(BaseModel):
 
 class AccountData(AccountBase):
     id: int
-    fullname: str = None
-    phone: str = None
+    fullname: constr(min_length=1, max_length=255) = None
+    phone: constr(min_length=11, max_length=12) = None
 
 
 class ConfirmAccount(BaseModel):
-    code: str
+    code: constr(min_length=4, max_length=16)
 
 
 class ChangePassword(BaseModel):
-    password: str
+    password: constr(min_length=6, max_length=255)

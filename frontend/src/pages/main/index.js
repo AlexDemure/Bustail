@@ -3,12 +3,9 @@ import React from 'react'
 import NavBar from '../../components/common/navbar'
 import Header from '../../components/common/header'
 
-import './css/index.css'
-
 import isAuth from '../../utils/is_auth'
 
-import '../../utils/is_auth'
-
+import './css/index.css'
 
 
 export default class MainPage extends React.Component {
