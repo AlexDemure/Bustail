@@ -9,7 +9,10 @@ from backend.apps.applications.serializer import prepare_apps_with_notifications
 from backend.apps.drivers.crud import driver as driver_crud
 from backend.enums.applications import ApplicationErrors, ApplicationStatus
 from backend.enums.system import SystemLogs
-from backend.schemas.applications import ApplicationBase, ApplicationData, ApplicationCreate, ListApplications
+from backend.schemas.applications import (
+    ApplicationBase, ApplicationData,
+    ApplicationCreate, ListApplications, ApplicationUpdate
+)
 from backend.submodules.common.enums import BaseSystemErrors, BaseMessage
 from backend.submodules.common.schemas import UpdatedBase
 
@@ -22,6 +25,26 @@ async def create_application(account: Account, application_in: ApplicationCreate
     application = await application_crud.create(application_in)
     logger.debug(SystemLogs.application_is_created.value)
     return ApplicationData(**application.__dict__)
+
+
+async def update_application(application_id: int, app_up: ApplicationUpdate) -> None:
+    """
+    Обновление данных заявки.
+
+    Используется для обновления данных заявки прайс и описание.
+    """
+    logger = get_logger().bind(payload=app_up.dict(), application_id=application_id)
+    application = await application_crud.get(application_id)
+    if not application:
+        logger.debug(SystemLogs.application_not_found.value)
+        raise ValueError(BaseMessage.obj_is_not_found.value)
+
+    update_schema = UpdatedBase(
+        id=application.id,
+        updated_fields=app_up.dict()
+    )
+    await application_crud.update(update_schema)
+    logger.debug(SystemLogs.application_is_updated.value)
 
 
 async def get_all_applications(**kwargs) -> ListApplications:

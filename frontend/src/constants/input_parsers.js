@@ -5,22 +5,20 @@ export const inputParsers = {
 };
 
 export let selectErrorInputs = (message, setBorder = true) =>  {
-  let inputs = message.split(",")
+  let errors = message.split(",")
+  let inputs = Array.prototype.slice.call(document.getElementsByTagName("input"))
 
-  for (var key in inputs) {
-      
-      let elements = document.getElementsByName(inputs[key])
-      
-      if (elements.length > 0) {
-          let element = elements[0]
-
-          if (setBorder) {
-              element.style.border = "1px solid #9B5E5D"
-          } else {
-            element.style.border = ""
-          }
-          
-      }
+  for (let input in inputs) {
+    if (errors.includes(inputs[input].name)) {
+        if (setBorder) {
+          inputs[input].style.border = "1px solid #9B5E5D"
+        } else {
+          inputs[input].style.border = ""
+        }
+    } else {
+        inputs[input].style.border = ""
+    }
   }
+
 }
 

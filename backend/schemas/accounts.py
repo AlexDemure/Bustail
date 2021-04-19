@@ -1,4 +1,4 @@
-from pydantic import BaseModel, root_validator, constr, EmailStr
+from pydantic import BaseModel, validator, root_validator, constr, EmailStr
 
 from backend.utils import get_cities
 
@@ -11,12 +11,12 @@ class AccountBase(BaseModel):
 class AccountCreate(AccountBase):
     hashed_password: constr(min_length=6, max_length=255)
 
-    @root_validator
-    def check_values(cls, values):
-        if values['city'] not in get_cities():
+    @validator('city')
+    def check_city(cls, value):
+        if value not in get_cities():
             raise ValueError("City is not found")
 
-        return values
+        return value
 
 
 class AccountUpdate(BaseModel):
@@ -24,18 +24,12 @@ class AccountUpdate(BaseModel):
     fullname: constr(min_length=1, max_length=255) = None
     city: constr(min_length=1, max_length=255)
 
-    @root_validator
-    def check_values(cls, values):
-        phone = values.get('phone', None)
-        fullname = values.get("fullname", None)
-
-        if phone is None and fullname is None:
-            raise ValueError("One of the values ​​must be specified")
-
-        if values['city'] not in get_cities():
+    @validator('city')
+    def check_city(cls, value):
+        if value not in get_cities():
             raise ValueError("City is not found")
 
-        return values
+        return value
 
 
 class AccountData(AccountBase):

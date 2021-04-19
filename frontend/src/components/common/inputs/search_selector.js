@@ -63,9 +63,9 @@ export default class SearchInput extends React.Component {
                     return data = <li key={data} onClick={this.choiceValue}>{data}</li>;
                 }
             )
-            if (emptyArray.length === 0) {
-                emptyArray.push(<li><span>Не найдено...</span></li>);
-            }
+            // if (emptyArray.length === 0) {
+            //     emptyArray.push(<li><span>Не найдено...</span></li>);
+            // }
 
             this.setState({
                 result: emptyArray,

@@ -11,6 +11,7 @@ import sendRequest from '../../../utils/fetch'
 
 import { appTypes } from '../../../constants/app_types'
 import { getCities } from '../../../constants/cities'
+import { selectErrorInputs } from '../../../constants/input_parsers'
 
 
 function MainFormCreateApp(props) {
@@ -29,7 +30,7 @@ function MainFormCreateApp(props) {
 function AdditionalFormCreateApp(props) {
     return (
         <form className="create-app__form__additional" onSubmit={props.onSubmit}>
-            <TextAreaInput name="description" rows="5" placeholder="Комментарий"/>
+            <TextAreaInput name="description" rows="5" placeholder="Комментарий (Не обязательно)" isRequired={false}/>
             <DefaultInput name="price" input_type="number" size="25" placeholder="Стоимость (Не обязательно)" isRequired={false}/>
             <SubmitButton value="Создать"/>
         </form>
@@ -44,19 +45,16 @@ export default class CreateAppForm extends React.Component {
         
         this.state = {
             form: "main",
+            
             cities: [],
             app_types: {}, // Список типов заявок в формате {key:value, key:value}
             app_types_list: [], // Список типов заявок для SearhInput [value, value]
 
             app_data: {
-                to_go_from: null,
-                to_go_to: null,
-                to_go_when: null,
-                count_seats: 0,
-                description: null,
-                price: 0,
-                application_type: null
-            }
+                id: null
+            },
+
+            error: null
         };
 
         this.mainCard = this.mainCard.bind(this);
@@ -78,41 +76,61 @@ export default class CreateAppForm extends React.Component {
                 }
             }
          );
+        
+         let data = {
+            application_type: application_type || null,
+            to_go_from: prepared_data.get("to_go_from"),
+            to_go_to: prepared_data.get("to_go_to"),
+            to_go_when: new Date(prepared_data.get("to_go_when").replace(date_pattern,'$3-$2-$1')).toISOString().slice(0,10),
+            count_seats: parseInt(prepared_data.get("count_seats")),
+        }
 
-         this.setState({
-            form: "additional",
+        sendRequest('/api/v1/applications/', "POST", data)
+        .then(
+            (result) => {
+                if (this.state.error) {
+                    selectErrorInputs(this.state.error, false)
+                    this.setState({error: null})
+                }
 
-            app_data: {
-                application_type: application_type || null,
-                to_go_from: prepared_data.get("to_go_from"),
-                to_go_to: prepared_data.get("to_go_to"),
-                to_go_when: new Date(prepared_data.get("to_go_when").replace(date_pattern,'$3-$2-$1')).toISOString().slice(0,10),
-                count_seats: parseInt(prepared_data.get("count_seats")),
+                this.setState({
+                    form: "additional",
+                    app_data: {
+                        id: result.id
+                    }
+                })
+            },
+            (error) => {
+                this.setState({error: error.message})
+
+                if (error.name === "ValidationError") {
+                    selectErrorInputs(error.message)
+                }
             }
-        })
+        )
     }
 
     additionalCard(event) {
         event.preventDefault();
 
         let prepared_data = SerializeForm(event.target, new FormData(event.target))
-        let data = this.state.app_data
 
-        data.price = prepared_data.get("price") !== "" ? parseInt(prepared_data.get("price")) : 0
-        data.description = prepared_data.get("description") !== "" ? prepared_data.get("description") : null
-
-        console.log(data)
-
-        sendRequest('/api/v1/applications/', "POST", data)
+        let data = {
+            price: prepared_data.get("price") !== "" ? parseInt(prepared_data.get("price")) : 0,
+            description: prepared_data.get("description") !== "" ? prepared_data.get("description") : null
+        }
+ 
+        sendRequest('/api/v1/applications/' + this.state.app_data.id, "PUT", data)
         .then(
             (result) => {
-                console.log(result);
-                this.setState({
-                    form: "notify"
-                })
+                this.setState({form: "notify"})
             },
             (error) => {
-                console.log(error.message);
+                this.setState({error: error.message})
+
+                if (error.name === "ValidationError") {
+                    selectErrorInputs(error.message)
+                }
             }
         )
 

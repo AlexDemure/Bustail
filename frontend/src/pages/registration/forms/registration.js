@@ -11,6 +11,7 @@ import sendRequest from '../../../utils/fetch'
 import { getCities } from '../../../constants/cities'
 
 import NewSendMessageForm from './new_send_msg'
+import { selectErrorInputs } from '../../../constants/input_parsers'
 
 
 class MainFormRegistration extends React.Component {
@@ -108,9 +109,18 @@ export default class RegistrationForm extends React.Component {
             },
             (error) => {
                 console.log(error.message);
-                this.setState({
-                    error: error.message
-                })
+                if (error.name === "ValidationError") {
+                    selectErrorInputs(error.message)
+                    this.setState({
+                        error: "Не корректно заполнены данные"
+                    })
+                } else {
+                    this.setState({
+                        error: error.message
+                    })
+                }
+
+
             }
         )
     }
@@ -131,9 +141,16 @@ export default class RegistrationForm extends React.Component {
             },
             (error) => {
                 console.log(error.message);
-                this.setState({
-                    error: error.message
-                })
+                if (error.name === "ValidationError") {
+                    selectErrorInputs(error.message)
+                    this.setState({
+                        error: "Код подтверждения состоит от 4 до 16 символов"
+                    })
+                } else {
+                    this.setState({
+                        error: error.message
+                    })
+                }
             }
         )
 

@@ -8,15 +8,20 @@ from backend.apps.accounts.models import Account
 from backend.apps.applications.logic import (
     get_account_applications as logic_get_account_applications,
     create_application as logic_create_application,
+    update_application as logic_update_application,
     get_application as logic_get_application,
     delete_application as logic_delete_application,
+    reject_application as logic_reject_application,
     get_all_applications as logic_get_all_applications,
     get_driver_applications as logic_get_driver_applications,
 )
 from backend.apps.drivers.logic import get_driver_by_account_id
 from backend.enums.applications import ApplicationErrors, ApplicationTypes
 from backend.enums.system import SystemLogs
-from backend.schemas.applications import ListApplications, ApplicationData, ApplicationBase, ApplicationCreate
+from backend.schemas.applications import (
+    ListApplications, ApplicationData,
+    ApplicationBase, ApplicationCreate, ApplicationUpdate
+)
 from backend.submodules.common.enums import BaseMessage
 from backend.submodules.common.responses import auth_responses
 from backend.submodules.common.schemas import Message
@@ -132,10 +137,32 @@ async def get_application(application_id: int, account: Account = Depends(confir
         **auth_responses
     }
 )
+async def update_application(
+        payload: ApplicationUpdate,
+        application_id: int,
+        account: Account = Depends(confirmed_account)
+) -> Message:
+    """Обновление данных по заявке."""
+    try:
+        await logic_update_application(application_id, payload)
+    except (AssertionError, ValueError) as e:
+        raise HTTPException(status_code=400, detail=str(e))
+
+    return Message(msg=BaseMessage.obj_is_changed.value)
+
+
+@router.put(
+    "/{application_id}/reject/",
+    response_model=Message,
+    responses={
+        status.HTTP_200_OK: {"description": BaseMessage.obj_is_changed.value},
+        **auth_responses
+    }
+)
 async def rejected_application(application_id: int, account: Account = Depends(confirmed_account)) -> Message:
     """Отмена заявки."""
     try:
-        await logic_delete_application(account, application_id)
+        await logic_reject_application(account, application_id)
     except (AssertionError, ValueError) as e:
         raise HTTPException(status_code=400, detail=str(e))
 

@@ -79,7 +79,6 @@ export default class CabinetPage extends React.Component {
         event.preventDefault();
 
         let prepared_data = SerializeForm(event.target, new FormData(event.target))
-        console.log(prepared_data);
 
         let data = {
             phone: prepared_data.get("phone"),
@@ -89,20 +88,17 @@ export default class CabinetPage extends React.Component {
         sendRequest('/api/v1/accounts/', "PUT", data)
         .then(
             (result) => {
-                console.log(result);
                 if (this.state.error) {
                     selectErrorInputs(this.state.error, false)
+                    this.setState({error: null})
                 }
-                
             },
             (error) => {
-                console.log(error.message);
                 this.setState({error: error.message})
 
                 if (error.name === "ValidationError") {
                     selectErrorInputs(error.message)
                 }
-                
             }
         )
     }
@@ -125,7 +121,6 @@ export default class CabinetPage extends React.Component {
         sendRequest('/api/v1/accounts/me/', "GET")
         .then(
             (result) => {
-                console.log(result);
                 this.setState({
                     user: {
                         email: result.email,
