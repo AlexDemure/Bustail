@@ -365,7 +365,7 @@ async def create_driver(payload: DriverBase, account: Account = Depends(confirme
 
     create_schema = DriverCreate(
         account_id=account.id,
-        license_number=payload.license_number
+        **payload.dict()
     )
     driver = await logic_create_driver(create_schema, account)
     return JSONResponse(

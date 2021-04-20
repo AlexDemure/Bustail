@@ -3,16 +3,23 @@ import React from 'react'
 import DefaultInput from '../../../components/common/inputs/default'
 import SearchInput from '../../../components/common/inputs/search_selector'
 import SubmitButton from '../../../components/common/buttons/submit_btn'
+import NavBar from '../../../components/common/navbar'
+import Header from '../../../components/common/header'
+import CabinetSwitch from '../components/switch_cabinet'
 
+import SerializeForm from '../../../utils/form_serializer'
+import sendRequest from '../../../utils/fetch'
 
-export default class ClientInfoForm extends React.Component {
+import { getCities } from '../../../constants/cities'
+import { selectErrorInputs } from '../../../constants/input_parsers'
+
+class ClientInfoForm extends React.Component {
     constructor(props) {
         super(props);
     }
 
     render() {
         return (
-            
             <React.Fragment>
                 <p id="warning">Сервис не несет ответственность за качество оказания услуг или спорных ситуаций при выполнении заказов.</p>
                 <form className="cabinet__form__client-info" onSubmit={this.props.changeInfo} autoComplete="off">
@@ -23,7 +30,90 @@ export default class ClientInfoForm extends React.Component {
                     <SubmitButton value="Сохранить"/>
                 </form>
             </React.Fragment>
-           
+        )
+    }
+}
+
+
+export default class ClientPage extends React.Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            user: {
+                email: null,
+                city: null,
+                phone: null,
+                id: null,
+            },
+            cities: [],
+            error: null
+        };
+        this.changeInfo = this.changeInfo.bind(this)
+    }
+
+    changeInfo(event) {
+        event.preventDefault();
+
+        let prepared_data = SerializeForm(event.target, new FormData(event.target))
+
+        let data = {
+            phone: prepared_data.get("phone"),
+            fullname: prepared_data.get("fullname"),
+            city: prepared_data.get("city")
+        }
+        sendRequest('/api/v1/accounts/', "PUT", data)
+        .then(
+            (result) => {
+                if (this.state.error) {
+                    selectErrorInputs(this.state.error, false)
+                    this.setState({error: null})
+                }
+            },
+            (error) => {
+                this.setState({error: error.message})
+
+                if (error.name === "ValidationError") {
+                    selectErrorInputs(error.message)
+                }
+            }
+        )
+    }
+
+    aboutMe() {
+        sendRequest('/api/v1/accounts/me/', "GET")
+        .then(
+            (result) => {
+                this.setState({
+                    user: {
+                        email: result.email,
+                        city: result.city,
+                        phone: result.phone,
+                        fullname: result.fullname,
+                        id: result.id
+                    }
+                })
+            },
+            (error) => {
+                console.log(error.message);
+            }
+        )
+    }
+
+    async componentDidMount(){
+        this.aboutMe()
+
+        let data = await getCities()
+        this.setState({cities: data});
+    }
+
+    render() {
+        return (
+            <div className="container cabinet common">
+                <Header previous_page="/main" page_name="Личный кабинет"/>
+                <CabinetSwitch is_active="common" onClick={this.props.changeForm}/>
+                <ClientInfoForm changeInfo={this.changeInfo} user={this.state.user} cities={this.state.cities}/>
+                <NavBar/>
+            </div>
         )
     }
 }

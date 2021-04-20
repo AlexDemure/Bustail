@@ -8,6 +8,8 @@ class Driver(models.Model):
     id = fields.IntField(pk=True)
     account = fields.ForeignKeyField('models.Account', related_name='drivers', on_delete=fields.CASCADE)
     created_at = fields.DatetimeField(auto_now_add=True)
+    company_name = fields.CharField(max_length=255)
+    inn = fields.CharField(max_length=32)
     license_number = fields.CharField(max_length=64, null=True)
     debt = fields.DecimalField(max_digits=10, decimal_places=3)
 

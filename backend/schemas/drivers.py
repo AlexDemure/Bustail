@@ -2,7 +2,7 @@ from decimal import Decimal
 from enum import Enum
 from typing import List
 
-from pydantic import BaseModel, root_validator
+from pydantic import BaseModel, validator, constr
 
 from backend.enums.drivers import TransportType
 from backend.schemas.notifications import NotificationData
@@ -12,14 +12,16 @@ from backend.submodules.object_storage.enums import FileMimetypes
 
 class CoverData(BaseModel):
     id: int
-    file_hash: str
-    file_uri: str
+    file_hash: constr(min_length=1, max_length=255)
+    file_uri: constr(min_length=1, max_length=255)
     media_type: Enum
     transport_id: int
 
 
 class DriverBase(BaseModel):
-    license_number: str = None
+    company_name: constr(min_length=3, max_length=255)
+    inn: constr(min_length=11, max_length=12)
+    license_number: constr(min_length=6, max_length=255)
 
 
 class DriverCreate(DriverBase):
@@ -29,19 +31,19 @@ class DriverCreate(DriverBase):
 
 class TransportBase(BaseModel):
     transport_type: TransportType
-    brand: str
-    model: str
+    brand: constr(min_length=1, max_length=255)
+    model: constr(min_length=1, max_length=255)
     count_seats: int = 1
     price: int = 0
-    city: str
-    state_number: str
+    city: constr(min_length=1, max_length=255)
+    state_number: constr(min_length=1, max_length=32)
 
-    @root_validator
-    def check_values(cls, values):
-        if values['city'] not in get_cities():
+    @validator('city')
+    def check_values(cls, value):
+        if value not in get_cities():
             raise ValueError("City is not found")
 
-        return values
+        return value
 
 
 class TransportUpdate(TransportBase):
@@ -65,8 +67,8 @@ class ListTransports(BaseModel):
 
 class TransportPhotoBase(BaseModel):
     transport_id: int
-    file_uri: str
-    file_hash: str
+    file_uri: constr(min_length=1, max_length=255)
+    file_hash: constr(min_length=1, max_length=255)
     media_type: FileMimetypes
 
 
