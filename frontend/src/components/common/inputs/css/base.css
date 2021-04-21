@@ -77,8 +77,6 @@ input[name=seats] {
 
 input[name=price] {
     background-image: url("../../../../static/icons/price.png");
-    width: 75%;
-    float: left;
 }
 
 input[name=phone] {

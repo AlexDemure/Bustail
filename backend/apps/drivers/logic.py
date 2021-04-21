@@ -97,15 +97,6 @@ async def change_transport_data(transport: TransportData, transport_up: Transpor
 
     assert isinstance(transport_up, TransportUpdate), BaseSystemErrors.schema_wrong_format.value
 
-    transport_data = await transport_crud.find_by_params(
-        brand=transport_up.brand,
-        model=transport_up.model,
-        state_number=transport_up.state_number
-    )
-    if transport_data:
-        logger.debug(SystemLogs.transport_already_exist.value)
-        raise ValueError(DriverErrors.transport_already_exist.value)
-
     update_schema = UpdatedBase(
         id=transport.id,
         updated_fields=transport_up.dict()
@@ -142,7 +133,7 @@ async def upload_transport_cover(transport: TransportData, file: UploadFile) -> 
     # Попытка найти файл в БД по хешу и айди транспорта
     file_object = await transport_covers_crud.find_transport_by_hash(transport.id, file_hash)
     if file_object:
-        return TransportPhotoData(**file_object)
+        return TransportPhotoData(**file_object.__dict__())
 
     # Путь где файл будет храниться covers/uuid.file_format
     file_uri = f"{FileStorages.covers.path}{str(uuid4())}{file_media_type.file_format}"

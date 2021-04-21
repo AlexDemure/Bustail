@@ -23,6 +23,7 @@ class Transport(models.Model):
     price = fields.IntField(default=0)
     city = fields.CharField(max_length=255)
     state_number = fields.CharField(max_length=16)
+    description = fields.CharField(max_length=1024, null=True)
     transport_type = fields.CharEnumField(TransportType, max_length=128)
 
 

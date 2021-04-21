@@ -20,7 +20,7 @@ from backend.apps.drivers.logic import (
     delete_transport as logic_delete_transport,
     get_transport_cover as logic_get_transport_cover,
 )
-from backend.enums.drivers import DriverErrors
+from backend.enums.drivers import DriverErrors, TransportType
 from backend.enums.system import SystemLogs
 from backend.schemas.drivers import (
     DriverBase, DriverCreate, DriverData,
@@ -172,14 +172,13 @@ async def get_transport(transport_id: int) -> TransportData:
 )
 async def change_transport_data(
         transport_id: int,
-        payload: TransportBase,
+        payload: TransportUpdate,
         account: Account = Depends(confirmed_account)
 ) -> Message:
     """Изменение данных в карточке транспорта."""
     driver, transport = await is_transport_belongs_driver(account.id, transport_id)
 
-    transport_up = TransportUpdate(driver_id=driver.id, **payload.dict())
-    await logic_change_transport_data(transport, transport_up)
+    await logic_change_transport_data(transport, payload)
 
     return Message(msg=BaseMessage.obj_is_changed.value)
 
@@ -228,7 +227,11 @@ async def create_transport(payload: TransportBase, account: Account = Depends(co
             detail=BaseMessage.obj_is_not_found.value
         )
 
-    create_schema = TransportCreate(driver_id=driver.id, **payload.dict())
+    create_schema = TransportCreate(
+        driver_id=driver.id,
+        transport_type=TransportType.define_type(payload.count_seats),
+        **payload.dict()
+    )
     try:
         transport = await logic_create_transport(create_schema)
     except ValueError as e:

@@ -30,13 +30,13 @@ class DriverCreate(DriverBase):
 
 
 class TransportBase(BaseModel):
-    transport_type: TransportType
     brand: constr(min_length=1, max_length=255)
     model: constr(min_length=1, max_length=255)
     count_seats: int = 1
     price: int = 0
     city: constr(min_length=1, max_length=255)
-    state_number: constr(min_length=1, max_length=32)
+    state_number: constr(min_length=3, max_length=32)
+    description: constr(min_length=1, max_length=1024) = None
 
     @validator('city')
     def check_values(cls, value):
@@ -46,17 +46,20 @@ class TransportBase(BaseModel):
         return value
 
 
-class TransportUpdate(TransportBase):
-    driver_id: int
+class TransportUpdate(BaseModel):
+    description: constr(min_length=1, max_length=1024) = None
+    price: int = 0
 
 
 class TransportCreate(TransportBase):
     driver_id: int
+    transport_type: TransportType
 
 
 class TransportData(TransportBase):
     id: int
     driver_id: int
+    transport_type: TransportType
     transport_covers: List[dict] = []
     notifications: List[NotificationData] = None
 

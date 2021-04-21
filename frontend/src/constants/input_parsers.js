@@ -22,3 +22,10 @@ export let selectErrorInputs = (message, setBorder = true) =>  {
 
 }
 
+export let validateImageFile = (file) => {
+  const validTypes = ['image/jpeg', 'image/jpg', 'image/png'];
+  if (validTypes.indexOf(file.type) === -1) {
+      return false;
+  }
+  return true;
+}
