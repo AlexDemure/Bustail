@@ -133,7 +133,7 @@ async def upload_transport_cover(transport: TransportData, file: UploadFile) -> 
     # Попытка найти файл в БД по хешу и айди транспорта
     file_object = await transport_covers_crud.find_transport_by_hash(transport.id, file_hash)
     if file_object:
-        return TransportPhotoData(**file_object.__dict__())
+        return TransportPhotoData(**file_object.__dict__)
 
     # Путь где файл будет храниться covers/uuid.file_format
     file_uri = f"{FileStorages.covers.path}{str(uuid4())}{file_media_type.file_format}"
@@ -149,6 +149,14 @@ async def upload_transport_cover(transport: TransportData, file: UploadFile) -> 
         )
         logger.debug(SystemLogs.cover_is_uploaded.value, file_uri=file_uri)
     else:
+        # Загрузка файла в ОС
+        import os
+        if not os.path.exists(FileStorages.covers.path):
+            os.makedirs(FileStorages.covers.path)
+
+        with open(file_uri, "wb") as file:
+            file.write(compression_file)
+
         logger.warning(f"{SystemLogs.ignore_business_logic} Upload file to object storage skipped.")
 
     transport_cover_in = TransportPhotoCreate(
@@ -172,7 +180,11 @@ async def download_transport_cover(transport_cover_id: int) -> Tuple[bytes, str]
     """Получение облокжи транспорта со скачиванием обложки из бакета."""
     transport_cover = await transport_covers_crud.get(transport_cover_id)
 
-    file_content = object_storage.download(transport_cover.file_uri)
+    if settings.ENV == SystemEnvs.prod.value:
+        file_content = object_storage.download(transport_cover.file_uri)
+    else:
+        with open(transport_cover.file_uri, 'rb') as file:
+            file_content = file.read()
 
     return file_content, transport_cover.media_type.value
 

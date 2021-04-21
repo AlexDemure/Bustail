@@ -185,7 +185,7 @@ export default class CreateTransportForm extends React.Component {
         let prepared_data = SerializeForm(event.target, new FormData(event.target))
         
         let data = {
-            description: prepared_data.get("description"),
+            description: prepared_data.get("description") !== "" ? prepared_data.get("description") : null,
             price: parseInt(prepared_data.get("price")),
         }
 

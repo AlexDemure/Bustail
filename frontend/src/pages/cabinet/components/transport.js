@@ -1,5 +1,7 @@
 import React from 'react';
 
+import sendRequest from '../../../utils/fetch'
+
 import './css/transport.css'
 
 
@@ -8,13 +10,34 @@ export default class TransportCabinet extends React.Component {
         super(props)
         this.state = {
             typeWindow: "",
+            isDeleted: false
         }
-    
+
+        // this.deleteTransport = this.deleteTransport.bind(this)
     }
+    
+    // deleteTransport() {
+    //     sendRequest(`api/v1/drivers/transports/${this.props.transport.id}/`, "DELETE")
+    //     .then(
+    //         (result) => {
+    //             console.log(result)
+    //         },
+    //         (error) => {
+    //             console.log(error)
+    //         }
+    //     )
+    // }
     render() {
+        let image_url = `/api/v1/drivers/transports/${this.props.transport.id}/covers/${this.props.transport.transport_cover}`
+
         return (
-            <div className="transport__cabinet">
-                <div className="transport__cabinet__photo" onClick={() => this.setState({typeWindow: "transport_card"})}></div>
+            <div className={"transport__cabinet"}>
+                <img 
+                    src={image_url}
+                    className="transport__cabinet__photo"
+                    onClick={() => this.setState({typeWindow: "transport_card"})}>
+                </img>
+
                 <div className="transport__cabinet__card">
                     <div className="transport__cabinet__card__title">
                         <p id="model">{this.props.transport.mark} {this.props.transport.model}</p>

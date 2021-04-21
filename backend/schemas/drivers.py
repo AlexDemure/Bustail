@@ -60,7 +60,7 @@ class TransportData(TransportBase):
     id: int
     driver_id: int
     transport_type: TransportType
-    transport_covers: List[dict] = []
+    transport_cover: int = None
     notifications: List[NotificationData] = None
 
 
