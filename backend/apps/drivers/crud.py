@@ -17,7 +17,7 @@ class CRUDDriver(CRUDBase[Driver, DriverCreate, UpdatedBase]):
                 .prefetch_related(
                 Prefetch(
                     'transports',
-                    queryset=Transport.all().prefetch_related(
+                    queryset=Transport.all().filter(is_active=True).prefetch_related(
                         Prefetch(
                             'transport_covers',
                             queryset=TransportPhoto.all()
@@ -33,7 +33,7 @@ class CRUDDriver(CRUDBase[Driver, DriverCreate, UpdatedBase]):
             .prefetch_related(
                 Prefetch(
                     'transports',
-                    queryset=Transport.all().prefetch_related(
+                    queryset=Transport.all().filter(is_active=True).prefetch_related(
                         Prefetch(
                             'transport_covers',
                             queryset=TransportPhoto.all()
@@ -52,14 +52,18 @@ class CRUDTransport(CRUDBase[Transport, TransportCreate, UpdatedBase]):
     async def find_by_params(self, brand: str, model: str, state_number: str) -> Optional[Transport]:
         return await self.model.get_or_none(
             Q(
-                Q(brand=brand), Q(model=model), Q(state_number=state_number), join_type="AND"
+                Q(brand=brand), Q(model=model), Q(state_number=state_number), Q(is_active=True), join_type="AND"
             )
         )
 
     async def get_transports_with_notifications(self, driver_id: int):
         return await (
-            self.model.filter(driver_id=driver_id).all()
-                .prefetch_related(
+            self.model.filter(
+                    Q(
+                        Q(driver_id=driver_id), Q(is_active=True), join_type="AND"
+                    )
+            ).all()
+            .prefetch_related(
                 Prefetch(
                     'notifications',
                     queryset=Notification.filter(decision__isnull=True).all()
@@ -82,12 +86,21 @@ class CRUDTransport(CRUDBase[Transport, TransportCreate, UpdatedBase]):
 
         return await (
             self.model.all()
-            .filter(city__icontains=city)
+            .filter(
+                Q(
+                    Q(city__icontains=city), Q(is_active=True), join_type="AND"
+                )
+            )
             .order_by(f'{"-" if order_type == "desc" else ""}{order_by}')
             .limit(limit=limit)
             .offset(offset=offset)
             .prefetch_related(Prefetch('transport_covers', queryset=TransportPhoto.all()))
         )
+
+    async def deactivate(self, object_id: int):
+        object_model = await self.model.filter(id=object_id).first()
+        setattr(object_model, 'is_active', False)
+        await object_model.save(update_fields=["is_active"])
 
 
 transport = CRUDTransport(Transport)

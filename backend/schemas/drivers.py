@@ -26,7 +26,6 @@ class DriverBase(BaseModel):
 
 class DriverCreate(DriverBase):
     account_id: int
-    debt: Decimal = Decimal("0")
 
 
 class TransportBase(BaseModel):
@@ -86,5 +85,8 @@ class TransportPhotoData(TransportPhotoBase):
 class DriverData(DriverBase):
     id: int
     account_id: int
-    transports: List[TransportData] = None
+    transports: List[TransportData] = []
+    total_amount: Decimal
+    commission: Decimal
     debt: Decimal
+    limit: Decimal

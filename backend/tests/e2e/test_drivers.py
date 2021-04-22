@@ -14,7 +14,13 @@ class TestDriver(BaseTest):
 
         async with self.client as ac:
             response = await ac.post(
-                "/drivers/", headers=self.headers, json={"license_number": self.driver_data.license_number}
+                "/drivers/",
+                headers=self.headers,
+                json={
+                    "company_name": self.driver_data.company_name,
+                    "inn": self.driver_data.inn,
+                    "license_number": self.driver_data.license_number
+                }
             )
         assert response.status_code == 201
 

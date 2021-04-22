@@ -17,15 +17,18 @@ def concat_card_number(first6: str, last4: str) -> str:
 
 
 @validate_arguments
-def get_commission_sum_from_application(application_sum: Decimal) -> Decimal:
+def get_commission_sum_from_application(
+        application_sum: Decimal,
+        commission: Decimal = settings.DEFAULT_COMMISSION_IN_PERCENT
+) -> Decimal:
     """Получение суммы за услуги сервиса от стоимости заявки."""
-    return convert_number_to_decimal(application_sum * settings.DEFAULT_COMMISSION_IN_PERCENT)
+    return convert_number_to_decimal(application_sum * commission)
 
 
 @validate_arguments
-def add_amount_to_debt(current_debt: Decimal, commission_sum: Decimal) -> Decimal:
-    """Добавление коммисии сервиса к остаточной задолжости водителя."""
-    return convert_number_to_decimal(current_debt + commission_sum)
+def add_amount_to_current_value(current_value: Decimal, additional_sum: Decimal) -> Decimal:
+    """Добавление значения к текущей сумме."""
+    return convert_number_to_decimal(current_value + additional_sum)
 
 
 @validate_arguments

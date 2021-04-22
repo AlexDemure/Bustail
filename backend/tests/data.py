@@ -43,7 +43,8 @@ class TestAccountData:
 
 
 class TestDriverData:
-
+    company_name = generate_random_code(size=8, only_digits=False)
+    inn = generate_random_code(size=12, only_digits=True)
     license_number = generate_random_code(size=16, only_digits=False)
 
     @staticmethod
@@ -51,7 +52,6 @@ class TestDriverData:
         transports = list()
         for _ in range(5):
             transport_data = {
-                "transport_type": random.choice([x.value for x in TransportType]),
                 "brand": generate_random_code(size=16, only_digits=False),
                 "model": generate_random_code(size=10, only_digits=False),
                 "count_seats": random.randint(1, 50),
@@ -181,7 +181,13 @@ class DriverProfile(BaseTest):
 
         async with self.client as ac:
             response = await ac.post(
-                "/drivers/", headers=self.headers, json={"license_number": self.driver_data.license_number}
+                "/drivers/",
+                headers=self.headers,
+                json={
+                    "company_name": self.driver_data.company_name,
+                    "inn": self.driver_data.inn,
+                    "license_number": self.driver_data.license_number
+                }
             )
         assert response.status_code == 201
 

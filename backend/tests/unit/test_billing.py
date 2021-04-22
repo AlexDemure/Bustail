@@ -3,7 +3,7 @@ from decimal import Decimal
 
 from backend.apps.billing.utils import (
     concat_card_number, get_commission_sum_from_application,
-    add_amount_to_debt, write_off_debt, convert_number_to_decimal
+    add_amount_to_current_value, write_off_debt, convert_number_to_decimal
 )
 from backend.core.config import settings
 
@@ -30,7 +30,7 @@ class TestBillings(unittest.TestCase):
                 correct_commission_amount = convert_number_to_decimal(Decimal(app_sum) * self.commission)
                 self.assertEqual(commission_sum, correct_commission_amount)
 
-                new_debt = add_amount_to_debt(debt, commission_sum)
+                new_debt = add_amount_to_current_value(debt, commission_sum)
                 self.assertIsInstance(new_debt, Decimal)
                 correct_debt_amount = convert_number_to_decimal(Decimal(debt) + commission_sum)
                 self.assertEqual(correct_debt_amount, new_debt)

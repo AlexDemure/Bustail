@@ -57,7 +57,11 @@ async def get_driver_by_account_id(account_id: int) -> Optional[DriverData]:
         return None
 
     transports = await get_transport_with_notifications_and_covers(driver)
-    return DriverData(**driver.__dict__, transports=transports)
+
+    data = driver.__dict__
+    commission = data.pop("commission")
+
+    return DriverData(**data, transports=transports, commission=commission * 100)
 
 
 async def update_driver(driver_up: UpdatedBase) -> None:
@@ -115,12 +119,8 @@ async def get_transports(**kwargs) -> ListTransports:
 
 async def delete_transport(transport_id: int) -> None:
     logger = get_logger().bind(transport_id=transport_id)
-    await transport_crud.remove(transport_id)
+    await transport_crud.deactivate(transport_id)
     logger.debug(SystemLogs.transport_is_deleted.value)
-
-    transport = await transport_crud.get(transport_id)
-    assert transport is None, "Transport is not deleted"
-    logger.debug(SystemLogs.transport_not_found.value)
 
 
 async def upload_transport_cover(transport: TransportData, file: UploadFile) -> TransportPhotoData:

@@ -35,7 +35,7 @@ class TestChangePassword(BaseTest):
 
         async with self.client as ac:
             response = await ac.put(
-                f"/accounts/change_password/?security_token={security_token.message}",
+                f"/accounts/change_password?security_token={security_token.message}",
                 json={"password": self.new_password}
             )
             assert response.status_code == 200

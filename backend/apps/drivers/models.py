@@ -1,7 +1,10 @@
 from tortoise import models, fields
 
+from decimal import Decimal
 from backend.enums.drivers import TransportType
 from backend.submodules.object_storage.enums import FileMimetypes
+
+from backend.core.config import settings
 
 
 class Driver(models.Model):
@@ -11,7 +14,12 @@ class Driver(models.Model):
     company_name = fields.CharField(max_length=255)
     inn = fields.CharField(max_length=32)
     license_number = fields.CharField(max_length=64, null=True)
-    debt = fields.DecimalField(max_digits=10, decimal_places=3)
+
+    #PAYMENT DATA
+    total_amount = fields.DecimalField(max_digits=20, decimal_places=3, default=Decimal("0"))
+    debt = fields.DecimalField(max_digits=10, decimal_places=3, default=Decimal("0"))
+    commission = fields.DecimalField(max_digits=5, decimal_places=3, default=settings.DEFAULT_COMMISSION_IN_PERCENT)
+    limit = fields.DecimalField(max_digits=10, decimal_places=3, default=settings.DEFAULT_DEBT_LIMIT_IN_RUBLS)
 
 
 class Transport(models.Model):
@@ -25,6 +33,7 @@ class Transport(models.Model):
     state_number = fields.CharField(max_length=16)
     description = fields.CharField(max_length=1024, null=True)
     transport_type = fields.CharEnumField(TransportType, max_length=128)
+    is_active = fields.BooleanField(default=True)
 
 
 class TransportPhoto(models.Model):
