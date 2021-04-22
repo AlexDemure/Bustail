@@ -19,11 +19,15 @@ ASYNC_CLIENT = AsyncClient(app=app, base_url="http://localhost/api/v1")
 class TestAccountData:
 
     email = None
+    fullname = None
+    phone = None
     hashed_password = "string"
     city = "Челябинск"
 
     def __init__(self):
         self.email = f"{generate_random_code(only_digits=False)}@gmail.com"
+        self.fullname = f"{generate_random_code(only_digits=False)}"
+        self.phone = f"+7{generate_random_code(size=10, only_digits=True)}"
 
     def get_personal_data(self) -> dict:
         return dict(
@@ -121,6 +125,21 @@ class BaseTest:
 
         self.update_auth_data(response.json())
         await self.confirm_account()
+        await self.change_account_data()
+
+    async def change_account_data(self):
+        async with self.client as ac:
+            response = await ac.put(
+                "/accounts/",
+                headers=self.headers,
+                json={
+                    "city": self.account_data.city,
+                    "phone": self.account_data.phone,
+                    "fullname": self.account_data.fullname,
+                }
+            )
+
+        assert response.status_code == 200
 
     @staticmethod
     async def get_verify_code(account_id: int) -> Optional[SendVerifyCodeEvent]:

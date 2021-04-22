@@ -51,9 +51,9 @@
 }
 
 .transport__search .transport__search__card .transport__search__card__title p[id=model] {
-    margin-top: 10px;
+    margin-top: 5px;
     color: #FBFBFB;
-    font-size: 15px;
+    font-size: 14px;
     font-family: 'FuturaMediumC';
 }
 

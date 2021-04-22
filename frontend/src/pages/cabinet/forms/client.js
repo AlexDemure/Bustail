@@ -6,6 +6,7 @@ import SubmitButton from '../../../components/common/buttons/submit_btn'
 import NavBar from '../../../components/common/navbar'
 import Header from '../../../components/common/header'
 import CabinetSwitch from '../components/switch_cabinet'
+import { aboutMe } from '../../../components/common/api/about_me'
 
 import SerializeForm from '../../../utils/form_serializer'
 import sendRequest from '../../../utils/fetch'
@@ -79,31 +80,14 @@ export default class ClientPage extends React.Component {
         )
     }
 
-    aboutMe() {
-        sendRequest('/api/v1/accounts/me/', "GET")
-        .then(
-            (result) => {
-                this.setState({
-                    user: {
-                        email: result.email,
-                        city: result.city,
-                        phone: result.phone,
-                        fullname: result.fullname,
-                        id: result.id
-                    }
-                })
-            },
-            (error) => {
-                console.log(error.message);
-            }
-        )
-    }
-
     async componentDidMount(){
-        this.aboutMe()
-
+        let user = await aboutMe()
         let data = await getCities()
-        this.setState({cities: data});
+
+        this.setState({
+            user: user,
+            cities: data
+        });
     }
 
     render() {

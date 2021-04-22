@@ -111,8 +111,9 @@ async def change_transport_data(transport: TransportData, transport_up: Transpor
 
 async def get_transports(**kwargs) -> ListTransports:
     """Получение списка всех предложений аренды транспорта."""
-    transports = await transport_crud.get_all_transports(**kwargs)
+    transports, total_rows = await transport_crud.get_all_transports(**kwargs)
     return ListTransports(
+        total_rows=total_rows,
         transports=[prepare_transport_with_photos(x, x.transport_covers.related_objects) for x in transports]
     )
 

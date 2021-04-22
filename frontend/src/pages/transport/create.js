@@ -4,6 +4,8 @@ import NavBar from '../../components/common/navbar'
 import Header from '../../components/common/header'
 import Notify from '../../components/common/notify'
 
+import { getDriverCard } from '../../components/common/api/driver_card'
+
 import sendRequest from '../../utils/fetch'
 
 import CreateTransportForm from './forms/create'
@@ -46,7 +48,13 @@ export default class CreateTransportPage extends React.Component {
     }
 
     async componentDidMount(){
-        this.aboutMe()
+        let driver = await getDriverCard()
+        if (driver) {
+            this.setState({
+                page: "create",
+                driver: driver
+            })
+        }
     }
 
     render() {

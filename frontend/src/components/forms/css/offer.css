@@ -90,3 +90,15 @@
     overflow-x: hidden;
     margin-bottom: 9vh;
 }
+
+.offer__common__modal-window__content  .offer__common__modal-window__no-choices-text {
+    font-size: 18px;
+    font-family: "FuturaDemiC";
+    color: #9B5E5D;
+    text-align: center;
+    justify-self: center;
+    align-self: center;
+
+    height: 100%;
+    margin-top: 25%;    
+}

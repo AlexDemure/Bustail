@@ -1,4 +1,4 @@
-from typing import Optional, List
+from typing import Optional, List, Tuple
 
 from tortoise.query_utils import Q, Prefetch
 
@@ -82,9 +82,9 @@ class CRUDTransport(CRUDBase[Transport, TransportCreate, UpdatedBase]):
         city: str = "",
         order_by: str = 'price',
         order_type: str = 'asc',
-    ) -> List[Transport]:
+    ) -> Tuple[List[Transport], int]:
 
-        return await (
+        rows = await (
             self.model.all()
             .filter(
                 Q(
@@ -96,6 +96,19 @@ class CRUDTransport(CRUDBase[Transport, TransportCreate, UpdatedBase]):
             .offset(offset=offset)
             .prefetch_related(Prefetch('transport_covers', queryset=TransportPhoto.all()))
         )
+
+        total_rows = await (
+            self.model.all()
+            .filter(
+                Q(
+                    Q(city__icontains=city), Q(is_active=True), join_type="AND"
+                )
+            )
+            .order_by(f'{"-" if order_type == "desc" else ""}{order_by}')
+            .count()
+        )
+
+        return rows, total_rows
 
     async def deactivate(self, object_id: int):
         object_model = await self.model.filter(id=object_id).first()

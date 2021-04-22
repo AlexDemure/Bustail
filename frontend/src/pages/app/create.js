@@ -3,6 +3,8 @@ import React from 'react'
 import NavBar from '../../components/common/navbar'
 import Header from '../../components/common/header'
 
+import { aboutMe } from '../../components/common/api/about_me'
+ 
 import CreateAppForm from './forms/create'
 
 import isAuth from '../../utils/is_auth'
@@ -17,6 +19,7 @@ export default class CreateAppPage extends React.Component {
 
     async componentDidMount(){
         isAuth()
+        await aboutMe()
     }
 
     render() {

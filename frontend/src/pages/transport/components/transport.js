@@ -2,6 +2,8 @@ import React from 'react';
 
 import OfferForm from "../../../components/forms/offer"
 
+import sendRequest from '../../../utils/fetch'
+
 import './css/transport.css'
 
 
@@ -10,11 +12,40 @@ export default class TransportSearch extends React.Component {
         super(props)
         this.state = {
             typeWindow: "",
+            phone: null
         }
+
+        this.getDriveInfo = this.getDriveInfo.bind(this)
     }
 
     onClick(window) {
         this.setState({typeWindow: window})
+    }
+
+    getDriveInfo() {
+        sendRequest(`/api/v1/drivers/${this.props.transport.driver_id}/`, "GET")
+        .then(
+            (result) => {
+                sendRequest(`/api/v1/accounts/${result.account_id}/`, "GET")
+                .then(
+                    (result) => {
+                        this.setState({
+                            phone: result.phone
+                        })
+                    },
+                    (error) => {
+                        console.log(error)
+                    }
+                )
+            },
+            (error) => {
+                console.log(error)
+            }
+        )
+    }
+
+    async componentDidMount() {
+        this.getDriveInfo()
     }
 
     render() {
@@ -23,17 +54,17 @@ export default class TransportSearch extends React.Component {
                 <div className="transport__search__photo"></div>
                 <div className="transport__search__card">
                     <div className="transport__search__card__title">
-                        <p id="model">{this.props.transport.mark} {this.props.transport.model}</p>
+                        <p id="model">{this.props.transport.brand} {this.props.transport.model}</p>
                     </div>
                     <div className="transport__search__card__body">
                         <div id="info">
-                            <p className="transport__search__item">вместимость: <span>{this.props.transport.seats}</span></p>
+                            <p className="transport__search__item">вместимость: <span>{this.props.transport.count_seats}</span></p>
                             <p className="transport__search__item">стоимость: <span>{this.props.transport.price}</span></p>
                             <p className="transport__search__item">город: <span>{this.props.transport.city}</span></p>
                         </div>
                     </div>
                     <div className="transport__search__card__controls">
-                        <a href={"tel:"+ this.props.phone} className="transport__search__control contacts"><div></div></a>
+                        <a href={"tel:"+ this.state.phone} className="transport__search__control contacts"><div></div></a>
                         <div className="transport__search__control info" onClick={() => this.onClick("transport_card")}></div>
                         <div className="transport__search__control offer" onClick={() => this.onClick("offer")}></div>
                     </div>

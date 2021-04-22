@@ -21,7 +21,9 @@ export default class OfferForm extends React.Component {
                         <a href={this.props.create_link} className="offer__common__modal-window__create-object">Создать</a>
                     </div>
                     <div className="offer__common__modal-window__choices">
-                        {this.props.choices}
+                        {
+                            this.props.choices.length > 0 ? this.props.choices : <p className="offer__common__modal-window__no-choices-text">Список предложений пуст</p>
+                        }
                     </div>
                 </div>
             </div>

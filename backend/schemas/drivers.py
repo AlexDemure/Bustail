@@ -64,6 +64,7 @@ class TransportData(TransportBase):
 
 
 class ListTransports(BaseModel):
+    total_rows: int
     transports: List[TransportData]
 
 
