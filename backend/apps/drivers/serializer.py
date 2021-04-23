@@ -26,7 +26,7 @@ def prepare_driver_data(driver: Driver, transports: List[Transport]) -> DriverDa
 
 def prepare_transport_with_photos(transport: Transport, photos: List[TransportPhoto]) -> TransportData:
     return TransportData(
-        transport_covers=photos[-1].id if len(photos) > 0 else None,
+        transport_cover=photos[-1].id if len(photos) > 0 else None,
         **transport.__dict__
     )
 

@@ -5,7 +5,7 @@
     border-radius: 10px;
 
     display: grid;
-    grid-template-columns: 35% 65%;
+    grid-template-columns: 40% 60%;
     position: relative;
 }
 

@@ -26,7 +26,7 @@ export default class SearchTransportPage extends React.Component {
             offerData: null,
 
             user: null,
-            user_apps: null,
+            user_apps: [],
             cities: null,
             
             transports: null,
@@ -44,7 +44,7 @@ export default class SearchTransportPage extends React.Component {
     }
     
     async getMeApps() {
-        let me_apps;
+        let me_apps = [];
         await sendRequest('/api/v1/applications/client/', "GET")
         .then(
             (result) => {
@@ -52,7 +52,6 @@ export default class SearchTransportPage extends React.Component {
             },
             (error) => {
                 console.log(error)
-                me_apps = null
             }
         )
         return me_apps

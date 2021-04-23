@@ -17,14 +17,14 @@ export default class TransportOffer extends React.Component {
                 <div className="transport__offer__photo" onClick={() => this.setState({typeWindow: "transport_card"})}></div>
                 <div className="transport__offer__card">
                     <div className="transport__offer__card__title">
-                        <p id="model">{this.props.transport.mark} {this.props.transport.model}</p>
+                        <p id="model">{this.props.transport.brand} {this.props.transport.model}</p>
                     </div>
                     <div className="transport__offer__card__body">
                         <div id="info">
                             <p className="transport__offer__item">город: <span>{this.props.transport.city}</span></p>
                         </div>
                     </div>
-                    <div className="transport__offer__card__footer">
+                    <div className="transport__offer__card__footer" onClick={this.props.createOffer}>
                         <p>Предложить</p>
                     </div>
                 </div>

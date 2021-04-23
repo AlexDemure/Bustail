@@ -52,4 +52,5 @@ class ApplicationData(ApplicationBase):
 
 
 class ListApplications(BaseModel):
+    total_rows: int
     applications: List[ApplicationData]

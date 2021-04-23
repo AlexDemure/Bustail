@@ -1,5 +1,5 @@
 from datetime import datetime
-from typing import List
+from typing import List, Tuple
 
 from tortoise.query_utils import Prefetch, Q
 
@@ -45,8 +45,8 @@ class CRUDApplication(CRUDBase[Application, ApplicationCreate, UpdatedBase]):
         city: str = "",
         order_by: str = 'to_go_when',
         order_type: str = 'asc',
-    ) -> List[Application]:
-        return await (
+    ) -> Tuple[List[Application], int]:
+        rows = await (
             self.model.all()
                 .filter(
                 Q(
@@ -59,6 +59,19 @@ class CRUDApplication(CRUDBase[Application, ApplicationCreate, UpdatedBase]):
             .limit(limit=limit)
             .offset(offset=offset)
         )
+        total_rows = await (
+            self.model.all()
+                .filter(
+                Q(
+                    Q(to_go_from__icontains=city),
+                    Q(to_go_to__icontains=city),
+                    join_type="OR"
+                )
+            )
+            .order_by(f'{"-" if order_type == "desc" else ""}{order_by}')
+            .count()
+        )
+        return rows, total_rows
 
 
 application = CRUDApplication(Application)

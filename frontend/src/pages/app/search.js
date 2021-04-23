@@ -1,97 +1,166 @@
+import React from 'react'
 import NavBar from '../../components/common/navbar'
 import Header from '../../components/common/header'
 import SearchInput from '../../components/common/inputs/search_selector'
+import SubmitButton from '../../components/common/buttons/submit_btn'
 
+import { getDriverCard } from '../../components/common/api/driver_card'
+import { aboutMe } from '../../components/common/api/about_me'
+import { getCities } from '../../constants/cities'
+
+import sendRequest from '../../utils/fetch'
+import SerializeForm from '../../utils/form_serializer'
+
+import OfferForm from "./components/offer"
 import TicketSearch from './components/ticket'
-import TransportOffer from './components/transport'
+
 
 import './css/search.css'
 
 
-const tickets = [
-    {
-    "from": "Челябинск", "to": "Москва", "date": "16.10.21",
-    "price": 16000, "type_app": "Свадьба", "seats": 24, "description": "Hellodsadasd"
-   },
-   {
-    "from": "Челябинск", "to": "Москва", "date": "16.10.21",
-    "price": 16000, "type_app": "Свадьба", "seats": 24,
-   },
-   {
-    "from": "Челябинск", "to": "Москва", "date": "16.10.21",
-    "price": 16000, "type_app": "Свадьба", "seats": 24,
-   },
-   {
-    "from": "Челябинск", "to": "Москва", "date": "16.10.21",
-    "price": 16000, "type_app": "Свадьба", "seats": 24,
-   },
-   {
-    "from": "Челябинск", "to": "Москва", "date": "16.10.21",
-    "price": 16000, "type_app": "Свадьба", "seats": 24,
-   },
-   {
-    "from": "Челябинск", "to": "Москва", "date": "16.10.21",
-    "price": 16000, "type_app": "Свадьба", "seats": 24,
-   }
-]
 
-const cities = tickets.map(
-    (ticket) => {
-        return ticket.from
+export default class SearchAppPage extends React.Component {
+    constructor() {
+        super()
+
+        this.state = {
+            offerData: null,
+
+            user: null,
+            me_transports: [],
+            cities: null,
+            
+            apps: null,
+            total_rows: null,
+
+            offset: null,
+            city: null,
+            
+            isScrolling: true
+        }
+
+        this.onScroll = this.onScroll.bind(this)
+        this.onSubmit = this.onSubmit.bind(this)
+        this.getApps = this.getApps.bind(this)
     }
-)
 
-const me_transports = [
-    {
-    "mark": "Mersedes Benz", "model": "Splinter",
-    "price": 900, "seats": 24, "city": "Челябинск",
-    "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-    "photo": "base64", "phone": "+79123456789",
-    "driver": "Иванов Иван", "driver_license": "312-1251-1231"
-   },
-   {
-    "mark": "Mersedes Benz", "model": "Splinter",
-    "price": 900, "seats": 24, "city": "Москва",
-    "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-    "photo": "base64", "phone": "+79123456789",
-    "driver": "Иванов Иван", "driver_license": "312-1251-1231"
-   },
-   {
-    "mark": "Mersedes Benz", "model": "Splinter",
-    "price": 900, "seats": 24, "city": "Москва",
-    "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-    "photo": "base64", "phone": "+79123456789",
-    "driver": "Иванов Иван", "driver_license": "312-1251-1231"
-   },
-   {
-    "mark": "Mersedes Benz", "model": "Splinter",
-    "price": 900, "seats": 24, "city": "Москва",
-    "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-    "photo": "base64", "phone": "+79123456789",
-    "driver": "Иванов Иван", "driver_license": "312-1251-1231"
-   },
-]
-
-const me_transport_in_html =  me_transports.map(
-    (transport) => <TransportOffer transport={transport}/>
-)
-
-
-function SearchAppPage() {
-    return (
-        <div className="container search-app">
-            <Header previous_page="/main" page_name="Поиск заявки"/>
-            <SearchInput options={cities}/>
-            <div className="search-app__apps">
-                {
-                    tickets.map(
-                        (ticket) => <TicketSearch choices={me_transport_in_html} ticket={ticket}/>
-                    )
+    
+    async getApps(city = null, offset = 0) {
+        let data;
+        
+        let url = `/api/v1/applications/?limit=10&offset=${offset}&order_by=to_go_when&order_type=asc`
+        if (city !== null && city !== "") {
+            url += `&city=${city}`
+        }
+        
+        await sendRequest(url, "GET")
+        .then(
+            (result) => {
+                data = {
+                    applications: result.applications,
+                    total_rows: result.total_rows
                 }
-            </div>
-            <NavBar/>
-        </div>
-    )
-}
+            },
+            (error) => {
+                console.log(error)
+                data = null
+            }
+        )
+        return data
 
-export default SearchAppPage
+    }
+
+    onScroll = async(e) => {
+        
+        if (e.target.scrollHeight - (e.target.offsetHeight + e.target.scrollTop) === 0) {
+            if (this.state.isScrolling === true) {
+                
+                let data = await this.getApps(this.state.city, this.state.offset);        
+
+                let new_array = this.state.apps.concat(data.applications)
+                        
+                this.setState({
+                    apps: new_array,
+                    total_rows: data.total_rows,
+                    offset: new_array.length
+                })
+
+                if (new_array.length >= this.state.total_rows) {
+                    this.setState({
+                        isScrolling: false
+                    })
+                }
+        
+            } 
+        }
+    }
+    
+    onSubmit = async(e) => {
+        e.preventDefault()
+        let prepared_data = SerializeForm(e.target, new FormData(e.target))
+        
+        let data = await this.getApps(prepared_data.get("city"));        
+
+        this.setState({
+            apps: data.applications,
+            total_rows: data.total_rows,
+            offset: data.applications.length,
+            city: prepared_data.get("city"),
+        })
+
+    }
+
+    async componentDidMount(){
+        let user = await aboutMe()
+        let driver = await getDriverCard()
+
+        let cities = await getCities()
+        let apps_data = await this.getApps()
+
+        this.setState({
+            user: user,
+            me_transports: driver ? driver.transports : [],
+            cities: cities,
+            
+            apps: apps_data.applications,
+            total_rows: apps_data.total_rows,
+            offset: apps_data ? apps_data.applications.length : null,
+        });
+    }
+
+    render() {
+        return (
+            <div className="container search-app">
+                <Header previous_page="/main" page_name="Поиск заявки"/>
+                <form className="search-app__form__search" onSubmit={this.onSubmit} autoComplete="off">
+                    <SearchInput name="city" options={this.state.cities} value={this.state.user ? this.state.user.city : null} isRequired={false}/>
+                    <SubmitButton value="Поиск"/>
+                </form>
+                <div className="search-app__apps" onScroll={this.onScroll}>
+                    {
+                        this.state.apps &&
+                        this.state.apps.map(
+                            (ticket, index) => 
+                            <TicketSearch
+                            ticket={ticket}
+                            openOffer={() => this.setState({offerData: index})}
+                            />
+                        )
+                    }
+                </div>
+                { this.state.offerData !== null && (
+                        <OfferForm
+                        closeOffer={() => this.setState({offerData: null})}
+                        offer_type="Предложение аренды"
+                        create_link="/transport/create"
+                        choices={this.state.me_transports}
+                        app_id={this.state.apps[this.state.offerData].id}
+                        />
+                    )   
+                }
+                <NavBar/>
+            </div>
+        )
+    }
+    
+}

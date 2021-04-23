@@ -49,8 +49,9 @@ async def update_application(application_id: int, app_up: ApplicationUpdate) -> 
 
 async def get_all_applications(**kwargs) -> ListApplications:
     """Получение списка всех заявок в системе с get-параметрами."""
-    applications = await application_crud.get_all_applications(**kwargs)
+    applications, total_rows = await application_crud.get_all_applications(**kwargs)
     return ListApplications(
+        total_rows=total_rows,
         applications=[ApplicationData(**x.__dict__) for x in applications]
     )
 
