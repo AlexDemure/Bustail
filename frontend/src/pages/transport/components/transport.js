@@ -1,7 +1,5 @@
 import React from 'react';
 
-import OfferForm from "../../../components/forms/offer"
-
 import sendRequest from '../../../utils/fetch'
 
 import './css/transport.css'
@@ -66,7 +64,7 @@ export default class TransportSearch extends React.Component {
                     <div className="transport__search__card__controls">
                         <a href={"tel:"+ this.state.phone} className="transport__search__control contacts"><div></div></a>
                         <div className="transport__search__control info" onClick={() => this.onClick("transport_card")}></div>
-                        <div className="transport__search__control offer" onClick={() => this.onClick("offer")}></div>
+                        <div className="transport__search__control offer" onClick={this.props.openOffer}></div>
                     </div>
                 </div>
                 
@@ -80,16 +78,7 @@ export default class TransportSearch extends React.Component {
                         </div>
                     )   
                 }
-                { this.state.typeWindow === "offer" && (
-                        <OfferForm
-                        onClick={() => this.onClick("")}
-                        offer_type="Предложение заявки"
-                        create_link="/app/create"
-                        choices={this.props.choices}
-                        />
-                    )   
-                }
-
+                
             </div>
         )
     }

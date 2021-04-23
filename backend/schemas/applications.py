@@ -1,5 +1,5 @@
 from datetime import date, datetime
-from typing import List
+from typing import List, Union
 
 from pydantic import BaseModel, constr, validator
 
@@ -45,9 +45,9 @@ class ApplicationData(ApplicationBase):
     id: int
     account_id: int
     driver_id: int = None
-    to_go_when: date = None
     created_at: datetime
     confirmed_at: datetime = None
+    application_type: Union[str, ApplicationTypes]
     notifications: List[NotificationData] = None
 
 

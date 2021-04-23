@@ -7,7 +7,10 @@ from backend.api.deps.accounts import confirmed_account
 from backend.apps.accounts.models import Account
 from backend.apps.applications.logic import get_application
 from backend.apps.drivers.logic import is_transport_belongs_driver, is_driver_debt_exceeded
-from backend.apps.notifications.logic import create_notification, get_notification, set_decision, delete_notification
+from backend.apps.notifications.logic import (
+    create_notification as logic_create_notification,
+    get_notification, set_decision, delete_notification
+)
 from backend.enums.applications import ApplicationErrors, ApplicationStatus
 from backend.enums.drivers import DriverErrors
 from backend.enums.notifications import NotificationTypes, NotificationErrors
@@ -27,15 +30,15 @@ router = APIRouter()
         status.HTTP_200_OK: {"description": BaseMessage.obj_already_exist.value},
         status.HTTP_201_CREATED: {"description": BaseMessage.obj_is_created.value},
         status.HTTP_400_BAD_REQUEST: {
-            "description": f"{DriverErrors.car_not_belong_to_driver.value} or "
-                           f"{ApplicationErrors.application_does_not_belong_this_user.value} or "
-                           f"{ApplicationErrors.application_has_ended_status.value} or "
+            "description": f"{DriverErrors.car_not_belong_to_driver.value}\n"
+                           f"{ApplicationErrors.application_does_not_belong_this_user.value}\n"
+                           f"{ApplicationErrors.application_has_ended_status.value}\n"
                            f"{DriverErrors.driver_have_debt_limit.value}"
         },
         **auth_responses
     }
 )
-async def create_notification_(notification_in: NotificationCreate, account: Account = Depends(confirmed_account)) -> JSONResponse:
+async def create_notification(notification_in: NotificationCreate, account: Account = Depends(confirmed_account)) -> JSONResponse:
     """Создание предложения об услуги."""
     logger = get_logger().bind(account_id=account.id, payload=notification_in.dict())
     application = await get_application(notification_in.application_id)
@@ -67,7 +70,13 @@ async def create_notification_(notification_in: NotificationCreate, account: Acc
                 detail=ApplicationErrors.application_does_not_belong_this_user.value
             )
 
-    notification = await create_notification(notification_in)
+    try:
+        notification = await logic_create_notification(notification_in)
+    except ValueError as e:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=str(e)
+        )
 
     return JSONResponse(
         status_code=status.HTTP_201_CREATED,

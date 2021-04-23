@@ -6,7 +6,7 @@ async function fetcher(url, method, data, token = localStorage.getItem("token"))
     let response = await fetch(url, {
         method: method,
         headers: {
-            'Content-type': 'application/json',
+            'Content-type': 'application/json;charset=utf-8',
             'Authorization': "Bearer " + token
         },
         body: JSON.stringify(data)

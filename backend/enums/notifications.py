@@ -7,5 +7,5 @@ class NotificationTypes(Enum):
 
 
 class NotificationErrors(Enum):
-    duplicate_notification = "Данное предложение было ранее отправлено ."
+    duplicate_notification = "Данное предложение было ранее отправлено."
     notification_is_have_decision = "Предложение имеет конечный статус."

@@ -2,6 +2,7 @@ import React from 'react'
 import NavBar from '../../components/common/navbar'
 import Header from '../../components/common/header'
 import SearchInput from '../../components/common/inputs/search_selector'
+import SubmitButton from '../../components/common/buttons/submit_btn'
 
 import { aboutMe } from '../../components/common/api/about_me'
 import { getCities } from '../../constants/cities'
@@ -9,9 +10,12 @@ import { getCities } from '../../constants/cities'
 import sendRequest from '../../utils/fetch'
 
 import TransportSearch from './components/transport'
-import TicketOffer from './components/ticket'
+import OfferForm from "./components/offer"
+
+import SerializeForm from '../../utils/form_serializer'
 
 import './css/search.css'
+
 
 
 export default class SearchTransportPage extends React.Component {
@@ -19,17 +23,24 @@ export default class SearchTransportPage extends React.Component {
         super()
         
         this.state = {
+            offerData: null,
+
             user: null,
             user_apps: null,
             cities: null,
+            
             transports: null,
-
-            count_rows: 10,
             total_rows: null,
+
+            offset: null,
+            city: null,
+            
             isScrolling: true
         }
 
         this.onScroll = this.onScroll.bind(this)
+        this.onSubmit = this.onSubmit.bind(this)
+        this.getTransports = this.getTransports.bind(this)
     }
     
     async getMeApps() {
@@ -47,9 +58,15 @@ export default class SearchTransportPage extends React.Component {
         return me_apps
     }
 
-    async getTransports() {
+    async getTransports(city = null, offset = 0) {
         let data;
-        await sendRequest(`/api/v1/drivers/transports/?limit=10&offset=0&order_by=id&order_type=asc`, "GET")
+        
+        let url = `/api/v1/drivers/transports/?limit=10&offset=${offset}&order_by=id&order_type=desc`
+        if (city !== null && city !== "") {
+            url += `&city=${city}`
+        }
+        
+        await sendRequest(url, "GET")
         .then(
             (result) => {
                 data = {
@@ -63,46 +80,55 @@ export default class SearchTransportPage extends React.Component {
             }
         )
         return data
+
     }
 
-
-    onScroll = (e) => {
+    onScroll = async(e) => {
         
         if (e.target.scrollHeight - (e.target.offsetHeight + e.target.scrollTop) === 0) {
             if (this.state.isScrolling === true) {
-                sendRequest(`/api/v1/drivers/transports/?limit=10&offset=${this.state.count_rows}&order_by=id&order_type=asc`, "GET")
-                .then(
-                    (result) => {
-                        let new_array = this.state.transports.concat(result.transports)
-                        
-                        this.setState({
-                            transports: new_array,
-                            count_rows: new_array.length
-                        })
+                
+                let data = await this.getTransports(this.state.city, this.state.offset);        
 
-                        if (new_array.length >= this.state.total_rows) {
-                            this.setState({
-                                isScrolling: false
-                            })
-                        }
-                    },
-                    (error) => {
-                        console.log(error)
-                    }
-                )
+                let new_array = this.state.transports.concat(data.transports)
+                        
+                this.setState({
+                    transports: new_array,
+                    total_rows: data.total_rows,
+                    offset: new_array.length
+                })
+
+                if (new_array.length >= this.state.total_rows) {
+                    this.setState({
+                        isScrolling: false
+                    })
+                }
+        
             } 
         }
     }
-      
+    
+    onSubmit = async(e) => {
+        e.preventDefault()
+        let prepared_data = SerializeForm(e.target, new FormData(e.target))
+        
+        let data = await this.getTransports(prepared_data.get("city"));        
+
+        this.setState({
+            transports: data.transports,
+            total_rows: data.total_rows,
+            offset: data.transports.length,
+            city: prepared_data.get("city"),
+        })
+
+    }
+
     async componentDidMount(){
         let user = await aboutMe()
         let cities = await getCities()
 
         let user_apps = await this.getMeApps()
-        user_apps = user_apps.map(
-            (ticket) => <TicketOffer ticket={ticket}/>
-        )
-
+        
         let transport_data = await this.getTransports()
 
         this.setState({
@@ -111,22 +137,41 @@ export default class SearchTransportPage extends React.Component {
             cities: cities,
             transports: transport_data.transports,
             total_rows: transport_data.total_rows,
+            offset: transport_data ? transport_data.transports.length : null,
         });
     }
-
+    
     render() {
         return (
             <div className="container search-transport">
                 <Header previous_page="/main" page_name="Поиск транспорта"/>
-                <SearchInput options={this.state.cities}/>
+                <form className="search-transport__form__search" onSubmit={this.onSubmit} autoComplete="off">
+                    <SearchInput name="city" options={this.state.cities} value={this.state.user ? this.state.user.city : null} isRequired={false}/>
+                    <SubmitButton value="Поиск"/>
+                </form>
+                
                 <div className="search-transport__transports" onScroll={this.onScroll}>
                     {
                         this.state.transports &&
                         this.state.transports.map(
-                            (transport) => <TransportSearch choices={this.state.user_apps} transport={transport}/>
+                            (transport, index) => 
+                            <TransportSearch
+                            transport={transport}
+                            openOffer={() => this.setState({offerData: index})}
+                            />
                         )
                     }
                 </div>
+                { this.state.offerData !== null && (
+                        <OfferForm
+                        closeOffer={() => this.setState({offerData: null})}
+                        offer_type="Предложение заявки"
+                        create_link="/app/create"
+                        choices={this.state.user_apps}
+                        transport_id={this.state.transports[this.state.offerData].id}
+                        />
+                    )   
+                }
                 <NavBar/>
             </div>
         )

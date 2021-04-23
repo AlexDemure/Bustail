@@ -7,7 +7,7 @@ export default class TicketOffer extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            typeWindow: "",
+            typeWindow: ""
         }
     }
 
@@ -16,23 +16,26 @@ export default class TicketOffer extends React.Component {
     }
 
     render() {
+        let date_items = this.props.ticket.to_go_when.split("-")
+        let new_date = `${date_items[1]}.${date_items[2]}`
+
         return (
             <div className="ticket__offer">
                 <div id="left">
                     <p className="ticket__offer__placeholder">откуда</p>
-                    <p id='from' className="ticket__offer__city">{this.props.ticket.from}</p>
+                    <p id='from' className="ticket__offer__city">{this.props.ticket.to_go_from}</p>
                     <p className="ticket__offer__details-btn" onClick={() => this.onClick("about")}>подробнее</p>
                 </div>
                 <div id="right">
                     <div id="right-div-left">
                         <p className="ticket__offer__placeholder">куда</p>
-                        <p id="to" className="ticket__offer__city">{this.props.ticket.to}</p>
-                        <p className="ticket__offer__type-app">{this.props.ticket.type_app}</p>
+                        <p id="to" className="ticket__offer__city">{this.props.ticket.to_go_from}</p>
+                        <p className="ticket__offer__type-app">{this.props.ticket.application_type}</p>
                     </div>
                     <div id="right-div-right">
-                        <p className="ticket__offer__date">{this.props.ticket.date}</p>
+                        <p className="ticket__offer__date">{new_date}</p>
                         <p className="ticket__offer__price">{this.props.ticket.price}</p>
-                        <div className="ticket__offer__offer-btn" onClick={this.props.onClick}>
+                        <div className="ticket__offer__offer-btn" onClick={this.props.createOffer}>
                             <p>Предложить</p>
                         </div>
                     </div>
