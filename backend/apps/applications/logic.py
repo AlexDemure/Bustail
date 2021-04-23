@@ -138,7 +138,7 @@ async def confirm_application(application_id: int, transport_id: int, driver_id:
 async def reject_application(account: Account, application_id: int) -> None:
     """Отмена заявки."""
     logger = get_logger().bind(account_id=account.id, application_id=application_id)
-    application = await application_crud.get(application_id)
+    application = await application_crud.get_with_not_ended_status(application_id)
     if not application:
         logger.debug(SystemLogs.application_not_found.value)
         raise ValueError(BaseMessage.obj_is_not_found.value)

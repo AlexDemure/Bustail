@@ -12,7 +12,8 @@
 }
 
 .container.cabinet.driver.form,
-.container.cabinet.common {
+.container.cabinet.common,
+.container.cabinet.client {
     grid-template-rows: 10% 5% 15% 1fr;
     grid-template-columns: 1fr;
 }
@@ -23,7 +24,8 @@
 }
 
 .container.cabinet.driver.form p[id=warning],
-.container.cabinet.common p[id=warning] {
+.container.cabinet.common p[id=warning], 
+.container.cabinet.client p[id=warning] {
     grid-row: 3 / 4;
     justify-self: center;
     text-align: center;

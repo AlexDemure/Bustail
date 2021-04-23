@@ -52,5 +52,5 @@ class ApplicationData(ApplicationBase):
 
 
 class ListApplications(BaseModel):
-    total_rows: int
+    total_rows: int = None
     applications: List[ApplicationData]

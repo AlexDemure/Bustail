@@ -29,7 +29,7 @@ export default class TicketOffer extends React.Component {
                 <div id="right">
                     <div id="right-div-left">
                         <p className="ticket__offer__placeholder">куда</p>
-                        <p id="to" className="ticket__offer__city">{this.props.ticket.to_go_from}</p>
+                        <p id="to" className="ticket__offer__city">{this.props.ticket.to_go_to}</p>
                         <p className="ticket__offer__type-app">{this.props.ticket.application_type}</p>
                     </div>
                     <div id="right-div-right">

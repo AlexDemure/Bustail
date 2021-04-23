@@ -1,5 +1,5 @@
 from datetime import datetime
-from typing import List, Tuple
+from typing import List, Tuple, Optional
 
 from tortoise.query_utils import Prefetch, Q
 
@@ -13,9 +13,21 @@ from backend.submodules.common.schemas import UpdatedBase
 
 class CRUDApplication(CRUDBase[Application, ApplicationCreate, UpdatedBase]):
 
+    async def get_with_not_ended_status(self, object_id: int) -> Optional[Application]:
+        return await self.model.get_or_none(
+            id=object_id,
+            application_status__not_in=ApplicationStatus.ended_status()
+        )
+
     async def account_applications(self, account_id: int) -> List[Application]:
         return await (
-            self.model.filter(account_id=account_id).all()
+            self.model.filter(
+                Q(
+                    Q(account_id=account_id),
+                    Q(application_status__not_in=ApplicationStatus.ended_status()),
+                    join_type="AND"
+                )
+            ).all()
             .prefetch_related(
                 Prefetch(
                     'notifications',
@@ -53,6 +65,9 @@ class CRUDApplication(CRUDBase[Application, ApplicationCreate, UpdatedBase]):
                     Q(to_go_from__icontains=city),
                     Q(to_go_to__icontains=city),
                     join_type="OR"
+                ),
+                Q(
+                    Q(application_status__not_in=ApplicationStatus.ended_status())
                 )
             )
             .order_by(f'{"-" if order_type == "desc" else ""}{order_by}')

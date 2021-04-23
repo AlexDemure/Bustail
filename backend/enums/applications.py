@@ -5,6 +5,7 @@ class ApplicationStatus(Enum):
     waiting = "waiting"
     confirmed = "confirmed"
     completed = "completed"
+    progress = "progress"
     rejected = "rejected"
     expired = "expired"
 
@@ -12,6 +13,8 @@ class ApplicationStatus(Enum):
     def description(self):
         if self is self.waiting:
             return "В ожидании"
+        elif self is self.progress:
+            return "В процессе"
         elif self is self.confirmed:
             return "Подтверждена"
         elif self is self.rejected:
@@ -20,6 +23,10 @@ class ApplicationStatus(Enum):
             return "Истекла"
         elif self is self.completed:
             return "Выполнена"
+
+    @classmethod
+    def ended_status(cls):
+        return [cls.progress, cls.completed, cls.expired, cls.rejected]
 
 
 class ApplicationTypes(Enum):

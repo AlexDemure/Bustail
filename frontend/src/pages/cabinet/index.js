@@ -2,6 +2,7 @@ import React from 'react'
 
 import isAuth from '../../utils/is_auth'
 
+import CommonPage from './forms/common'
 import ClientPage from './forms/client'
 import DriverPage from './forms/driver'
 
@@ -21,13 +22,17 @@ export default class CabinetPage extends React.Component {
     changeForm(event) {
         event.preventDefault();
 
-        if (this.state.form === "common") {
-            this.setState({
-                form: "driver",
-            })
-        } else{
+        if (event.target.id === "common") {
             this.setState({
                 form: "common",
+            })
+        } else if (event.target.id == "client"){
+            this.setState({
+                form: "client",
+            }) 
+        } else {
+            this.setState({
+                form: "driver",
             }) 
         }
     }
@@ -40,6 +45,8 @@ export default class CabinetPage extends React.Component {
         let form;
 
         if (this.state.form === "common") {
+            form = <CommonPage changeForm={this.changeForm}/>
+        } else if (this.state.form === "client") {
             form = <ClientPage changeForm={this.changeForm}/>
         } else {
             form = <DriverPage changeForm={this.changeForm}/>

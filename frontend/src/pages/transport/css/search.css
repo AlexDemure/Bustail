@@ -26,10 +26,6 @@
     overflow-x: hidden;
 }
 
-.container.search-transport .offer__common__modal-window__choices .ticket__offer {
-    width: 95%;
-    margin-left: 3%;
-}
 
 .container.search-transport .search-transport__form__search {
     display: grid;
