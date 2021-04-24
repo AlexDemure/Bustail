@@ -12,9 +12,16 @@ export default class TransportOffer extends React.Component {
     
     }
     render() {
+        let image_url = `/api/v1/drivers/transports/${this.props.transport.id}/covers/${this.props.transport.transport_cover}`
+
         return (
             <div className="transport__offer">
-                <div className="transport__offer__photo" onClick={() => this.setState({typeWindow: "transport_card"})}></div>
+                <img 
+                src={image_url}
+                className="transport__offer__photo"
+                onClick={() => this.setState({typeWindow: "transport_card"})}
+                ></img>
+                
                 <div className="transport__offer__card">
                     <div className="transport__offer__card__title">
                         <p id="model">{this.props.transport.brand} {this.props.transport.model}</p>

@@ -1,6 +1,6 @@
 from backend.apps.applications.models import Application
 from backend.enums.applications import ApplicationStatus
-from backend.schemas.applications import ApplicationData
+from backend.schemas.applications import ApplicationData, HistoryApplication
 from backend.schemas.notifications import NotificationData
 
 
@@ -19,4 +19,11 @@ def prepare_apps_with_notifications(app: Application, notifications: list) -> Ap
         notifications=prepared_notifications,
         application_type=application_type.description,
         **data
+    )
+
+
+def prepare_apps_for_history_table(app: Application) -> HistoryApplication:
+    return HistoryApplication(
+        transport_name=f"{app.transport.brand} {app.transport.model}" if app.transport else None,
+        **app.__dict__
     )

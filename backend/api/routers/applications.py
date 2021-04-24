@@ -1,3 +1,5 @@
+from typing import List
+
 from fastapi import APIRouter, Depends, status, HTTPException
 from fastapi.encoders import jsonable_encoder
 from fastapi.responses import JSONResponse
@@ -14,12 +16,13 @@ from backend.apps.applications.logic import (
     reject_application as logic_reject_application,
     get_all_applications as logic_get_all_applications,
     get_driver_applications as logic_get_driver_applications,
+    get_history_applications as logic_get_history_applications
 )
 from backend.apps.drivers.logic import get_driver_by_account_id
 from backend.enums.applications import ApplicationErrors, ApplicationTypes
 from backend.enums.system import SystemLogs
 from backend.schemas.applications import (
-    ListApplications, ApplicationData,
+    ListApplications, ApplicationData, HistoryApplication,
     ApplicationBase, ApplicationCreate, ApplicationUpdate
 )
 from backend.submodules.common.enums import BaseMessage
@@ -48,6 +51,20 @@ router = APIRouter()
 def get_app_types() -> dict:
     """Получение списка типов заявок."""
     return ApplicationTypes.get_types()
+
+
+@router.get(
+    "/history/",
+    response_model=List[HistoryApplication],
+    responses={
+        status.HTTP_200_OK: {"description": BaseMessage.obj_data.value},
+        **auth_responses
+    }
+)
+async def get_history_applications(account: Account = Depends(confirmed_account)) -> List[HistoryApplication]:
+    """Получение истории по заявкам которые находятся в конечном статусе."""
+    driver = await get_driver_by_account_id(account.id)
+    return await logic_get_history_applications(account, driver)
 
 
 @router.get(
@@ -211,13 +228,28 @@ async def get_all_applications(
 
 #TODO Удалить перед выкатом
 @router.get(
-    "/test/task/billing",
+    "/test/force/in_progress",
     response_model=ListApplications,
     responses={
         status.HTTP_200_OK: {"description": BaseMessage.obj_data.value},
         **auth_responses
     }
 )
-async def task_billing():
+async def force_in_progress():
+    """Ручной перевод всех заявок подходящих по датам в статус in_progress"""
+    from backend.apps.applications.tasks import in_progress_applications
+    return await in_progress_applications()
+
+
+@router.get(
+    "/test/force/completed",
+    response_model=ListApplications,
+    responses={
+        status.HTTP_200_OK: {"description": BaseMessage.obj_data.value},
+        **auth_responses
+    }
+)
+async def force_in_progress():
+    """Ручной перевод всех заявок подходящих по датам в статус completed"""
     from backend.apps.applications.tasks import completed_applications
     return await completed_applications()

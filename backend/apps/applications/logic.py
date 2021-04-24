@@ -1,17 +1,17 @@
 from datetime import datetime
-from typing import Optional
+from typing import Optional, List
 
 from structlog import get_logger
 
 from backend.apps.accounts.models import Account
 from backend.apps.applications.crud import application as application_crud
-from backend.apps.applications.serializer import prepare_apps_with_notifications
+from backend.apps.applications.serializer import prepare_apps_with_notifications, prepare_apps_for_history_table
 from backend.apps.drivers.crud import driver as driver_crud
 from backend.schemas.drivers import DriverData
 from backend.enums.applications import ApplicationErrors, ApplicationStatus
 from backend.enums.system import SystemLogs
 from backend.schemas.applications import (
-    ApplicationBase, ApplicationData,
+    ApplicationBase, ApplicationData, HistoryApplication,
     ApplicationCreate, ListApplications, ApplicationUpdate
 )
 from backend.submodules.common.enums import BaseSystemErrors, BaseMessage
@@ -158,3 +158,9 @@ async def reject_application(account: Account, application_id: int) -> None:
 
     application = await application_crud.get(application_id)
     assert application.application_status == ApplicationStatus.rejected, "Application is not rejected"
+
+
+async def get_history_applications(account: Account, driver: DriverData = None) -> List[HistoryApplication]:
+    """Получение истории по заявкам которые находятся в конечном статусе."""
+    history = await application_crud.get_history(account.id, getattr(driver, 'id', None))
+    return [prepare_apps_for_history_table(x) for x in history]

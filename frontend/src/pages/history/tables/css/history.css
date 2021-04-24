@@ -4,7 +4,6 @@
 
 .history .history__table tr td {
     height: 50px;
-    width: 20vw;
     border-bottom: 1px solid #262626;
 }
 
@@ -32,8 +31,12 @@
     border-radius: 50%;
 }
 
-.history .history__table .history__table__rows .history__table__item__progress {
+.history .history__table .history__table__rows .history__table__item__confirmed {
     background-color: #fba333;
+}
+
+.history .history__table .history__table__rows .history__table__item__progress {
+    background-color: #417086;
 }
 
 .history .history__table .history__table__rows .history__table__item__completed {

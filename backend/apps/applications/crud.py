@@ -5,6 +5,7 @@ from tortoise.query_utils import Prefetch, Q
 
 from backend.apps.applications.models import Application
 from backend.apps.notifications.models import Notification
+from backend.apps.drivers.models import Transport
 from backend.enums.applications import ApplicationStatus
 from backend.schemas.applications import ApplicationCreate
 from backend.submodules.common.crud import CRUDBase
@@ -36,15 +37,46 @@ class CRUDApplication(CRUDBase[Application, ApplicationCreate, UpdatedBase]):
             )
         )
 
-    async def completed_applications(self) -> List[Application]:
-        """Заявки которые были подтверждены но у них не проставлен статус 'Выполнено'."""
+    async def confirmed_applications(self) -> List[Application]:
+        """Заявки которые были подтверждены но у них не проставлен статус 'В процессе'."""
         return await (
             self.model.filter(
                 Q(
                     Q(application_status=ApplicationStatus.confirmed),
+                    Q(to_go_when__lte=datetime.utcnow().date())
+                )
+            ).all()
+        )
+
+    async def completed_applications(self) -> List[Application]:
+        """Заявки которые были в процессе но у них не проставлен статус 'Выполнено'."""
+        return await (
+            self.model.filter(
+                Q(
+                    Q(application_status=ApplicationStatus.progress),
                     Q(to_go_when__lt=datetime.utcnow().date())
                 )
             ).all()
+        )
+
+    async def get_history(self, account_id: int, driver_id: int = None) -> List[Application]:
+        """История заявок по которым был проставлен конечный статус."""
+        return await (
+            self.model.filter(
+                Q(
+                    Q(account_id=account_id), Q(driver_id=driver_id), join_type="OR"
+                ),
+                Q(
+                    Q(application_status__not_in=[ApplicationStatus.waiting]),
+                )
+            )
+            .all()
+            .prefetch_related(
+                Prefetch(
+                    'transport',
+                    queryset=Transport.all()
+                ),
+            ).order_by("-to_go_when")
         )
 
     async def driver_applications(self, driver_id: int) -> List[Application]:
@@ -82,7 +114,7 @@ class CRUDApplication(CRUDBase[Application, ApplicationCreate, UpdatedBase]):
                     join_type="OR"
                 ),
                 Q(
-                    Q(application_status__not_in=ApplicationStatus.ended_status())
+                    Q(application_status=ApplicationStatus.waiting)
                 )
             )
             .order_by(f'{"-" if order_type == "desc" else ""}{order_by}')

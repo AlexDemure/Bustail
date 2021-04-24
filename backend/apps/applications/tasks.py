@@ -8,7 +8,21 @@ from backend.enums.applications import ApplicationStatus
 from backend.submodules.common.schemas import UpdatedBase
 
 
+async def in_progress_applications():
+    """Перевод заявок из подтвержденных в процессе"""
+    async with in_transaction():
+        applications = await application_crud.confirmed_applications()
+
+        for application in applications:
+            app_up = UpdatedBase(
+                id=application.id,
+                updated_fields=dict(application_status=ApplicationStatus.progress)
+            )
+            await application_crud.update(app_up)
+
+
 async def completed_applications():
+    """Перевод заявок из в процессе в завершенные."""
     async with in_transaction():
         applications = await application_crud.completed_applications()
 

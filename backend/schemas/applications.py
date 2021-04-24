@@ -54,3 +54,13 @@ class ApplicationData(ApplicationBase):
 class ListApplications(BaseModel):
     total_rows: int = None
     applications: List[ApplicationData]
+
+
+class HistoryApplication(BaseModel):
+    transport_id: int = None
+    transport_name: str = None
+    to_go_from: str
+    to_go_to: str
+    to_go_when: date
+    price: int = 0
+    application_status: ApplicationStatus

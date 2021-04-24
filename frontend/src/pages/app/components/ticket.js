@@ -16,7 +16,7 @@ export default class TicketSearch extends React.Component {
 
     render() {
         let date_items = this.props.ticket.to_go_when.split("-")
-        let new_date = `${date_items[1]}.${date_items[2]}`
+        let new_date = `${date_items[2]}.${date_items[1]}`
 
         return (
             
