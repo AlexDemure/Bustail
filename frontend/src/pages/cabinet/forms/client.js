@@ -5,8 +5,7 @@ import Header from '../../../components/common/header'
 import CabinetSwitch from '../components/switch_cabinet'
 
 import { aboutMe } from '../../../components/common/api/about_me'
-
-import sendRequest from '../../../utils/fetch'
+import { getMeApps } from '../../../components/common/api/me_apps'
 
 import TicketCabinet from '../components/ticket'
 
@@ -22,23 +21,10 @@ export default class ClientPage extends React.Component {
         }
     }
 
-    async getMeApps() {
-        let me_apps = [];
-        await sendRequest('/api/v1/applications/client/', "GET")
-        .then(
-            (result) => {
-                me_apps = result.applications
-            },
-            (error) => {
-                console.log(error)
-            }
-        )
-        return me_apps
-    } 
 
     async componentDidMount(){
         let user = await aboutMe()
-        let applications = await this.getMeApps()
+        let applications = await getMeApps()
 
         this.setState({
             user: user,

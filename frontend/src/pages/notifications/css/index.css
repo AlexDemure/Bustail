@@ -11,16 +11,11 @@
     overflow: scroll;
 }
 
-.container.notifications .notifications__apps,
-.container.notifications .notifications__transports {
+.container.notifications .notifications__driver__applications, 
+.container.notifications .notifications__client__applications {
     width: 95%;
-    height: 100%;
+    height: 85%;
     justify-self: center;
     overflow-y: scroll;
     overflow-x: hidden;
-}
-
-
-.container.notifications .notifications__apps .ticket__notification {
-    margin-bottom: 10px;
 }

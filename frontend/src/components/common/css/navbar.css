@@ -26,6 +26,33 @@
     background-repeat: no-repeat;
 }
 
+.navbar__common a[id=notifications] {
+    position: relative;
+}
+
+.navbar__common .navbar__common__notification__circle {
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    background-color: #9B5E5D;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+
+    display: grid;
+    justify-content: center;
+    align-content: center;
+
+}
+.navbar__common .navbar__common__notification__circle p {
+    color: #FBFBFB;
+    margin: 0;
+    padding: 0;
+    font-size: 15px;
+    font-family: 'FuturaDemiC';
+}
+
+
 .navbar__common a[id=home] {
     background-image: url('../../../static/icons/default/home.png');
 }

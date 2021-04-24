@@ -49,6 +49,17 @@ driver = CRUDDriver(Driver)
 
 class CRUDTransport(CRUDBase[Transport, TransportCreate, UpdatedBase]):
 
+    async def get(self, object_id: int):
+        return await (
+            self.model.get_or_none(id=object_id)
+            .prefetch_related(
+                Prefetch(
+                    'transport_covers',
+                    queryset=TransportPhoto.all()
+                )
+            )
+        )
+
     async def find_by_params(self, brand: str, model: str, state_number: str) -> Optional[Transport]:
         return await self.model.get_or_none(
             Q(

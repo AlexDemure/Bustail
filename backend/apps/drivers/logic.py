@@ -92,7 +92,7 @@ async def create_transport(transport_in: TransportCreate) -> TransportData:
 
 async def get_transport(transport_id: int) -> Optional[TransportData]:
     transport = await transport_crud.get(transport_id)
-    return TransportData(**transport.__dict__) if transport else None
+    return prepare_transport_with_photos(transport, transport.transport_covers.related_objects) if transport else None
 
 
 async def change_transport_data(transport: TransportData, transport_up: TransportUpdate) -> None:

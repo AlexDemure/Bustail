@@ -36,6 +36,7 @@
     display: grid;
     justify-content: flex-start;
     align-content: flex-start;
+    grid-template-columns: 1fr;
     grid-template-rows: 30px 70px 40px;
 }
 
@@ -74,63 +75,56 @@
     font-family: 'FuturaMediumC';
 }
 
-.transport__notification .transport__notification__card .transport__notification__card__controls {
+.transport__notification .transport__notification__card .transport__notification__card__footer {
     grid-column: 1 / 3;
-    grid-row: 3 / 4;
+    
+    text-align: center;
+    align-self: center;
+    justify-self: center;
+
+    height: 35px;
+    width: 100%;
 
     display: grid;
-    align-items: center;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: 1fr;
     justify-items: center;
-    grid-template-columns: repeat(3, 1fr);
-    border-top: 1px solid #2e2e2e;
+    justify-content: center;
+    align-content: center;
 }
 
-.transport__notification .transport__notification__card .transport__notification__card__controls .transport__notification__control {
-    background-position-x: center;
-    background-position-y: center;
-    background-repeat: no-repeat;
-    background-size: 25px 25px;
-    width: 55px;
-    height: 40px;
+.transport__notification .transport__notification__card .transport__notification__card__footer p {
+    margin: 0;
+    color: #FBFBFB;
+    font-family: "FuturaBookC";
+    font-size: 14px;
 }
 
-.transport__notification .transport__notification__control.contacts {
-    background-image: url("../../../../static/icons/default/call.png");
+.transport__notification__card__footer .transport__notification__btn-remove-offer {
+    grid-column: 1 / 3;
+    width: 80%;
+}
+.transport__notification__card__footer .transport__notification__btn-set-decision-offer.accept {
+    grid-column: 1 / 2;
+    background-color: #77a073;
+    border-radius: 5px;
+    width: 90%;
+}
+.transport__notification__card__footer .transport__notification__btn-set-decision-offer.reject {
+    grid-column: 2 / 3;
+    width: 90%;
 }
 
-.transport__notification .transport__notification__control.contacts:hover {
-    background-image: url("../../../../static/icons/active/call.png");
+.transport__notification__card__footer .transport__notification__btn-remove-offer,
+.transport__notification__card__footer .transport__notification__btn-set-decision-offer.reject {
+    background-color: #9B5E5D;
+    border-radius: 5px;
 }
 
-.transport__notification .transport__notification__control.info {
-    border-left: 1px solid rgba(255,255,255, 0.1);
-    border-right: 1px solid rgba(255,255,255, 0.1);
-    background-image: url("../../../../static/icons/default/description.png");
-}
-
-.transport__notification .transport__notification__control.info:hover {
-    background-image: url("../../../../static/icons/active/description.png");
-}
-
-.transport__notification .transport__notification__card .transport__notification__card__controls .transport__notification__control.accept {
-    background-size: 28px 28px;
-    background-image: url("../../../../static/icons/accept.png");
-}
-
-.transport__notification .transport__notification__control.accept:hover {
-    background-image: url("../../../../static/icons/accept.png");
-}
-
-.transport__notification .transport__notification__control.reject {
-    background-image: url("../../../../static/icons/reject.png");
-    height: 35px;
-    width: 35px;
-    background-size: 25px 25px;
-    background-repeat: no-repeat;
-    background-position: center;
-    position: absolute;
-    right: 0;
-    background-color: #222222;
+.transport__notification__card__footer .transport__notification__btn-remove-offer,
+.transport__notification__card__footer .transport__notification__btn-set-decision-offer {
+    display: grid;
+    align-items: center;
 }
 
 .transport__notification .transport__notification__about {
@@ -202,14 +196,6 @@
         grid-template-rows: 30px 80px 50px;
     }
 
-    .transport__notification .transport__notification__card .transport__notification__card__controls .transport__notification__control {
-        background-size: 28px 28px;
-    }
-
-    .transport__notification .transport__notification__card .transport__notification__card__controls .transport__notification__control.accept {
-        background-size: 30px 30px;
-    }
-
     .transport__notification .transport__notification__about {
         height: 160px;
     }
@@ -244,20 +230,12 @@
         font-size: 16px;
     }
 
-    .transport__notification .transport__notification__card .transport__notification__card__controls .transport__notification__control {
-        background-size: 30px 30px;
-    }
-
     .transport__notification .transport__notification__about {
         height: 180px;
     }
 
     .transport__notification .transport__notification__about .transport__notification__about__close-btn {
         background-size: 30px 30px;
-    }
-
-    .transport__notification .transport__notification__card .transport__notification__card__controls .transport__notification__control.accept {
-        background-size: 33px 33px;
     }
 
     .transport__notification .transport__notification__about .transport__notification__about__item {

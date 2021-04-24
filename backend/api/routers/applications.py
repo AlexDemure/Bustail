@@ -61,8 +61,8 @@ def get_app_types() -> dict:
 async def get_account_applications(account: Account = Depends(confirmed_account)) -> ListApplications:
     """
     Получение списка заявок клиента.
-
-    - **description**: Не относится к заявкам водителя. Уведомления будут в заявках в статусе "На ожидании".
+    Возвращается список заявок с уведомлениями статус которых находится не в конечном статусе.
+    - **description**: Не относится к заявкам водителя.
     """
     return await logic_get_account_applications(account)
 
@@ -79,8 +79,8 @@ async def get_account_applications(account: Account = Depends(confirmed_account)
 async def get_driver_applications(account: Account = Depends(confirmed_account)) -> ListApplications:
     """
     Получение списка заявок водителя.
-
-    - **description**: Не относится к заявкам клиента. Уведомления в данном API не возвращаются.
+    Возвращается список заявок с уведомлениями в которых присутствует автомобиль водителя.
+    - **description**: Не относится к заявкам клиента.
     """
     logger = get_logger().bind(account_id=account.id)
     driver = await get_driver_by_account_id(account.id)
@@ -90,7 +90,7 @@ async def get_driver_applications(account: Account = Depends(confirmed_account))
             status_code=status.HTTP_404_NOT_FOUND,
             detail=BaseMessage.obj_is_not_found.value
         )
-    return await logic_get_driver_applications(driver.id)
+    return await logic_get_driver_applications(driver)
 
 
 @router.post(

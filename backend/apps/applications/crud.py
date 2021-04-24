@@ -50,6 +50,21 @@ class CRUDApplication(CRUDBase[Application, ApplicationCreate, UpdatedBase]):
     async def driver_applications(self, driver_id: int) -> List[Application]:
         return await self.model.filter(driver_id=driver_id).all()
 
+    async def get_applications_with_notifications_by_driver_transports(self, transports_id: list) -> List[Application]:
+        """Получения списка заявок с уведомления где в уведомлениях к заявке присутствует автомобиль водителя"""
+        rows = await (
+            self.model.filter(application_status__not_in=ApplicationStatus.ended_status()).all()
+            .prefetch_related(
+                Prefetch(
+                    'notifications',
+                    queryset=Notification.filter(
+                        decision__isnull=True, transport_id__in=transports_id
+                    ).all()
+                ),
+            )
+        )
+        return [x for x in rows if x.notifications]
+
     async def get_all_applications(
         self,
         limit: int = 10,

@@ -21,6 +21,10 @@ class NotificationData(NotificationBase):
     created_at: datetime
 
 
+class NotificationDelete(BaseModel):
+    notification_id: int
+
+
 class SetDecision(BaseModel):
     notification_id: int
     decision: bool

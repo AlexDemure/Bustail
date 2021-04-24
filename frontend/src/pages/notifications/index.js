@@ -3,72 +3,20 @@ import React from 'react'
 import NavBar from '../../components/common/navbar'
 import Header from '../../components/common/header'
 
+import { aboutMe } from '../../components/common/api/about_me'
+import { getDriverCard } from '../../components/common/api/driver_card'
+import { getMeApps } from '../../components/common/api/me_apps'
+
+import isAuth from '../../utils/is_auth'
+import sendRequest from '../../utils/fetch'
+
 import NotificationSwitch from './components/notification'
 
-import TransportNotification from './components/transport'
-import TicketNotification from './components/ticket'
+import ClientNotifications from './forms/client'
+import DriverNotifications from './forms/driver'
+
 
 import './css/index.css'
-
-
-const transports = [
-    {
-    "id": 1,
-    "mark": "Mersedes Benz", "model": "Splinter",
-    "price": 900, "seats": 24, "city": "Челябинск",
-    "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-    "photo": "base64", "phone": "+79123456789",
-    "driver": "Иванов Иван", "driver_license": "312-1251-1231"
-   },
-   {
-    "id": 2,
-    "mark": "Mersedes Benz", "model": "Splinter",
-    "price": 900, "seats": 24, "city": "Москва",
-    "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-    "photo": "base64", "phone": "+79123456789",
-    "driver": "Иванов Иван", "driver_license": "312-1251-1231"
-   }
-]
-const tickets = [
-    {
-    "from": "Челябинск", "to": "Москва", "date": "16.10.21",
-    "price": 16000, "type_app": "Свадьба", "seats": 24, "description": "Hellodsadasd"
-   },
-   {
-    "from": "Челябинск", "to": "Москва", "date": "16.10.21",
-    "price": 16000, "type_app": "Свадьба", "seats": 24,
-   },
-   {
-    "from": "Челябинск", "to": "Москва", "date": "16.10.21",
-    "price": 16000, "type_app": "Свадьба", "seats": 24,
-   }
-]
-
-
-function TransportForm(props) {
-    return (
-        <div className="notifications__transports">
-           {
-                transports.map(
-                    (transport) => <TransportNotification rejectOffer={props.rejectOffer} transport={transport}/>
-                )
-            }
-        </div>
-    )
-}
-
-function AppForm(props) {
-    return (
-        <div className="notifications__apps">
-            {
-                tickets.map(
-                    (ticket) => <TicketNotification ticket={ticket}/>
-                )
-            }
-        </div>
-    )
-}
-
 
 
 export default class NotificationPage extends React.Component {
@@ -76,57 +24,100 @@ export default class NotificationPage extends React.Component {
     constructor() {
         super();
         this.state = {
-            form: "transport",
-            transports: transports,
-            apps: tickets,
+            form: "client",
 
+            user: null,
+            client_applications: null,
+            driver: null,
+            driver_applications: null
         };
         
         this.changeForm = this.changeForm.bind(this)
     }
 
+    async getDriverApps() {
+        let driver_apps = [];
+        await sendRequest('/api/v1/applications/driver/', "GET")
+        .then(
+            (result) => {
+                driver_apps = result.applications
+            },
+            (error) => {
+                console.log(error)
+            }
+        )
+        return driver_apps
+    }
+
+    async componentDidMount(){
+        isAuth()
+        
+        let user = await aboutMe()
+        let client_applications = await getMeApps()
+        let driver = await getDriverCard()
+
+        this.setState({
+            user: user,
+            client_applications: client_applications,
+            driver: driver,
+        })
+
+        if (driver) {
+            let driver_applications = await this.getDriverApps()
+            this.setState({
+                driver_applications: driver_applications
+            })
+        }
+    }
+
     changeForm(event) {
         event.preventDefault();
 
-        if (this.state.form === "app") {
+        if (event.target.id === "driver") {
             this.setState({
-                form: "transport",
+                form: "driver",
             })
-        } else{
+        } else {
             this.setState({
-                form: "app",
+                form: "client",
             }) 
         }
     }
 
-    rejectOffer(transport_id) {
-        // event.preventDefault();
-        let transports = this.state.transports;
-
-        let result = transports.filter(transport => transport.id !== transport_id)
-        console.log(result)
-        this.setState({
-            transports: result
-        })
-    }
-
     render() {
         let form;
+        let client_notifications;
+        let driver_notifications;
 
-        if (this.state.form === "transport") {
-            form = <TransportForm rejectOffer={this.rejectOffer}/>
+        if (this.state.form === "client") {
+            form = <ClientNotifications user={this.state.user} applications={this.state.client_applications}/>
         }else {
-            form = <AppForm />
+            form = <DriverNotifications applications={this.state.driver_applications}/>
         }
 
+        if (this.state.client_applications) {
+            client_notifications = this.state.client_applications.map(
+                (ticket) => {return ticket.notifications.length} 
+            )
+            client_notifications = client_notifications.reduce((a, b) => a + b, 0)
+        }
+
+        if (this.state.driver_applications) {
+            driver_notifications = this.state.driver_applications.map(
+                (ticket) => {return ticket.notifications.length} 
+            )
+            driver_notifications = driver_notifications.reduce((a, b) => a + b, 0)
+        }
+       
+
         return (
-            <div className="container notifications">
+            <div className={"container notifications " + this.state.form}>
                 <Header previous_page="/main" page_name="Уведомления"/>
                 <NotificationSwitch
                 is_active={this.state.form}
                 onClick={this.changeForm}
-                count_transports={transports.length}
-                count_apps={tickets.length}
+                client_notifications={client_notifications > 0 ? client_notifications: null}
+                driver_notifications={driver_notifications > 0 ? driver_notifications: null}
                 />
                 {form}
                 <NavBar/>

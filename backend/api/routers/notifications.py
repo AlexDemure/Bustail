@@ -15,7 +15,7 @@ from backend.enums.applications import ApplicationErrors, ApplicationStatus
 from backend.enums.drivers import DriverErrors
 from backend.enums.notifications import NotificationTypes, NotificationErrors
 from backend.enums.system import SystemLogs
-from backend.schemas.notifications import NotificationData, NotificationCreate, SetDecision
+from backend.schemas.notifications import NotificationData, NotificationCreate, SetDecision, NotificationDelete
 from backend.submodules.common.enums import BaseMessage
 from backend.submodules.common.responses import auth_responses
 from backend.submodules.common.schemas import Message
@@ -167,7 +167,7 @@ async def notification_decision(payload: SetDecision, account: Account = Depends
         **auth_responses
     }
 )
-async def notification_delete(payload: SetDecision, account: Account = Depends(confirmed_account)) -> Message:
+async def notification_delete(payload: NotificationDelete, account: Account = Depends(confirmed_account)) -> Message:
     """Удаление предложения."""
     logger = get_logger().bind(account_id=account.id, payload=payload.dict())
 
@@ -187,8 +187,8 @@ async def notification_delete(payload: SetDecision, account: Account = Depends(c
             detail=NotificationErrors.notification_is_have_decision.value
         )
 
-    # Если уведомление от водителя тогда смотрим принадлежит ли это заявка данному пользователю.
-    if notification.notification_type == NotificationTypes.driver_to_client:
+    # Если уведомление от клиента тогда смотрим принадлежит ли это заявка данному пользователю.
+    if notification.notification_type == NotificationTypes.client_to_driver:
         application = await get_application(notification.application_id)
         if not application:
             logger.debug(SystemLogs.application_not_found.value)
@@ -207,8 +207,8 @@ async def notification_delete(payload: SetDecision, account: Account = Depends(c
                 detail=ApplicationErrors.application_does_not_belong_this_user.value
             )
 
-    # Если уведомление от клиента тогда смотрим принадлежит ли этот транспорт данному пользователю.
-    elif notification.notification_type == NotificationTypes.client_to_driver:
+    # Если уведомление от водителя тогда смотрим принадлежит ли этот транспорт данному пользователю.
+    elif notification.notification_type == NotificationTypes.driver_to_client:
         if await is_transport_belongs_driver(account.id, notification.transport_id) is False:
             logger.warning(
                 f"{SystemLogs.violation_business_logic.value} "
