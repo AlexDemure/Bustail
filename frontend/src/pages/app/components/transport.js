@@ -1,5 +1,7 @@
 import React from 'react';
 
+import TransportCard from '../../../components/common/transport_card'
+
 import './css/transport.css'
 
 
@@ -7,7 +9,7 @@ export default class TransportOffer extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            typeWindow: "",
+            transport_id: null,
         }
     
     }
@@ -19,7 +21,7 @@ export default class TransportOffer extends React.Component {
                 <img 
                 src={image_url}
                 className="transport__offer__photo"
-                onClick={() => this.setState({typeWindow: "transport_card"})}
+                onClick={() => this.setState({transport_id: this.props.transport.id})}
                 ></img>
                 
                 <div className="transport__offer__card">
@@ -36,14 +38,12 @@ export default class TransportOffer extends React.Component {
                     </div>
                 </div>
                 
-                { this.state.typeWindow === "transport_card" && (
-                    <div className="transport__offer__about">
-                        <div className="transport__offer__about__close-btn" onClick={() => this.setState({typeWindow: ""})}></div>
-                        <div className="transport__offer__about__details">
-                            <p className="transport__offer__about__item">Описание: <span>{this.props.transport.description}</span></p>
-                        </div>
-                    </div>
-                    )   
+                { 
+                    this.state.transport_id && 
+                    <TransportCard
+                    transport_id={this.state.transport_id}
+                    onClose={() => this.setState({transport_id: null})}
+                    />
                 }
 
             </div>

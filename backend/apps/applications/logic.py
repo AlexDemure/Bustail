@@ -53,7 +53,7 @@ async def get_all_applications(**kwargs) -> ListApplications:
     applications, total_rows = await application_crud.get_all_applications(**kwargs)
     return ListApplications(
         total_rows=total_rows,
-        applications=[ApplicationData(**x.__dict__) for x in applications]
+        applications=[prepare_apps_with_notifications(x, []) for x in applications]
     )
 
 

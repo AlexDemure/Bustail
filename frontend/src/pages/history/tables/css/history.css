@@ -4,6 +4,7 @@
 
 .history .history__table tr td {
     height: 50px;
+    width: 20vw;
     border-bottom: 1px solid #262626;
 }
 

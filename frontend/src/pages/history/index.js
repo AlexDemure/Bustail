@@ -2,6 +2,7 @@ import React from 'react'
 
 import NavBar from '../../components/common/navbar'
 import Header from '../../components/common/header'
+import TransportCard from '../../components/common/transport_card'
 
 import sendRequest from '../../utils/fetch'
 
@@ -16,8 +17,11 @@ export default class HistoryPage extends React.Component {
     constructor() {
         super()
         this.state = {
-            history: null
+            history: null,
+            transport_id: null
         }
+
+        this.onClickHandler = this.onClickHandler.bind(this)
     }
 
     async getHistory() {
@@ -43,13 +47,31 @@ export default class HistoryPage extends React.Component {
         })
     }
 
+    onClickHandler(e, transport_id) {
+        
+        this.setState({
+            transport_id: transport_id
+        })
+    }
+
     render() {
         return (
             <div className="container history">
                 <Header previous_page="/main" page_name="История"/>
                 <div className="history__table">
-                    <HistoryTable table_columns={table_columns} table_rows={this.state.history}/>
+                    <HistoryTable
+                        table_columns={table_columns}
+                        table_rows={this.state.history}
+                        onClickHandler={this.onClickHandler}
+                    />
                 </div>
+                { 
+                    this.state.transport_id && 
+                    <TransportCard
+                    transport_id={this.state.transport_id}
+                    onClose={() => this.setState({transport_id: null})}
+                    />
+                }
                 <NavBar/>
             </div>
         )
