@@ -3,7 +3,7 @@ import React from 'react'
 import PreviewBanner from '../../components/common/preview_banner'
 
 import AuthForm from './forms/login'
-import isAuth from 'utils/is_auth'
+import isAuth from '../../utils/is_auth'
 
 import './css/index.css'
 
