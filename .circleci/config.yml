@@ -13,9 +13,12 @@ jobs:
             mkdir -p ~/.ssh/
             ssh-keyscan -H $SSH_HOST >> ~/.ssh/known_hosts
       - run:
+          name: Запуск test_env
+          command: |
+            ssh $SSH_USER@$SSH_HOST "source test_env/bin/activate"
+      - run:
           name: Актуализация кодовой базы
           command: |
-            echo $SSH_USER@$SSH_HOST
             ssh $SSH_USER@$SSH_HOST "cd /home/alex/bustail && git pull"
       - run:
           name: Экспортирование переменных и запуск тестов
