@@ -1,0 +1,33 @@
+.container.cabinet.driver.card .cabinet__driver {
+    overflow-x: hidden;
+    overflow-y: scroll;
+    height: 100%;
+    margin-left: 5px;
+    display: grid;
+    justify-items: center;
+}
+
+.container.cabinet.driver.card .cabinet__driver__payment-data {
+    width: 93%;
+} 
+
+.container.cabinet.driver.card .cabinet__driver .cabinet__driver__notify {
+    font-family: "FuturaDemiC";
+    font-size: 16px;
+    color: #9B5E5D;
+    text-align: center;
+    width: 85%;
+}
+
+.container.cabinet.driver.card .cabinet__driver .cabinet__driver__transports {
+    width: 95%;
+    height: 85%;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.container.cabinet.driver.card .cabinet__driver .cabinet__driver__transports .cabinet__driver__title {
+    font-family: "FuturaDemiC";
+    font-size: 18px;
+    color: #fbfbfb;
+}

@@ -1,0 +1,15 @@
+.container.cabinet.client .cabinet__client__applications {
+    width: 95%;
+    height: 85%;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    justify-self: center;
+    justify-items: center;
+}
+
+.container.cabinet.client .cabinet__client__title {
+    font-family: "FuturaDemiC";
+    font-size: 18px;
+    color: #fbfbfb;
+    margin-left: 5px;
+}
