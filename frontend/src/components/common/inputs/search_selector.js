@@ -11,19 +11,12 @@ export default class SearchInput extends React.Component {
         super(props);
 
         this.keyUpHandler = this.keyUpHandler.bind(this);
+        this.onClick = this.onClick.bind(this)
         this.choiceValue = this.choiceValue.bind(this);
 
         this.state = {
             result: [],
             value: ""
-        }
-    }
-
-    componentDidUpdate(prevProps, prevState) {
-        if (prevProps.value !== this.props.value) {
-            this.setState({
-                value: this.props.value
-            })
         }
     }
 
@@ -58,15 +51,6 @@ export default class SearchInput extends React.Component {
                 }
             );
             
-            emptyArray = emptyArray.map(
-                (data) => {
-                    return data = <li key={data} onClick={this.choiceValue}>{data}</li>;
-                }
-            )
-            // if (emptyArray.length === 0) {
-            //     emptyArray.push(<li><span>Не найдено...</span></li>);
-            // }
-
             this.setState({
                 result: emptyArray,
                 value: userData
@@ -75,7 +59,12 @@ export default class SearchInput extends React.Component {
         }
     }
 
-    
+    onClick() {
+        this.setState({
+            result: this.props.options
+        })
+    }
+
     render() {
         return (
             <div className={"search-selector " + (this.state.result.length ? "active" : "")}>
@@ -90,11 +79,16 @@ export default class SearchInput extends React.Component {
                 defaultValue={this.props.value}
                 placeholder={this.props.placeholder ? this.props.placeholder : "Введите название города"}
                 onChange={this.keyUpHandler}
+                onClick={this.onClick}
                 >
                 </input>
                 
                 <div className="search-selector__option">
-                  {this.state.result}
+                  {
+                    this.state.result.map(
+                        (choice, index) => <li key={index} onClick={this.choiceValue}>{choice}</li>
+                    )
+                  }
                 </div> 
             </div>
         )
