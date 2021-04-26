@@ -105,7 +105,7 @@
 }
 .transport__notification__card__footer .transport__notification__btn-set-decision-offer.accept {
     grid-column: 1 / 2;
-    background-color: #77a073;
+    background-color: #28a71a;
     border-radius: 5px;
     width: 90%;
 }

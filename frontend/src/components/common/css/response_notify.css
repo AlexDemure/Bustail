@@ -1,0 +1,55 @@
+.response-notify__common__border {
+    opacity: 0;
+    transition: opacity 1000ms;
+    border-radius: 3px;
+    height: 70px;
+    width: 300px;
+    padding: 3px;
+    position: relative;
+}
+
+.response-notify__common__border.success {
+    background: linear-gradient(to right, #28a71a -20%, #222222 65%);
+}
+
+.response-notify__common__border.error {
+    background: linear-gradient(to right, #b92b21 -20%, #222222 65%);
+}
+
+.response-notify__common__text {
+    font-family: "FuturaDemiC";
+    font-size: 16px;
+}
+
+.response-notify__common__text.success {
+    color: #28a71a
+}
+
+.response-notify__common__text.error {
+    color: #b92b21
+}
+
+.response-notify__common__detail {
+    width: 4px;
+    height: 55%;
+    border-radius: 5px;
+}
+
+.response-notify__common__detail.success {
+    background: #28a71a
+}
+
+.response-notify__common__detail.error {
+    background: #b92b21
+}
+
+.response-notify__common__content {
+    height: 64px;
+    padding: 3px;  
+    background: #181818;
+
+    display: grid;
+    grid-template-columns: 5% 80% 15%;
+    align-items: center;
+    align-content: center;
+} 

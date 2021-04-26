@@ -20,6 +20,16 @@ import SearchAppPage from './pages/app/search'
 import CreateAppPage from './pages/app/create'
 
 import './index.css'
+import { ResponseNotify, showNotify } from './components/common/response_notify';
+
+function TestNotify(props) {
+  return (
+    <div className={"container"}>
+      <button onClick={showNotify}></button>
+      <ResponseNotify notify_type="success" text="Тестовое уведомление"/>
+    </div>
+  )
+}
 
 
 ReactDOM.render(
@@ -43,6 +53,8 @@ ReactDOM.render(
           <Route path="/history" component={HistoryPage} />
           <Route path="/notifications" component={NotificationPage} />
           <Route path="/cabinet" component={CabinetPage} />
+
+          <Route path="/test" component={TestNotify} />
 
       </Switch>
   </Router>,
