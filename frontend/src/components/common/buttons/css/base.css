@@ -1,5 +1,6 @@
 .button__common__redirect,
 .input__common__submit {
+    border: none;
     background-color: #262626;
     height: 50px;
     width: 150px;
@@ -26,6 +27,7 @@
     justify-content: center;
 }
 
+.input__common__submit,
 .button__common__redirect a {
     font-size: 18px;
     text-decoration: none;
