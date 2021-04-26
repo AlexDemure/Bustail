@@ -4,6 +4,7 @@
     height: 100%;
     margin-left: 5px;
     display: grid;
+    grid-template-rows: 190px 70px 1fr;
     justify-items: center;
 }
 
