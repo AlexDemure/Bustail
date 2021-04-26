@@ -1,7 +1,5 @@
 import React from 'react'
 
-import sendRequest from '../../../utils/fetch'
-
 import "./css/ticket.css"
 
 
@@ -11,21 +9,8 @@ export default class TicketCabinet extends React.Component {
         this.state = {
             typeWindow: ""
         }
-
-        this.rejectApplication = this.rejectApplication.bind(this)
     }
 
-    async rejectApplication() {
-        await sendRequest(`/api/v1/applications/${this.props.ticket.id}/reject/`, "PUT")
-        .then(
-            (result) => {
-                console.log(result)
-            },
-            (error) => {
-                console.log(error)
-            }
-        )
-    }
     onClick(window) {
         this.setState({typeWindow: window})
     }
@@ -51,7 +36,7 @@ export default class TicketCabinet extends React.Component {
                     <div id="right-div-right">
                         <p className="ticket__cabinet__date">{new_date}</p>
                         <p className="ticket__cabinet__price">{this.props.ticket.price}</p>
-                        <div className="ticket__cabinet__reject-btn" onClick={this.rejectApplication}>
+                        <div className="ticket__cabinet__reject-btn" onClick={this.props.rejectApplication}>
                             <p>Отменить</p>
                         </div>
                     </div>

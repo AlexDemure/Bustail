@@ -1,5 +1,7 @@
 import React from 'react'
 
+import { ResponseNotify, showNotify } from '../../../components/common/response_notify'
+
 import sendRequest from '../../../utils/fetch'
 
 import './css/payment_data.css'
@@ -8,18 +10,6 @@ export default class PaymentData extends React.Component {
     
     constructor(props) {
         super(props)
-    }
-
-    getPaymentLink = () => {
-        sendRequest("/api/v1/payments/", "GET")
-        .then(
-            (result) => {
-                window.location.replace(result.payment_url)
-            },
-            (error) => {
-                console.log(error.message)
-            }
-        )    
     }
 
     render() {
@@ -32,7 +22,7 @@ export default class PaymentData extends React.Component {
                     <p className="cabinet__driver__payment-data__item__number">{this.props.total}</p>
                     <p className="cabinet__driver__payment-data__item__text">Заработано</p>
                 </div>
-                <div className="cabinet__driver__payment-data__pay-btn" onClick={this.getPaymentLink}>
+                <div className="cabinet__driver__payment-data__pay-btn" onClick={this.props.getPaymentLink}>
                     <p>Оплатить</p>
                 </div>
                 <div className="cabinet__driver__payment-data__debt-amount">

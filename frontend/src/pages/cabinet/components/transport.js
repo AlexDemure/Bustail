@@ -12,23 +12,10 @@ export default class TransportCabinet extends React.Component {
         super(props)
         this.state = {
             transport_id: null,
-            isDeleted: false
         }
-
-        this.deleteTransport = this.deleteTransport.bind(this)
     }
     
-    deleteTransport() {
-        sendRequest(`api/v1/drivers/transports/${this.props.transport.id}/`, "DELETE")
-        .then(
-            (result) => {
-                console.log(result)
-            },
-            (error) => {
-                console.log(error)
-            }
-        )
-    }
+    
     render() {
         let image_url = `/api/v1/drivers/transports/${this.props.transport.id}/covers/${this.props.transport.transport_cover}`
 
@@ -49,7 +36,7 @@ export default class TransportCabinet extends React.Component {
                             <p className="transport__cabinet__item">город: <span>{this.props.transport.city}</span></p>
                         </div>
                     </div>
-                    <div className="transport__cabinet__card__footer" id="remove" onClick={this.deleteTransport}>
+                    <div className="transport__cabinet__card__footer" id="remove" onClick={this.props.deleteTransport}>
                         <p>Удалить</p>
                     </div>
                 </div>

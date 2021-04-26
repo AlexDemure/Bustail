@@ -8,6 +8,9 @@ import Header from '../../../components/common/header'
 import CabinetSwitch from '../components/switch_cabinet'
 import { aboutMe } from '../../../components/common/api/about_me'
 
+import { ResponseNotify, showNotify } from '../../../components/common/response_notify'
+
+
 import SerializeForm from '../../../utils/form_serializer'
 import sendRequest from '../../../utils/fetch'
 
@@ -47,6 +50,9 @@ export default class CommonPage extends React.Component {
                 id: null,
             },
             cities: [],
+
+            response_text: null,
+            notify_type: null,
             error: null
         };
         this.changeInfo = this.changeInfo.bind(this)
@@ -67,15 +73,35 @@ export default class CommonPage extends React.Component {
             (result) => {
                 if (this.state.error) {
                     selectErrorInputs(this.state.error, false)
-                    this.setState({error: null})
+                    this.setState({
+                        error: null
+                    })
                 }
+                this.setState({
+                    response_text: "Данные успешно изменены",
+                    notify_type: "success",
+                })
+                showNotify()
+
             },
             (error) => {
-                this.setState({error: error.message})
+                this.setState({
+                    error: error.message,
+                    notify_type: "error"
+                })
 
                 if (error.name === "ValidationError") {
                     selectErrorInputs(error.message)
+                    this.setState({
+                        response_text: "Не корректно заполнены данные",
+                    })
+                } else {
+                    this.setState({
+                        response_text: error.message,
+                    })
                 }
+
+                showNotify()
             }
         )
     }
@@ -92,12 +118,19 @@ export default class CommonPage extends React.Component {
 
     render() {
         return (
-            <div className="container cabinet common">
-                <Header previous_page="/main" page_name="Личный кабинет"/>
-                <CabinetSwitch is_active="common" onClick={this.props.changeForm}/>
-                <CommonInfoForm changeInfo={this.changeInfo} user={this.state.user} cities={this.state.cities}/>
-                <NavBar/>
-            </div>
+            <React.Fragment>
+                <ResponseNotify
+                notify_type={this.state.notify_type}
+                text={this.state.response_text}
+                />
+                <div className="container cabinet common">
+                    <Header previous_page="/main" page_name="Личный кабинет"/>
+                    <CabinetSwitch is_active="common" onClick={this.props.changeForm}/>
+                    <CommonInfoForm changeInfo={this.changeInfo} user={this.state.user} cities={this.state.cities}/>
+                    <NavBar/>
+                </div>
+            </React.Fragment>
+            
         )
     }
 }
