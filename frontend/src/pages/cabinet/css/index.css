@@ -19,7 +19,7 @@
 }
 
 .container.cabinet.driver.card {
-    grid-template-rows: 10% 5% 1fr 7%;
+    grid-template-rows: 10% 5% 1fr;
     grid-template-columns: 1fr;
 }
 
