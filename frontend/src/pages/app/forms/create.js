@@ -120,7 +120,7 @@ export default class CreateAppForm extends React.Component {
             description: prepared_data.get("description") !== "" ? prepared_data.get("description") : null
         }
  
-        sendRequest('/api/v1/applications/' + this.state.app_data.id, "PUT", data)
+        sendRequest(`/api/v1/applications/${this.state.app_data.id}/`, "PUT", data)
         .then(
             (result) => {
                 this.setState({form: "notify"})

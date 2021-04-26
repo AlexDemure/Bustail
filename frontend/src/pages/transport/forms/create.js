@@ -189,7 +189,7 @@ export default class CreateTransportForm extends React.Component {
             price: parseInt(prepared_data.get("price")),
         }
 
-        sendRequest(`/api/v1/drivers/transports/${this.state.transport.id}`, "PUT", data)
+        sendRequest(`/api/v1/drivers/transports/${this.state.transport.id}/`, "PUT", data)
         .then(
             (result) => {
                 this.setState({
