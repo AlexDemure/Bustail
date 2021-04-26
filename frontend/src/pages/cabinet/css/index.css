@@ -7,7 +7,7 @@
     display: grid;
     justify-content: center;
     align-content: flex-start;
-    overflow-y: scroll;
+    overflow-y: hidden;
     overflow-x: hidden;
 }
 

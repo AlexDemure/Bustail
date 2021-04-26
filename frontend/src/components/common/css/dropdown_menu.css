@@ -10,7 +10,7 @@
 
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: 60% 15% 25%;
+    grid-template-rows: 50% 10% 30%;
    
 }
 
@@ -30,6 +30,8 @@
 
 .dropdown-menu .dropdown-menu__contacts a,
 .dropdown-menu .dropdown-menu__contacts p {
+    padding-bottom: 0;
+    margin-bottom: 10px;
     color: #535353;
     font-size: 16px;
     font-family: 'FuturaMediumC';
