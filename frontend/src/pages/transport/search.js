@@ -4,18 +4,20 @@ import Header from '../../components/common/header'
 import SearchInput from '../../components/common/inputs/search_selector'
 import SubmitButton from '../../components/common/buttons/submit_btn'
 
+import { ResponseNotify, showNotify } from '../../components/common/response_notify'
+
 import { aboutMe } from '../../components/common/api/about_me'
+
 import { getCities } from '../../constants/cities'
 
+import SerializeForm from '../../utils/form_serializer'
 import sendRequest from '../../utils/fetch'
 
 import TransportSearch from './components/transport'
 import OfferForm from "./components/offer"
 
-import SerializeForm from '../../utils/form_serializer'
 
 import './css/search.css'
-
 
 
 export default class SearchTransportPage extends React.Component {
@@ -23,6 +25,7 @@ export default class SearchTransportPage extends React.Component {
         super()
         
         this.state = {
+            offer_type: "client_to_driver",
             offerData: null,
 
             user: null,
@@ -36,13 +39,47 @@ export default class SearchTransportPage extends React.Component {
             city: null,
             
             isScrolling: true
+            
         }
 
         this.onScroll = this.onScroll.bind(this)
         this.onSubmit = this.onSubmit.bind(this)
         this.getTransports = this.getTransports.bind(this)
+        this.createOffer = this.createOffer.bind(this)
     }
-    
+
+    createOffer(event, ticket_id) {
+        event.preventDefault();
+
+
+        let data = {
+            application_id: ticket_id,
+            transport_id: this.state.transports[this.state.offerData].id,
+            notification_type: this.state.offer_type
+        }
+        sendRequest('/api/v1/notifications/', "POST", data)
+        .then(
+            (result) => {
+                console.log(result)
+                this.setState({
+                    response_text: "Предложение успешно отправлено",
+                    notify_type: "success",
+                    error: null
+                })
+                showNotify()
+            },
+            (error) => {
+                console.log(error)
+                this.setState({
+                    response_text: error.message,
+                    notify_type: "error",
+                    error: error.message
+                })
+                showNotify()
+            }
+        )
+    }
+
     async getMeApps() {
         let me_apps = [];
         await sendRequest('/api/v1/applications/client/', "GET")
@@ -142,37 +179,44 @@ export default class SearchTransportPage extends React.Component {
     
     render() {
         return (
-            <div className="container search-transport">
-                <Header previous_page="/main" page_name="Поиск транспорта"/>
-                <form className="search-transport__form__search" onSubmit={this.onSubmit} autoComplete="off">
-                    <SearchInput name="city" options={this.state.cities} value={this.state.user ? this.state.user.city : null} isRequired={false}/>
-                    <SubmitButton value="Поиск"/>
-                </form>
-                
-                <div className="search-transport__transports" onScroll={this.onScroll}>
-                    {
-                        this.state.transports &&
-                        this.state.transports.map(
-                            (transport, index) => 
-                            <TransportSearch
-                            transport={transport}
-                            openOffer={() => this.setState({offerData: index})}
+            <React.Fragment>
+                <ResponseNotify
+                notify_type={this.state.notify_type}
+                text={this.state.response_text}
+                />
+                <div className="container search-transport">
+                    <Header previous_page="/main" page_name="Поиск транспорта"/>
+                    <form className="search-transport__form__search" onSubmit={this.onSubmit} autoComplete="off">
+                        <SearchInput name="city" options={this.state.cities} value={this.state.user ? this.state.user.city : null} isRequired={false}/>
+                        <SubmitButton value="Поиск"/>
+                    </form>
+                    
+                    <div className="search-transport__transports" onScroll={this.onScroll}>
+                        {
+                            this.state.transports &&
+                            this.state.transports.map(
+                                (transport, index) => 
+                                <TransportSearch
+                                transport={transport}
+                                openOffer={() => this.setState({offerData: index})}
+                                />
+                            )
+                        }
+                    </div>
+                    { this.state.offerData !== null && (
+                            <OfferForm
+                            closeOffer={() => this.setState({offerData: null})}
+                            offer_type="Предложение заявки"
+                            create_link="/app/create"
+                            choices={this.state.user_apps}
+                            createOffer={this.createOffer}
                             />
-                        )
+                        )   
                     }
+                    <NavBar/>
                 </div>
-                { this.state.offerData !== null && (
-                        <OfferForm
-                        closeOffer={() => this.setState({offerData: null})}
-                        offer_type="Предложение заявки"
-                        create_link="/app/create"
-                        choices={this.state.user_apps}
-                        transport_id={this.state.transports[this.state.offerData].id}
-                        />
-                    )   
-                }
-                <NavBar/>
-            </div>
+            </React.Fragment>
+            
         )
     }
     

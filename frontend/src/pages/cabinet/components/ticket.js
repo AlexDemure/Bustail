@@ -35,7 +35,7 @@ export default class TicketCabinet extends React.Component {
                     </div>
                     <div id="right-div-right">
                         <p className="ticket__cabinet__date">{new_date}</p>
-                        <p className="ticket__cabinet__price">{this.props.ticket.price}</p>
+                        <p className="ticket__cabinet__price">{this.props.ticket.price !== 0 ? this.props.ticket.price : "Не указано"}</p>
                         <div className="ticket__cabinet__reject-btn" onClick={this.props.rejectApplication}>
                             <p>Отменить</p>
                         </div>

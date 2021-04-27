@@ -4,6 +4,8 @@ import Header from '../../components/common/header'
 import SearchInput from '../../components/common/inputs/search_selector'
 import SubmitButton from '../../components/common/buttons/submit_btn'
 
+import { ResponseNotify, showNotify } from '../../components/common/response_notify'
+
 import { getDriverCard } from '../../components/common/api/driver_card'
 import { aboutMe } from '../../components/common/api/about_me'
 import { getCities } from '../../constants/cities'
@@ -24,6 +26,7 @@ export default class SearchAppPage extends React.Component {
         super()
 
         this.state = {
+            offer_type: "driver_to_client",
             offerData: null,
 
             user: null,
@@ -36,15 +39,50 @@ export default class SearchAppPage extends React.Component {
             offset: null,
             city: null,
             
-            isScrolling: true
+            isScrolling: true,
+
+            response_text: null,
+            notify_type: null,
+            error: null
         }
 
         this.onScroll = this.onScroll.bind(this)
         this.onSubmit = this.onSubmit.bind(this)
         this.getApps = this.getApps.bind(this)
+        this.createOffer = this.createOffer.bind(this)
     }
 
-    
+    createOffer(event, transport_id) {
+        event.preventDefault();
+
+        let data = {
+            application_id: this.state.apps[this.state.offerData].id,
+            transport_id: transport_id,
+            notification_type: this.state.offer_type
+        }
+        sendRequest('/api/v1/notifications/', "POST", data)
+        .then(
+            (result) => {
+                console.log(result)
+                this.setState({
+                    response_text: "Предложение успешно отправлено",
+                    notify_type: "success",
+                    error: null
+                })
+                showNotify()
+            },
+            (error) => {
+                console.log(error)
+                this.setState({
+                    response_text: error.message,
+                    notify_type: "error",
+                    error: error.message
+                })
+                showNotify()
+            }
+        )
+    }
+
     async getApps(city = null, offset = 0) {
         let data;
         
@@ -130,36 +168,43 @@ export default class SearchAppPage extends React.Component {
 
     render() {
         return (
-            <div className="container search-app">
-                <Header previous_page="/main" page_name="Поиск заявки"/>
-                <form className="search-app__form__search" onSubmit={this.onSubmit} autoComplete="off">
-                    <SearchInput name="city" options={this.state.cities} value={this.state.user ? this.state.user.city : null} isRequired={false}/>
-                    <SubmitButton value="Поиск"/>
-                </form>
-                <div className="search-app__apps" onScroll={this.onScroll}>
-                    {
-                        this.state.apps &&
-                        this.state.apps.map(
-                            (ticket, index) => 
-                            <TicketSearch
-                            ticket={ticket}
-                            openOffer={() => this.setState({offerData: index})}
+            <React.Fragment>
+                <ResponseNotify
+                notify_type={this.state.notify_type}
+                text={this.state.response_text}
+                />
+                <div className="container search-app">
+                    <Header previous_page="/main" page_name="Поиск заявки"/>
+                    <form className="search-app__form__search" onSubmit={this.onSubmit} autoComplete="off">
+                        <SearchInput name="city" options={this.state.cities} value={this.state.user ? this.state.user.city : null} isRequired={false}/>
+                        <SubmitButton value="Поиск"/>
+                    </form>
+                    <div className="search-app__apps" onScroll={this.onScroll}>
+                        {
+                            this.state.apps &&
+                            this.state.apps.map(
+                                (ticket, index) => 
+                                <TicketSearch
+                                ticket={ticket}
+                                openOffer={() => this.setState({offerData: index})}
+                                />
+                            )
+                        }
+                    </div>
+                    { this.state.offerData !== null && (
+                            <OfferForm
+                            closeOffer={() => this.setState({offerData: null})}
+                            offer_type="Предложение аренды"
+                            create_link="/transport/create"
+                            choices={this.state.me_transports}
+                            createOffer={this.createOffer}
                             />
-                        )
+                        )   
                     }
+                    <NavBar/>
                 </div>
-                { this.state.offerData !== null && (
-                        <OfferForm
-                        closeOffer={() => this.setState({offerData: null})}
-                        offer_type="Предложение аренды"
-                        create_link="/transport/create"
-                        choices={this.state.me_transports}
-                        app_id={this.state.apps[this.state.offerData].id}
-                        />
-                    )   
-                }
-                <NavBar/>
-            </div>
+            </React.Fragment>
+           
         )
     }
     

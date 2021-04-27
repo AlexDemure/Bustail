@@ -55,7 +55,7 @@ export default class NotificationPage extends React.Component {
         let user = await aboutMe()
         let client_applications = await getMeApps()
         let driver = await getDriverCard()
-
+        
         this.setState({
             user: user,
             client_applications: client_applications,

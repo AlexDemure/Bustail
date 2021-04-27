@@ -66,20 +66,6 @@
     float: left;
 }
 
-.offer__common__modal-window__text-error {
-    font-size: 15px;
-    font-family: "FuturaDemiC";
-    color: #9B5E5D;
-    margin: 0;
-    padding: 0;
-
-    width: 80%;
-    margin-left: 20px;
-    margin-top: 5px;
-
-    float: left;
-}
-
 .offer__common__modal-window__content .offer__common__modal-window__create-object {
     font-size: 16px;
     font-family: "FuturaDemiC";

@@ -1,11 +1,10 @@
 import React from 'react'
 
+import { getTransportCard } from '../../../components/common/api/transport_card'
+
 import TransportNotification from './transport'
 
-import sendRequest from '../../../utils/fetch'
-
 import "./css/ticket.css"
-import { getTransportCard } from '../../../components/common/api/transport_card'
 
 
 export default class TicketNotification extends React.Component {
@@ -76,7 +75,7 @@ export default class TicketNotification extends React.Component {
                     </div>
                     <div id="right-div-right">
                         <p className="ticket__notification__date">{new_date}</p>
-                        <p className="ticket__notification__price">{this.props.ticket.price}</p>
+                        <p className="ticket__notification__price">{this.props.ticket.price !== 0 ? this.props.ticket.price : "Не указано"}</p>
                         <div className="ticket__notification__offer-btn" onClick={() => this.onClick("transports")}>
                             <p>Список</p>
                         </div>
