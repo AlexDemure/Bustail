@@ -12,7 +12,8 @@ export default class TicketNotification extends React.Component {
         super(props)
         this.state = {
             typeWindow: null,
-            transports: null
+            offers: null,
+            offers_count: 0
         }
     }
 
@@ -24,34 +25,51 @@ export default class TicketNotification extends React.Component {
         }
     }
 
+    componentDidUpdate(prevProps, prevState) {
+        console.log(prevState, this.state);
+        if(prevState.offers_count !== this.state.offers_count) {
+            console.log('UPDATE');
+            let offers = this.props.ticket.notifications.map(
+                (notification, index) => {
+                    let transport = getTransportCard(notification.transport_id)
+                    return {
+                        transport: transport,
+                        notification_type: notification.notification_type,
+                        notification_id: notification.id,
+                        application_id: notification.application_id,
+                        index: index
+                    } 
+                }
+            )
+            
+            this.setState({
+                offers: offers,
+                offers_count: offers.length
 
-    async componentDidMount() {
-        let transports = [];
-        let notification_transports = this.props.ticket.notifications.map(
-            notification => {
+            })
+        }
+    }
+
+    componentDidMount() {
+        let offers = this.props.ticket.notifications.map(
+            (notification, index) => {
+                let transport = getTransportCard(notification.transport_id)
                 return {
-                    transport_id: notification.transport_id,
+                    transport: transport,
                     notification_type: notification.notification_type,
                     notification_id: notification.id,
+                    application_id: notification.application_id,
+                    index: index
                 } 
             }
         )
         
-        for (var key in notification_transports) {
-            let transport = await getTransportCard(notification_transports[key].transport_id)
-            if (transport !== null) {
-                transports.push({
-                    transport: transport,
-                    notification_type: notification_transports[key].notification_type,
-                    notification_id: notification_transports[key].notification_id,
-                })
-            } 
-        }
-
         this.setState({
-            transports: transports
+            offers: offers,
+            offers_count: offers.length
         })
     }
+
     render() {
         let date_items = this.props.ticket.to_go_when.split("-")
         let new_date = `${date_items[2]}.${date_items[1]}`
@@ -94,15 +112,15 @@ export default class TicketNotification extends React.Component {
             { this.state.typeWindow === "transports" && (
                     <div className="ticket__notification__transports">
                         {
-                            this.state.transports &&
-                            this.state.transports.map(
-                                (transport_data, index) =>
+                            this.state.offers &&
+                            this.state.offers.map(
+                                 offer =>
                                  <TransportNotification
-                                  ticket_id={this.props.ticket.id}
                                   owner={this.props.owner}
-                                  notification_id={transport_data.notification_id}
-                                  notification_type={transport_data.notification_type}
-                                  transport={transport_data.transport}
+                                  notification_type={offer.notification_type}
+                                  transport={offer.transport}
+                                  setOfferDecision={(e) => this.props.setOfferDecision(e, offer.application_id, offer.notification_id, this.props.owner, offer.index)}
+                                  removeOffer={() => this.props.removeOffer(offer.application_id, offer.notification_id, this.props.owner, offer.index)}
                                 />
                             )
                         }

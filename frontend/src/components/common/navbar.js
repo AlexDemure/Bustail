@@ -8,7 +8,8 @@ import sendRequest from '../../utils/fetch'
 
 import './css/navbar.css'
 
-export default class NavBar extends React.Component {
+
+class NavBar extends React.Component {
     constructor() {
         super()
 
@@ -91,3 +92,4 @@ export default class NavBar extends React.Component {
 
 }
 
+export default NavBar

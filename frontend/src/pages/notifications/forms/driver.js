@@ -11,11 +11,16 @@ export default class DriverNotifications extends React.Component {
         return (
             <div className="notifications__driver__applications">
                 {
-                    this.props.applications &&
+                    this.props.applications.length > 0 &&
                     this.props.applications.map(
                         (ticket) => {
                             if (ticket.notifications.length > 0) {
-                                return <TicketNotification owner="driver" ticket={ticket}/>
+                                return <TicketNotification
+                                        owner="driver"
+                                        ticket={ticket}
+                                        setOfferDecision={this.props.setOfferDecision}
+                                        removeOffer={this.props.removeOffer}
+                                        />
                             }
                         }
                         
