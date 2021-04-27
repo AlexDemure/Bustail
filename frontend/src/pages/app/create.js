@@ -1,8 +1,5 @@
 import React from 'react'
 
-import NavBar from '../../components/common/navbar'
-import Header from '../../components/common/header'
-
 import { aboutMe } from '../../components/common/api/about_me'
  
 import CreateAppForm from './forms/create'
@@ -24,11 +21,9 @@ export default class CreateAppPage extends React.Component {
 
     render() {
         return (
-            <div className="container create-app">
-                <Header previous_page="/main" page_name="Создание заявки"/>
+            <React.Fragment>
                 <CreateAppForm/>
-                <NavBar/>
-            </div>
+            </React.Fragment>
         )
     }
     

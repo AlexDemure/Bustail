@@ -5,6 +5,8 @@ import DefaultInput from '../../../components/common/inputs/default'
 import SearchInput from '../../../components/common/inputs/search_selector'
 import TextAreaInput from '../../../components/common/inputs/textarea'
 import SubmitButton from '../../../components/common/buttons/submit_btn'
+import NavBar from '../../../components/common/navbar'
+import Header from '../../../components/common/header'
 
 import { ResponseNotify, showNotify } from '../../../components/common/response_notify'
 
@@ -207,7 +209,11 @@ export default class CreateAppForm extends React.Component {
                 notify_type={this.state.notify_type}
                 text={this.state.response_text}
                 />
-                {form}
+                <div className="container create-app">
+                    <Header previous_page="/main" page_name="Создание заявки"/>
+                    {form}
+                    <NavBar/>
+                </div>
             </React.Fragment>
         )
     }

@@ -7,14 +7,17 @@ export function showNotify() {
     let element = document.getElementsByClassName("response-notify__common__border")[0]
     
     element.style.opacity = "1"
+    element.style.zIndex = "50000"
     setTimeout(() => {
         element.style.opacity = "0"
+        element.style.zIndex = "-1"
     }, 3000);
 }
 
 export function closeNotify() {
     let element = document.getElementsByClassName("response-notify__common__border")[0]
     element.style.opacity = "0"
+    element.style.zIndex = "-1"
 }
 
 export function ResponseNotify(props) {
