@@ -192,7 +192,7 @@ export default class SearchTransportPage extends React.Component {
                     </form>
                     
                     <div className="search-transport__transports" onScroll={this.onScroll}>
-                        {
+                        {/* {
                             this.state.transports &&
                             this.state.transports.map(
                                 (transport, index) => 
@@ -201,7 +201,7 @@ export default class SearchTransportPage extends React.Component {
                                 openOffer={() => this.setState({offerData: index})}
                                 />
                             )
-                        }
+                        } */}
                     </div>
                     { this.state.offerData !== null && (
                             <OfferForm
