@@ -9,12 +9,12 @@ export function showNotify() {
     if (element.style.opacity !== "0") {
         setTimeout(() => {
             element.style.opacity = "0"
-        }, 1500);
+        }, 2000);
         setTimeout(() => {
             if (element.style.zIndex !== "-1") {
                 element.style.zIndex = "-1"
             }
-        }, 2500);
+        }, 3000);
     }
 
     element.style.opacity = "1"
