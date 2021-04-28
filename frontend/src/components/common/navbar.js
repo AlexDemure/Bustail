@@ -48,7 +48,7 @@ class NavBar extends React.Component {
             <a href="/notifications" className="navbar__common__btn" id="notifications">
             
             {   
-                this.state.count_notifications &&
+                this.state.count_notifications > 0 &&
                 <div className="navbar__common__notification__circle">
                     <p>{this.state.count_notifications}</p>
                 </div>

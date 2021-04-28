@@ -21,13 +21,14 @@
 
 .container.search-transport .search-transport__form__search .search-selector {
     width: 90%;
-    margin-left: 5%;
+    height: 100%;
+    margin-left: 10px;
 }
 
 .container.search-transport .search-transport__form__search .input__common__submit {
-    width: 90%;
-    margin-right: 5%;
-    height: 47px;
+    width: 85%;
+    height: 100%;
+    margin-right: 10px;
     border-radius: 5px;
 }
 
