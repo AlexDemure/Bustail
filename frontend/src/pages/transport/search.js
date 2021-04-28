@@ -180,10 +180,10 @@ export default class SearchTransportPage extends React.Component {
     render() {
         return (
             <React.Fragment>
-                <ResponseNotify
+                {/* <ResponseNotify
                 notify_type={this.state.notify_type}
                 text={this.state.response_text}
-                />
+                /> */}
                 <div className="container search-transport">
                     <Header previous_page="/main" page_name="Поиск транспорта"/>
                     <form className="search-transport__form__search" onSubmit={this.onSubmit} autoComplete="off">
