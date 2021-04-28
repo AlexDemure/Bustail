@@ -12,11 +12,7 @@ from backend.apps.drivers.crud import (
     transport_covers as transport_covers_crud
 )
 from backend.apps.drivers.models import Driver
-from backend.apps.drivers.serializer import (
-    prepare_transport_with_notifications_and_photos,
-    prepare_transport_with_photos,
-    prepare_driver_data
-)
+from backend.apps.drivers.serializer import prepare_transport_with_photos, prepare_driver_data
 from backend.core.config import settings
 from backend.enums.drivers import DriverErrors
 from backend.enums.system import SystemLogs, SystemEnvs
@@ -56,7 +52,7 @@ async def get_driver_by_account_id(account_id: int) -> Optional[DriverData]:
     if not driver:
         return None
 
-    transports = await get_transport_with_notifications_and_covers(driver)
+    transports = await get_transport_with_covers(driver)
 
     data = driver.__dict__
     commission = data.pop("commission")
@@ -92,7 +88,7 @@ async def create_transport(transport_in: TransportCreate) -> TransportData:
 
 async def get_transport(transport_id: int) -> Optional[TransportData]:
     transport = await transport_crud.get(transport_id)
-    return prepare_transport_with_photos(transport, transport.transport_covers.related_objects) if transport else None
+    return prepare_transport_with_photos(transport) if transport else None
 
 
 async def change_transport_data(transport: TransportData, transport_up: TransportUpdate) -> None:
@@ -114,7 +110,7 @@ async def get_transports(**kwargs) -> ListTransports:
     transports, total_rows = await transport_crud.get_all_transports(**kwargs)
     return ListTransports(
         total_rows=total_rows,
-        transports=[prepare_transport_with_photos(x, x.transport_covers.related_objects) for x in transports]
+        transports=[prepare_transport_with_photos(x) for x in transports]
     )
 
 
@@ -245,11 +241,9 @@ async def get_driver_by_transport_id(transport_id: int) -> Optional[DriverData]:
     return driver
 
 
-async def get_transport_with_notifications_and_covers(driver: Driver) -> List[TransportData]:
+async def get_transport_with_covers(driver: Driver) -> List[TransportData]:
     """Получение списка транспорта с уведомлениями и обложками."""
-    transports = await transport_crud.get_transports_with_notifications(driver.id)
+    transports = await transport_crud.get_driver_transports(driver.id)
     return [
-        prepare_transport_with_notifications_and_photos(
-            x, x.transport_covers.related_objects, x.notifications.related_objects
-        ) for x in transports
+        prepare_transport_with_photos(x) for x in transports
     ]

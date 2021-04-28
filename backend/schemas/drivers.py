@@ -5,7 +5,6 @@ from typing import List
 from pydantic import BaseModel, validator, constr
 
 from backend.enums.drivers import TransportType
-from backend.schemas.notifications import NotificationData
 from backend.utils import get_cities
 from backend.submodules.object_storage.enums import FileMimetypes
 
@@ -59,8 +58,7 @@ class TransportData(TransportBase):
     id: int
     driver_id: int
     transport_type: TransportType
-    transport_cover: int = None
-    notifications: List[NotificationData] = None
+    transport_covers: list = []
 
 
 class ListTransports(BaseModel):

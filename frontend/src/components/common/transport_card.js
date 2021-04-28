@@ -23,6 +23,7 @@ export default class TransportCard extends React.Component {
                 price: null,
                 city: null,
                 count_seats: null,
+                transport_covers: []
             }
         }
     }
@@ -83,10 +84,15 @@ export default class TransportCard extends React.Component {
     }
 
     render() {
-        let image_url;
-        if (this.state.transport) {
-            image_url = `/api/v1/drivers/transports/${this.state.transport.id}/covers/${this.state.transport.transport_cover}`
+        let image_url
+        
+        if (this.state.transport.transport_covers.length > 0) {
+            image_url = `/api/v1/drivers/transports/${this.state.transport.id}/covers/${this.state.transport.transport_covers[0].id}`
+        } else {
+            image_url = null
         }
+        
+       
         return(
             <div className="transport_card__modal-window__bg">
                 <div className="transport_card__modal-window__content">

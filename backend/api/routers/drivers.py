@@ -145,8 +145,6 @@ async def get_transport_cover(transport_id: int, cover_id: int) -> Response:
 async def get_transport(transport_id: int) -> TransportData:
     """
     Карточка транспорта.
-
-    - **returned**: Возвращает транспорт без уведомлений т.к. эта картачка доступна для всех пользователей системы.
     """
     logger = get_logger().bind(transport_id=transport_id)
     transport = await logic_get_transport(transport_id)
@@ -285,7 +283,7 @@ async def read_driver_me(account: Account = Depends(confirmed_account)) -> Drive
     """
     Карточка водителя.
 
-    - **returned**: Возвращает карточка водителя со списком транспортов, обложек к ним и уведомлениями.
+    - **returned**: Возвращает карточка водителя со списком транспортов, обложек к ним.
     """
     logger = get_logger().bind(account_id=account.id)
     driver = await get_driver_by_account_id(account.id)

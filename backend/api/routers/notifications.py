@@ -5,17 +5,23 @@ from structlog import get_logger
 
 from backend.api.deps.accounts import confirmed_account
 from backend.apps.accounts.models import Account
-from backend.apps.applications.logic import get_application
-from backend.apps.drivers.logic import is_transport_belongs_driver, is_driver_debt_exceeded
+from backend.apps.applications.logic import get_application, get_account_applications
+from backend.apps.drivers.logic import (
+    is_transport_belongs_driver, is_driver_debt_exceeded, get_driver_by_account_id,
+)
 from backend.apps.notifications.logic import (
     create_notification as logic_create_notification,
-    get_notification, set_decision, delete_notification
+    get_notification, set_decision, delete_notification,
+    get_me_notifications
 )
 from backend.enums.applications import ApplicationErrors, ApplicationStatus
 from backend.enums.drivers import DriverErrors
 from backend.enums.notifications import NotificationTypes, NotificationErrors
 from backend.enums.system import SystemLogs
-from backend.schemas.notifications import NotificationData, NotificationCreate, SetDecision, NotificationDelete
+from backend.schemas.notifications import (
+    NotificationData, NotificationCreate,
+    SetDecision, NotificationDelete, MeNotifications
+)
 from backend.submodules.common.enums import BaseMessage
 from backend.submodules.common.responses import auth_responses
 from backend.submodules.common.schemas import Message
@@ -59,6 +65,13 @@ async def create_notification(notification_in: NotificationCreate, account: Acco
                 detail=DriverErrors.driver_have_debt_limit.value
             )
 
+        applications = await get_account_applications(account)
+        if notification_in.application_id in [x.id for x in applications.applications]:
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail=ApplicationErrors.user_not_create_offer_yourself.value
+            )
+
     elif notification_in.notification_type == NotificationTypes.client_to_driver:
         if account.id != application.account_id:
             logger.warning(
@@ -69,6 +82,15 @@ async def create_notification(notification_in: NotificationCreate, account: Acco
                 status_code=status.HTTP_400_BAD_REQUEST,
                 detail=ApplicationErrors.application_does_not_belong_this_user.value
             )
+
+        # Проверяем есть ли кароточк водителя и не принадлежит ли транспорт этому клиенту.
+        driver = await get_driver_by_account_id(account.id)
+        if driver:
+            if notification_in.transport_id in [x.id for x in driver.transports]:
+                raise HTTPException(
+                    status_code=status.HTTP_400_BAD_REQUEST,
+                    detail=ApplicationErrors.user_not_create_offer_yourself.value
+                )
 
     try:
         notification = await logic_create_notification(notification_in)
@@ -223,3 +245,21 @@ async def notification_delete(payload: NotificationDelete, account: Account = De
 
     return Message(msg=BaseMessage.obj_is_deleted.value)
 
+
+@router.get(
+    "/",
+    response_model=MeNotifications,
+    responses={
+        status.HTTP_200_OK: {"description": BaseMessage.obj_data.value},
+        **auth_responses
+    }
+)
+async def me_notifications(account: Account = Depends(confirmed_account)) -> MeNotifications:
+    """Получение списка всех уведомлений по заявкам и предложениям."""
+    driver = await get_driver_by_account_id(account.id)
+
+    applications = await get_account_applications(account)
+    return await get_me_notifications(
+        applications_id=[x.id for x in applications.applications],
+        transports_id=[x.id for x in driver.transports] if driver else []
+    )

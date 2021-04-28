@@ -51,7 +51,13 @@ export default class TransportSearch extends React.Component {
     }
 
     render() {
-        let image_url = `/api/v1/drivers/transports/${this.props.transport.id}/covers/${this.props.transport.transport_cover}`
+        let image_url
+        if (this.props.transport.transport_covers.length > 0) {
+            image_url = `/api/v1/drivers/transports/${this.props.transport.id}/covers/${this.props.transport.transport_covers[0].id}`
+        } else {
+            image_url = null
+        }
+        
         
         return (
             <div className="transport__search">

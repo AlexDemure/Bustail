@@ -3,7 +3,6 @@ from typing import List
 from fastapi import APIRouter, Depends, status, HTTPException
 from fastapi.encoders import jsonable_encoder
 from fastapi.responses import JSONResponse
-from structlog import get_logger
 
 from backend.api.deps.accounts import confirmed_account
 from backend.apps.accounts.models import Account
@@ -15,12 +14,10 @@ from backend.apps.applications.logic import (
     delete_application as logic_delete_application,
     reject_application as logic_reject_application,
     get_all_applications as logic_get_all_applications,
-    get_driver_applications as logic_get_driver_applications,
     get_history_applications as logic_get_history_applications
 )
 from backend.apps.drivers.logic import get_driver_by_account_id
 from backend.enums.applications import ApplicationErrors, ApplicationTypes
-from backend.enums.system import SystemLogs
 from backend.schemas.applications import (
     ListApplications, ApplicationData, HistoryApplication,
     ApplicationBase, ApplicationCreate, ApplicationUpdate
@@ -78,36 +75,9 @@ async def get_history_applications(account: Account = Depends(confirmed_account)
 async def get_account_applications(account: Account = Depends(confirmed_account)) -> ListApplications:
     """
     Получение списка заявок клиента.
-    Возвращается список заявок с уведомлениями статус которых находится не в конечном статусе.
     - **description**: Не относится к заявкам водителя.
     """
     return await logic_get_account_applications(account)
-
-
-@router.get(
-    "/driver/",
-    response_model=ListApplications,
-    responses={
-        status.HTTP_200_OK: {"description": BaseMessage.obj_data.value},
-        status.HTTP_404_NOT_FOUND: {"description": BaseMessage.obj_is_not_found.value},
-        **auth_responses
-    }
-)
-async def get_driver_applications(account: Account = Depends(confirmed_account)) -> ListApplications:
-    """
-    Получение списка заявок водителя.
-    Возвращается список заявок с уведомлениями в которых присутствует автомобиль водителя.
-    - **description**: Не относится к заявкам клиента.
-    """
-    logger = get_logger().bind(account_id=account.id)
-    driver = await get_driver_by_account_id(account.id)
-    if not driver:
-        logger.debug(SystemLogs.driver_not_found.value)
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail=BaseMessage.obj_is_not_found.value
-        )
-    return await logic_get_driver_applications(driver)
 
 
 @router.post(

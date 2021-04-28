@@ -5,15 +5,15 @@ from structlog import get_logger
 
 from backend.apps.accounts.models import Account
 from backend.apps.applications.crud import application as application_crud
-from backend.apps.applications.serializer import prepare_apps_with_notifications, prepare_apps_for_history_table
+from backend.apps.applications.serializer import prepare_apps_for_history_table
 from backend.apps.drivers.crud import driver as driver_crud
-from backend.schemas.drivers import DriverData
 from backend.enums.applications import ApplicationErrors, ApplicationStatus
 from backend.enums.system import SystemLogs
 from backend.schemas.applications import (
     ApplicationBase, ApplicationData, HistoryApplication,
     ApplicationCreate, ListApplications, ApplicationUpdate
 )
+from backend.schemas.drivers import DriverData
 from backend.submodules.common.enums import BaseSystemErrors, BaseMessage
 from backend.submodules.common.schemas import UpdatedBase
 
@@ -53,7 +53,7 @@ async def get_all_applications(**kwargs) -> ListApplications:
     applications, total_rows = await application_crud.get_all_applications(**kwargs)
     return ListApplications(
         total_rows=total_rows,
-        applications=[prepare_apps_with_notifications(x, []) for x in applications]
+        applications=[ApplicationData(**x.__dict__) for x in applications]
     )
 
 
@@ -65,21 +65,7 @@ async def get_account_applications(account: Account) -> ListApplications:
     """
     applications = await application_crud.account_applications(account.id)
     return ListApplications(
-        applications=[prepare_apps_with_notifications(x, x.notifications) for x in applications]
-    )
-
-
-async def get_driver_applications(driver: DriverData) -> ListApplications:
-    """
-    Получение списка заявок водителя.
-
-    Не относится к заявкам клиента.
-    """
-    applications = await application_crud.get_applications_with_notifications_by_driver_transports(
-        [x.id for x in driver.transports]
-    )
-    return ListApplications(
-        applications=[prepare_apps_with_notifications(x, x.notifications) for x in applications]
+        applications=[ApplicationData(**x.__dict__) for x in applications]
     )
 
 

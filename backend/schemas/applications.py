@@ -4,7 +4,6 @@ from typing import List, Union
 from pydantic import BaseModel, constr, validator
 
 from backend.enums.applications import ApplicationStatus, ApplicationTypes, ApplicationErrors
-from backend.schemas.notifications import NotificationData
 
 from backend.utils import get_cities
 
@@ -55,7 +54,6 @@ class ApplicationData(BaseModel):
     created_at: datetime
     confirmed_at: datetime = None
     application_type: Union[str, ApplicationTypes]
-    notifications: List[NotificationData] = None
 
 
 class ListApplications(BaseModel):

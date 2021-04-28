@@ -57,4 +57,5 @@ class ApplicationTypes(Enum):
 class ApplicationErrors(Enum):
     to_go_when_wrong_format = "Дата назначения поездки должна быть больше текущей."
     application_does_not_belong_this_user = "Заявки не принадлежит данному пользователю."
+    user_not_create_offer_yourself = "Вы не можете предложить заявку самому себе."
     application_has_ended_status = "Заявка переведена в промежуточный или конечный статус."

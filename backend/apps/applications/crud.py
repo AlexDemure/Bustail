@@ -4,7 +4,6 @@ from typing import List, Tuple, Optional
 from tortoise.query_utils import Prefetch, Q
 
 from backend.apps.applications.models import Application
-from backend.apps.notifications.models import Notification
 from backend.apps.drivers.models import Transport
 from backend.enums.applications import ApplicationStatus
 from backend.schemas.applications import ApplicationCreate
@@ -29,12 +28,6 @@ class CRUDApplication(CRUDBase[Application, ApplicationCreate, UpdatedBase]):
                     join_type="AND"
                 )
             ).all()
-            .prefetch_related(
-                Prefetch(
-                    'notifications',
-                    queryset=Notification.filter(decision__isnull=True).all()
-                ),
-            )
         )
 
     async def confirmed_applications(self) -> List[Application]:
@@ -78,24 +71,6 @@ class CRUDApplication(CRUDBase[Application, ApplicationCreate, UpdatedBase]):
                 ),
             ).order_by("-to_go_when")
         )
-
-    async def driver_applications(self, driver_id: int) -> List[Application]:
-        return await self.model.filter(driver_id=driver_id).all()
-
-    async def get_applications_with_notifications_by_driver_transports(self, transports_id: list) -> List[Application]:
-        """Получения списка заявок с уведомления где в уведомлениях к заявке присутствует автомобиль водителя"""
-        rows = await (
-            self.model.filter(application_status__not_in=ApplicationStatus.ended_status()).all()
-            .prefetch_related(
-                Prefetch(
-                    'notifications',
-                    queryset=Notification.filter(
-                        decision__isnull=True, transport_id__in=transports_id
-                    ).all()
-                ),
-            )
-        )
-        return [x for x in rows if x.notifications]
 
     async def get_all_applications(
         self,

@@ -1,5 +1,7 @@
 import React from 'react';
 
+import TransportCard from '../../../components/common/transport_card'
+
 import './css/transport.css'
 
 
@@ -7,46 +9,29 @@ export default class TransportNotification extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            typeWindow: "",
-            transport: {
-                id: null,
-                transport_cover: null,
-                brand: null,
-                model: null,
-                description: null,
-            },
+            transport_id: null,
         }
     }
 
 
-    onClick(window) {
-        this.setState({typeWindow: window})
-    }
-
-    componentDidMount() {
-        this.props.transport.then(
-            (res) => {
-                console.log(res)
-                this.setState({
-                    transport: res
-                })
-            }
-        )
-       
-    }
-
     render() {
-        let image_url = `/api/v1/drivers/transports/${this.state.transport.id}/covers/${this.state.transport.transport_cover}`
+        let image_url
+        if (this.props.transport.transport_covers.length > 0) {
+            image_url = `/api/v1/drivers/transports/${this.props.transport.id}/covers/${this.props.transport.transport_covers[0].id}`
+        } else {
+            image_url = null
+        }
+        
         let footer;
 
         if (
-            (this.props.owner === "driver" && this.props.notification_type === "driver_to_client") || 
-            (this.props.owner === "client" && this.props.notification_type === "client_to_driver") 
+            (this.props.notification_owner === "driver" && this.props.notification_type === "driver_to_client") || 
+            (this.props.notification_owner === "client" && this.props.notification_type === "client_to_driver") 
         ) {
             footer = <p className="transport__notification__btn-remove-offer" onClick={this.props.removeOffer}>Отменить предложение</p>
         } else if (
-            (this.props.owner === "driver" && this.props.notification_type === "client_to_driver") || 
-            (this.props.owner === "client" && this.props.notification_type === "driver_to_client")
+            (this.props.notification_owner === "driver" && this.props.notification_type === "client_to_driver") || 
+            (this.props.notification_owner === "client" && this.props.notification_type === "driver_to_client")
         ) {
             footer = 
             <React.Fragment>
@@ -56,21 +41,22 @@ export default class TransportNotification extends React.Component {
         }
 
         return (
-            <div id={this.state.transport.id} className="transport__notification">
+            <div id={this.props.transport.id} className="transport__notification">
                 <img 
                 src={image_url}
                 className="transport__notification__photo"
+                onClick={() => this.setState({transport_id: this.props.transport.id})}
                 >
                 </img>
                 <div className="transport__notification__card">
                     <div className="transport__notification__card__title">
-                        <p id="model">{this.state.transport.brand} {this.state.transport.model}</p>
+                        <p id="model">{this.props.transport.brand} {this.props.transport.model}</p>
                     </div>
                     <div className="transport__notification__card__body">
                         <div id="info">
-                            <p className="transport__notification__item">вместимость: <span>{this.state.transport.count_seats}</span></p>
-                            <p className="transport__notification__item">стоимость: <span>{this.state.transport.price}</span></p>
-                            <p className="transport__notification__item">город: <span>{this.state.transport.city}</span></p>
+                            <p className="transport__notification__item">вместимость: <span>{this.props.transport.count_seats}</span></p>
+                            <p className="transport__notification__item">стоимость: <span>{this.props.transport.price}</span></p>
+                            <p className="transport__notification__item">город: <span>{this.props.transport.city}</span></p>
                         </div>
                     </div>
                     
@@ -79,14 +65,12 @@ export default class TransportNotification extends React.Component {
                     </div>
                 </div>
 
-                { this.state.typeWindow === "transport_card" && (
-                        <div className="transport__notification__about">
-                            <div className="transport__notification__about__close-btn" onClick={() => this.setState({typeWindow: ""})}></div>
-                            <div className="transport__notification__about__details">
-                                <p className="transport__notification__about__item">Описание: <span>{this.state.transport.description}</span></p>
-                            </div>
-                        </div>
-                    )   
+                { 
+                    this.state.transport_id && 
+                    <TransportCard
+                    transport_id={this.state.transport_id}
+                    onClose={() => this.setState({transport_id: null})}
+                    />
                 }
 
             </div>
