@@ -214,7 +214,7 @@ export default class SearchTransportPage extends React.Component {
                         )   
                     }
                 </div>
-                {/* <NavBar/> */}
+                <NavBar/>
             </React.Fragment>
             
         )
