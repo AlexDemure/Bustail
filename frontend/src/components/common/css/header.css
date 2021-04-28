@@ -1,12 +1,15 @@
 header {
-    padding: 0;
-    margin: 0;
     top: 0;
     left: 0;
     position: relative;
+    z-index: 50;
+    
     background-color: transparent;
-    height: 9vh;
+    height: 10vh;
     width: 100vw;
+    
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+    
     display: grid;
     grid-template-columns: 10% 80% 10%;
 }

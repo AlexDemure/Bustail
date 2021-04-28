@@ -1,7 +1,5 @@
 import React from 'react';
 
-import TransportCard from '../../../components/common/transport_card'
-
 import sendRequest from '../../../utils/fetch'
 
 import './css/transport.css'
@@ -16,12 +14,6 @@ export default class TransportSearch extends React.Component {
         }
 
         this.getDriveInfo = this.getDriveInfo.bind(this)
-    }
-
-    onClickHandler(e, transport_id) {
-        this.setState({
-            transport_id: transport_id
-        })
     }
 
     getDriveInfo() {
@@ -79,19 +71,10 @@ export default class TransportSearch extends React.Component {
                     </div>
                     <div className="transport__search__card__controls">
                         <a href={"tel:"+ this.state.phone} className="transport__search__control contacts"><div></div></a>
-                        <div className="transport__search__control info" onClick={(e) => this.onClickHandler(e, this.props.transport.id)}></div>
+                        <div className="transport__search__control info" onClick={this.props.showTransportCard}></div>
                         <div className="transport__search__control offer" onClick={this.props.openOffer}></div>
                     </div>
                 </div>
-                
-                
-                { 
-                    this.state.transport_id && 
-                    <TransportCard
-                    transport_id={this.state.transport_id}
-                    onClose={() => this.setState({transport_id: null})}
-                    />
-                }
                 
             </div>
         )

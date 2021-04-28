@@ -1,28 +1,28 @@
 .navbar__common {
-    z-index: 200;
-    border-top: 1px solid #262626;
-    position: fixed;
     bottom: 0;
     left: 0;
-    background-color: #222222;
-    height: 70px;
+    position: relative;
+    z-index: 100;
+    
+    background-color: transparent;
+    height: 10vh;
     width: 100vw;
+
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+    
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows: 1fr;
 }
 
 .navbar__common .navbar__common__btn {
-    color: transparent;
     width: 40px;
     height: 40px;
     justify-self: center;
     align-self: center;
-    margin-top: 10px;
-
+   
     background-size: 30px 30px;
     background-position-x: center;
-    background-position-y: center;
     background-repeat: no-repeat;
 }
 
