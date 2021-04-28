@@ -1,6 +1,6 @@
-.offer__common__modal-window__bg {
+.offer__application__modal-window__bg {
     z-index: 200;
-    bottom: 0;
+    top: 0;
     left: 0;
     position: absolute;
     height: 100vh;
@@ -8,7 +8,7 @@
     background: rgba(22, 22, 22, 0.5);
 }
 
-.offer__common__modal-window__content {
+.offer__application__modal-window__content {
     z-index: 201;
     bottom: 0;
     left: 0;
@@ -24,7 +24,7 @@
     grid-template-rows: 10% auto 1fr;
 }
 
-.offer__common__modal-window__content .offer__common__modal-window__title {
+.offer__application__modal-window__content .offer__application__modal-window__title {
     float: left;
     margin-left: 20px;
     margin-top: 10px;
@@ -38,7 +38,7 @@
     color: #fbfbfb;
 }
 
-.offer__common__modal-window__content .offer__common__modal-window__close-btn {
+.offer__application__modal-window__content .offer__application__modal-window__close-btn {
     margin-right: 10px;
     margin-top: 10px;
     width: 50px;
@@ -51,7 +51,7 @@
     float: right;
 }
 
-.offer__common__modal-window__content .offer__common__modal-window__text {
+.offer__application__modal-window__content .offer__application__modal-window__text {
     font-size: 16px;
     font-family: "FuturaDemiC";
     color: #535353;
@@ -66,7 +66,7 @@
     float: left;
 }
 
-.offer__common__modal-window__content .offer__common__modal-window__create-object {
+.offer__application__modal-window__content .offer__application__modal-window__create-object {
     font-size: 16px;
     font-family: "FuturaDemiC";
     color: #fba333;
@@ -82,7 +82,7 @@
 }
 
 
-.offer__common__modal-window__content .offer__common__modal-window__choices {
+.offer__application__modal-window__content .offer__application__modal-window__choices {
     justify-self: center;
     height: 85%;
     width: 95%;
@@ -91,7 +91,7 @@
     margin-bottom: 9vh;
 }
 
-.offer__common__modal-window__content  .offer__common__modal-window__no-choices-text {
+.offer__application__modal-window__content  .offer__application__modal-window__no-choices-text {
     font-size: 18px;
     font-family: "FuturaDemiC";
     color: #9B5E5D;
