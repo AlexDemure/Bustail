@@ -8,7 +8,7 @@
     grid-template-rows: 10% 10% 1fr 10%;
     justify-content: center;
     align-content: flex-start;
-    
+    background-color: blueviolet;
     overflow-x: hidden;
 }
 
@@ -20,7 +20,7 @@
 .container.search-transport .search-transport__transports {
     margin-top: 10px;
     width: 95%;
-    
+
     justify-self: center;
     overflow-y: scroll;
     overflow-x: hidden;
