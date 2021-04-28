@@ -8,7 +8,7 @@
     grid-template-rows: 10% 10% 1fr;
     justify-content: center;
     align-content: flex-start;
-    
+    position: fixed;
     overflow: hidden;
 }
 
