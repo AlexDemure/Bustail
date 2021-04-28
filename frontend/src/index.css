@@ -4,11 +4,10 @@ body {
   width: 100%;
   height: 100vh;
 
-  /* background-image: url('./static/images/background.jpg');
+  background-image: url('./static/images/background.jpg');
   background-repeat: no-repeat;
   background-attachment: fixed;
-  background-size: cover; */
-  background-color: bisque;
+  background-size: cover;
 }
 
 @font-face {
