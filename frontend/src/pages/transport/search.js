@@ -202,6 +202,17 @@ export default class SearchTransportPage extends React.Component {
                     />
                 }
 
+                { 
+                    this.state.offerData !== null && 
+                    <OfferForm
+                    closeOffer={() => this.setState({offerData: null})}
+                    offer_type="Предложение заявки"
+                    create_link="/app/create"
+                    choices={this.state.user_apps}
+                    createOffer={this.createOffer}
+                    />  
+                }
+
                 <Header previous_page="/main" page_name="Поиск транспорта"/>
 
                 <div className="container search-transport">
@@ -227,16 +238,7 @@ export default class SearchTransportPage extends React.Component {
                 
                 </div>
             
-            { 
-                this.state.offerData !== null && 
-                <OfferForm
-                closeOffer={() => this.setState({offerData: null})}
-                offer_type="Предложение заявки"
-                create_link="/app/create"
-                choices={this.state.user_apps}
-                createOffer={this.createOffer}
-                />  
-            }
+            
 
             <NavBar/>
 
