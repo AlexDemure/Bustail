@@ -1,0 +1,43 @@
+.switch__notification {
+    margin-left: 10px;
+}
+
+.switch__notification .switch__notification__item {
+    display: inline-block;
+    color: #FBFBFB;
+    font-size: 18px;
+    font-family: 'FuturaDemiC';
+    position: relative;
+    padding-right: 20px;
+}
+
+
+.switch__notification .switch__notification__item.active {
+    color: #fba333;
+    opacity: 1;
+}
+
+.switch__notification .switch__notification__item.no-active {
+    opacity: 0.3;
+}
+
+.switch__notification .switch__notification__circle {
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    background-color: #9B5E5D;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+
+    display: grid;
+    justify-content: center;
+    align-content: center;
+}
+
+.switch__notification .switch__notification__circle p {
+    color: #FBFBFB;
+    margin: 0;
+    padding: 0;
+    font-size: 15px;
+}
