@@ -11,8 +11,8 @@
 
 .transport_card__modal-window__content {
     z-index: 102;
-    position: absolute;
-    height: 80vh;
+    position: fixed;
+    height: 85vh;
     width: 100vw;
     background-color: #181818;
     bottom: 0;
@@ -21,7 +21,7 @@
 
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: 10% auto 1fr;
+    grid-template-rows: 10% 1fr;
 }
 
 .transport_card__modal-window__content .transport_card__modal-window__title {
