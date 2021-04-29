@@ -77,8 +77,10 @@ export default class ClientPage extends React.Component {
                 notify_type={this.state.notify_type}
                 text={this.state.response_text}
                 />
+                
+                <Header previous_page="/main" page_name="Личный кабинет"/>
+
                 <div className="container cabinet client">
-                    <Header previous_page="/main" page_name="Личный кабинет"/>
                     <CabinetSwitch is_active="client" onClick={this.props.changeForm}/>
                     <p id="warning">Сервис не несет ответственность за качество оказания услуг или спорных ситуаций при выполнении заказов.</p>
                     <div className="cabinet__client__applications">
@@ -94,8 +96,10 @@ export default class ClientPage extends React.Component {
                             )
                         }
                     </div>
-                    <NavBar/>
                 </div>
+
+                <NavBar/>
+                
             </React.Fragment>
             
         )

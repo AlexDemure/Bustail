@@ -1,10 +1,16 @@
 .container.cabinet.driver.card .cabinet__driver {
+    width: 100%;
+    height: 100%;
+
+    justify-content: center;
+    align-content: center;
+    
     overflow-x: hidden;
     overflow-y: scroll;
-    height: 100%;
-    margin-left: 5px;
+    -webkit-overflow-scrolling: touch;
+
     display: grid;
-    grid-template-rows: 190px 70px 1fr;
+    grid-template-rows: 190px 80px 1fr;
     justify-items: center;
 }
 
@@ -22,9 +28,13 @@
 
 .container.cabinet.driver.card .cabinet__driver .cabinet__driver__transports {
     width: 95%;
-    height: 85%;
+    height: 100%;
+
+    padding-bottom: 10vh;
+    
     overflow-y: scroll;
     overflow-x: hidden;
+    
     -webkit-overflow-scrolling: touch;
 }
 
