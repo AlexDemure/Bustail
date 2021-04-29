@@ -19,10 +19,12 @@ export function showNotify() {
 
 export function closeNotify() {
     let element = document.getElementsByClassName("response-notify__common__border")[0]
-    element.style.opacity = "0"
-    setTimeout(() => {
-        element.style.zIndex = "-1"
-    }, 1000);
+    if (element.style.opacity !== "0") {
+        element.style.opacity = "0"
+        setTimeout(() => {
+            element.style.zIndex = "-1"
+        }, 2000);
+    }
 }
 
 export function ResponseNotify(props) {
