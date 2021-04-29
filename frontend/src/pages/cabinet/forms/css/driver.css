@@ -34,6 +34,7 @@
     justify-self: center;
     
     overflow-x: hidden;
+    padding-bottom: 10vh;
 }
 
 .container.cabinet.driver.card .cabinet__driver .cabinet__driver__transports .cabinet__driver__title {
