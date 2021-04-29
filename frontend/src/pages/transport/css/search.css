@@ -2,7 +2,7 @@
     width: 100vw;
 
     display: grid;
-    grid-template-rows: 10vh 70vh;
+    grid-template-rows: 10vh 90vh;
 
     justify-content: center;
     align-content: flex-start;
