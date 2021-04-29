@@ -1,12 +1,16 @@
 .container.cabinet.driver.card .cabinet__driver {
-    width: 100%;
+    grid-row: 3 / 4;
+    width: 95%;
     height: 100%;
 
-    justify-content: center;
-    align-content: center;
+    align-self: flex-start;
+    justify-self: center;
     
-    overflow-x: hidden;
+    padding-bottom: 10vh;
+    
     overflow-y: scroll;
+    overflow-x: hidden;
+    
     -webkit-overflow-scrolling: touch;
 
     display: grid;
@@ -28,8 +32,8 @@
 
 .container.cabinet.driver.card .cabinet__driver .cabinet__driver__transports {
     width: 95%;
-    height: 100%;
-
+    justify-self: center;
+    
     padding-bottom: 10vh;
     
     overflow-y: scroll;
