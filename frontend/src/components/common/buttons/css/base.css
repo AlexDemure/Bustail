@@ -1,5 +1,10 @@
 .button__common__redirect,
 .input__common__submit {
+
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+
     border: none;
     background-color: #262626;
     height: 50px;

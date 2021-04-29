@@ -2,10 +2,11 @@ import './css/base.css'
 
 function SubmitButton(props) {
     return (
-        <button
+        <input
         type="submit"
         className={"input__common__submit " + (props.className ? props.className : "")}
-        >{props.value ? props.value : "Отправить"}</button>
+        value={props.value ? props.value : "Отправить"}
+        />
     )
 }
 
