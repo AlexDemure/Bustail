@@ -1,7 +1,7 @@
 .navbar__common {
     bottom: 0;
     left: 0;
-    position: relative;
+    position: fixed;
     z-index: 100;
     
     background-color: transparent;
