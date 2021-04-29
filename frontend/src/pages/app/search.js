@@ -3,6 +3,7 @@ import NavBar from '../../components/common/navbar'
 import Header from '../../components/common/header'
 import SearchInput from '../../components/common/inputs/search_selector'
 import SubmitButton from '../../components/common/buttons/submit_btn'
+import TransportCard from '../../components/common/transport_card'
 
 import { ResponseNotify, showNotify } from '../../components/common/response_notify'
 
@@ -41,6 +42,8 @@ export default class SearchAppPage extends React.Component {
             
             isScrolling: true,
 
+            transport_id: null,
+
             response_text: null,
             notify_type: null,
             error: null
@@ -50,6 +53,13 @@ export default class SearchAppPage extends React.Component {
         this.onSubmit = this.onSubmit.bind(this)
         this.getApps = this.getApps.bind(this)
         this.createOffer = this.createOffer.bind(this)
+        this.showTransportCard = this.showTransportCard.bind(this)
+    }
+
+    showTransportCard(transport_id) {
+        this.setState({
+            transport_id: transport_id
+        })
     }
 
     createOffer(event, transport_id) {
@@ -173,8 +183,29 @@ export default class SearchAppPage extends React.Component {
                 notify_type={this.state.notify_type}
                 text={this.state.response_text}
                 />
+                { 
+                    this.state.transport_id && 
+                    <TransportCard
+                    transport_id={this.state.transport_id}
+                    onClose={() => this.setState({transport_id: null})}
+                    />
+                }
+
+                { this.state.offerData !== null && (
+                        <OfferForm
+                        closeOffer={() => this.setState({offerData: null})}
+                        offer_type="Предложение аренды"
+                        create_link="/transport/create"
+                        choices={this.state.me_transports}
+                        createOffer={this.createOffer}
+                        showTransportCard={this.showTransportCard}
+                        />
+                    )   
+                }
+
+                <Header previous_page="/main" page_name="Поиск заявки"/>
+
                 <div className="container search-app">
-                    <Header previous_page="/main" page_name="Поиск заявки"/>
                     <form className="search-app__form__search" onSubmit={this.onSubmit} autoComplete="off">
                         <SearchInput name="city" options={this.state.cities} value={this.state.user ? this.state.user.city : null} isRequired={false}/>
                         <SubmitButton value="Поиск"/>
@@ -191,18 +222,10 @@ export default class SearchAppPage extends React.Component {
                             )
                         }
                     </div>
-                    { this.state.offerData !== null && (
-                            <OfferForm
-                            closeOffer={() => this.setState({offerData: null})}
-                            offer_type="Предложение аренды"
-                            create_link="/transport/create"
-                            choices={this.state.me_transports}
-                            createOffer={this.createOffer}
-                            />
-                        )   
-                    }
-                    <NavBar/>
                 </div>
+                
+                <NavBar/>
+
             </React.Fragment>
            
         )

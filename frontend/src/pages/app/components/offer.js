@@ -1,7 +1,5 @@
 import React from 'react'
 
-import sendRequest from '../../../utils/fetch'
-
 import TransportOffer from './transport'
 
 import './css/offer.css'
@@ -15,27 +13,28 @@ export default class OfferForm extends React.Component {
 
     render() {
         return (
-            <div className="offer__common__modal-window__bg">
-                <div className="offer__common__modal-window__content">
+            <div className="offer__transport__modal-window__bg">
+                <div className="offer__transport__modal-window__content">
                     <div>
-                        <p className="offer__common__modal-window__title">{this.props.offer_type}</p>
-                        <div className="offer__common__modal-window__close-btn" onClick={this.props.closeOffer}></div>
+                        <p className="offer__transport__modal-window__title">{this.props.offer_type}</p>
+                        <div className="offer__transport__modal-window__close-btn" onClick={this.props.closeOffer}></div>
                     </div>
                     <div>
-                        <p className="offer__common__modal-window__text">Выберите элемент из списка</p>
-                        <a href={this.props.create_link} className="offer__common__modal-window__create-object">Создать</a>
+                        <p className="offer__transport__modal-window__text">Выберите элемент из списка</p>
+                        <a href={this.props.create_link} className="offer__transport__modal-window__create-object">Создать</a>
                     </div>
                     
-                    <div className="offer__common__modal-window__choices">
+                    <div className="offer__transport__modal-window__choices">
                         {
                             this.props.choices.length > 0 ?
                             this.props.choices.map(
                                 (choice) =>
                                 <TransportOffer
                                 createOffer={(e) => this.props.createOffer(e, choice.id)}
+                                showTransportCard={this.props.showTransportCard}
                                 transport={choice}/>
                             ) :
-                            <p className="offer__common__modal-window__no-choices-text">Список предложений пуст</p>
+                            <p className="offer__transport__modal-window__no-choices-text">Список предложений пуст</p>
                         }
                     </div>
                 </div>
