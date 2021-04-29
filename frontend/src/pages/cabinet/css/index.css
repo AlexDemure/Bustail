@@ -21,6 +21,10 @@
 .container.cabinet.driver.card {
     grid-template-rows: 10% 1fr;
     grid-template-columns: 1fr;
+
+    overflow-y: scroll;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
 }
 
 .container.cabinet.common p[id=warning],
