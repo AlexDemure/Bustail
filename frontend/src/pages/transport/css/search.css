@@ -21,19 +21,19 @@
 
 .container.search-transport .search-transport__form__search .search-selector {
     width: 90%;
-    height: 100%;
+    height: 45px;
     margin-left: 10px;
 }
 
 .container.search-transport .search-transport__form__search .input__common__submit {
     width: 85%;
-    height: 100%;
+    height: 47px;
     margin-right: 10px;
     border-radius: 5px;
 }
 
 .container.search-transport .search-selector__input__common {
-    height: 100%;
+    height: 45px;
  }
  
 .container.search-transport .search-selector__input__common::placeholder {

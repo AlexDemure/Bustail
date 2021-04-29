@@ -5,8 +5,7 @@ function SubmitButton(props) {
         <button
         type="submit"
         className={"input__common__submit " + (props.className ? props.className : "")}
-        value={props.value ? props.value : "Отправить"}
-        />
+        >{props.value ? props.value : "Отправить"}</button>
     )
 }
 

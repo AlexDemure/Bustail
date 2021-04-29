@@ -2,16 +2,12 @@
 .input__common__submit {
 
     -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    opacity: 1;
 
     border: none;
     background-color: #262626;
     height: 50px;
     width: 150px;
     border-radius: 10px;
-    
     
 }
 
