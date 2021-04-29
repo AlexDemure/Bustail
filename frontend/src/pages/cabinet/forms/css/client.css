@@ -5,6 +5,8 @@
     overflow-x: hidden;
     justify-self: center;
     justify-items: center;
+
+    -webkit-overflow-scrolling: touch;
 }
 
 .container.cabinet.client .cabinet__client__title {
