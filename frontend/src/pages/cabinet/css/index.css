@@ -12,7 +12,8 @@
 }
 
 .container.cabinet.common,
-.container.cabinet.client {
+.container.cabinet.client,
+.container.cabinet.driver.form {
     grid-template-rows: 10% 18% 72%;
     grid-template-columns: 1fr;
 }
@@ -23,7 +24,8 @@
 }
 
 .container.cabinet.common p[id=warning],
-.container.cabinet.client p[id=warning] {
+.container.cabinet.client p[id=warning],
+.container.cabinet.driver.form p[id=warning] {
     grid-row: 2 / 3;
     justify-self: center;
     text-align: center;
@@ -33,49 +35,9 @@
     color: #9B5E5D;
 }
 
+.container.cabinet.driver.form .cabinet__driver__form__create-driver,
 .container.cabinet.common .cabinet__form__client-info {
     grid-row: 3 / 4;
-    width: 80%;
-    justify-self: center;
-    align-self: flex-start;
-    text-align: center;
-}
-
-.container.cabinet.common .cabinet__form__client-info input {
-    margin-bottom: 5px;
-}
-
-.container.cabinet.common .cabinet__form__client-info .input__common__submit {
-    margin-top: 20px;
-}
-
-/* 
-.container.cabinet.driver.form,
-.container.cabinet.client {
-    grid-template-rows: 10% 5% 15% 1fr;
-    grid-template-columns: 1fr;
-}
-
-.container.cabinet.driver.card {
-    grid-template-rows: 10% 5% 1fr;
-    grid-template-columns: 1fr;
-}
-
-.container.cabinet.driver.form p[id=warning],
-.container.cabinet.common p[id=warning], 
-.container.cabinet.client p[id=warning] {
-    grid-row: 3 / 4;
-    justify-self: center;
-    text-align: center;
-    width: 85%;
-    font-family: "FuturaDemiC";
-    font-size: 16px;
-    color: #9B5E5D;
-}
-
-.container.cabinet.common .cabinet__form__client-info,
-.container.cabinet.driver.form .cabinet__driver__form__create-driver {
-    grid-row: 4 / 5;
     width: 80%;
     justify-self: center;
     align-self: flex-start;
@@ -90,4 +52,4 @@
 .container.cabinet.driver.form .cabinet__driver__form__create-driver .input__common__submit,
 .container.cabinet.common .cabinet__form__client-info .input__common__submit {
     margin-top: 20px;
-} */
+}
