@@ -134,6 +134,27 @@ async def get_transport_cover(transport_id: int, cover_id: int) -> Response:
 
 
 @router.get(
+    "/transports/types/",
+    responses={
+        status.HTTP_200_OK: {
+            "description": "Getting a dict with of transport types in the system.",
+            "content": {
+                "application/json": {
+                    "example": {
+                        "car": "Автомобиль до 8 мест",
+                        "minubus": "Автобус от 8 и не более 24 мест"
+                    },
+                }
+            },
+        },
+    }
+)
+def get_transport_types() -> dict:
+    """Получение списка типов заявок."""
+    return TransportType.get_types()
+
+
+@router.get(
     "/transports/{transport_id}/",
     response_model=TransportData,
     responses={
@@ -227,7 +248,6 @@ async def create_transport(payload: TransportBase, account: Account = Depends(co
 
     create_schema = TransportCreate(
         driver_id=driver.id,
-        transport_type=TransportType.define_type(payload.count_seats),
         **payload.dict()
     )
     try:

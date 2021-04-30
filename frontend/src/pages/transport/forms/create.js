@@ -9,6 +9,8 @@ import DragAndDrop from '../../../components/common/drag_and_drop'
 import { ResponseNotify, showNotify } from '../../../components/common/response_notify'
 
 import { getCities } from '../../../constants/cities'
+import { trasportTypes } from '../../../constants/transport_types'
+
 import { selectErrorInputs, validateImageFile } from '../../../constants/input_parsers'
 
 import sendRequest from '../../../utils/fetch'
@@ -50,7 +52,8 @@ class MainFormCreateTransport extends React.Component {
         return (
             <form className="create-transport__form__create-transport" onSubmit={this.props.onSubmit} autoComplete="off">
                 <SearchInput name="city" placeholder="Город" options={this.state.cities}/>
-                
+                <SearchInput name="transport_type" placeholder="Тип транспорта" options={this.props.transport_types}/>
+
                 <DefaultInput name="brand" input_type="text" size="25" placeholder="Марка"/>
                 <DefaultInput name="model" input_type="text" size="25" placeholder="Модель"/>
                 <DefaultInput name="count_seats" input_type="number" size="12" placeholder="Пассажиров"/>
@@ -84,6 +87,9 @@ export default class CreateTransportForm extends React.Component {
             isUploaded: false,
             file: null,
 
+            transport_types: null,
+            transport_types_list: null,
+
             response_text: null,
             notify_type: null,
             error: null
@@ -102,12 +108,24 @@ export default class CreateTransportForm extends React.Component {
 
         let prepared_data = SerializeForm(event.target, new FormData(event.target))
         
+        let transport_types = this.state.transport_types
+        let transport_type;
+
+        Object.keys(transport_types).forEach(
+            function(key) {
+                if (transport_types[key] === prepared_data.get("transport_type")) {
+                    transport_type = key
+                }
+            }
+         );
+
         let data = {
             brand: prepared_data.get("brand"),
             model: prepared_data.get("model"),
             count_seats: parseInt(prepared_data.get("count_seats")),
             city: prepared_data.get("city"),
             state_number: prepared_data.get("state_number"),
+            transport_type: transport_type || "other"
         }
 
         sendRequest('/api/v1/drivers/transports/', "POST", data)
@@ -232,11 +250,27 @@ export default class CreateTransportForm extends React.Component {
         
     }
 
+    async componentDidMount(){
+        let transport_types = await trasportTypes()
+        let transport_types_list = [] // Формирование в стиле [] для SearchInput
+
+        Object.keys(transport_types).forEach(
+            function(key) {
+                transport_types_list.push(transport_types[key])
+            }
+         );
+         
+        this.setState({
+            transport_types: transport_types,
+            transport_types_list: transport_types_list
+        })
+    }
+
     render() {
         let form;
 
         if (this.state.form === "main") {
-            form = <MainFormCreateTransport onSubmit={this.mainCard}/>
+            form = <MainFormCreateTransport transport_types={this.state.transport_types_list} onSubmit={this.mainCard}/>
         } else if (this.state.form === "additional") {
             form = <AdditionalFormCreateTransport onSubmit={this.additionalCard}/>
         } else {

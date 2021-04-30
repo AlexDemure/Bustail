@@ -30,22 +30,25 @@ class ApplicationStatus(Enum):
 
 
 class ApplicationTypes(Enum):
-    wedding = "wedding"
+    holiday = "holiday"
     tour = "tour"
+    transfer = "transfer"
     intercity = "intercity"
-    funeral = "funeral"
+    ritual = "ritual"
     other = "other"
 
     @property
     def description(self):
-        if self is self.wedding:
-            return "Свадьба"
+        if self is self.holiday:
+            return "Праздники"
         elif self is self.tour:
-            return "Путешествие"
+            return "Путешествия"
         elif self is self.intercity:
             return "Междугородние"
-        elif self is self.funeral:
-            return "Похороны"
+        elif self is self.ritual:
+            return "Ритуальные усл."
+        elif self is self.transfer:
+            return "Трансфер"
         elif self is self.other:
             return "Другое"
 

@@ -20,7 +20,7 @@ import { selectErrorInputs } from '../../../constants/input_parsers'
 
 function MainFormCreateApp(props) {
     return (
-        <form className="create-app__form__main" onSubmit={props.onSubmit}>
+        <form className="create-app__form__main" onSubmit={props.onSubmit} autoComplete="off">
             <SearchInput name="application_type" placeholder="Тип услуги" options={props.app_types}/>
             <SearchInput name="to_go_from" placeholder="Откуда" options={props.cities}/>
             <SearchInput name="to_go_to" placeholder="Куда" options={props.cities}/>
