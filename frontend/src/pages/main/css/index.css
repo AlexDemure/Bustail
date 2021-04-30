@@ -12,11 +12,13 @@
 .main .main__menu {
     margin-right: 3%;
     width: 90%;
-    height: 80%;
+    height: 75%;
     display: grid;
     grid-template-columns: 45% 55%;
     grid-template-rows: repeat(3, 1fr);
     gap: 10px;
+
+    padding-bottom: 5vh;
 }
 
 .main .main__menu div {
