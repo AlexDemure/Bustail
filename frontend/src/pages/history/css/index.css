@@ -1,9 +1,8 @@
 .container.history {
     width: 100vw;
+    height: 80vh;
 
     display: grid;
-    grid-template-rows: 80vh;
-
     align-content: flex-start;
     overflow-x: hidden;
     overflow-y: scroll;
