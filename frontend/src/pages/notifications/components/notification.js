@@ -18,7 +18,8 @@ export default class Notification extends React.Component {
                 notification_owner={this.props.notification_owner}
                 notification_type={this.props.notification_type}
                 setOfferDecision={this.props.setOfferDecision}
-                removeOffer={this.props.removeOffer} 
+                removeOffer={this.props.removeOffer}
+                showTransportCard={this.props.showTransportCard} 
                 />
             </React.Fragment>
         )

@@ -16,7 +16,7 @@ export default class TicketNotification extends React.Component {
                 <div className="ticket__notification">
                 <div id="left">
                     <p id='from' className="ticket__notification__city">{this.props.ticket.to_go_from}</p>
-                    <p id="path"> > </p>
+                    <p id="path"> - </p>
                     <p id="to" className="ticket__notification__city">{this.props.ticket.to_go_to}</p>
                 </div>
                 <div id="right">

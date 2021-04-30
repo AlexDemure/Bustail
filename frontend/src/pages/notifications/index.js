@@ -2,6 +2,7 @@ import React from 'react'
 
 import NavBar from '../../components/common/navbar'
 import Header from '../../components/common/header'
+import TransportCard from '../../components/common/transport_card'
 
 import { getMeNotifications } from '../../components/common/api/me_notifications'
 
@@ -28,13 +29,22 @@ export default class NotificationPage extends React.Component {
 
             response_text: null,
             notify_type: null,
-            error: null
+            error: null,
+
+            transport_id: null
         };
         
         this.changeForm = this.changeForm.bind(this)
         this.removeOffer = this.removeOffer.bind(this)
         this.setOfferDecision = this.setOfferDecision.bind(this)
         this.deleteElementInArray = this.deleteElementInArray.bind(this)
+        this.showTransportCard = this.showTransportCard.bind(this)
+    }
+
+    showTransportCard(transport_id) {
+        this.setState({
+            transport_id: transport_id
+        })
     }
 
     deleteElementInArray(index_array) {
@@ -166,39 +176,52 @@ export default class NotificationPage extends React.Component {
 
         return (
             <React.Fragment>
-                    <ResponseNotify
-                        notify_type={this.state.notify_type}
-                        text={this.state.response_text}
-                    />
+                <ResponseNotify
+                    notify_type={this.state.notify_type}
+                    text={this.state.response_text}
+                />
 
-                    <div className={"container notifications " + this.state.form}>
-                        <Header previous_page="/main" page_name="Уведомления"/>
-                        <NotificationSwitch
-                            is_active={this.state.form}
-                            onClick={this.changeForm}
-                            client_notifications={this.state.notifications && this.state.notifications.client.length > 0 ? this.state.notifications.client.length: null}
-                            driver_notifications={this.state.notifications && this.state.notifications.driver.length > 0 ? this.state.notifications.driver.length: null}
-                        />
-                        <div className={`notifications__${this.state.form}__applications`}>
-                            {
-                                notifications.length > 0 &&
-                                notifications.map(
-                                    (notification, index) => {
-                                        return <Notification
-                                                application={notification.application}
-                                                transport={notification.transport}
-                                                notification_owner={this.state.form}
-                                                notification_type={notification.notification_type}
-                                                setOfferDecision={(e) => this.setOfferDecision(e, notification.id, index)}
-                                                removeOffer={() => this.removeOffer(notification.id, index)}
-                                                />
-                                    }
-                                    
-                                )
-                            }
-                        </div>
-                        <NavBar count_notifications={count_notifications}/>
+                { 
+                    this.state.transport_id && 
+                    <TransportCard
+                    transport_id={this.state.transport_id}
+                    onClose={() => this.setState({transport_id: null})}
+                    />
+                }
+
+                <Header previous_page="/main" page_name="Уведомления"/>
+
+                <div className={"container notifications " + this.state.form}>
+                    
+                    <NotificationSwitch
+                        is_active={this.state.form}
+                        onClick={this.changeForm}
+                        client_notifications={this.state.notifications && this.state.notifications.client.length > 0 ? this.state.notifications.client.length: null}
+                        driver_notifications={this.state.notifications && this.state.notifications.driver.length > 0 ? this.state.notifications.driver.length: null}
+                    />
+                    <div className={`notifications__${this.state.form}__applications`}>
+                        {
+                            notifications.length > 0 &&
+                            notifications.map(
+                                (notification, index) => {
+                                    return <Notification
+                                            application={notification.application}
+                                            transport={notification.transport}
+                                            notification_owner={this.state.form}
+                                            notification_type={notification.notification_type}
+                                            setOfferDecision={(e) => this.setOfferDecision(e, notification.id, index)}
+                                            removeOffer={() => this.removeOffer(notification.id, index)}
+                                            showTransportCard={() => this.showTransportCard(notification.transport.id)}
+                                            />
+                                }
+                                
+                            )
+                        }
                     </div>
+                    
+                </div>
+
+                <NavBar count_notifications={count_notifications}/>            
             </React.Fragment>
             
         )

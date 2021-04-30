@@ -8,11 +8,10 @@ header {
     height: 10vh;
     width: 100vw;
     
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
-    
     display: grid;
     grid-template-columns: 10% 80% 10%;
 }
+
 
 
 header .header__common__previous-page {

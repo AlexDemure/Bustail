@@ -1,18 +1,12 @@
 import React from 'react';
 
-import TransportCard from '../../../components/common/transport_card'
-
 import './css/transport.css'
 
 
 export default class TransportNotification extends React.Component {
     constructor(props) {
         super(props)
-        this.state = {
-            transport_id: null,
-        }
     }
-
 
     render() {
         let image_url
@@ -45,7 +39,7 @@ export default class TransportNotification extends React.Component {
                 <img 
                 src={image_url}
                 className="transport__notification__photo"
-                onClick={() => this.setState({transport_id: this.props.transport.id})}
+                onClick={this.props.showTransportCard}
                 >
                 </img>
                 <div className="transport__notification__card">
@@ -64,15 +58,6 @@ export default class TransportNotification extends React.Component {
                         {footer}
                     </div>
                 </div>
-
-                { 
-                    this.state.transport_id && 
-                    <TransportCard
-                    transport_id={this.state.transport_id}
-                    onClose={() => this.setState({transport_id: null})}
-                    />
-                }
-
             </div>
         )
     }
