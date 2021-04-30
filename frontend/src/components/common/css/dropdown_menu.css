@@ -1,6 +1,6 @@
 .dropdown-menu {
     position: fixed;
-    z-index: 51;
+    z-index: 101;
     background-color: #181818;
     top: 0;
     left: 0;
