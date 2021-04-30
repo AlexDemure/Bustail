@@ -53,7 +53,7 @@ class ApplicationData(BaseModel):
     application_status: ApplicationStatus = ApplicationStatus.waiting.value
     created_at: datetime
     confirmed_at: datetime = None
-    application_type: Union[str, ApplicationTypes]
+    application_type: str
 
 
 class ListApplications(BaseModel):
