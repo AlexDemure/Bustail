@@ -65,7 +65,7 @@ function AdditionalFormCreateTransport(props) {
     return (
         <form className="create-transport__form__additional-info" onSubmit={props.onSubmit}>
             <TextAreaInput name="description" rows="5" placeholder="Описание автомобиля (не обязательно)"/>
-            <DefaultInput name="price" input_type="number" size="25" placeholder="Стоимость в час (Не обязательно)"/>
+            <DefaultInput name="price" input_type="number" size="25" placeholder="Стоимость в час"/>
             <SubmitButton value="Далее"/>
         </form>
     )
