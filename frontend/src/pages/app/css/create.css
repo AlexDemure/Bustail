@@ -14,6 +14,8 @@
     justify-self: center;
     align-self: center;
     text-align: center;
+
+    padding-bottom: 5vh;
 }
 
 .container.create-app .create-app__form__additional input,
