@@ -5,7 +5,7 @@ from structlog import get_logger
 
 from backend.apps.accounts.models import Account
 from backend.apps.applications.crud import application as application_crud
-from backend.apps.applications.serializer import prepare_apps_for_history_table
+from backend.apps.applications.serializer import prepare_apps_for_history_table, prepare_application
 from backend.apps.drivers.crud import driver as driver_crud
 from backend.enums.applications import ApplicationErrors, ApplicationStatus
 from backend.enums.system import SystemLogs
@@ -25,7 +25,7 @@ async def create_application(account: Account, application_in: ApplicationCreate
 
     application = await application_crud.create(application_in)
     logger.debug(SystemLogs.application_is_created.value)
-    return ApplicationData(**application.__dict__)
+    return prepare_application(application)
 
 
 async def update_application(application_id: int, app_up: ApplicationUpdate) -> None:
@@ -53,7 +53,7 @@ async def get_all_applications(**kwargs) -> ListApplications:
     applications, total_rows = await application_crud.get_all_applications(**kwargs)
     return ListApplications(
         total_rows=total_rows,
-        applications=[ApplicationData(**x.__dict__) for x in applications]
+        applications=[prepare_application(x) for x in applications]
     )
 
 
@@ -65,13 +65,13 @@ async def get_account_applications(account: Account) -> ListApplications:
     """
     applications = await application_crud.account_applications(account.id)
     return ListApplications(
-        applications=[ApplicationData(**x.__dict__) for x in applications]
+        applications=[prepare_application(x) for x in applications]
     )
 
 
 async def get_application(application_id: int) -> Optional[ApplicationData]:
     application = await application_crud.get(application_id)
-    return ApplicationData(**application.__dict__) if application else None
+    return prepare_application(application) if application else None
 
 
 async def delete_application(account: Account, application_id: int) -> None:
