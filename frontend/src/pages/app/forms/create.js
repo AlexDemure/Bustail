@@ -209,11 +209,14 @@ export default class CreateAppForm extends React.Component {
                 notify_type={this.state.notify_type}
                 text={this.state.response_text}
                 />
-                <div className="container create-app">
-                    <Header previous_page="/main" page_name="Создание заявки"/>
-                    {form}
-                    <NavBar/>
-                </div>
+
+                <Header previous_page="/main" page_name="Создание заявки"/>
+                    
+                    <div className="container create-app">
+                        {form}
+                    </div>
+                
+                <NavBar/>
             </React.Fragment>
         )
     }
