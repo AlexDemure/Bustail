@@ -11,7 +11,10 @@
     -webkit-overflow-scrolling: touch;
 }
 
-
 .container.history .history__table {
     margin-top: 20px;
+}
+
+.container.history .history__table table {
+    padding-bottom: 10vh;
 }
