@@ -31,7 +31,7 @@
     
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: 50px 55px 1fr 15%;
+    grid-template-rows: 50px 55px 300px 1fr;
 }
 
 .search-transport__filters__modal-window__title {
@@ -137,6 +137,7 @@
     margin-top: 5px;
     width: 95%;
     justify-self: center;
+    height: 300px;
 
     display: grid;
     grid-template-columns: 1fr;
@@ -228,11 +229,11 @@
 }
 
 .search-transport__filters__modal-window__content button {
+    margin-top: 20px;
     justify-self: center;
     align-self: flex-start;
     height: 45px;
     width: 150px;
-    margin-bottom: 20px;
 
     font-size: 14px;
 }

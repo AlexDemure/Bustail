@@ -2,7 +2,7 @@ body {
   margin: 0;
   padding: 0;
   height: 100vh;
-  max-height: 100vw;
+  max-height: 100vh;
 
   background-image: url('./static/images/background.jpg');
   background-repeat: no-repeat;
