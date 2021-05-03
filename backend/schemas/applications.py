@@ -1,10 +1,9 @@
 from datetime import date, datetime
-from typing import List, Union
+from typing import List
 
-from pydantic import BaseModel, constr, validator
+from pydantic import BaseModel, constr, validator, conint
 
 from backend.enums.applications import ApplicationStatus, ApplicationTypes, ApplicationErrors
-from backend.schemas.notifications import NotificationData
 
 from backend.utils import get_cities
 
@@ -13,9 +12,9 @@ class ApplicationBase(BaseModel):
     to_go_from: constr(min_length=1, max_length=255)
     to_go_to: constr(min_length=1, max_length=255) = None
     to_go_when: date
-    count_seats: int = 1
+    count_seats: conint(ge=0, lt=5000) = 0
     description: constr(min_length=1, max_length=1024) = None
-    price: int = 0
+    price: conint(ge=0, lt=1000000) = 0
     application_type: ApplicationTypes = ApplicationTypes.other.value
     application_status: ApplicationStatus = ApplicationStatus.waiting.value
 
@@ -38,7 +37,7 @@ class ApplicationCreate(ApplicationBase):
 
 class ApplicationUpdate(BaseModel):
     description: constr(min_length=1, max_length=1024) = None
-    price: int = 0
+    price: conint(ge=0, lt=1000000) = 0
 
 
 class ApplicationData(BaseModel):
@@ -48,14 +47,13 @@ class ApplicationData(BaseModel):
     to_go_from: constr(min_length=1, max_length=255)
     to_go_to: constr(min_length=1, max_length=255) = None
     to_go_when: date
-    count_seats: int = 1
+    count_seats: conint(ge=0, lt=5000) = 0
     description: constr(min_length=1, max_length=1024) = None
-    price: int = 0
+    price: conint(ge=0, lt=1000000) = 0
     application_status: ApplicationStatus = ApplicationStatus.waiting.value
     created_at: datetime
     confirmed_at: datetime = None
-    application_type: Union[str, ApplicationTypes]
-    notifications: List[NotificationData] = None
+    application_type: str
 
 
 class ListApplications(BaseModel):
@@ -66,8 +64,8 @@ class ListApplications(BaseModel):
 class HistoryApplication(BaseModel):
     transport_id: int = None
     transport_name: str = None
-    to_go_from: str
-    to_go_to: str
+    to_go_from: constr(min_length=1, max_length=255)
+    to_go_to: constr(min_length=1, max_length=255) = None
     to_go_when: date
-    price: int = 0
+    price: conint(ge=0, lt=1000000) = 0
     application_status: ApplicationStatus

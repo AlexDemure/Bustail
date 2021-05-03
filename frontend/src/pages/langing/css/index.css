@@ -353,6 +353,7 @@ body {
 
 .container.landing .faq .faq__questions {
     overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
 }
 
 .container.landing .faq .faq__questions .faq__accordion {

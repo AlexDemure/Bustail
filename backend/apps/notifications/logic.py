@@ -4,10 +4,11 @@ from structlog import get_logger
 
 from backend.apps.applications.logic import confirm_application
 from backend.apps.drivers.logic import get_driver_by_transport_id
+from backend.apps.drivers.serializer import prepare_transport_with_photos
 from backend.apps.notifications.crud import notification as notification_crud
-from backend.enums.system import SystemLogs
 from backend.enums.notifications import NotificationErrors
-from backend.schemas.notifications import NotificationCreate, NotificationData
+from backend.enums.system import SystemLogs
+from backend.schemas.notifications import NotificationCreate, NotificationData, MeNotifications
 from backend.submodules.common.enums import BaseSystemErrors, BaseMessage
 from backend.submodules.common.schemas import UpdatedBase
 
@@ -71,3 +72,18 @@ async def delete_notification(notification_id: int) -> None:
     notification = await notification_crud.get(notification_id)
     assert notification is None, "Notification is not deleted"
     logger.debug(SystemLogs.notification_not_found.value)
+
+
+async def get_me_notifications(applications_id: list, transports_id: list) -> MeNotifications:
+    """Получение списка уведомлений по аккаунту и списку транспорта."""
+    rows, count_rows = await notification_crud.get_me_notifications(applications_id, transports_id)
+
+    for row in rows:
+        prepared_transport = prepare_transport_with_photos(row.transport)
+        row.transport = prepared_transport
+
+    return MeNotifications(
+        count_notifications=count_rows,
+        driver=[x for x in rows if x.transport_id in transports_id],
+        client=[x for x in rows if x.application_id in applications_id],
+    )

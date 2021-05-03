@@ -1,4 +1,8 @@
 input {
+    -webkit-appearance: none;
+    padding-top: 0;
+    padding-bottom: 0;
+    
     background: #222222;
     border: none;
     outline: none;

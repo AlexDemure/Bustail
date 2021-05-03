@@ -34,7 +34,7 @@ export default class TicketSearch extends React.Component {
                     </div>
                     <div id="right-div-right">
                         <p className="ticket__search__date">{new_date}</p>
-                        <p className="ticket__search__price">{this.props.ticket.price}</p>
+                        <p className="ticket__search__price">{this.props.ticket.price !== 0 ? this.props.ticket.price : "Не указано"}</p>
                         <div className="ticket__search__offer-btn" onClick={this.props.openOffer}>
                             <p>Предложить</p>
                         </div>

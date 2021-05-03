@@ -1,89 +1,61 @@
 import React from 'react'
 
-import { aboutMe } from './api/about_me'
-import { getDriverCard } from './api/driver_card'
-import { getMeApps } from './api/me_apps'
-
-import sendRequest from '../../utils/fetch'
+import { getMeNotifications } from './api/me_notifications'
 
 import './css/navbar.css'
 
-export default class NavBar extends React.Component {
-    constructor() {
-        super()
+
+class NavBar extends React.Component {
+    constructor(props) {
+        super(props)
 
         this.state = {
-            user: null,
-            client_applications: null,
-            driver: null,
-            driver_applications: null
-        };
+            count_notifications: this.props.count_notifications ?? 0
+        }
     }
 
-    async getDriverApps() {
-        let driver_apps = [];
-        await sendRequest('/api/v1/applications/driver/', "GET")
-        .then(
-            (result) => {
-                driver_apps = result.applications
-            },
-            (error) => {
-                console.log(error)
-            }
-        )
-        return driver_apps
-    }
+    async componentDidUpdate(prevProps, prevState) {
+        if (prevProps.count_notifications !== this.props.count_notifications) {
+            let notifications = await getMeNotifications()
 
-    async componentDidMount(){
-
-        let user = await aboutMe()
-        let client_applications = await getMeApps()
-        let driver = await getDriverCard()
-
-        this.setState({
-            user: user,
-            client_applications: client_applications,
-            driver: driver,
-        })
-
-        if (driver) {
-            let driver_applications = await this.getDriverApps()
             this.setState({
-                driver_applications: driver_applications
+                count_notifications: notifications.count_notifications
             })
         }
     }
+    async componentDidMount() {
+        if (this.props.count_notifications) {
+            this.setState({
+                count_notifications: this.props.count_notifications
+            })
+            return
+        }
+        
+        let notifications = await getMeNotifications()
+
+        this.setState({
+            count_notifications: notifications.count_notifications
+        })
+
+    }
 
     render() {
-        let notifications = 0
-
-        if (this.state.client_applications) {
-            let client_notifications = this.state.client_applications.map(
-                (ticket) => {return ticket.notifications.length} 
-            )
-            notifications += client_notifications.reduce((a, b) => a + b, 0)
-        }
-
-        if (this.state.driver_applications) {
-            let driver_notifications = this.state.driver_applications.map(
-                (ticket) => {return ticket.notifications.length} 
-            )
-            notifications += driver_notifications.reduce((a, b) => a + b, 0)
-        }
-
+        
         return (
             <div className="navbar__common">
-            <a href="/main" className="navbar__common__btn" id="home">Home</a>
-            <a href="/history" className="navbar__common__btn" id="history">History</a>
+            <a href="/main" className="navbar__common__btn" id="home"></a>
+            <a href="/history" className="navbar__common__btn" id="history"></a>
             <a href="/notifications" className="navbar__common__btn" id="notifications">
-                { notifications > 0 && (
-                    <div className="navbar__common__notification__circle">
-                        <p>{notifications}</p>
-                    </div>
-                    )
-                }
+            
+            {   
+                this.state.count_notifications > 0 &&
+                <div className="navbar__common__notification__circle">
+                    <p>{this.state.count_notifications}</p>
+                </div>
+            }
+            
             </a>
-            <a href="/cabinet" className="navbar__common__btn" id="cabinet">Cabinet</a>
+            <a href="/cabinet" className="navbar__common__btn" id="cabinet"></a>
         </div> 
         )
         
@@ -91,3 +63,4 @@ export default class NavBar extends React.Component {
 
 }
 
+export default NavBar

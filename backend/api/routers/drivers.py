@@ -134,6 +134,27 @@ async def get_transport_cover(transport_id: int, cover_id: int) -> Response:
 
 
 @router.get(
+    "/transports/types/",
+    responses={
+        status.HTTP_200_OK: {
+            "description": "Getting a dict with of transport types in the system.",
+            "content": {
+                "application/json": {
+                    "example": {
+                        "car": "Автомобиль до 8 мест",
+                        "minubus": "Автобус от 8 и не более 24 мест"
+                    },
+                }
+            },
+        },
+    }
+)
+def get_transport_types() -> dict:
+    """Получение списка типов заявок."""
+    return TransportType.get_types()
+
+
+@router.get(
     "/transports/{transport_id}/",
     response_model=TransportData,
     responses={
@@ -145,8 +166,6 @@ async def get_transport_cover(transport_id: int, cover_id: int) -> Response:
 async def get_transport(transport_id: int) -> TransportData:
     """
     Карточка транспорта.
-
-    - **returned**: Возвращает транспорт без уведомлений т.к. эта картачка доступна для всех пользователей системы.
     """
     logger = get_logger().bind(transport_id=transport_id)
     transport = await logic_get_transport(transport_id)
@@ -229,7 +248,6 @@ async def create_transport(payload: TransportBase, account: Account = Depends(co
 
     create_schema = TransportCreate(
         driver_id=driver.id,
-        transport_type=TransportType.define_type(payload.count_seats),
         **payload.dict()
     )
     try:
@@ -285,7 +303,7 @@ async def read_driver_me(account: Account = Depends(confirmed_account)) -> Drive
     """
     Карточка водителя.
 
-    - **returned**: Возвращает карточка водителя со списком транспортов, обложек к ним и уведомлениями.
+    - **returned**: Возвращает карточка водителя со списком транспортов, обложек к ним.
     """
     logger = get_logger().bind(account_id=account.id)
     driver = await get_driver_by_account_id(account.id)

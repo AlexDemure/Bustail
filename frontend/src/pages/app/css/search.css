@@ -1,53 +1,54 @@
 .container.search-app {
-    padding: 0;
-    margin: 0;
-    height: 100vh;
     width: 100vw;
 
     display: grid;
-    grid-template-rows: 10% 10% 1fr 10%;
+    grid-template-rows: 10vh 70vh;
+
     justify-content: center;
     align-content: flex-start;
-    overflow-y: hidden;
-    overflow-x: hidden;
+    
+    overflow: hidden;
 }
-
-.container.search-app .search-selector {
-    width: 90%;
-    margin-left: 3%;
-}
-
-.container.search-app .search-app__apps {
-    margin-top: 10px;
-    width: 95%;
-    height: 100%;
-    justify-self: center;
-    overflow-y: scroll;
-    overflow-x: hidden;
-}
-
-
-.container.search-app .offer__common__modal-window__choices .transport__offer {
-    width: 95%;
-    margin-left: 3%;
-}
-
 
 .container.search-app .search-app__form__search {
+    margin-top: 10px;
+    position: relative;
     display: grid;
     grid-template-columns: 70% 30%;
+    grid-template-rows: 45px;
     gap: 5px
 }
 
-.container.search-app .search-selector__input__common {
-   height: 50px;
+.container.search-app .search-app__form__search .search-selector {
+    width: 90%;
+    height: 45px;
+    margin-left: 10px;
 }
 
-.container.search-app .search-selector__input__common::placeholder {
+.container.search-app .search-app__form__search .input__common__submit {
+    width: 85%;
+    height: 45px;
+    margin-right: 10px;
+    border-radius: 5px;
+}
+
+.container.search-app .search-selector__input__common {
+    height: 45px;
+ }
+
+ .container.search-app .search-selector__input__common::placeholder {
     font-size: 16px;
 }
 
-.container.search-app .input__common__submit {
-    width: 85%;
-    margin-right: 5%;
+
+.container.search-app .search-app__apps {
+    width: 95%;
+    justify-self: center;
+    
+    padding-bottom: 10vh;
+    
+    overflow-y: scroll;
+    overflow-x: hidden;
+    
+    -webkit-overflow-scrolling: touch;
 }

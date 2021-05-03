@@ -34,7 +34,7 @@ export default class TicketOffer extends React.Component {
                     </div>
                     <div id="right-div-right">
                         <p className="ticket__offer__date">{new_date}</p>
-                        <p className="ticket__offer__price">{this.props.ticket.price}</p>
+                        <p className="ticket__offer__price">{this.props.ticket.price !== 0 ? this.props.ticket.price : "Не указано"}</p>
                         <div className="ticket__offer__offer-btn" onClick={this.props.createOffer}>
                             <p>Предложить</p>
                         </div>

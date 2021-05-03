@@ -1,7 +1,11 @@
-from pydantic import BaseModel
 from datetime import datetime
+from typing import List
+
+from pydantic import BaseModel
 
 from backend.enums.notifications import NotificationTypes
+from backend.schemas.applications import ApplicationData
+from backend.schemas.drivers import TransportData
 
 
 class NotificationBase(BaseModel):
@@ -21,6 +25,16 @@ class NotificationData(NotificationBase):
     created_at: datetime
 
 
+class NotificationDataWithRelatedObjects(BaseModel):
+    id: int
+    decision: bool = None
+    created_at: datetime
+    application: ApplicationData
+    transport: TransportData
+    notification_type: NotificationTypes
+    price: int = None
+
+
 class NotificationDelete(BaseModel):
     notification_id: int
 
@@ -28,3 +42,9 @@ class NotificationDelete(BaseModel):
 class SetDecision(BaseModel):
     notification_id: int
     decision: bool
+
+
+class MeNotifications(BaseModel):
+    count_notifications: int
+    driver: List[NotificationDataWithRelatedObjects] = []
+    client: List[NotificationDataWithRelatedObjects] = []

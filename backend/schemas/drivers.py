@@ -2,10 +2,9 @@ from decimal import Decimal
 from enum import Enum
 from typing import List
 
-from pydantic import BaseModel, validator, constr
+from pydantic import BaseModel, validator, constr, conint
 
 from backend.enums.drivers import TransportType
-from backend.schemas.notifications import NotificationData
 from backend.utils import get_cities
 from backend.submodules.object_storage.enums import FileMimetypes
 
@@ -31,11 +30,12 @@ class DriverCreate(DriverBase):
 class TransportBase(BaseModel):
     brand: constr(min_length=1, max_length=255)
     model: constr(min_length=1, max_length=255)
-    count_seats: int = 1
-    price: int = 0
+    count_seats: conint(ge=0, lt=5000) = 1
+    price: conint(ge=0, lt=1000000) = 0
     city: constr(min_length=1, max_length=255)
     state_number: constr(min_length=3, max_length=32)
     description: constr(min_length=1, max_length=1024) = None
+    transport_type: TransportType
 
     @validator('city')
     def check_values(cls, value):
@@ -47,20 +47,18 @@ class TransportBase(BaseModel):
 
 class TransportUpdate(BaseModel):
     description: constr(min_length=1, max_length=1024) = None
-    price: int = 0
+    price: conint(ge=0, lt=1000000) = 0
 
 
 class TransportCreate(TransportBase):
     driver_id: int
-    transport_type: TransportType
 
 
 class TransportData(TransportBase):
     id: int
     driver_id: int
     transport_type: TransportType
-    transport_cover: int = None
-    notifications: List[NotificationData] = None
+    transport_covers: list = []
 
 
 class ListTransports(BaseModel):

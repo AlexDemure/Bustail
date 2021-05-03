@@ -1,23 +1,21 @@
 .container.create-app {
-    padding: 0;
-    margin: 0;
-    height: 85vh;
     width: 100vw;
+    height: 80vh;
+
     display: grid;
-    grid-template-rows: 10% 1fr;
-    grid-template-columns: 1fr;
-    justify-content: center;
-    align-content: flex-start;
+    align-items: center;
+    justify-items: center;
     overflow: hidden;
 }
 
 .container.create-app .create-app__form__additional,
 .container.create-app .create-app__form__main {
-    grid-row: 2/3;
     width: 80%;
     justify-self: center;
     align-self: center;
     text-align: center;
+
+    padding-bottom: 10vh;
 }
 
 .container.create-app .create-app__form__additional input,

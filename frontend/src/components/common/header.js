@@ -58,18 +58,22 @@ export default class Header extends React.Component {
         }
 
         return (
-            <header>
-                {divItem}
-                <div className="header__common__page-name">
-                    {this.props.page_name ? this.props.page_name : ""}
-                </div>
-                <div className="header__common__dropdown-btn" onClick={this.changeState}/>
+            <React.Fragment>
                 {
                     this.state.is_active && (
                         <DropdownMenu/>
                     )
                 }
-            </header>
+                <header>
+                    {divItem}
+                    <div className="header__common__page-name">
+                        {this.props.page_name ? this.props.page_name : ""}
+                    </div>
+                    <div className="header__common__dropdown-btn" onClick={this.changeState}/>
+                </header>
+
+            </React.Fragment>
+            
         )
     }
 }

@@ -61,7 +61,8 @@ class TestDriverData:
                 "count_seats": random.randint(1, 50),
                 "price": random.randint(1000, 10000),
                 "city": random.choice(get_cities()),
-                "state_number": generate_random_code(size=6, only_digits=False)
+                "state_number": generate_random_code(size=6, only_digits=False),
+                "transport_type": random.choice([x.value for x in TransportType])
             }
             transports.append(transport_data)
 

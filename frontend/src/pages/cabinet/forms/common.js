@@ -123,12 +123,16 @@ export default class CommonPage extends React.Component {
                 notify_type={this.state.notify_type}
                 text={this.state.response_text}
                 />
+
+                <Header previous_page="/main" page_name="Личный кабинет"/>
+
                 <div className="container cabinet common">
-                    <Header previous_page="/main" page_name="Личный кабинет"/>
                     <CabinetSwitch is_active="common" onClick={this.props.changeForm}/>
                     <CommonInfoForm changeInfo={this.changeInfo} user={this.state.user} cities={this.state.cities}/>
-                    <NavBar/>
                 </div>
+
+                <NavBar/>
+                
             </React.Fragment>
             
         )

@@ -70,11 +70,16 @@ export default class CreateTransportPage extends React.Component {
         }
         
         return (
-            <div className={"container create-transport " + this.state.page}>
+            <React.Fragment>
                 <Header previous_page="/main" page_name="Предложение аренды"/>
-                {page}
+                
+                <div className={"container create-transport " + this.state.page}>
+                    {page}
+                </div>
+
                 <NavBar/>
-            </div>
+            </React.Fragment>
+            
         )
        
     }

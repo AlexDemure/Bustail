@@ -21,7 +21,13 @@ export default class HistoryPage extends React.Component {
             transport_id: null
         }
 
-        this.onClickHandler = this.onClickHandler.bind(this)
+        this.showTransportCard = this.showTransportCard.bind(this)
+    }
+
+    showTransportCard(transport_id) {
+        this.setState({
+            transport_id: transport_id
+        })
     }
 
     async getHistory() {
@@ -47,24 +53,9 @@ export default class HistoryPage extends React.Component {
         })
     }
 
-    onClickHandler(e, transport_id) {
-        
-        this.setState({
-            transport_id: transport_id
-        })
-    }
-
     render() {
         return (
-            <div className="container history">
-                <Header previous_page="/main" page_name="История"/>
-                <div className="history__table">
-                    <HistoryTable
-                        table_columns={table_columns}
-                        table_rows={this.state.history}
-                        onClickHandler={this.onClickHandler}
-                    />
-                </div>
+            <React.Fragment>
                 { 
                     this.state.transport_id && 
                     <TransportCard
@@ -72,8 +63,22 @@ export default class HistoryPage extends React.Component {
                     onClose={() => this.setState({transport_id: null})}
                     />
                 }
+
+                <Header previous_page="/main" page_name="История"/>
+                
+                <div className="container history">
+                    <div className="history__table">
+                        <HistoryTable
+                            table_columns={table_columns}
+                            table_rows={this.state.history}
+                            showTransportCard={this.showTransportCard}
+                        />
+                    </div>
+                </div>
+
                 <NavBar/>
-            </div>
+            </React.Fragment>
+            
         )
     }
     

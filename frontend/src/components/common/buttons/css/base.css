@@ -1,11 +1,13 @@
 .button__common__redirect,
 .input__common__submit {
+
+    -webkit-appearance: none;
+
     border: none;
     background-color: #262626;
     height: 50px;
     width: 150px;
     border-radius: 10px;
-    
     
 }
 

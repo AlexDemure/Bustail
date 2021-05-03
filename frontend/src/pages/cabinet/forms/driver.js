@@ -4,6 +4,7 @@ import DefaultInput from '../../../components/common/inputs/default'
 import SubmitButton from '../../../components/common/buttons/submit_btn'
 import Header from '../../../components/common/header'
 import NavBar from '../../../components/common/navbar'
+import TransportCard from '../../../components/common/transport_card'
 
 import { ResponseNotify, showNotify } from '../../../components/common/response_notify'
 
@@ -68,6 +69,7 @@ class DriverCard extends React.Component {
                             (transport, index) =>
                             <TransportCabinet
                             transport={transport}
+                            showTransportCard={this.props.showTransportCard}
                             deleteTransport={() => this.props.deleteTransport(index)}
                             />
                         )
@@ -95,6 +97,13 @@ export default class DriverPage extends React.Component {
 
         this.createDriver = this.createDriver.bind(this)
         this.deleteTransport = this.deleteTransport.bind(this)
+        this.showTransportCard = this.showTransportCard.bind(this)
+    }
+
+    showTransportCard(transport_id) {
+        this.setState({
+            transport_id: transport_id
+        })
     }
 
     createDriver(event) {
@@ -206,7 +215,9 @@ export default class DriverPage extends React.Component {
             this.setState({
                 form: "card",
                 driver: driver,
-                transports: driver.transports
+                transports: driver.transports,
+
+                transport_id: null
             })
         }
     }
@@ -218,6 +229,7 @@ export default class DriverPage extends React.Component {
             form = <DriverCard 
             getPaymentLink={this.getPaymentLink}
             deleteTransport={this.deleteTransport}
+            showTransportCard={this.showTransportCard}
             driver={this.state.driver}
             transports={this.state.transports}
             />
@@ -230,12 +242,24 @@ export default class DriverPage extends React.Component {
                 notify_type={this.state.notify_type}
                 text={this.state.response_text}
                 />
+
+                { 
+                    this.state.transport_id && 
+                    <TransportCard
+                    transport_id={this.state.transport_id}
+                    onClose={() => this.setState({transport_id: null})}
+                    />
+                }
+
+                <Header previous_page="/main" page_name="Личный кабинет"/>
+
                 <div className={"container cabinet driver " + this.state.form}>
-                    <Header previous_page="/main" page_name="Личный кабинет"/>
                     <CabinetSwitch is_active="driver" onClick={this.props.changeForm}/>
                     {form}
-                    <NavBar/>
                 </div>
+
+                <NavBar/>
+
             </React.Fragment>
             
         )

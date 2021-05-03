@@ -23,6 +23,7 @@ export default class TransportCard extends React.Component {
                 price: null,
                 city: null,
                 count_seats: null,
+                transport_covers: []
             }
         }
     }
@@ -83,10 +84,15 @@ export default class TransportCard extends React.Component {
     }
 
     render() {
-        let image_url;
-        if (this.state.transport) {
-            image_url = `/api/v1/drivers/transports/${this.state.transport.id}/covers/${this.state.transport.transport_cover}`
+        let image_url
+        
+        if (this.state.transport.transport_covers.length > 0) {
+            image_url = `/api/v1/drivers/transports/${this.state.transport.id}/covers/${this.state.transport.transport_covers[0].id}`
+        } else {
+            image_url = null
         }
+        
+       
         return(
             <div className="transport_card__modal-window__bg">
                 <div className="transport_card__modal-window__content">
@@ -119,8 +125,8 @@ export default class TransportCard extends React.Component {
                                 <p className="transport_card__detail count-seats"><span>Вместимость:</span> {this.state.transport.count_seats}</p>
                                 <p className="transport_card__detail price"><span>Стоимость:</span> {this.state.transport.price}</p>
                                 <p className="transport_card__detail city"><span>Город:</span> {this.state.transport.city}</p>
-                                <p className="transport_card__detail driver-name"><span>Водитель:</span>{this.state.user.fullname ? this.state.user.fullname : "Не указано"}</p>
-                                <p className="transport_card__detail phone"><span>Телефон:</span>{this.state.user.phone ? this.state.user.phone : "Не указано"}</p>
+                                <p className="transport_card__detail driver-name"><span id="personal">Водитель:</span> {this.state.user.fullname ? this.state.user.fullname : "Не указано"}</p>
+                                <p className="transport_card__detail phone"><span id="personal">Телефон:</span> {this.state.user.phone ? this.state.user.phone : "Не указано"}</p>
                             </div>
                         </div>
                     </div>

@@ -1,30 +1,27 @@
 import React from 'react';
 
-import TransportCard from '../../../components/common/transport_card'
-
-import sendRequest from '../../../utils/fetch'
-
 import './css/transport.css'
 
 
 export default class TransportCabinet extends React.Component {
     constructor(props) {
         super(props)
-        this.state = {
-            transport_id: null,
-        }
     }
     
-    
     render() {
-        let image_url = `/api/v1/drivers/transports/${this.props.transport.id}/covers/${this.props.transport.transport_cover}`
+        let image_url
+        if (this.props.transport.transport_covers.length > 0) {
+            image_url = `/api/v1/drivers/transports/${this.props.transport.id}/covers/${this.props.transport.transport_covers[0].id}`
+        } else {
+            image_url = null
+        }
 
         return (
             <div className={"transport__cabinet"}>
                 <img 
                     src={image_url}
                     className="transport__cabinet__photo"
-                    onClick={() => this.setState({transport_id: this.props.transport.id})}>
+                    onClick={() => this.props.showTransportCard(this.props.transport.id)}>
                 </img>
 
                 <div className="transport__cabinet__card">
@@ -40,15 +37,6 @@ export default class TransportCabinet extends React.Component {
                         <p>Удалить</p>
                     </div>
                 </div>
-
-                { 
-                    this.state.transport_id && 
-                    <TransportCard
-                    transport_id={this.state.transport_id}
-                    onClose={() => this.setState({transport_id: null})}
-                    />
-                }
-
             </div>
         )
     }

@@ -1,30 +1,28 @@
-import './css/notification.css'
+import React from 'react'
 
-function NotificationSwitch(props) {
-    return (
-        <div className="switch__notification">
-            <div className={`switch__notification__item ${props.is_active === 'client' ? "active" : "no-active"}`} id="client" onClick={props.onClick}>
-                <p id="client">Клиент</p>
-                { props.client_notifications > 0 && (
-                    <div id="client" className="switch__notification__circle">
-                        <p>{props.client_notifications}</p>
-                    </div>
-                    )
-                }
-               
-            </div>
-            <div className={`switch__notification__item ${props.is_active === 'driver' ? "active" : "no-active"}`} id="driver" onClick={props.onClick}>
-                <p id="driver">Водитель</p>
-                { props.driver_notifications > 0 && (
-                    <div id="driver" className="switch__notification__circle">
-                         <p>{props.driver_notifications}</p>
-                    </div>
-                    )
-                }
-            </div>
-            
-        </div>
-    )
-}
+import TransportNotification from './transport'
+import TicketNotification from './ticket'
 
-export default NotificationSwitch
+
+export default class Notification extends React.Component {
+    constructor(props) {
+        super(props)
+    }
+
+    render() {
+        return (
+            <React.Fragment>
+                <TicketNotification ticket={this.props.application}/>
+                <TransportNotification
+                transport={this.props.transport}
+                notification_owner={this.props.notification_owner}
+                notification_type={this.props.notification_type}
+                setOfferDecision={this.props.setOfferDecision}
+                removeOffer={this.props.removeOffer}
+                showTransportCard={this.props.showTransportCard} 
+                />
+            </React.Fragment>
+        )
+       
+    }
+} 

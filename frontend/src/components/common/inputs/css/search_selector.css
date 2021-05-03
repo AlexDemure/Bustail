@@ -3,16 +3,21 @@
 }
 
 .search-selector .search-selector__option {
+    top: 50px;
+    left: 0;
     position: absolute;
+    z-index: 1;
+
     max-height: 200px;
     width: 100%;
     padding-right: 10px;
-    overflow-y: auto;
     background-color: #262626;
+    
+    overflow-y: auto;
+    overflow-x: hidden;
+
     opacity: 1;
     pointer-events: none;
-    overflow-x: hidden;
-    z-index: 2;
 }
 
 .search-selector.active .search-selector__option {
@@ -25,19 +30,20 @@
 }
 
 .search-selector .search-selector__option li {
-    list-style: none;
+    display: none;
+    width: 100%;
     padding: 10px;
+
+    list-style: none;
     cursor: default;
-    border-radius: 3px;
+    text-align: left;
+
+    font-size: 18px;
     color: #FBFBFB;
     font-family: 'FuturaBookC';
-    border: 1px solid #222222;
-    font-size: 18px;
-    display: none;
-    text-align: left;
-    width: 100%;
-    z-index: 101;
 
+    border-radius: 3px;
+    border-bottom: 1px dashed rgba(66, 66, 66, 0.5);
 }
 
 .search-selector.active .search-selector__option li {

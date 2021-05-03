@@ -5,6 +5,10 @@ import DefaultInput from '../../../components/common/inputs/default'
 import SearchInput from '../../../components/common/inputs/search_selector'
 import TextAreaInput from '../../../components/common/inputs/textarea'
 import SubmitButton from '../../../components/common/buttons/submit_btn'
+import NavBar from '../../../components/common/navbar'
+import Header from '../../../components/common/header'
+
+import { ResponseNotify, showNotify } from '../../../components/common/response_notify'
 
 import SerializeForm from '../../../utils/form_serializer'
 import sendRequest from '../../../utils/fetch'
@@ -16,7 +20,7 @@ import { selectErrorInputs } from '../../../constants/input_parsers'
 
 function MainFormCreateApp(props) {
     return (
-        <form className="create-app__form__main" onSubmit={props.onSubmit}>
+        <form className="create-app__form__main" onSubmit={props.onSubmit} autoComplete="off">
             <SearchInput name="application_type" placeholder="Тип услуги" options={props.app_types}/>
             <SearchInput name="to_go_from" placeholder="Откуда" options={props.cities}/>
             <SearchInput name="to_go_to" placeholder="Куда" options={props.cities}/>
@@ -54,6 +58,8 @@ export default class CreateAppForm extends React.Component {
                 id: null
             },
 
+            response_text: null,
+            notify_type: null,
             error: null
         };
 
@@ -101,11 +107,23 @@ export default class CreateAppForm extends React.Component {
                 })
             },
             (error) => {
-                this.setState({error: error.message})
+                this.setState({
+                    error: error.message,
+                    notify_type: "error"
+                })
 
                 if (error.name === "ValidationError") {
                     selectErrorInputs(error.message)
+                    this.setState({
+                        response_text: "Не корректно заполнены данные",
+                    })
+                } else {
+                    this.setState({
+                        response_text: error.message,
+                    })
                 }
+
+                showNotify()
             }
         )
     }
@@ -126,11 +144,23 @@ export default class CreateAppForm extends React.Component {
                 this.setState({form: "notify"})
             },
             (error) => {
-                this.setState({error: error.message})
+                this.setState({
+                    error: error.message,
+                    notify_type: "error"
+                })
 
                 if (error.name === "ValidationError") {
                     selectErrorInputs(error.message)
+                    this.setState({
+                        response_text: "Не корректно заполнены данные",
+                    })
+                } else {
+                    this.setState({
+                        response_text: error.message,
+                    })
                 }
+
+                showNotify()
             }
         )
 
@@ -175,7 +205,18 @@ export default class CreateAppForm extends React.Component {
 
         return (
             <React.Fragment>
-                {form}
+                <ResponseNotify
+                notify_type={this.state.notify_type}
+                text={this.state.response_text}
+                />
+
+                <Header previous_page="/main" page_name="Создание заявки"/>
+                    
+                    <div className="container create-app">
+                        {form}
+                    </div>
+                
+                <NavBar/>
             </React.Fragment>
         )
     }

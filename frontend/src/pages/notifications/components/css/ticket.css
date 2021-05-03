@@ -1,220 +1,68 @@
 .ticket__notification {
-    margin-bottom: 10px;
     width: 100%;
-    height: 100px;
-    border-radius: 10px;
+    height: 40px;
+    background-color: #222222;
+    border-top: 1px solid #262626;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
 
     display: grid;
-    grid-template-columns: 40% 60%;
+    grid-template-columns: 200px 1fr;
+
+    padding-bottom: 5px;
     position: relative;
 }
 
 .ticket__notification div p {
-    margin: 0;
     padding: 0;
+    margin: 0;
+}
+.ticket__notification div[id=left] {
+    height: 40px;
+    grid-column: 1 / 2;
+    
 }
 
 .ticket__notification div[id=left] {
-    grid-column: 1 / 2;
-    background-color: #222222;
-    
+    margin-top: 10px;
+    margin-left: 10px;
 }
 
 .ticket__notification div[id=left] p {
-    margin-left: 10px;
-}
-
-.ticket__notification .ticket__notification__placeholder {
-    font-size: 14px;
-    color: #6e6e6e;
-    font-family: "FuturaMediumC";
-    margin-top: 10px;
-
-}
-
-.ticket__notification .ticket__notification__city {
-    font-size: 18px;
-    color: #fbfbfb;
-    font-family: "FuturaDemiC";
-    margin-top: 5px;
-
-}
-.ticket__notification div p[id=to] {
-    color: #fba333;
-}
-
-.ticket__notification .ticket__notification__details-btn {
-    font-size: 15px;
-    color: #fba333;
-    font-family: "FuturaBookC";
-    margin-top: 15px;
-}
-
-.ticket__notification .ticket__notification__type-app {
-    font-size: 15px;
-    color: #fbfbfb;
-    font-family: "FuturaBookC";
-    margin-top: 15px;
-}
-
-.ticket__notification .ticket__notification__date {
-    font-size: 14px;
-    color: #fba333;
-    font-family: "FuturaDemiC";
-    margin-top: 15px;
-}
-
-.ticket__notification .ticket__notification__price {
+    display: inline;
     font-size: 16px;
-    color: #fbfbfb;
-    font-family: "FuturaBookC";
-    margin-top: 5px;
+    font-family: "FuturaDemiC";
 }
+
+.ticket__notification div[id=left] p[id=from] {
+    color: #fbfbfb
+}
+.ticket__notification div[id=left] p[id=to] {
+    color: #fba333
+}
+
+.ticket__notification div[id=left] p[id=path] {
+    color: #535353;
+    font-size: 14px;
+    padding-left: 5px;
+    padding-right: 5px;
+    font-family: "FuturaDemiC";
+}
+
 
 .ticket__notification div[id=right] {
     grid-column: 2 / 3;
-    background-color: #262626;
-    display: grid;
-    grid-template-columns: 55% 45%;
-}
-
-
-.ticket__notification div[id=right] div[id=right-div-left] {
-    grid-column: 1 / 2;
-    
-}
-
-.ticket__notification div[id=right] div[id=right-div-left] p {
-    margin-left: 10px;
-}
-
-.ticket__notification div[id=right] div[id=right-div-right] {
-    grid-column: 2 / 3;
-    display: grid;
-    grid-template-rows: 30% 30% 40%;
-    grid-template-columns: 80%;
-
-    justify-content: flex-end;
-    align-content: center;
-
-    width: 95%;
-}
-
-.ticket__notification div[id=right] div[id=right-div-right] p {
-    text-align: end;
-}
-
-.ticket__notification .ticket__notification__offer-btn {
-    height: 80%;
-    width: 100%;
-    
-
-    display: grid;
-    align-content: center;
-    justify-content: center;
-
-    background-color: #222222;
-    border-radius: 5px;
-}
-
-.ticket__notification .ticket__notification__offer-btn:hover {
-    background-color: #fba333;
-}
-
-.ticket__notification .ticket__notification__offer-btn p {
-    font-size: 14px;
-    color: #6e6e6e;
-    font-family: "FuturaBookC";
-}
-
-.ticket__notification .ticket__notification__offer-btn:hover p {
-    color: #181818;
-}
-
-.ticket__notification .ticket__notification__about {
-    grid-column: 1 / 3;
-    grid-row: 1 / 3;
-
-    display: grid;
-    grid-template-columns: 85% 15%;
-    align-content: flex-start;
-    justify-content: flex-start;
-
-    background-color: #222222;
-    height: 100px;
-    width: 100%;
-    position: absolute;
-    border: 1px solid #262626;
-}
-
-.ticket__notification .ticket__notification__about .ticket__notification__about__close-btn {
-    grid-column: 2 / 3;
-    grid-row: 1 / 2;
-    width: 50px;
     height: 40px;
-    background-image: url('../../../../static/icons/close.png');
-    background-size: 25px 25px;
-    background-position-x: center;
-    background-position-y: center;
-    background-repeat: no-repeat;
-    float: right;
-}
-
-.ticket__notification .ticket__notification__about .ticket__notification__about__details {
-    grid-column: 1 / 2;
-    grid-row: 1 / 2;
-    width: 100%;
-    height: 100%;
-
-}
-
-.ticket__notification .ticket__notification__about .ticket__notification__about__details .ticket__notification__about__item.description {
-    color: #6e6e6e;
-    font-family: 'FuturaMediumC';
-    font-size: 15px;
+    
+    display: grid;
+    justify-content: flex-end;
     margin-top: 10px;
-    margin-left: 10px;
-}
-
-.ticket__notification .ticket__notification__about .ticket__notification__about__details p span {
-    color: #FBFBFB;
-    font-size: 14px;
-    font-family: 'FuturaDemiC';
-}
-
-.ticket__notification .ticket__notification__about .ticket__notification__about__details p span {
-    font-size: 14px;
-}
-
-
-
-.ticket__notification .ticket__notification__date {
     margin-right: 10px;
 }
 
-.ticket__notification__control.count_notifications {
-    height: 25px;
-    width: 25px;
-    position: absolute;
-    right: 0;
-    
-    margin-right: 2px;
-    margin-top: 2px;
-    background-color: #9B5E5D;
-    border-radius: 50%;
-    
-}
-
-.ticket__notification__control.count_notifications p {
-    color: #FBFBFB;
-    text-align: center;
-    margin-top: 5px;
-    font-size: 15px;
-    font-family: 'FuturaDemiC';
-}
-
-.ticket__notification .ticket__notification__transports {
-    width: 95vw;
-    height: 140px;
-    position: relative;
+.ticket__notification div[id=right] p {
+   
+    font-size: 16px;
+    font-family: "FuturaDemiC";
+    color: #fba333
 }

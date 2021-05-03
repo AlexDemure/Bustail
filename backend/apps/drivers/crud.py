@@ -67,7 +67,7 @@ class CRUDTransport(CRUDBase[Transport, TransportCreate, UpdatedBase]):
             )
         )
 
-    async def get_transports_with_notifications(self, driver_id: int):
+    async def get_driver_transports(self, driver_id: int):
         return await (
             self.model.filter(
                     Q(
@@ -75,10 +75,6 @@ class CRUDTransport(CRUDBase[Transport, TransportCreate, UpdatedBase]):
                     )
             ).all()
             .prefetch_related(
-                Prefetch(
-                    'notifications',
-                    queryset=Notification.filter(decision__isnull=True).all()
-                ),
                 Prefetch(
                     'transport_covers',
                     queryset=TransportPhoto.all()
