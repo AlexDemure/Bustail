@@ -1,0 +1,243 @@
+.search-transport__filters__modal-window__bg {
+    z-index: 200;
+    top: 0;
+    left: 0;
+    position: absolute;
+    height: 100vh;
+    width: 100vw;
+    background: rgba(22, 22, 22, 0.5);
+}
+
+.search-transport__filters__modal-window__content {
+    z-index: 201;
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    height: 90%;
+    width: 100vw;
+
+    background-color: #181818;
+    border-radius: 10px;
+
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 70px 1fr;
+    
+}
+
+.search-transport__filters__modal-window__content form {
+    width: 95%;
+    justify-self: center;
+    
+
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 50px 55px 1fr 100px;
+}
+
+.search-transport__filters__modal-window__title {
+    float: left;
+    margin-left: 20px;
+    margin-top: 10px;
+    height: 50px;
+
+    display: grid;
+    align-content: center;
+    
+    font-size: 20px;
+    font-family: "FuturaDemiC";
+    color: #fbfbfb;
+}
+
+.search-transport__filters__modal-window__close-btn {
+    margin-right: 10px;
+    margin-top: 10px;
+    width: 50px;
+    height: 40px;
+    background-image: url('../../../../static/icons/close.png');
+    background-size: 25px 25px;
+    background-position-x: center;
+    background-position-y: center;
+    background-repeat: no-repeat;
+    float: right;
+}
+
+
+.search-transport__filters__modal-window__content .search-selector .search-selector__input__common,
+.search-transport__filters__modal-window__content .search-selector  {
+    height: 45px;
+    width: 96%;
+}
+
+
+.search-transport__filters__modal-window__content .search-selector {
+    justify-self: center;
+}
+
+.search-transport__filters__modal-window__content .search-transport__filters__modal-window__owner-types {
+    justify-self: center;
+
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 5px;
+
+    width: 95%;
+    height: 50px;   
+}
+
+.search-transport__filters__modal-window__owner-types div {
+    height: 50px;
+    border-radius: 5px;
+
+    background-color: #222222;
+    border: 2px solid #262626;
+
+    display: grid;
+    align-items: center;
+
+    background-position-y: center;
+    background-position-x: 10px;
+    background-repeat: no-repeat;
+    background-size: 25px;
+}
+
+.search-transport__filters__modal-window__owner-types .owner-type p {
+    color: #6e6e6e;
+    font-size: 14px;
+    font-family: "FuturaBookC";
+    text-align: center;
+}
+
+.search-transport__filters__modal-window__owner-types .owner-type.active {
+    border: 2px solid #fba333;
+}
+.search-transport__filters__modal-window__owner-types .owner-type.active p {
+    color: #fba333
+}
+
+.search-transport__filters__modal-window__owner-types .owner-type.individual {
+    background-image: url('../../../../static/icons/default/driver_card.png');
+}
+
+.search-transport__filters__modal-window__owner-types .owner-type.individual.active {
+    
+    background-image: url('../../../../static/icons/active/driver_card.png');
+}
+
+.search-transport__filters__modal-window__owner-types .owner-type.company {
+    pointer-events: none;
+    opacity: 0.5;
+    background-image: url('../../../../static/icons/default/company_card.png');
+}
+
+.search-transport__filters__modal-window__owner-types .owner-type.company.active {
+    background-image: url('../../../../static/icons/active/company_card.png');
+}
+
+.search-transport__filters__modal-window__content .search-transport__filters__modal-window__transport-types {
+    margin-top: 5px;
+    width: 95%;
+    justify-self: center;
+
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(6, 50px);
+    overflow-x: hidden;
+    overflow-y: scroll;
+
+    -webkit-overflow-scrolling: touch;
+}
+
+.search-transport__filters__modal-window__transport-types .search-transport__filters__modal-window__transport-type {
+    height: 45px;
+    
+    border: 1px solid #262626;
+    border-radius: 5px;
+
+    display: grid;
+    align-items: center;
+
+    margin-bottom: 5px;
+
+    background-position-y: center;
+    background-position-x: 10px;
+    background-repeat: no-repeat;
+    background-size: 25px;
+}
+
+.search-transport__filters__modal-window__transport-type p {
+    color: #6e6e6e;
+    font-size: 14px;
+    font-family: "FuturaBookC";
+    padding-left: 50px;
+}
+
+.search-transport__filters__modal-window__transport-type.active {
+    border: 1px solid #fba333;
+}
+
+.search-transport__filters__modal-window__transport-type.active p {
+    color: #fba333;
+}
+
+.search-transport__filters__modal-window__transport-type.car {
+    background-image: url('../../../../static/icons/default/car.png');
+}
+
+.search-transport__filters__modal-window__transport-type.car.active {
+    background-image: url('../../../../static/icons/active/car.png');
+}
+
+.search-transport__filters__modal-window__transport-type.bus {
+    background-image: url('../../../../static/icons/default/bus.png');
+}
+
+.search-transport__filters__modal-window__transport-type.bus.active {
+    background-image: url('../../../../static/icons/active/bus.png');
+}
+
+.search-transport__filters__modal-window__transport-type.freight {
+    background-image: url('../../../../static/icons/default/freight.png');
+}
+
+.search-transport__filters__modal-window__transport-type.freight.active {
+    background-image: url('../../../../static/icons/active/freight.png');
+}
+
+.search-transport__filters__modal-window__transport-type.holiday {
+    background-image: url('../../../../static/icons/default/holiday.png');
+}
+
+.search-transport__filters__modal-window__transport-type.holiday.active {
+    background-image: url('../../../../static/icons/active/holiday.png');
+}
+
+.search-transport__filters__modal-window__transport-type.minibus {
+    background-image: url('../../../../static/icons/default/minibus.png');
+}
+
+.search-transport__filters__modal-window__transport-type.minibus.active {
+    background-image: url('../../../../static/icons/active/minibus.png');
+}
+
+.search-transport__filters__modal-window__transport-type.other {
+    background-image: url('../../../../static/icons/default/other.png');
+}
+
+.search-transport__filters__modal-window__transport-type.other.active {
+    background-image: url('../../../../static/icons/active/other.png');
+}
+
+.search-transport__filters__modal-window__content button {
+    justify-self: center;
+    align-self: center;
+    height: 45px;
+    width: 150px;
+    margin-bottom: 20px;
+
+    font-size: 14px;
+}
+.search-transport__filters__modal-window__content button:hover {
+    background-color: #fba333;
+    color: #181818;
+}
