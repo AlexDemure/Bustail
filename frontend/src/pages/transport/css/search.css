@@ -29,8 +29,9 @@
 
 
 .container.search-transport .search-transport__filters {
-    position: absolute;
-    bottom: 5vh;
+    position: fixed;
+    
+    bottom: 10vh;
     right: 10px;
 
     height: 40px;
