@@ -1,6 +1,7 @@
+from typing import List
 from decimal import Decimal
 
-from fastapi import APIRouter, Depends, status, HTTPException, File, UploadFile
+from fastapi import APIRouter, Depends, status, HTTPException, File, UploadFile, Query
 from fastapi.encoders import jsonable_encoder
 from fastapi.responses import JSONResponse, Response
 from structlog import get_logger
@@ -273,7 +274,7 @@ async def create_transport(payload: TransportBase, account: Account = Depends(co
     }
 )
 async def get_transports(
-        limit: int = 10, offset: int = 0,
+        limit: int = 10, offset: int = 0, transport_type: List[TransportType] = Query(None),
         city: str = "", order_by: str = 'price', order_type: str = 'asc'
 ) -> ListTransports:
     """
@@ -285,7 +286,8 @@ async def get_transports(
 
     query_params = dict(
         limit=limit, offset=offset, city=city,
-        order_by=order_by, order_type=order_type
+        order_by=order_by, order_type=order_type,
+        transport_type=transport_type,
     )
     return await logic_get_transports(**query_params)
 

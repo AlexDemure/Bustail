@@ -7,8 +7,6 @@ class TransportType(Enum):
     bus = "bus"
     holiday = "holiday"
     freight = "freight"
-    special = "special"
-    ritual = "ritual"
     other = "other"
 
     @property
@@ -16,17 +14,13 @@ class TransportType(Enum):
         if self is self.car:
             return "Автомобиль до 8 мест"
         elif self is self.minubus:
-            return "Автобус от 8 и не более 24 мест"
+            return "Автобус от 8 до 24 мест"
         elif self is self.bus:
-            return "Автобус свыше 24 мест"
+            return "Автобус от 24 мест"
         elif self is self.holiday:
             return "Автомобиль для праздников"
         elif self is self.freight:
             return "Грузовой автомобиль"
-        elif self is self.special:
-            return "Спецтехника"
-        elif self is self.ritual:
-            return "Ритуальный транспорт"
         elif self is self.other:
             return "Другое"
 

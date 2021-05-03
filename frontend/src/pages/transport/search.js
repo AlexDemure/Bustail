@@ -1,21 +1,20 @@
 import React from 'react'
 import NavBar from '../../components/common/navbar'
 import Header from '../../components/common/header'
-import SearchInput from '../../components/common/inputs/search_selector'
-import SubmitButton from '../../components/common/buttons/submit_btn'
 import TransportCard from '../../components/common/transport_card'
 
 import { ResponseNotify, showNotify } from '../../components/common/response_notify'
 
 import { aboutMe } from '../../components/common/api/about_me'
 
-import { getCities } from '../../constants/cities'
+import { transportTypes } from '../../constants/transport_types'
 
 import SerializeForm from '../../utils/form_serializer'
 import sendRequest from '../../utils/fetch'
 
 import TransportSearch from './components/transport'
 import OfferForm from "./components/offer"
+import SearchFilters from './components/filters'
 
 
 import './css/search.css'
@@ -26,22 +25,30 @@ export default class SearchTransportPage extends React.Component {
         super()
         
         this.state = {
-            offer_type: "client_to_driver",
+            windowType: "search", // Окно переключаемое от параметров поиска к самому поиску
+            active_items: [], // Список выбранных автомобилей в поиске
+
+            offer_type: "client_to_driver",  // Окно переключаемое от предложения к самому поиску
             offerData: null,
 
-            user: null,
+            user: {
+                city: null
+            },
+
             user_apps: [],
-            cities: null,
-            
+
             transports: null,
             total_rows: null,
-
+            
             offset: null,
+            transport_type: null, 
             city: null,
             
             isScrolling: true,
             
-            transport_id: null
+            transport_id: null, // Карточка автомобиля
+
+            transport_types: null // Типы автомобилей для параметров поиска
         }
 
         this.onScroll = this.onScroll.bind(this)
@@ -103,12 +110,17 @@ export default class SearchTransportPage extends React.Component {
         return me_apps
     }
 
-    async getTransports(city = null, offset = 0) {
+    async getTransports(city = null, transport_type = null, offset = 0) {
         let data;
         
-        let url = `/api/v1/drivers/transports/?limit=10&offset=${offset}&order_by=id&order_type=desc`
+        let url = `/api/v1/drivers/transports/?limit=10&offset=${offset}&order_by=id&order_type=desc&`
+        
+        if (transport_type !== null && transport_type !== "") {
+            url += transport_type
+        }
+
         if (city !== null && city !== "") {
-            url += `&city=${city}`
+            url += `city=${city}`
         }
         
         await sendRequest(url, "GET")
@@ -133,7 +145,7 @@ export default class SearchTransportPage extends React.Component {
         if (e.target.scrollHeight - (e.target.offsetHeight + e.target.scrollTop) === 0) {
             if (this.state.isScrolling === true) {
                 
-                let data = await this.getTransports(this.state.city, this.state.offset);        
+                let data = await this.getTransports(this.state.city, this.state.transport_type, this.state.offset);        
 
                 let new_array = this.state.transports.concat(data.transports)
                         
@@ -154,35 +166,60 @@ export default class SearchTransportPage extends React.Component {
     }
     
     onSubmit = async(e) => {
+        let active_items = [];
+
         e.preventDefault()
         let prepared_data = SerializeForm(e.target, new FormData(e.target))
         
-        let data = await this.getTransports(prepared_data.get("city"));        
+        let data = {
+            city: prepared_data.get('city'),
+            transport_type: ""
+        }
+
+        let transport_types = [].slice.call(e.target.children[2].children)
+        
+        for (var key in transport_types) {
+            
+            let class_items = transport_types[key].className.split(" ")
+            
+            if (class_items[class_items.length - 1] === "active") {
+                data.transport_type += "transport_type=" + class_items[class_items.length - 2] + "&"
+                active_items.push(class_items[class_items.length - 2])
+            }
+        }
+
+        let response = await this.getTransports(data.city, data.transport_type);        
 
         this.setState({
-            transports: data.transports,
-            total_rows: data.total_rows,
-            offset: data.transports.length,
-            city: prepared_data.get("city"),
+            windowType: "search",
+            active_items: active_items,
+
+            transports: response.transports,
+            total_rows: response.total_rows,
+            offset: response.transports.length,
+            transport_type: data.transport_type,
+            city: data.city,
         })
 
     }
 
     async componentDidMount(){
         let user = await aboutMe()
-        let cities = await getCities()
-
+    
         let user_apps = await this.getMeApps()
         
         let transport_data = await this.getTransports()
 
+        let transport_types = await transportTypes()
+
         this.setState({
             user: user,
             user_apps: user_apps,
-            cities: cities,
             transports: transport_data.transports,
             total_rows: transport_data.total_rows,
             offset: transport_data ? transport_data.transports.length : null,
+
+            transport_types: transport_types
         });
     }
     
@@ -212,15 +249,22 @@ export default class SearchTransportPage extends React.Component {
                     createOffer={this.createOffer}
                     />  
                 }
+                
+                {
+                    this.state.windowType == "filters" &&
+                    <SearchFilters
+                    city={this.state.city !== null ? this.state.city : this.state.user.city}
+                    active_items={this.state.active_items}
+                    options={this.state.transport_types}
+                    onSubmit={(e) => this.onSubmit(e)}
+                    closeFilters={() => this.setState({windowType: null})}
+                    />
+                }
+                
 
                 <Header previous_page="/main" page_name="Поиск транспорта"/>
 
                 <div className="container search-transport">
-                    <form className="search-transport__form__search" onSubmit={this.onSubmit} autoComplete="off">
-                        <SearchInput name="city" options={this.state.cities} value={this.state.user ? this.state.user.city : null} isRequired={false}/>
-                        <SubmitButton value="Поиск"/>
-                    </form>
-                    
                     <div className="search-transport__transports" onScroll={this.onScroll}>
                         {
                             this.state.transports &&
@@ -234,8 +278,7 @@ export default class SearchTransportPage extends React.Component {
                             )
                         }
                     </div>
-                    
-                
+                    <div className="search-transport__filters" onClick={() => this.setState({windowType: "filters"})}></div>
                 </div>
             
             

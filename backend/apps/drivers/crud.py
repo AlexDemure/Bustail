@@ -86,17 +86,23 @@ class CRUDTransport(CRUDBase[Transport, TransportCreate, UpdatedBase]):
         self,
         limit: int = 10,
         offset: int = 0,
+        transport_type: list = None,
         city: str = "",
         order_by: str = 'price',
         order_type: str = 'asc',
     ) -> Tuple[List[Transport], int]:
 
+        filters = [Q(city__icontains=city), Q(is_active=True)]
+
+        if transport_type:
+            filters.append(
+                Q(transport_type__in=transport_type)
+            )
+
         rows = await (
             self.model.all()
             .filter(
-                Q(
-                    Q(city__icontains=city), Q(is_active=True), join_type="AND"
-                )
+                Q(*filters, join_type="AND")
             )
             .order_by(f'{"-" if order_type == "desc" else ""}{order_by}')
             .limit(limit=limit)
@@ -106,10 +112,8 @@ class CRUDTransport(CRUDBase[Transport, TransportCreate, UpdatedBase]):
 
         total_rows = await (
             self.model.all()
-            .filter(
-                Q(
-                    Q(city__icontains=city), Q(is_active=True), join_type="AND"
-                )
+                .filter(
+                Q(*filters, join_type="AND")
             )
             .order_by(f'{"-" if order_type == "desc" else ""}{order_by}')
             .count()

@@ -9,7 +9,7 @@ import DragAndDrop from '../../../components/common/drag_and_drop'
 import { ResponseNotify, showNotify } from '../../../components/common/response_notify'
 
 import { getCities } from '../../../constants/cities'
-import { trasportTypes } from '../../../constants/transport_types'
+import { transportTypes } from '../../../constants/transport_types'
 
 import { selectErrorInputs, validateImageFile } from '../../../constants/input_parsers'
 
@@ -251,7 +251,7 @@ export default class CreateTransportForm extends React.Component {
     }
 
     async componentDidMount(){
-        let transport_types = await trasportTypes()
+        let transport_types = await transportTypes()
         let transport_types_list = [] // Формирование в стиле [] для SearchInput
 
         Object.keys(transport_types).forEach(
