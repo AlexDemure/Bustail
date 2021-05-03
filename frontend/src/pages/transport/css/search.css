@@ -16,7 +16,7 @@
 .container.search-transport .search-transport__transports {
     margin-top: 10px;
 
-    width: 95%;
+    width: 100%;
     justify-self: center;
     
     padding-bottom: 10vh;
@@ -30,7 +30,7 @@
 
 .container.search-transport .search-transport__filters {
     position: absolute;
-    bottom: 10px;
+    bottom: 5vh;
     right: 10px;
 
     height: 40px;

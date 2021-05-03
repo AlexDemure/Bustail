@@ -265,6 +265,7 @@ export default class SearchTransportPage extends React.Component {
                 <Header previous_page="/main" page_name="Поиск транспорта"/>
 
                 <div className="container search-transport">
+                    <div className="search-transport__filters" onClick={() => this.setState({windowType: "filters"})}></div>
                     <div className="search-transport__transports" onScroll={this.onScroll}>
                         {
                             this.state.transports &&
@@ -278,7 +279,6 @@ export default class SearchTransportPage extends React.Component {
                             )
                         }
                     </div>
-                    <div className="search-transport__filters" onClick={() => this.setState({windowType: "filters"})}></div>
                 </div>
             
             
