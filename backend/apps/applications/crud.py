@@ -76,34 +76,36 @@ class CRUDApplication(CRUDBase[Application, ApplicationCreate, UpdatedBase]):
         self,
         limit: int = 10,
         offset: int = 0,
+        application_type: list = None,
         city: str = "",
         order_by: str = 'to_go_when',
         order_type: str = 'asc',
     ) -> Tuple[List[Application], int]:
+
+        filters_or = [Q(to_go_from__icontains=city), Q(to_go_to__icontains=city)]
+        filters_req = [Q(application_status=ApplicationStatus.waiting), Q(to_go_to__icontains=city)]
+
+        if application_type:
+            filters_req.append(
+                Q(application_type__in=application_type)
+            )
+
         rows = await (
             self.model.all()
                 .filter(
-                Q(
-                    Q(to_go_from__icontains=city),
-                    Q(to_go_to__icontains=city),
-                    join_type="OR"
-                ),
-                Q(
-                    Q(application_status=ApplicationStatus.waiting)
-                )
+                Q(*filters_or, join_type="OR"),
+                Q(*filters_req)
             )
             .order_by(f'{"-" if order_type == "desc" else ""}{order_by}')
             .limit(limit=limit)
             .offset(offset=offset)
         )
+
         total_rows = await (
             self.model.all()
                 .filter(
-                Q(
-                    Q(to_go_from__icontains=city),
-                    Q(to_go_to__icontains=city),
-                    join_type="OR"
-                )
+                Q(*filters_or, join_type="OR"),
+                Q(*filters_req)
             )
             .order_by(f'{"-" if order_type == "desc" else ""}{order_by}')
             .count()

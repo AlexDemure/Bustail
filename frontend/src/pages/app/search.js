@@ -1,21 +1,23 @@
 import React from 'react'
 import NavBar from '../../components/common/navbar'
 import Header from '../../components/common/header'
-import SearchInput from '../../components/common/inputs/search_selector'
-import SubmitButton from '../../components/common/buttons/submit_btn'
+
 import TransportCard from '../../components/common/transport_card'
 
 import { ResponseNotify, showNotify } from '../../components/common/response_notify'
 
 import { getDriverCard } from '../../components/common/api/driver_card'
 import { aboutMe } from '../../components/common/api/about_me'
+
 import { getCities } from '../../constants/cities'
+import { appTypes } from '../../constants/app_types'
 
 import sendRequest from '../../utils/fetch'
 import SerializeForm from '../../utils/form_serializer'
 
 import OfferForm from "./components/offer"
 import TicketSearch from './components/ticket'
+import SearchFilters from './components/filters'
 
 
 import './css/search.css'
@@ -27,6 +29,9 @@ export default class SearchAppPage extends React.Component {
         super()
 
         this.state = {
+            windowType: "search", // Окно переключаемое от параметров поиска к самому поиску
+            active_items: [], // Список выбранных автомобилей в поиске
+
             offer_type: "driver_to_client",
             offerData: null,
 
@@ -38,6 +43,7 @@ export default class SearchAppPage extends React.Component {
             total_rows: null,
 
             offset: null,
+            application_type: null,
             city: null,
             
             isScrolling: true,
@@ -46,7 +52,9 @@ export default class SearchAppPage extends React.Component {
 
             response_text: null,
             notify_type: null,
-            error: null
+            error: null,
+
+            application_types: null // Типы заявок для параметров поиска
         }
 
         this.onScroll = this.onScroll.bind(this)
@@ -93,12 +101,17 @@ export default class SearchAppPage extends React.Component {
         )
     }
 
-    async getApps(city = null, offset = 0) {
+    async getApps(city = null, application_type = null, offset = 0) {
         let data;
         
-        let url = `/api/v1/applications/?limit=10&offset=${offset}&order_by=to_go_when&order_type=asc`
+        let url = `/api/v1/applications/?limit=10&offset=${offset}&order_by=to_go_when&order_type=asc&`
+        
+        if (application_type !== null && application_type !== "") {
+            url += application_type
+        }
+
         if (city !== null && city !== "") {
-            url += `&city=${city}`
+            url += `city=${city}`
         }
         
         await sendRequest(url, "GET")
@@ -123,7 +136,7 @@ export default class SearchAppPage extends React.Component {
         if (e.target.scrollHeight - (e.target.offsetHeight + e.target.scrollTop) === 0) {
             if (this.state.isScrolling === true) {
                 
-                let data = await this.getApps(this.state.city, this.state.offset);        
+                let data = await this.getApps(this.state.city, this.state.application_type, this.state.offset);        
 
                 let new_array = this.state.apps.concat(data.applications)
                         
@@ -144,16 +157,41 @@ export default class SearchAppPage extends React.Component {
     }
     
     onSubmit = async(e) => {
+        let active_items = [];
+
         e.preventDefault()
         let prepared_data = SerializeForm(e.target, new FormData(e.target))
         
-        let data = await this.getApps(prepared_data.get("city"));        
+        let data = {
+            city: prepared_data.get('city'),
+            application_type: ""
+        }
+
+        let application_types = [].slice.call(e.target.children[2].children)
+        
+        for (var key in application_types) {
+            
+            let class_items = application_types[key].className.split(" ")
+            
+            if (class_items[class_items.length - 1] === "active") {
+                data.application_type += "application_type=" + class_items[class_items.length - 2] + "&"
+                active_items.push(class_items[class_items.length - 2])
+            }
+        }
+        
+        let response = await this.getApps(data.city, data.application_type);        
 
         this.setState({
-            apps: data.applications,
-            total_rows: data.total_rows,
-            offset: data.applications.length,
-            city: prepared_data.get("city"),
+            windowType: "search",
+            active_items: active_items,
+
+            apps: response.applications,
+            total_rows: response.total_rows,
+            offset: response.applications.length,
+            city: data.city,
+            
+            application_type: data.application_type,
+            city: data.city,
         })
 
     }
@@ -164,6 +202,8 @@ export default class SearchAppPage extends React.Component {
 
         let cities = await getCities()
         let apps_data = await this.getApps()
+        
+        let application_types = await appTypes()
 
         this.setState({
             user: user,
@@ -173,6 +213,8 @@ export default class SearchAppPage extends React.Component {
             apps: apps_data.applications,
             total_rows: apps_data.total_rows,
             offset: apps_data ? apps_data.applications.length : null,
+
+            application_types: application_types
         });
     }
 
@@ -203,13 +245,21 @@ export default class SearchAppPage extends React.Component {
                     )   
                 }
 
+                {
+                    this.state.windowType == "filters" &&
+                    <SearchFilters
+                    city={this.state.city !== null ? this.state.city : this.state.user.city}
+                    active_items={this.state.active_items}
+                    options={this.state.application_types}
+                    onSubmit={(e) => this.onSubmit(e)}
+                    closeFilters={() => this.setState({windowType: null})}
+                    />
+                }
+
                 <Header previous_page="/main" page_name="Поиск заявки"/>
 
                 <div className="container search-app">
-                    <form className="search-app__form__search" onSubmit={this.onSubmit} autoComplete="off">
-                        <SearchInput name="city" options={this.state.cities} value={this.state.user ? this.state.user.city : null} isRequired={false}/>
-                        <SubmitButton value="Поиск"/>
-                    </form>
+                    <div className="search-app__filters" onClick={() => this.setState({windowType: "filters"})}></div>
                     <div className="search-app__apps" onScroll={this.onScroll}>
                         {
                             this.state.apps &&

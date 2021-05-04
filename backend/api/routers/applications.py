@@ -1,6 +1,6 @@
 from typing import List
 
-from fastapi import APIRouter, Depends, status, HTTPException
+from fastapi import APIRouter, Depends, status, HTTPException, Query
 from fastapi.encoders import jsonable_encoder
 from fastapi.responses import JSONResponse
 
@@ -186,12 +186,14 @@ async def delete_application(application_id: int, account: Account = Depends(con
     }
 )
 async def get_all_applications(
-        limit: int = 10, offset: int = 0, city: str = "", order_by: str = 'to_go_when', order_type: str = 'asc'
+        limit: int = 10, offset: int = 0, application_type: List[ApplicationTypes] = Query(None),
+        city: str = "", order_by: str = 'to_go_when', order_type: str = 'asc'
 ) -> ListApplications:
     """Получение списка всех заявок."""
 
     query_params = dict(
-        limit=limit, offset=offset, city=city, order_by=order_by, order_type=order_type
+        limit=limit, offset=offset, application_type=application_type,
+        city=city, order_by=order_by, order_type=order_type
     )
     return await logic_get_all_applications(**query_params)
 
