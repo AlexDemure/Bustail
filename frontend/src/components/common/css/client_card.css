@@ -1,0 +1,101 @@
+.client_card__modal-window__bg {
+    z-index: 250;
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    height: 100vh;
+    width: 100vw;
+    background: rgba(22, 22, 22, 0.5);
+
+}
+
+.client_card__modal-window__content {
+    z-index: 251;
+    bottom: 11vh;
+    left: 0;
+    position: absolute;
+    height: 100px;
+    width: 95vw;
+    margin-left: 2.5vw;
+    overflow: hidden;
+
+    background-color: #222222;
+    border-radius: 5px;
+
+    display: grid;
+    align-items: center;
+    grid-template-columns: 1fr 50px 50px;
+    grid-template-rows: 50px 50px;
+}
+
+
+.client_card__modal-window__content .client_card__modal-window__close-btn {
+    grid-row: 1 / 2;
+    grid-column: 3 / 4;
+    justify-self: flex-end;
+
+    width: 50px;
+    height: 40px;
+    background-image: url('../../../static/icons/close.png');
+    background-size: 25px 25px;
+    background-position-x: center;
+    background-position-y: center;
+    background-repeat: no-repeat;
+}
+
+.client_card__modal-window__content .client_card__modal-window__detail {
+    font-family: "FuturaBookC";
+    font-size: 14px;
+    color: #6e6e6e;
+    margin-left: 10px;
+}
+
+.client_card__modal-window__content .client_card__modal-window__detail span {
+    font-family: "FuturaDemiC";
+    font-size: 16px;
+    color: #fbfbfb;
+}
+
+.client_card__modal-window__content .client_card__modal-window__detail.fullname {
+    grid-row: 1 / 2;
+    grid-column: 1 / 2;
+    align-self: flex-start;
+}
+
+.client_card__modal-window__content .client_card__modal-window__detail.email span {
+    color: #fba333;
+    font-size: 15px;
+}
+
+.client_card__modal-window__content .client_card__modal-window__detail.phone {
+    grid-row: 1 / 2;
+    grid-column: 2 / 3;
+    justify-self: flex-end;
+    
+    border: 1px solid #262626;
+    border-radius: 5px;
+    background-image: url("../../../static/icons/default/call.png");
+
+    background-position-x: center;
+    background-position-y: center;
+    background-repeat: no-repeat;
+    background-size: 25px 25px;
+    width: 50px;
+    height: 40px;
+}
+
+.client_card__modal-window__content .client_card__modal-window__detail.phone:hover {
+    border: 1px solid #fba333;
+    background-image: url("../../../static/icons/active/call.png");
+}
+
+.client_card__modal-window__content p[id=warning] {
+    grid-column: 1 / 4;
+
+    justify-self: center;
+    text-align: center;
+    width: 85%;
+    font-family: "FuturaBookC";
+    font-size: 14px;
+    color: #9B5E5D;
+}
