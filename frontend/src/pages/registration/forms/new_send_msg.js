@@ -53,7 +53,7 @@ export default class NewSendMessageForm extends React.Component {
                    seconds !== 0 && 
                    <CountDown setTime={this.setTime} seconds={this.state.seconds}/>
                 }
-                <SubmitButton className={this.state.seconds === 0 ? "active" : ""} value="Отправить код"/>
+                <SubmitButton className={this.state.seconds !== 0 ? "no-active" : ""} value="Отправить код"/>
             </form>
         )
     }

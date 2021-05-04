@@ -35,6 +35,7 @@ class MainFormRegistration extends React.Component {
             <form className="registration__form__create-new-user" onSubmit={this.props.onSubmit} autoComplete="off">
                 <SearchInput name="city" placeholder="Город"  options={this.state.cities}/>
                 <DefaultInput parser="lowercase" name="email" input_type="email" size="25" placeholder="Электронная почта"/>
+                <DefaultInput name="phone" input_type="phone" size="25" placeholder="Телефон"/>
                 <DefaultInput name="hashed_password" input_type="password" size="25" placeholder="Пароль"/>
                 {
                     this.props.error &&
@@ -55,6 +56,7 @@ function ConfirmEmailFormRegistration(props) {
     return (
         <React.Fragment>
             <form className="registration__form__confirm-email" onSubmit={props.onSubmit}>
+                <label>Код подтверждения отправлен вам на почту</label>
                 <DefaultInput name="code" input_type="text" size="25" placeholder="Код подтверждения"/>
                 {
                     props.error &&
@@ -89,6 +91,7 @@ export default class RegistrationForm extends React.Component {
         let prepared_data = SerializeForm(event.target, new FormData(event.target));
         let data = {
             email: prepared_data.get("email"),
+            phone: prepared_data.get("phone"),
             city: prepared_data.get("city"),
             hashed_password: prepared_data.get("hashed_password"),
 

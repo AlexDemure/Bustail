@@ -32,6 +32,7 @@ class TestAccountData:
     def get_personal_data(self) -> dict:
         return dict(
             email=self.email,
+            phone=self.phone,
             hashed_password=self.hashed_password,
             city=self.city
         )

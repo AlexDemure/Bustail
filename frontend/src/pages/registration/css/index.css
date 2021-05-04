@@ -52,3 +52,11 @@
     grid-row: 3/4;
 }
 
+.container.registration .registration__form__confirm-email label {
+    color: #535353;
+    font-size: 16px;
+    font-family: 'FuturaBookC';
+    float: left;
+    margin-left: 5px;
+    margin-bottom: 5px;
+}

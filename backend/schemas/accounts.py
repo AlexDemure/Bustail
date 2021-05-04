@@ -5,7 +5,8 @@ from backend.utils import get_cities
 
 class AccountBase(BaseModel):
     email: EmailStr
-    city: constr(min_length=1, max_length=255) = None
+    phone: constr(min_length=11, max_length=12)
+    city: constr(min_length=1, max_length=255)
 
 
 class AccountCreate(AccountBase):
@@ -20,7 +21,7 @@ class AccountCreate(AccountBase):
 
 
 class AccountUpdate(BaseModel):
-    phone: constr(min_length=11, max_length=12) = None
+    phone: constr(min_length=11, max_length=12)
     fullname: constr(min_length=1, max_length=255) = None
     city: constr(min_length=1, max_length=255)
 
@@ -35,7 +36,7 @@ class AccountUpdate(BaseModel):
 class AccountData(AccountBase):
     id: int
     fullname: constr(min_length=1, max_length=255) = None
-    phone: constr(min_length=11, max_length=12) = None
+    phone: constr(min_length=11, max_length=12)
 
 
 class ConfirmAccount(BaseModel):

@@ -64,6 +64,7 @@ class ListApplications(BaseModel):
 class HistoryApplication(BaseModel):
     transport_id: int = None
     transport_name: str = None
+    account_id: int = None
     to_go_from: constr(min_length=1, max_length=255)
     to_go_to: constr(min_length=1, max_length=255) = None
     to_go_when: date

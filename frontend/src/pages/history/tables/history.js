@@ -23,6 +23,7 @@ function HistoryTable(props) {
 
                                 return <tr>
                                             <td><a onClick={() => props.showTransportCard(item.transport_id)}>{item.transport_name}</a></td>
+                                            <td><a onClick={() => props.showClientCard(item.account_id)}>Клиент</a></td>
                                             <td>{item.to_go_from} - {item.to_go_to}</td>
                                             
                                             <td>{new_date}</td>

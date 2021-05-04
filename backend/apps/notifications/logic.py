@@ -3,6 +3,7 @@ from typing import Optional
 from structlog import get_logger
 
 from backend.apps.applications.logic import confirm_application
+from backend.apps.applications.serializer import prepare_application
 from backend.apps.drivers.logic import get_driver_by_transport_id
 from backend.apps.drivers.serializer import prepare_transport_with_photos
 from backend.apps.notifications.crud import notification as notification_crud
@@ -80,7 +81,10 @@ async def get_me_notifications(applications_id: list, transports_id: list) -> Me
 
     for row in rows:
         prepared_transport = prepare_transport_with_photos(row.transport)
+        prepared_application = prepare_application(row.application)
+
         row.transport = prepared_transport
+        row.application = prepared_application
 
     return MeNotifications(
         count_notifications=count_rows,

@@ -3,6 +3,7 @@ import React from 'react'
 import NavBar from '../../components/common/navbar'
 import Header from '../../components/common/header'
 import TransportCard from '../../components/common/transport_card'
+import ClientCard from '../../components/common/client_card'
 
 import sendRequest from '../../utils/fetch'
 
@@ -10,7 +11,7 @@ import HistoryTable from './tables/history'
 
 import './css/index.css'
 
-const table_columns = ["Транспорт", "Откуда - Куда", "Дата", "Цена", "Статус"]
+const table_columns = ["Транспорт", "Клиент", "Откуда - Куда", "Дата", "Цена", "Статус"]
 
 
 export default class HistoryPage extends React.Component {
@@ -18,15 +19,23 @@ export default class HistoryPage extends React.Component {
         super()
         this.state = {
             history: null,
-            transport_id: null
+            transport_id: null,
+            account_id: null
         }
 
         this.showTransportCard = this.showTransportCard.bind(this)
+        this.showClientCard = this.showClientCard.bind(this)
     }
 
     showTransportCard(transport_id) {
         this.setState({
             transport_id: transport_id
+        })
+    }
+
+    showClientCard(account_id) {
+        this.setState({
+            account_id: account_id
         })
     }
 
@@ -64,6 +73,14 @@ export default class HistoryPage extends React.Component {
                     />
                 }
 
+                { 
+                    this.state.account_id && 
+                    <ClientCard
+                    account_id={this.state.account_id}
+                    onClose={() => this.setState({account_id: null})}
+                    />
+                }
+
                 <Header previous_page="/main" page_name="История"/>
                 
                 <div className="container history">
@@ -72,6 +89,7 @@ export default class HistoryPage extends React.Component {
                             table_columns={table_columns}
                             table_rows={this.state.history}
                             showTransportCard={this.showTransportCard}
+                            showClientCard={this.showClientCard}
                         />
                     </div>
                 </div>

@@ -45,3 +45,9 @@
 .button__common__redirect:hover a {
     color: #222222;
 }
+
+
+.input__common__submit.no-active {
+    opacity: 0.5;
+    pointer-events: none;
+}
