@@ -12,17 +12,21 @@ body {
 
 @font-face {
   font-family: "FuturaBookC";
-  src: url("./static/fonts/FuturaBookC.woff");
+  src: url("./static/fonts/FuturaBookC.woff"), url('https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap');
+  display: swap
 }
 @font-face {
   font-family: "FuturaDemiC";
-  src: url("./static/fonts/FuturaDemiC.woff");
+  src: url("./static/fonts/FuturaDemiC.woff"), url('https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap');
+  display: swap
 }
 @font-face {
   font-family: "FuturaLightC";
-  src: url("./static/fonts/FuturaLightC.woff");
+  src: url("./static/fonts/FuturaLightC.woff"), url('https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap');
+  display: swap
 }
 @font-face {
   font-family: "FuturaMediumC";
-  src: url("./static/fonts/FuturaMediumC.woff");
+  src: url("./static/fonts/FuturaMediumC.woff"), url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
+  display: swap
 }
