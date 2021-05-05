@@ -27,7 +27,7 @@ function MainFormCreateApp(props) {
             <SearchInput name="to_go_from" placeholder="Откуда" options={props.cities}/>
             <SearchInput name="to_go_to" placeholder="Куда" options={props.cities}/>
             <InputDate name="to_go_when"/>
-            <DefaultInput name="count_seats" input_type="number" size="25" placeholder="Пассажиров"/>
+            <DefaultInput name="count_seats" maxLength={4} input_type="number" size="4" placeholder="Пассажиров"/>
             <SubmitButton value="Далее"/>
         </form>
     )
@@ -37,7 +37,7 @@ function AdditionalFormCreateApp(props) {
     return (
         <form className="create-app__form__additional" onSubmit={props.onSubmit}>
             <TextAreaInput name="description" rows="5" placeholder="Комментарий (Не обязательно)" isRequired={false}/>
-            <DefaultInput name="price" input_type="number" size="25" placeholder="Стоимость (Не обязательно)" isRequired={false}/>
+            <DefaultInput name="price" input_type="number" maxLength={7} size="7" placeholder="Стоимость (Не обязательно)" isRequired={false}/>
             <SubmitButton value="Создать"/>
         </form>
     )

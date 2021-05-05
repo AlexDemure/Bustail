@@ -27,6 +27,8 @@ function DefaultInput(props) {
         data-parse={props.parser}
         defaultValue={props.value}
         readOnly={props.readOnly || false}
+        inputmode={props.input_type === "number" ? "numeric" : null}
+        pattern={props.input_type === "number" ? "[0-9]*" : null}
         ></input>
     }
     return (
