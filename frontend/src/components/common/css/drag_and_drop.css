@@ -32,10 +32,7 @@
     opacity: 0;
 }
 
-@media screen and (min-width:361px) and (max-width:400px) {
-    
-}
-
-@media screen and (min-width:401px) and (max-width:414px) {
-    
+.drag-drop .drag-drop__drop-area img {
+    width: 100%;
+    height: 100%;
 }

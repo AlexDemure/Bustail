@@ -21,8 +21,8 @@ function DefaultInput(props) {
         name={props.name}
         type={props.input_type} 
         size={props.size}
-        minLength={props.input_type === "password" ? 6 : 1}
-        maxLength={255}
+        minLength={props.minLength || 1}
+        maxLength={props.maxLength || 255}
         placeholder={props.placeholder}
         data-parse={props.parser}
         defaultValue={props.value}

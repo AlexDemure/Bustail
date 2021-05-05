@@ -2,6 +2,7 @@ import React from 'react'
 
 import DefaultInput from '../../../components/common/inputs/default'
 import SearchInput from '../../../components/common/inputs/search_selector'
+import InputPhone from '../../../components/common/inputs/phone'
 import SubmitButton from '../../../components/common/buttons/submit_btn'
 import AuthSwitch from '../../../components/switches/auth'
 
@@ -35,7 +36,7 @@ class MainFormRegistration extends React.Component {
             <form className="registration__form__create-new-user" onSubmit={this.props.onSubmit} autoComplete="off">
                 <SearchInput name="city" placeholder="Город"  options={this.state.cities}/>
                 <DefaultInput parser="lowercase" name="email" input_type="email" size="25" placeholder="Электронная почта"/>
-                <DefaultInput name="phone" input_type="phone" size="25" placeholder="Телефон"/>
+                <InputPhone size="25"/>
                 <DefaultInput name="hashed_password" input_type="password" size="25" placeholder="Пароль"/>
                 {
                     this.props.error &&

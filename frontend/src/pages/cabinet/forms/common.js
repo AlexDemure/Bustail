@@ -2,6 +2,8 @@ import React from 'react'
 
 import DefaultInput from '../../../components/common/inputs/default'
 import SearchInput from '../../../components/common/inputs/search_selector'
+import InputPhone from '../../../components/common/inputs/phone'
+
 import SubmitButton from '../../../components/common/buttons/submit_btn'
 import NavBar from '../../../components/common/navbar'
 import Header from '../../../components/common/header'
@@ -30,7 +32,7 @@ class CommonInfoForm extends React.Component {
                     <SearchInput value={this.props.user.city} name="city" placeholder="Город" options={this.props.cities}/>
                     <DefaultInput value={this.props.user.email} name="email" input_type="email" size="25" placeholder="Почта" readOnly={true}/>
                     <DefaultInput value={this.props.user.fullname} name="fullname" input_type="text" size="25" placeholder="ФИО"/>
-                    <DefaultInput value={this.props.user.phone} name="phone" input_type="text" size="25" placeholder="Телефон"/>
+                    <InputPhone value={this.props.user.phone}/>
                     <SubmitButton value="Сохранить"/>
                 </form>
             </React.Fragment>

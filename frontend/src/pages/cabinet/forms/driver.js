@@ -33,8 +33,8 @@ class CreateDriverForm extends React.Component {
             <React.Fragment>
                 <p id="warning">Для оказания услуг перевозок водитель должен обладать лицензией перевозчика или выполнять заказы от компании.</p>
                 <form className="cabinet__driver__form__create-driver" onSubmit={this.props.createDriver} autoComplete="off">
-                    <DefaultInput name="company_name" input_type="text" size="25" placeholder="Наименование Юр.лица, ИП"/>
-                    <DefaultInput name="inn" input_type="text" size="25" placeholder="ИНН"/>
+                    <DefaultInput name="company_name" input_type="text" minLength={3} size="25" placeholder="Наименование Юр.лица, ИП"/>
+                    <DefaultInput name="inn" input_type="text" size="25" minLength={12} maxLength={12} placeholder="ИНН"/>
                     <DefaultInput name="license_number" input_type="text" size="25" placeholder="Номер лицензии"/>
                     <SubmitButton value="Создать"/>
                 </form>
