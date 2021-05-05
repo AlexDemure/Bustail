@@ -35,4 +35,5 @@
 .drag-drop .drag-drop__drop-area img {
     width: 100%;
     height: 100%;
+    position: absolute;
 }
