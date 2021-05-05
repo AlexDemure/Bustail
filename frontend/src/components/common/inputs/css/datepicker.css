@@ -30,7 +30,8 @@
 .react-datepicker__day--keyboard-selected,
 .react-datepicker__day--selected {
     background-color: #fba333 !important;
-    color: #fbfbfb !important
+    color: #fbfbfb !important;
+    border-radius: 50% !important;
 }
 
 .react-datepicker__day--disabled {
