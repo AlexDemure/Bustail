@@ -17,7 +17,7 @@ input {
     padding-left: 10px;
     
 }
-input:read-only {
+input[type=email]:read-only {
     opacity: 0.5;
 }
 

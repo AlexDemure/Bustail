@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 import DatePicker from "react-datepicker";
 
@@ -18,6 +18,11 @@ const locale = {
 
 export default function InputDate(props) {
     const [startDate, setStartDate] = useState(new Date());
+    
+    useEffect(() => {
+        const datePickers = document.getElementsByClassName("react-datepicker__input-container");
+        Array.from(datePickers).forEach((el => el.childNodes[0].setAttribute("readOnly", true)))
+      }, []);
 
     return (
         <DatePicker
