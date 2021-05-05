@@ -187,11 +187,12 @@
 }
 
 .ticket__cabinet .ticket__cabinet__status {
-    height: 20px;
-    width: 20px;
+    height: 15px;
+    width: 15px;
+    opacity: 0.5;
     position: absolute;
     border-radius: 50%;
-    margin-top: -10px;
+    margin-top: -5px;
     top: 0;
     right: 0;
 }
