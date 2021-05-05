@@ -21,7 +21,6 @@ import CreateAppPage from './pages/app/create'
 
 import './index.css'
 
-import DragAndDrop from './components/common/drag_and_drop'
 
 ReactDOM.render(
   <Router>
@@ -44,20 +43,12 @@ ReactDOM.render(
           <Route path="/history" component={HistoryPage} />
           <Route path="/notifications" component={NotificationPage} />
           <Route path="/cabinet" component={CabinetPage} />
-          <Route path="/test" component={Test} />
 
       </Switch>
   </Router>,
   document.getElementById('root')
 );
 
-function Test() {
-  const [file, saveFile] = useState(false)
-
-  return (
-      <DragAndDrop saveFile={saveFile}/>
-  )
-}
 
 // #181818 ФОН
 // #222222 ДИВ + БАТТОНС
