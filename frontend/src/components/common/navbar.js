@@ -17,9 +17,9 @@ class NavBar extends React.Component {
     async componentDidUpdate(prevProps, prevState) {
         if (prevProps.count_notifications !== this.props.count_notifications) {
             let notifications = await getMeNotifications()
-
+            
             this.setState({
-                count_notifications: notifications.count_notifications
+                count_notifications: notifications ? notifications.count_notifications : 0
             })
         }
     }
@@ -34,7 +34,7 @@ class NavBar extends React.Component {
         let notifications = await getMeNotifications()
 
         this.setState({
-            count_notifications: notifications.count_notifications
+            count_notifications: notifications ? notifications.count_notifications : 0
         })
 
     }

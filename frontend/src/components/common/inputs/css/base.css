@@ -53,11 +53,6 @@ input {
     background-repeat: no-repeat;
 }
 
-input[type="date"]::-webkit-calendar-picker-indicator,
-input[type="date"]::-webkit-inner-spin-button{
-    display: none;
-}
-
 
 .input__common.email {
     background-image: url("../../../../static/icons/email.png");

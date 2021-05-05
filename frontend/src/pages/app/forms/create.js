@@ -3,6 +3,8 @@ import React from 'react'
 import Notify from '../../../components/common/notify'
 import DefaultInput from '../../../components/common/inputs/default'
 import SearchInput from '../../../components/common/inputs/search_selector'
+import InputDate from '../../../components/common/inputs/datepicker'
+
 import TextAreaInput from '../../../components/common/inputs/textarea'
 import SubmitButton from '../../../components/common/buttons/submit_btn'
 import NavBar from '../../../components/common/navbar'
@@ -24,7 +26,7 @@ function MainFormCreateApp(props) {
             <SearchInput name="application_type" placeholder="Тип услуги" options={props.app_types}/>
             <SearchInput name="to_go_from" placeholder="Откуда" options={props.cities}/>
             <SearchInput name="to_go_to" placeholder="Куда" options={props.cities}/>
-            <DefaultInput name="to_go_when" input_type="date" size="25" placeholder="Дата поездки (дд.мм.гггг)"/>
+            <InputDate name="to_go_when"/>
             <DefaultInput name="count_seats" input_type="number" size="25" placeholder="Пассажиров"/>
             <SubmitButton value="Далее"/>
         </form>
