@@ -34,6 +34,7 @@ export default function InputDate(props) {
           name={props.name}
           locale={locale}
           minDate={new Date()}
+          withPortal
         />
       );
 }
