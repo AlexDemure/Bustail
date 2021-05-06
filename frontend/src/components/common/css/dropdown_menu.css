@@ -128,3 +128,43 @@
         font-size: 32px;
     }
 }
+
+/* ADAPTIVE 600 */
+@media screen and (min-width:599px) and (max-width:602px) {
+    .dropdown-menu .dropdown-menu__contacts a,
+    .dropdown-menu .dropdown-menu__contacts p {
+        font-size: 24px;
+    }
+
+    .dropdown-menu .dropdown-menu__contacts a span,
+    .dropdown-menu .dropdown-menu__contacts p span {
+        font-size: 26px;
+    }
+
+    .dropdown-menu .dropdown-menu__list ul li a {
+        font-size: 32px;
+    }
+    .dropdown-menu .dropdown-menu__list ul li a:hover {
+        font-size: 36px;
+    }
+}
+
+/* ADAPTIVE 768-800 */
+@media screen and (min-width:767px) and (max-width:801px) {
+    .dropdown-menu .dropdown-menu__contacts a,
+    .dropdown-menu .dropdown-menu__contacts p {
+        font-size: 28px;
+    }
+
+    .dropdown-menu .dropdown-menu__contacts a span,
+    .dropdown-menu .dropdown-menu__contacts p span {
+        font-size: 30px;
+    }
+
+    .dropdown-menu .dropdown-menu__list ul li a {
+        font-size: 36px;
+    }
+    .dropdown-menu .dropdown-menu__list ul li a:hover {
+        font-size: 40px;
+    }
+}

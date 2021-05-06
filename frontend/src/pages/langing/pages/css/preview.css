@@ -1,0 +1,173 @@
+.container.landing .preview {
+    grid-template-rows: 25% 45% 30%;
+    text-align: center;
+}
+
+
+.container.landing .preview .preview__title {
+    grid-row: 1 / 2;
+    align-self: flex-end;
+}
+
+.container.landing .preview .preview__title p {
+    margin: 0;
+    padding: 0;
+}
+
+.container.landing .preview .preview__title #name {
+    font-size: 32px;
+    color: #fbfbfb;
+    font-family: "FuturaDemiC";
+}
+
+.container.landing .preview .preview__title #description {
+    font-size: 18px;
+    color: #fba333;
+    font-family: "FuturaDemiC";
+}
+
+.container.landing .preview .preview__btns {
+    margin-top: 10px;
+    justify-self: center;
+    align-self: flex-start;
+
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    justify-content: center;
+}
+
+.container.landing .preview .preview__btns div {
+    height: 120px;
+    width: 130px;
+    margin: 5px;
+
+    border: 2px solid #262626;
+    border-radius: 10px;
+
+    color: #535353;
+    font-family: "FuturaDemiC";
+    font-size: 13px;
+
+    background-position: center 30px;
+    background-repeat: no-repeat;
+    background-size: 60px;
+}
+
+.container.landing .preview .preview__btns div p {
+    margin-top: 90px;
+}
+
+.container.landing .preview .preview__btns div:hover {
+    color: #fba333;
+    border: 2px solid #fba333;
+}
+
+.container.landing .preview .preview__btns #login-btn {
+    background-image: url("../../../../static/icons/default/pc.png");    
+}
+.container.landing .preview .preview__btns #login-btn:hover {
+    background-image: url("../../../../static/icons/active/pc.png");    
+}
+
+.container.landing .preview .preview__btns #pwa-btn {
+    background-image: url("../../../../static/icons/default/pwa.png");
+    background-position: center 40px;    
+}
+
+.container.landing .preview .preview__btns #pwa-btn:hover {
+    background-image: url("../../../../static/icons/active/pwa.png");    
+}
+
+
+/* COMBINE 375-414 */
+@media screen and (min-width:361px) and (max-width:414px){
+    .container.landing .preview {
+        grid-template-rows: 20% 50% 30%;
+    }
+ }
+
+/* ADAPTIVE 375px */
+@media screen and (min-width:361px) and (max-width:400px){
+    .container.landing .preview .preview__title #name {
+        font-size: 34px;
+    }
+    
+    .container.landing .preview .preview__title #description {
+        font-size: 20px;
+    }
+
+    .container.landing .preview .preview__btns div {
+        height: 140px;
+        width: 140px;
+    
+        font-size: 14px;
+    
+        background-position: center 40px;
+        background-repeat: no-repeat;
+        background-size: 70px;
+    }
+    
+    .container.landing .preview .preview__btns div p {
+        margin-top: 100px;
+    }
+ }
+
+ /* ADAPTIVE 414px */
+ @media screen and (min-width:401px) and (max-width:414px){
+    .container.landing .preview .preview__title #name {
+        font-size: 36px; 
+    }
+    
+    .container.landing .preview .preview__title #description {
+        font-size: 22px;
+    }
+
+    .container.landing .preview .preview__btns div {
+        height: 150px;
+        width: 150px;
+    
+        font-size: 15px;
+    
+        background-position: center 40px;
+        background-repeat: no-repeat;
+        background-size: 80px;
+    }
+    
+    .container.landing .preview .preview__btns div p {
+        margin-top: 110px;
+    }
+
+    .container.landing .preview .preview__btns #pwa-btn {
+        background-position: center 50px;
+    }
+ }
+
+  /* ADAPTIVE 768-800 */
+ @media screen and (min-width:767px) and (max-width:801px) {
+    .container.landing .preview .preview__title #name {
+        font-size: 54px; 
+    }
+    
+    .container.landing .preview .preview__title #description {
+        font-size: 30px;
+    }
+
+    .container.landing .preview .preview__btns div {
+        height: 200px;
+        width: 200px;
+    
+        font-size: 20px;
+    
+        background-position: center 50px;
+        background-repeat: no-repeat;
+        background-size: 100px;
+    }
+    
+    .container.landing .preview .preview__btns div p {
+        margin-top: 150px;
+    }
+
+    .container.landing .preview .preview__btns #pwa-btn {
+        background-position: center 70px;
+    }
+ }

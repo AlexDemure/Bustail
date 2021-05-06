@@ -1,0 +1,95 @@
+.container.landing {
+    padding: 0;
+    margin: 0;
+    height: 90vh;
+    width: 100%;
+    display: grid;
+    grid-template-rows: 90vh;
+    overflow: hidden;
+}
+
+.container.landing .page {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 90vh;
+    margin: 0;
+    padding: 0;
+
+    display: grid;
+    justify-content: center;
+    align-content: center;
+}
+
+
+.container.landing .page .footer {
+    align-self: center;
+    margin-bottom: 50px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+
+    color: #fba333;
+    font-family: "FuturaDemiC";
+    font-size: 14px;
+}
+
+.container.landing .page .footer #preview-btn {
+    grid-column: 3 / 4;
+    align-self: center;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    justify-self: flex-end;
+
+    border: 2px solid #fba333;
+    border-radius: 50%;
+    height: 40px;
+    width: 40px;
+    background-image: url('../../../../static/icons/arrow_up.png');
+    background-size: 25px 25px;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+
+.container.landing .page .footer #about-btn {
+    grid-column: 2 / 3;
+}
+
+.container.landing .preview.page .footer #contacts-btn {
+    grid-column: 3 / 4;
+}
+
+.container.landing .about.page .footer #faq-btn,
+.container.landing .faq.page .footer #contacts-btn {
+    grid-column: 2 / 3;
+    align-self: center;
+    justify-self: center;
+}
+
+
+/* ADAPTIVE 375px */
+@media screen and (min-width:361px) and (max-width:400px){
+    .container.landing .page .footer {
+        font-size: 15px;
+    }
+}
+
+ /* ADAPTIVE 414px */
+ @media screen and (min-width:401px) and (max-width:414px){
+    .container.landing .page .footer {
+        font-size: 16px;
+    }
+ }
+
+/* ADAPTIVE 600 */
+@media screen and (min-width:599px) and (max-width:602px) {
+    .container.landing .page .footer {
+        font-size: 18px;
+    }
+}
+/* ADAPTIVE 768-800 */
+@media screen and (min-width:767px) and (max-width:801px) {
+    .container.landing .page .footer {
+        font-size: 24px;
+    }
+}
