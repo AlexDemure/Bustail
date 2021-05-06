@@ -79,18 +79,11 @@
     .container.landing .page .footer {
         font-size: 16px;
     }
- }
-
-/* ADAPTIVE 600 */
-@media screen and (min-device-width:599px) and (max-device-width:602px) {
-    .container.landing .page .footer {
-        font-size: 18px;
-    }
 }
 
 
   /* ADAPTIVE 800 Galaxy Tab S*/
-@media (max-device-width: 800px) and (orientation: portrait)
+@media (min-device-width: 767px) and (max-device-width: 800px) and (orientation: portrait)
 and (-webkit-min-device-pixel-ratio: 2) {
     .container.landing .page .footer {
         font-size: 24px;
@@ -98,7 +91,7 @@ and (-webkit-min-device-pixel-ratio: 2) {
 }
 
  /* ADAPTIVE 800 Galaxy Tab 2*/
- @media (max-device-width: 800px) and (orientation: portrait) {
+ @media (min-device-width: 767px) and (max-device-width: 800px) and (orientation: portrait) {
     .container.landing .page .footer {
         font-size: 24px;
     }

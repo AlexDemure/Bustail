@@ -143,7 +143,7 @@
  }
 
   /* ADAPTIVE 800 Galaxy Tab S*/
-  @media (max-device-width: 800px) and (orientation: portrait)
+  @media (min-device-width: 767px) and (max-device-width: 800px) and (orientation: portrait)
     and (-webkit-min-device-pixel-ratio: 2) { 
     .container.landing .preview .preview__title #name {
         font-size: 54px; 
@@ -174,7 +174,7 @@
  }
 
  /* ADAPTIVE 800 Galaxy Tab 2*/
- @media (max-device-width: 800px) and (orientation: portrait) {
+ @media (min-device-width: 767px) and (max-device-width: 800px) and (orientation: portrait) {
     .container.landing .preview .preview__title #name {
         font-size: 54px; 
     }
