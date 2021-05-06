@@ -13,8 +13,6 @@ COPY . /app
 
 EXPOSE 3000
 
-CMD ["killall", "-9", "node"]
-
 RUN npm run build
 
 # Запуск сервера на 3000 порту.
