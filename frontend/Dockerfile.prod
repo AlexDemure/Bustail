@@ -13,9 +13,9 @@ COPY . /app
 
 EXPOSE 3000
 
-RUN npm run build
-
 CMD ["killall", "-9", "node"]
+
+RUN npm run build
 
 # Запуск сервера на 3000 порту.
 CMD ["serve", "-s", "build", "-l", "3000"]
