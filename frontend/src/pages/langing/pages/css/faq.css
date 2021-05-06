@@ -133,7 +133,7 @@
     }
 }
 
-@media (min-device-width: 641px) and (max-device-width: 1024px) 
+@media (min-width: 641px) and (max-width: 1024px) 
 and (orientation: portrait) {
     .container.landing .faq {
         height: 75vh;
@@ -156,7 +156,7 @@ and (orientation: portrait) {
 }
 
 
-@media (min-device-width: 1024px) and (max-device-width: 1535px) {
+@media (min-width: 1024px) and (max-width: 1535px) {
     .container.landing .faq {
         height: 75vh;
         width: 80%;
@@ -179,7 +179,7 @@ and (orientation: portrait) {
 }
 
   /* ADAPTIVE 1536px and more */
-  @media (min-device-width: 1536px) {
+  @media (min-width: 1536px) {
     .container.landing .faq {
         height: 80vh;
         width: 70%;

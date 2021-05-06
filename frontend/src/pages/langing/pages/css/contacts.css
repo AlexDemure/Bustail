@@ -74,7 +74,7 @@
     }
 }
 
-@media (min-device-width: 641px) and (max-device-width: 1024px) 
+@media (min-width: 641px) and (max-width: 1024px) 
 and (orientation: portrait) {
     .container.landing .contacts .contacts__title p,
     .container.landing .contacts .contacts__title a {
@@ -89,7 +89,7 @@ and (orientation: portrait) {
     }
 }
 
-@media (min-device-width: 1024px) and (max-device-width: 1535px) {
+@media (min-width: 1024px) and (max-width: 1535px) {
     .container.landing .contacts .contacts__title p,
     .container.landing .contacts .contacts__title a {
         font-size: 28px;
@@ -104,7 +104,7 @@ and (orientation: portrait) {
 }
 
    /* ADAPTIVE 1536px and more */
-@media (min-device-width: 1536px) {
+@media (min-width: 1536px) {
     .container.landing .contacts .contacts__title p,
     .container.landing .contacts .contacts__title a {
         font-size: 30px;

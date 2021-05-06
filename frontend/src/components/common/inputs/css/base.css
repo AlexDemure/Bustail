@@ -83,11 +83,12 @@ input[name=phone] {
 }
 
 
-@media (min-device-width: 641px) and (max-device-width: 1024px) 
+@media (min-width: 641px) and (max-width: 1024px) 
 and (orientation: portrait) {
     input {
         background-size: 30px 30px;
         height: 70px;
+        font-size: 20px;
     }
     textarea {
         height: 160px;
@@ -100,10 +101,11 @@ and (orientation: portrait) {
     }
 }
 
-@media (min-device-width: 1024px) and (max-device-width: 1535px) {
+@media (min-width: 1024px) and (max-width: 1535px) {
     input {
         background-size: 40px 40px;
         height: 80px;
+        font-size: 22px;
     }
     textarea {
         height: 170px;
@@ -116,10 +118,11 @@ and (orientation: portrait) {
     }
 }
 
-@media (min-device-width: 1536px) {
+@media (min-width: 1536px) {
     input {
         background-size: 45px 45px;
         height: 100px;
+        font-size: 24px;
     }
     textarea {
         height: 200px;

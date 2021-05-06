@@ -81,7 +81,7 @@
 
 
 /* ADAPTIVE 375px */
-@media screen and (min-device-width:361px) and (max-device-width:400px){
+@media screen and (min-width:361px) and (max-width:400px){
     .container.landing .preview .preview__title #name {
         font-size: 34px;
     }
@@ -107,7 +107,7 @@
  }
 
  /* ADAPTIVE 414-600px */
- @media screen and (min-device-width:401px) and (max-device-width: 640px){
+ @media screen and (min-width:401px) and (max-width: 640px){
     .container.landing .preview .preview__title #name {
         font-size: 36px; 
     }
@@ -137,7 +137,7 @@
  }
 
  /* ADAPTIVE 768-801-1024px */
- @media (min-device-width: 641px) and (max-device-width: 1024px) 
+ @media (min-width: 641px) and (max-width: 1024px) 
  and (orientation: portrait) {
     .container.landing .preview .preview__title #name {
         font-size: 40px; 
@@ -149,7 +149,7 @@
  }
 
   /* ADAPTIVE 1024,1280,1337,1440px */
- @media (min-device-width: 1024px) and (max-device-width: 1535px) {
+ @media (min-width: 1024px) and (max-width: 1535px) {
     .container.landing .preview .preview__title #name {
         font-size: 48px; 
     }
@@ -160,7 +160,7 @@
  }
 
   /* ADAPTIVE 1536px and more */
- @media (min-device-width: 1536px) {
+ @media (min-width: 1536px) {
     .container.landing .preview .preview__title #name {
         font-size: 54px; 
     }
@@ -171,7 +171,7 @@
  }
 
 
- @media (min-device-width: 641px) {
+ @media (min-width: 641px) {
     .container.landing .preview .preview__btns div {
         height: 180px;
         width: 180px;

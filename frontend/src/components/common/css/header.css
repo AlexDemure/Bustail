@@ -52,7 +52,7 @@ header .header__common__page-name {
 }
 
 
-@media (min-device-width: 641px) and (max-device-width: 1024px) 
+@media (min-width: 641px) and (max-width: 1024px) 
 and (orientation: portrait) {
     header .header__common__page-name {
         font-size: 28px;
@@ -64,7 +64,7 @@ and (orientation: portrait) {
 }
 
 /* ADAPTIVE 1280,1337,1440px */
-@media (min-device-width: 1024px) and (max-device-width: 1535px) {
+@media (min-width: 1024px) and (max-width: 1535px) {
     header .header__common__page-name {
         font-size: 30px;
     }
@@ -75,7 +75,7 @@ and (orientation: portrait) {
 }
 
 /* ADAPTIVE 1536px and more */
-@media (min-device-width: 1536px) {
+@media (min-width: 1536px) {
     header .header__common__page-name {
         font-size: 32px;
     }
