@@ -1,6 +1,8 @@
 /* ABOUT PAGE */
 .container.landing .about {
     grid-template-rows: auto 1fr;
+
+    height: 70vh;
 }
 
 .container.landing .about p {
@@ -81,6 +83,9 @@
 
 @media (min-device-width: 600px) and (max-device-width: 800px) 
 and (orientation: portrait) {
+    .container.landing .about {
+        height: 80vh;
+    }
     .container.landing .about .about__title #header {
         font-size: 44px;
     }

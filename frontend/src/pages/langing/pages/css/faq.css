@@ -5,6 +5,8 @@
     overflow-x: hidden;
     
     grid-template-rows: auto 1fr;
+
+    height: 70vh;
 }
 
 .container.landing .faq p {
@@ -123,6 +125,10 @@
 
 @media (min-device-width: 600px) and (max-device-width: 800px) 
 and (orientation: portrait) {
+    .container.landing .faq {
+        height: 80vh;
+    }
+
     .container.landing .faq .faq__title #header {
         font-size: 44px;
     }
