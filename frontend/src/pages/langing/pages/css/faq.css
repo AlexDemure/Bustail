@@ -3,12 +3,10 @@
 .container.landing .faq {
     overflow-y: scroll;
     overflow-x: hidden;
-    display: grid;
-    grid-template-rows: 27% 58% 15%;
-    justify-content: center;
-    align-content: center;
     
+    grid-template-rows: auto 1fr;
 }
+
 .container.landing .faq p {
     margin: 0;
     padding: 0;
@@ -120,5 +118,22 @@
     }
     .container.landing .faq .faq__questions .faq__panel p {
         font-size: 20px;
+    }
+}
+
+@media (min-device-width: 600px) and (max-device-width: 800px) 
+and (orientation: portrait) {
+    .container.landing .faq .faq__title #header {
+        font-size: 44px;
+    }
+    .container.landing .faq .faq__title #info {
+        font-size: 28px;
+    }
+    .container.landing .faq .faq__questions .faq__accordion {
+        margin-top: 15px;
+        font-size: 24px;
+    }
+    .container.landing .faq .faq__questions .faq__panel p {
+        font-size: 24px;
     }
 }

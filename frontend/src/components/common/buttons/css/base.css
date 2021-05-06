@@ -51,23 +51,3 @@
     opacity: 0.5;
     pointer-events: none;
 }
-
-
-/* ADAPTIVE 768-800 */
-@media screen and (min-width:767px) and (max-width:801px) {
-    .button__common__redirect,
-    .input__common__submit {
-        height: 80px;
-        width: 250px;
-    }
-
-    .input__common__submit {
-        font-family: 'FuturaBookC';
-        font-size: 28px; 
-    }
-
-    .input__common__submit,
-    .button__common__redirect a {
-        font-size: 32px; 
-    }
-}

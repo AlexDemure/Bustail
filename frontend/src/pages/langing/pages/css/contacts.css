@@ -1,10 +1,8 @@
 
 /* CONTACTS PAGE */
 .container.landing .contacts {
-    display: grid;
-    grid-template-rows: 12% 68% 15%;
+    grid-template-rows: 15% 85%;
     justify-content: center;
-    align-content: center;
 }
 
 .container.landing .contacts p,
@@ -13,7 +11,7 @@
     padding: 0;
 }
 .container.landing .contacts .contacts__title {
-    align-self: flex-start;
+    align-self: flex-end;
     margin-left: 10px;
 }
 
@@ -73,5 +71,20 @@
     }
     .container.landing .contacts .contacts__notify p {
         font-size: 22px;
+    }
+}
+
+@media (min-device-width: 600px) and (max-device-width: 800px) 
+and (orientation: portrait) {
+    .container.landing .contacts .contacts__title p,
+    .container.landing .contacts .contacts__title a {
+        font-size: 24px;
+    }
+    .container.landing .contacts .contacts__title p span,
+    .container.landing .contacts .contacts__title a span {
+        font-size: 26px;
+    }
+    .container.landing .contacts .contacts__notify p {
+        font-size: 26px;
     }
 }

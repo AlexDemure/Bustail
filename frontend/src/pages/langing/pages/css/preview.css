@@ -1,5 +1,5 @@
 .container.landing .preview {
-    grid-template-rows: 25% 45% 30%;
+    grid-template-rows: 25% 50%;
     text-align: center;
 }
 
