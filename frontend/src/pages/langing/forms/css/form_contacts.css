@@ -57,6 +57,6 @@ and (orientation: portrait) {
         font-size: 24px;
     }
     .container.landing .contacts .contacts__form__feedback {
-        width: 55%;
+        width: 50%;
     }
  }
