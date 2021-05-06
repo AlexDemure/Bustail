@@ -7,7 +7,7 @@ WORKDIR /app
 # RUN npm install
 
 # Устнановка сервера
-# RUN npm install -g serve
+RUN npm install -g serve
 
 COPY . /app
 
