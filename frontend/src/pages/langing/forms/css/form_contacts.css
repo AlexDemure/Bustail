@@ -5,6 +5,8 @@
     width: 80%;
 
     justify-self: center;
+    align-self: center;
+    grid-row: 1 / 2;
 }
 
 .container.landing .contacts .contacts__form__feedback input, 
@@ -28,9 +30,33 @@
     color: #6e6e6e;
 }
 
-@media (min-device-width: 600px) and (max-device-width: 800px) 
+@media (min-device-width: 641px) and (max-device-width: 1024px) 
 and (orientation: portrait) {
     .container.landing .contacts .contacts__form__feedback p {
         font-size: 20px;
     }
+    .container.landing .contacts .contacts__form__feedback {
+        width: 70%;
+    }
 }
+
+  /* ADAPTIVE 1280,1337,1440px */
+  @media (min-device-width: 1024px) and (max-device-width: 1535px) {
+    .container.landing .contacts .contacts__form__feedback p {
+        font-size: 22px;
+    }
+    .container.landing .contacts .contacts__form__feedback {
+        width: 60%;
+    }
+  }
+
+
+   /* ADAPTIVE 1536px and more */
+ @media (min-device-width: 1536px) {
+    .container.landing .contacts .contacts__form__feedback p {
+        font-size: 24px;
+    }
+    .container.landing .contacts .contacts__form__feedback {
+        width: 50%;
+    }
+ }

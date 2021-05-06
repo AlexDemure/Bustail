@@ -51,3 +51,44 @@
     opacity: 0.5;
     pointer-events: none;
 }
+
+
+ /* ADAPTIVE 768-801-1024px */
+ @media (min-device-width: 641px) and (max-device-width: 1024px) {
+    .button__common__redirect,
+    .input__common__submit {
+        height: 60px;
+        width: 180px;
+    }
+    .input__common__submit,
+    .button__common__redirect a {
+        font-size: 20px;
+    }
+
+}
+
+  /* ADAPTIVE 1280,1337,1440px */
+@media (min-device-width: 1024px) and (max-device-width: 1535px) {
+    .button__common__redirect,
+    .input__common__submit {
+        height: 75px;
+        width: 200px;
+    }
+    .input__common__submit,
+    .button__common__redirect a {
+        font-size: 22px;
+    }
+}
+
+  /* ADAPTIVE 1536px and more */
+ @media (min-device-width: 1536px) {
+    .button__common__redirect,
+    .input__common__submit {
+        height: 75px;
+        width: 200px;
+    }
+    .input__common__submit,
+    .button__common__redirect a {
+        font-size: 24px;
+    }
+ }

@@ -1,6 +1,7 @@
 .container.landing .preview {
-    grid-template-rows: 25% 50%;
+    grid-template-rows: 15% 50%;
     text-align: center;
+    align-content: center;
 }
 
 
@@ -105,8 +106,8 @@
     }
  }
 
- /* ADAPTIVE 414px */
- @media screen and (min-device-width:401px) and (max-device-width:414px){
+ /* ADAPTIVE 414-600px */
+ @media screen and (min-device-width:401px) and (max-device-width: 640px){
     .container.landing .preview .preview__title #name {
         font-size: 36px; 
     }
@@ -135,8 +136,8 @@
     }
  }
 
-
- @media (min-device-width: 600px) and (max-device-width: 800px) 
+ /* ADAPTIVE 768-801-1024px */
+ @media (min-device-width: 641px) and (max-device-width: 1024px) 
  and (orientation: portrait) {
     .container.landing .preview .preview__title #name {
         font-size: 40px; 
@@ -145,7 +146,32 @@
     .container.landing .preview .preview__title #description {
         font-size: 24px;
     }
+ }
 
+  /* ADAPTIVE 1024,1280,1337,1440px */
+ @media (min-device-width: 1024px) and (max-device-width: 1535px) {
+    .container.landing .preview .preview__title #name {
+        font-size: 48px; 
+    }
+    
+    .container.landing .preview .preview__title #description {
+        font-size: 26px;
+    }
+ }
+
+  /* ADAPTIVE 1536px and more */
+ @media (min-device-width: 1536px) {
+    .container.landing .preview .preview__title #name {
+        font-size: 54px; 
+    }
+    
+    .container.landing .preview .preview__title #description {
+        font-size: 28px;
+    }
+ }
+
+
+ @media (min-device-width: 641px) {
     .container.landing .preview .preview__btns div {
         height: 180px;
         width: 180px;
@@ -156,7 +182,7 @@
         background-repeat: no-repeat;
         background-size: 80px;
     }
-    
+
     .container.landing .preview .preview__btns div p {
         margin-top: 140px;
     }

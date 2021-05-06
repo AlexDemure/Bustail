@@ -45,14 +45,14 @@ header .header__common__page-name {
     }
 }
 
-@media screen and (min-width:401px) and (max-width:414px) {
+@media screen and (min-width:401px) and (max-width:640px) {
     header .header__common__page-name {
         font-size: 24px;
     }
 }
 
 
-@media (min-device-width: 600px) and (max-device-width: 800px) 
+@media (min-device-width: 641px) and (max-device-width: 1024px) 
 and (orientation: portrait) {
     header .header__common__page-name {
         font-size: 28px;
@@ -62,3 +62,25 @@ and (orientation: portrait) {
         background-size: 30px 30px;
     }
 }
+
+/* ADAPTIVE 1280,1337,1440px */
+@media (min-device-width: 1024px) and (max-device-width: 1535px) {
+    header .header__common__page-name {
+        font-size: 30px;
+    }
+    header .header__common__previous-page,
+    header .header__common__dropdown-btn {
+        background-size: 40px 40px;
+    }
+}
+
+/* ADAPTIVE 1536px and more */
+@media (min-device-width: 1536px) {
+    header .header__common__page-name {
+        font-size: 32px;
+    }
+    header .header__common__previous-page,
+    header .header__common__dropdown-btn {
+        background-size: 45px 45px;
+    }
+ }

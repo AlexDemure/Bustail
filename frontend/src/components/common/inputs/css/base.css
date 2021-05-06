@@ -81,3 +81,53 @@ input[name=price] {
 input[name=phone] {
     background-image: url("../../../../static/icons/default/call.png");
 }
+
+
+@media (min-device-width: 641px) and (max-device-width: 1024px) 
+and (orientation: portrait) {
+    input {
+        background-size: 30px 30px;
+        height: 70px;
+    }
+    textarea {
+        height: 160px;
+    }
+    input::placeholder {
+        font-size: 20px;
+    }
+    textarea::placeholder {
+        font-size: 20px;
+    }
+}
+
+@media (min-device-width: 1024px) and (max-device-width: 1535px) {
+    input {
+        background-size: 40px 40px;
+        height: 80px;
+    }
+    textarea {
+        height: 170px;
+    }
+    input::placeholder {
+        font-size: 22px;
+    }
+    textarea::placeholder {
+        font-size: 22px;
+    }
+}
+
+@media (min-device-width: 1536px) {
+    input {
+        background-size: 45px 45px;
+        height: 100px;
+    }
+    textarea {
+        height: 200px;
+    }
+    input::placeholder {
+        font-size: 24px;
+    }
+    textarea::placeholder {
+        font-size: 24px;
+    }
+}

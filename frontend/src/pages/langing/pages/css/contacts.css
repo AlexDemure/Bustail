@@ -1,7 +1,7 @@
 
 /* CONTACTS PAGE */
 .container.landing .contacts {
-    grid-template-rows: 15% 85%;
+    grid-template-rows: 85% 15%;
     justify-content: center;
 }
 
@@ -60,7 +60,7 @@
     }
 }
 
-@media screen and (min-width:401px) and (max-width:414px) {
+@media screen and (min-width:401px) and (max-width:640px) {
     .container.landing .contacts .contacts__title p,
     .container.landing .contacts .contacts__title a {
         font-size: 20px;
@@ -74,7 +74,7 @@
     }
 }
 
-@media (min-device-width: 600px) and (max-device-width: 800px) 
+@media (min-device-width: 641px) and (max-device-width: 1024px) 
 and (orientation: portrait) {
     .container.landing .contacts .contacts__title p,
     .container.landing .contacts .contacts__title a {
@@ -86,5 +86,34 @@ and (orientation: portrait) {
     }
     .container.landing .contacts .contacts__notify p {
         font-size: 26px;
+    }
+}
+
+@media (min-device-width: 1024px) and (max-device-width: 1535px) {
+    .container.landing .contacts .contacts__title p,
+    .container.landing .contacts .contacts__title a {
+        font-size: 28px;
+    }
+    .container.landing .contacts .contacts__title p span,
+    .container.landing .contacts .contacts__title a span {
+        font-size: 30px;
+    }
+    .container.landing .contacts .contacts__notify p {
+        font-size: 30px;
+    }
+}
+
+   /* ADAPTIVE 1536px and more */
+@media (min-device-width: 1536px) {
+    .container.landing .contacts .contacts__title p,
+    .container.landing .contacts .contacts__title a {
+        font-size: 30px;
+    }
+    .container.landing .contacts .contacts__title p span,
+    .container.landing .contacts .contacts__title a span {
+        font-size: 32px;
+    }
+    .container.landing .contacts .contacts__notify p {
+        font-size: 32px;
     }
 }
