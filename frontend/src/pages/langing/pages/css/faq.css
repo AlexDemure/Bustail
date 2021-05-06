@@ -34,7 +34,7 @@
     -webkit-overflow-scrolling: touch;
 }
 
-.container.landing .faq .faq__questions:-webkit-scrollbar {
+.container.landing .faq .faq__questions::-webkit-scrollbar {
     display: none;
 }
 

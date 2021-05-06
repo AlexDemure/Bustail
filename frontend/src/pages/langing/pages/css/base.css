@@ -22,7 +22,7 @@
     align-content: flex-start;
 }
 
-.container.landing .page:-webkit-scrollbar {
+.container.landing .page::-webkit-scrollbar {
     display: none;
 }
 
