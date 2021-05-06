@@ -68,27 +68,37 @@
 
 
 /* ADAPTIVE 375px */
-@media only screen and (min-device-width:361px) and (max-device-width:400px){
+@media screen and (min-device-width:361px) and (max-device-width:400px){
     .container.landing .page .footer {
         font-size: 15px;
     }
 }
 
  /* ADAPTIVE 414px */
- @media only screen and (min-device-width:401px) and (max-device-width:414px){
+ @media screen and (min-device-width:401px) and (max-device-width:414px){
     .container.landing .page .footer {
         font-size: 16px;
     }
  }
 
 /* ADAPTIVE 600 */
-@media only screen and (min-device-width:599px) and (max-device-width:602px) {
+@media screen and (min-device-width:599px) and (max-device-width:602px) {
     .container.landing .page .footer {
         font-size: 18px;
     }
 }
-/* ADAPTIVE 768-800 */
-@media only screen and (min-device-width:767px) and (max-device-width:801px) {
+
+
+  /* ADAPTIVE 800 Galaxy Tab S*/
+@media (max-device-width: 800px) and (orientation: portrait)
+and (-webkit-min-device-pixel-ratio: 2) {
+    .container.landing .page .footer {
+        font-size: 24px;
+    }
+}
+
+ /* ADAPTIVE 800 Galaxy Tab 2*/
+ @media (max-device-width: 800px) and (orientation: portrait) {
     .container.landing .page .footer {
         font-size: 24px;
     }

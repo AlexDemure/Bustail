@@ -80,14 +80,14 @@
 
 
 /* COMBINE 375-414 */
-@media only screen and (min-device-width:361px) and (max-device-width:414px){
+@media screen and (min-device-width:361px) and (max-device-width:414px){
     .container.landing .preview {
         grid-template-rows: 20% 50% 30%;
     }
  }
 
 /* ADAPTIVE 375px */
-@media only screen and (min-device-width:361px) and (max-device-width:400px){
+@media screen and (min-device-width:361px) and (max-device-width:400px){
     .container.landing .preview .preview__title #name {
         font-size: 34px;
     }
@@ -113,7 +113,7 @@
  }
 
  /* ADAPTIVE 414px */
- @media only screen and (min-device-width:401px) and (max-device-width:414px){
+ @media screen and (min-device-width:401px) and (max-device-width:414px){
     .container.landing .preview .preview__title #name {
         font-size: 36px; 
     }
@@ -142,8 +142,39 @@
     }
  }
 
-  /* ADAPTIVE 768-800 */
-  @media only screen and (min-device-width: 768px) and (max-device-width: 801px) {
+  /* ADAPTIVE 800 Galaxy Tab S*/
+  @media (max-device-width: 800px) and (orientation: portrait)
+    and (-webkit-min-device-pixel-ratio: 2) { 
+    .container.landing .preview .preview__title #name {
+        font-size: 54px; 
+    }
+    
+    .container.landing .preview .preview__title #description {
+        font-size: 30px;
+    }
+
+    .container.landing .preview .preview__btns div {
+        height: 200px;
+        width: 200px;
+    
+        font-size: 20px;
+    
+        background-position: center 50px;
+        background-repeat: no-repeat;
+        background-size: 100px;
+    }
+    
+    .container.landing .preview .preview__btns div p {
+        margin-top: 150px;
+    }
+
+    .container.landing .preview .preview__btns #pwa-btn {
+        background-position: center 70px;
+    }
+ }
+
+ /* ADAPTIVE 800 Galaxy Tab 2*/
+ @media (max-device-width: 800px) and (orientation: portrait) {
     .container.landing .preview .preview__title #name {
         font-size: 54px; 
     }
