@@ -8,9 +8,8 @@
 // service worker, and the Workbox build step will be skipped.
 
 import { clientsClaim } from 'workbox-core';
-import { createHandlerBoundToURL } from 'workbox-precaching';
+import { precacheAndRoute, createHandlerBoundToURL } from 'workbox-precaching';
 import { registerRoute } from 'workbox-routing';
-import { NetworkOnly } from 'workbox-strategies';
 
 clientsClaim();
 
@@ -18,9 +17,7 @@ clientsClaim();
 // Their URLs are injected into the manifest variable below.
 // This variable must be present somewhere in your service worker file,
 // even if you decide not to use precaching. See https://cra.link/PWA
-const ignored = self.__WB_MANIFEST;
-
-// precacheAndRoute(self.__WB_MANIFEST);
+precacheAndRoute(self.__WB_MANIFEST);
 
 // Set up App Shell-style routing, so that all navigation requests
 // are fulfilled with your index.html shell. Learn more at
@@ -48,10 +45,11 @@ registerRoute(
 );
 
 
-registerRoute(
-  ({url}) => url.pathname.startsWith('/'),
-  new NetworkOnly()
-);
+self.addEventListener('fetch', event => {
+  event.respondWith(
+    fetch(event.request)
+  );
+ });
 
 // This allows the web app to trigger skipWaiting via
 // registration.waiting.postMessage({type: 'SKIP_WAITING'})
