@@ -34,6 +34,15 @@
     -webkit-overflow-scrolling: touch;
 }
 
+.container.landing .faq .faq__questions:-webkit-scrollbar {
+    display: none;
+}
+
+.container.landing .faq .faq__questions {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+
 .container.landing .faq .faq__questions .faq__accordion {
     margin-top: 10px;
     background-color: transparent;

@@ -5,7 +5,7 @@ import './css/about.css'
 
 export default function AboutPage(props) {
     return (
-        <div className="about page" onClick={props.changeForm}>
+        <div className="about page">
             <div className="about__title">
                 <p id="header">Bustail</p>
                 <p id="description">сервис пассажирских перевозок</p>
