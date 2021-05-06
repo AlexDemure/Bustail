@@ -79,12 +79,6 @@
 }
 
 
-/* COMBINE 375-414 */
-@media screen and (min-device-width:361px) and (max-device-width:414px){
-    .container.landing .preview {
-        grid-template-rows: 20% 50% 30%;
-    }
- }
 
 /* ADAPTIVE 375px */
 @media screen and (min-device-width:361px) and (max-device-width:400px){
