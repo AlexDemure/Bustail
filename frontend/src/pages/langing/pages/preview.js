@@ -14,7 +14,7 @@ export default function PreviewPage(props) {
             </div>
             <div className="preview__btns">
                 <div id="login-btn" onClick={() => window.location.replace('/login')}>
-                    <p>В приложение3</p>
+                    <p>В приложение4</p>
                 </div>
                 <div id="pwa-btn" onClick={() => window.location.replace('https://support.google.com/chrome/answer/9658361?co=GENIE.Platform%3DAndroid&hl=ru&oco=1')}>
                     <p>Как установить</p>
