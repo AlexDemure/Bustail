@@ -80,3 +80,10 @@
         font-size: 16px;
     }
 }
+
+@media (min-device-width: 600px) and (max-device-width: 800px) 
+and (orientation: portrait) {
+    .container.landing .page .footer {
+        font-size: 18px;
+    }
+}
