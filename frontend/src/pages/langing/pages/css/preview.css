@@ -146,59 +146,59 @@
   @media (min-device-width: 767px) and (max-device-width: 800px) and (orientation: portrait)
     and (-webkit-min-device-pixel-ratio: 2) { 
     .container.landing .preview .preview__title #name {
-        font-size: 54px; 
+        font-size: 42px; 
     }
     
     .container.landing .preview .preview__title #description {
-        font-size: 30px;
+        font-size: 24px;
     }
 
     .container.landing .preview .preview__btns div {
-        height: 200px;
-        width: 200px;
+        height: 170px;
+        width: 170px;
     
-        font-size: 20px;
+        font-size: 18px;
     
         background-position: center 50px;
         background-repeat: no-repeat;
-        background-size: 100px;
+        background-size: 80px;
     }
     
     .container.landing .preview .preview__btns div p {
-        margin-top: 150px;
+        margin-top: 140px;
     }
 
     .container.landing .preview .preview__btns #pwa-btn {
-        background-position: center 70px;
+        background-position: center 60px;
     }
  }
 
  /* ADAPTIVE 800 Galaxy Tab 2*/
  @media (min-device-width: 767px) and (max-device-width: 800px) and (orientation: portrait) {
     .container.landing .preview .preview__title #name {
-        font-size: 54px; 
+        font-size: 42px; 
     }
     
     .container.landing .preview .preview__title #description {
-        font-size: 30px;
+        font-size: 24px;
     }
 
     .container.landing .preview .preview__btns div {
-        height: 200px;
-        width: 200px;
+        height: 170px;
+        width: 170px;
     
-        font-size: 20px;
+        font-size: 18px;
     
         background-position: center 50px;
         background-repeat: no-repeat;
-        background-size: 100px;
+        background-size: 80px;
     }
     
     .container.landing .preview .preview__btns div p {
-        margin-top: 150px;
+        margin-top: 140px;
     }
 
     .container.landing .preview .preview__btns #pwa-btn {
-        background-position: center 70px;
+        background-position: center 60px;
     }
  }

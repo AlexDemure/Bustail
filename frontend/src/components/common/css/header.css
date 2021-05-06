@@ -51,8 +51,10 @@ header .header__common__page-name {
     }
 }
 
-/* ADAPTIVE 600 */
-@media screen and (min-width:599px) and (max-width:602px) {
+
+  /* ADAPTIVE 800 Galaxy Tab S*/
+  @media (min-device-width: 767px) and (max-device-width: 800px) and (orientation: portrait)
+  and (-webkit-min-device-pixel-ratio: 2) {
     header .header__common__page-name {
         font-size: 26px;
     }
@@ -64,19 +66,19 @@ header .header__common__page-name {
     header .header__common__previous-page {
         background-size: 40px 40px;
     }
-}
-
-/* ADAPTIVE 768-800 */
-@media screen and (min-width:767px) and (max-width:801px) {
+  }
+  
+   /* ADAPTIVE 800 Galaxy Tab 2*/
+   @media (min-device-width: 767px) and (max-device-width: 800px) and (orientation: portrait) {
     header .header__common__page-name {
-        font-size: 30px;
+        font-size: 26px;
     }
 
     header .header__common__dropdown-btn {
-        background-size: 50px 50px;
+        background-size: 35px 35px;
     }
 
     header .header__common__previous-page {
-        background-size: 55px 55px;
+        background-size: 40px 40px;
     }
-}
+  }
