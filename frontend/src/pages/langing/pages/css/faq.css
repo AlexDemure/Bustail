@@ -181,8 +181,8 @@ and (orientation: portrait) {
 /* ADAPTIVE 1536px and more */
 @media (min-width: 1536px) {
     .container.landing .faq {
-        height: 75vh;
-        width: 80%;
+        height: 80vh;
+        width: 70%;
     }
 
     .container.landing .faq .faq__title #header {
