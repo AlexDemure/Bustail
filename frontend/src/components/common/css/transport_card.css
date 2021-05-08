@@ -25,6 +25,17 @@
     grid-template-rows: 10% 1fr;
 }
 
+.transport_card__modal-window__card::-webkit-scrollbar,
+.transport_card__modal-window__content::-webkit-scrollbar {
+    display: none;
+}
+
+.transport_card__modal-window__card,
+.transport_card__modal-window__content {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+
 .transport_card__modal-window__content .transport_card__modal-window__title {
     float: left;
     margin-left: 20px;
@@ -50,6 +61,7 @@
     background-position-y: center;
     background-repeat: no-repeat;
     float: right;
+    justify-self: flex-end;
 }
 
 .transport_card__modal-window__content .transport_card__modal-window__card {
@@ -65,7 +77,7 @@
     margin-top: 10px;
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: repeat(2, 1fr);
+    grid-template-rows: 230px 1fr;
     
 }
 
@@ -73,7 +85,7 @@
 .transport_card__modal-window__card .transport_card__photos {
     grid-row: 1 / 2;
     width: 100%;
-    height: 200px;
+    height: 225px;
 
     display: grid;
     grid-template-columns: 70% 30%;
@@ -83,7 +95,7 @@
 .transport_card__photos .transport_card__photo{
     grid-column: 1 / 2;
     width: 100%;
-    height: 200px;
+    height: 225px;
     border-radius: 2px;
 }
 
@@ -92,7 +104,7 @@
 }
 
 .transport_card__photos .transport_card__other-photos div{
-    height: 61.5px;
+    height: 68.5px;
     width: 90%;
     border: 1px dashed #535353;
 
@@ -157,4 +169,185 @@
     grid-template-columns: 1fr;
     grid-template-rows: repeat(4, 20px);
     gap: 5px
+}
+
+/* ADAPTIVE 768-801 */
+@media (min-width: 641px) and (max-width: 1023px) 
+and (orientation: portrait) {
+    .transport_card__modal-window__card {
+        grid-template-rows: 330px 1fr;
+    }
+    .transport_card__modal-window__content .transport_card__modal-window__title {
+        font-size: 28px;
+    }
+    
+    .transport_card__modal-window__content .transport_card__modal-window__close-btn {
+        width: 55px;
+        height: 45px;
+        background-size: 30px 30px;
+    }
+    
+    
+    .transport_card__modal-window__card .transport_card__photos {
+        height: 325px;
+    } 
+    
+    .transport_card__photos .transport_card__photo{
+        height: 325px;
+    }
+    
+    .transport_card__photos .transport_card__other-photos div{
+        height: 101.5px;
+        width: 90%;
+        margin-bottom: 5px;
+    }
+    
+    .transport_card__photos .transport_card__other-photos div p {
+        font-size: 24px;
+    }
+
+    .transport_card__details .transport_card__additionals {
+        gap: 20px
+    }
+    
+    .transport_card__details .transport_card__detail {
+        font-size: 24px;
+    }
+    
+    .transport_card__details .transport_card__detail span {
+        font-size: 24px;
+    }
+    
+    .transport_card__details .transport_card__detail.transport-name {
+        font-size: 28px;
+    }
+    
+    .transport_card__details .transport_card__detail.state-number {
+        font-size: 24px;
+        margin-top: 4px;
+    }
+}
+
+ /* ADAPTIVE 1024,1280,1337,1440px */
+@media (min-width: 1024px) and (max-width: 1535px) {
+    .transport_card__modal-window__content {
+        width: 60vw;
+        margin-left: 20vw;
+    }
+
+    
+    .transport_card__modal-window__card {
+        grid-template-rows: 330px 1fr;
+    }
+    .transport_card__modal-window__content .transport_card__modal-window__title {
+        font-size: 28px;
+    }
+    
+    .transport_card__modal-window__content .transport_card__modal-window__close-btn {
+        width: 60px;
+        height: 50px;
+        background-size: 35px 35px;
+    }
+    
+    
+    .transport_card__modal-window__card .transport_card__photos {
+        height: 325px;
+    } 
+    
+    .transport_card__photos .transport_card__photo{
+        height: 325px;
+    }
+    
+    .transport_card__photos .transport_card__other-photos div{
+        height: 101.5px;
+        width: 90%;
+        margin-bottom: 5px;
+    }
+    
+    .transport_card__photos .transport_card__other-photos div p {
+        font-size: 24px;
+    }
+
+    .transport_card__details .transport_card__additionals {
+        gap: 20px
+    }
+    
+    .transport_card__details .transport_card__detail {
+        font-size: 24px;
+    }
+    
+    .transport_card__details .transport_card__detail span {
+        font-size: 24px;
+    }
+    
+    .transport_card__details .transport_card__detail.transport-name {
+        font-size: 28px;
+    }
+    
+    .transport_card__details .transport_card__detail.state-number {
+        font-size: 24px;
+        margin-top: 4px;
+    }
+}
+
+ /* ADAPTIVE 1536px and more */
+@media (min-width: 1536px) {
+    .transport_card__modal-window__content {
+        width: 50vw;
+        margin-left: 25vw;
+    }
+
+    
+    .transport_card__modal-window__card {
+        grid-template-rows: 400px 1fr;
+    }
+    .transport_card__modal-window__content .transport_card__modal-window__title {
+        font-size: 28px;
+    }
+    
+    .transport_card__modal-window__content .transport_card__modal-window__close-btn {
+        width: 65px;
+        height: 55px;
+        background-size: 40px 40px;
+    }
+    
+    
+    .transport_card__modal-window__card .transport_card__photos {
+        height: 400px;
+    } 
+    
+    .transport_card__photos .transport_card__photo{
+        height: 400px;
+    }
+    
+    .transport_card__photos .transport_card__other-photos div{
+        height: 127.5px;
+        width: 90%;
+        margin-bottom: 5px;
+    }
+    
+    .transport_card__photos .transport_card__other-photos div p {
+        font-size: 24px;
+    }
+
+    .transport_card__details .transport_card__additionals {
+        gap: 20px
+    }
+    
+    .transport_card__details .transport_card__detail {
+        font-size: 24px;
+    }
+    
+    .transport_card__details .transport_card__detail span {
+        font-size: 24px;
+    }
+    
+    .transport_card__details .transport_card__detail.transport-name {
+        font-size: 28px;
+    }
+    
+    .transport_card__details .transport_card__detail.state-number {
+        font-size: 24px;
+        margin-top: 4px;
+    }
 }

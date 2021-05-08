@@ -15,8 +15,8 @@
     left: 0;
     position: absolute;
     height: 100px;
-    width: 95vw;
-    margin-left: 2.5vw;
+    width: 350px;
+    margin-left: calc((100vw - 350px) / 2);
     overflow: hidden;
 
     background-color: #222222;
@@ -99,3 +99,41 @@
     font-size: 14px;
     color: #9B5E5D;
 }
+
+/* ADAPTIVE 768-801 */
+@media (min-width: 641px) {
+    .client_card__modal-window__content {
+        height: 150px;
+        width: 550px;
+        margin-left: calc((100vw - 550px) / 2);
+        grid-template-rows: 80px 70px;
+    }
+    .client_card__modal-window__content .client_card__modal-window__close-btn {
+        width: 55px;
+        height: 45px;
+        background-size: 30px 30px;
+    }
+    .client_card__modal-window__content .client_card__modal-window__detail {
+        font-size: 22px;
+    }
+    
+    .client_card__modal-window__content .client_card__modal-window__detail span {
+        font-size: 22px;
+    }
+    
+    .client_card__modal-window__content .client_card__modal-window__detail.email span {
+        font-size: 22px;
+    }
+    
+    .client_card__modal-window__content .client_card__modal-window__detail.phone {
+        background-size: 30px 30px;
+        width: 55px;
+        height: 45px;
+    }
+
+    .client_card__modal-window__content p[id=warning] {
+        font-size: 20px;
+    }
+
+}
+

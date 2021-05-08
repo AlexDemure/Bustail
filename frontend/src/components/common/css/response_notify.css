@@ -3,8 +3,8 @@
     transition: opacity 1000ms;
     border-radius: 3px;
     height: 70px;
-    width: 90%;
-    margin-left: 5%;
+    width: 350px;
+    margin-left: calc((100vw - 350px) / 2);
     margin-bottom: 10%;
     padding: 3px;
     position: absolute;
@@ -70,4 +70,85 @@
     background-position-y: center;
     background-repeat: no-repeat;
     float: right;
+}
+
+
+
+
+/* ADAPTIVE 768-801 */
+@media (min-width: 641px) and (max-width: 1023px) 
+and (orientation: portrait) {
+    .response-notify__common__border {
+        height: 100px;
+        width: 500px;
+        margin-left: calc((100vw - 500px) / 2);  
+    }
+    
+    .response-notify__common__text {
+        font-size: 24px;
+    }
+    
+    
+    .response-notify__common__content {
+        height: 94px;    
+    } 
+    
+    .response-notify__common__close-btn {
+        width: 55px;
+        height: 45px;
+        background-size: 25px 25px;
+        justify-self: flex-end;
+    }
+    
+    
+}
+
+ /* ADAPTIVE 1024,1280,1337,1440px */
+@media (min-width: 1024px) and (max-width: 1535px) {
+    .response-notify__common__border {
+        height: 100px;
+        width: 600px;
+        margin-left: calc((100vw - 600px) / 2);  
+    }
+    
+    .response-notify__common__text {
+        font-size: 26px;
+    }
+    
+    
+    .response-notify__common__content {
+        height: 94px;    
+    } 
+    
+    .response-notify__common__close-btn {
+        width: 60px;
+        height: 50px;
+        background-size: 30px 30px;
+        justify-self: flex-end;
+    }
+}
+
+ /* ADAPTIVE 1536px and more */
+@media (min-width: 1536px) {
+    .response-notify__common__border {
+        height: 100px;
+        width: 800px;
+        margin-left: calc((100vw - 800px) / 2);  
+    }
+    
+    .response-notify__common__text {
+        font-size: 28px;
+    }
+    
+    
+    .response-notify__common__content {
+        height: 94px;    
+    } 
+    
+    .response-notify__common__close-btn {
+        width: 65px;
+        height: 55px;
+        background-size: 35px 35px;
+        justify-self: flex-end;
+    }
 }

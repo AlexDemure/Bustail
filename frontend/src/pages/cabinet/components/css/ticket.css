@@ -158,6 +158,7 @@
     background-position-y: center;
     background-repeat: no-repeat;
     float: right;
+    justify-self: flex-end;
 }
 
 .ticket__cabinet .ticket__cabinet__about .ticket__cabinet__about__details {

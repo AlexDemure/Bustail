@@ -47,3 +47,75 @@
 .history .history__table .history__table__rows .history__table__item__rejected {
     background-color: #9B5E5D;
 }
+
+
+
+/* ADAPTIVE 768-801-1024px */
+@media (min-width: 641px) and (max-width: 1023px) 
+and (orientation: portrait) {
+    .history .history__table tr td {
+        width: calc(100vw / 6);
+    }
+    
+    .history .history__table .history__table__columns {
+        font-size: 20px;
+    }
+    
+    .history .history__table .history__table__rows {
+        font-size: 20px;
+        
+    }
+    
+    .history .history__table .history__table__rows tr td div {
+        height: 25px;
+        width: 25px;
+        margin-left: calc((100% - 25px) / 2);
+        border-radius: 50%;
+    }
+}
+
+ /* ADAPTIVE 1024,1280,1337,1440px */
+@media (min-width: 1024px) and (max-width: 1535px) {
+    .history .history__table tr td {
+        width: calc(100vw / 6);
+    }
+    
+    .history .history__table .history__table__columns {
+        font-size: 22px;
+    }
+    
+    .history .history__table .history__table__rows {
+        font-size: 22px;
+        
+    }
+    
+    .history .history__table .history__table__rows tr td div {
+        height: 30px;
+        width: 30px;
+        margin-left: calc((100% - 30px) / 2);
+        border-radius: 50%;
+    }
+}
+
+ /* ADAPTIVE 1536px and more */
+@media (min-width: 1536px) {
+    .history .history__table tr td {
+        width: calc(100vw / 6);
+    }
+    
+    .history .history__table .history__table__columns {
+        font-size: 24px;
+    }
+    
+    .history .history__table .history__table__rows {
+        font-size: 24px;
+        
+    }
+    
+    .history .history__table .history__table__rows tr td div {
+        height: 35px;
+        width: 35px;
+        margin-left: calc((100% - 35px) / 2);
+        border-radius: 50%;
+    }
+}

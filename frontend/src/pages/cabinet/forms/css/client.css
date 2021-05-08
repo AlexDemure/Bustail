@@ -1,5 +1,5 @@
 .container.cabinet.client .cabinet__client__applications {
-    rid-row: 3 / 4;
+    grid-row: 3 / 4;
     width: 95%;
     height: 85%;
 
@@ -12,6 +12,15 @@
     overflow-x: hidden;
     
     -webkit-overflow-scrolling: touch;
+}
+
+.container.cabinet.client .cabinet__client__applications::-webkit-scrollbar {
+    display: none;
+}
+
+.container.cabinet.client .cabinet__client__applications {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
 }
 
 .container.cabinet.client .cabinet__client__title {

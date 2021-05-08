@@ -11,6 +11,16 @@
     overflow: hidden;
 }
 
+.container.cabinet::-webkit-scrollbar {
+    display: none;
+}
+
+.container.cabinet {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+
+
 .container.cabinet.common,
 .container.cabinet.client,
 .container.cabinet.driver.form {

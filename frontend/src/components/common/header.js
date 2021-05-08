@@ -23,10 +23,6 @@ function DropdownMenu() {
                 </ul>
             </div>
             <RedirectButton onClick={() => logout()} text="Выйти"/>
-            <div className="dropdown-menu__contacts">
-                <p id="email">Email: <span>bustail@support.com</span></p>
-                <a href="tel:+79191231251" id="phone">Телефон: <span>+7 (351) 223-12-51</span></a>
-            </div>
 
         </div>
     )
