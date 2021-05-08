@@ -14,12 +14,12 @@
 .container.cabinet.common,
 .container.cabinet.client,
 .container.cabinet.driver.form {
-    grid-template-rows: auto auto 1fr;
+    grid-template-rows: 60px auto 1fr;
     grid-template-columns: 1fr;
 }
 
 .container.cabinet.driver.card {
-    grid-template-rows: auto 90%;
+    grid-template-rows: 60px 90%;
     grid-template-columns: 1fr;
 
     align-content: flex-start;
@@ -67,7 +67,6 @@ and (orientation: portrait) {
     .container.cabinet.client,
     .container.cabinet.driver.form {
         width: 95%;
-        grid-template-rows: auto auto 1fr;
     }
 
     .container.cabinet.driver.card {
@@ -88,7 +87,6 @@ and (orientation: portrait) {
     .container.cabinet.client,
     .container.cabinet.driver.form {
         width: 65%;
-        grid-template-rows: auto auto 1fr;
     }
     
     .container.cabinet.driver.card {
@@ -108,7 +106,6 @@ and (orientation: portrait) {
     .container.cabinet.client,
     .container.cabinet.driver.form {
         width: 50%;
-        grid-template-rows: auto auto 1fr;
     }
     
     .container.cabinet.driver.card {
@@ -129,7 +126,6 @@ and (orientation: portrait) {
     .container.cabinet.client,
     .container.cabinet.driver.form {
         width: 45%;
-        grid-template-rows: auto auto 1fr;
     }
     
     .container.cabinet.driver.card {
