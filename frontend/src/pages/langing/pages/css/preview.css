@@ -137,7 +137,7 @@
  }
 
  /* ADAPTIVE 768-801-1024px */
- @media (min-width: 641px) and (max-width: 1024px) 
+ @media (min-width: 641px) and (max-width: 1023px) 
  and (orientation: portrait) {
     .container.landing .preview .preview__title #name {
         font-size: 40px; 

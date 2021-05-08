@@ -35,7 +35,7 @@
 }
 
 /* ADAPTIVE 768-801-1024px */
-@media (min-width: 641px) and (max-width: 1024px) 
+@media (min-width: 641px) and (max-width: 1023px) 
 and (orientation: portrait) {
     .container.create-app .create-app__form__additional,
     .container.create-app .create-app__form__main {

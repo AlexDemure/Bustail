@@ -44,7 +44,7 @@
 }
 
 /* ADAPTIVE 768-801-1024px */
-@media (min-width: 641px) and (max-width: 1024px) 
+@media (min-width: 641px) and (max-width: 1023px) 
 and (orientation: portrait) {
     .switch__authorization p {
         font-size: 22px;

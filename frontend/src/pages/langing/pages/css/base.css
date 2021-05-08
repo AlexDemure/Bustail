@@ -95,8 +95,8 @@
     }
 }
 
- /* ADAPTIVE 768-801-1024px */
-@media (min-width: 641px) and (max-width: 1024px) {
+ /* ADAPTIVE 768-801 */
+@media (min-width: 641px) and (max-width: 1023px) {
     .container.landing .page .footer {
         font-size: 18px;
     }

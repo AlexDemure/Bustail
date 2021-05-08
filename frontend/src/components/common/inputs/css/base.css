@@ -83,7 +83,7 @@ input[name=phone] {
 }
 
 
-@media (min-width: 641px) and (max-width: 1024px) 
+@media (min-width: 641px) and (max-width: 1023px) 
 and (orientation: portrait) {
     input {
         background-size: 30px 30px;

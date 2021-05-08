@@ -189,7 +189,7 @@
 
 
 /* ADAPTIVE 768-801-1024px */
-@media (min-width: 641px) and (max-width: 1024px) 
+@media (min-width: 641px) and (max-width: 1023px) 
 and (orientation: portrait) {
     .main .main__menu {
         width: 80%;

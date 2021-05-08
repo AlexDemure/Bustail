@@ -52,7 +52,7 @@ header .header__common__page-name {
 }
 
 
-@media (min-width: 641px) and (max-width: 1024px) 
+@media (min-width: 641px) and (max-width: 1023px) 
 and (orientation: portrait) {
     header .header__common__page-name {
         font-size: 28px;

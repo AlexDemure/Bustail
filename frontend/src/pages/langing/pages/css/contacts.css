@@ -74,7 +74,7 @@
     }
 }
 
-@media (min-width: 641px) and (max-width: 1024px) 
+@media (min-width: 641px) and (max-width: 1023px) 
 and (orientation: portrait) {
     .container.landing .contacts .contacts__title p,
     .container.landing .contacts .contacts__title a {
