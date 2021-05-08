@@ -8,13 +8,13 @@
     align-content: center;
     align-items: center;
     
-    overflow:hidden
+    overflow: hidden;
 }
 
 .container.cabinet.common,
 .container.cabinet.client,
 .container.cabinet.driver.form {
-    grid-template-rows: 10% 18% 1fr;
+    grid-template-rows: 10% 18% 72%;
     grid-template-columns: 1fr;
 }
 

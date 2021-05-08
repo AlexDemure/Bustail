@@ -1,10 +1,12 @@
 .container.cabinet.client .cabinet__client__applications {
-    grid-row: 3 / 4;
+    rid-row: 3 / 4;
     width: 95%;
     height: 85%;
 
     align-self: flex-start;
     justify-self: center;
+    
+    padding-bottom: 10vh;
     
     overflow-y: scroll;
     overflow-x: hidden;
@@ -19,14 +21,10 @@
     margin-left: 5px;
 }
 
-@media (max-width: 640px) {
-    .container.cabinet.client .cabinet__client__applications {
-        padding-bottom: 10vh;
-    }
-}
 
 @media (min-width: 641px) {
     .container.cabinet.client .cabinet__client__applications {
+        padding-bottom: 0;
         height: 100%;
     }
 }
