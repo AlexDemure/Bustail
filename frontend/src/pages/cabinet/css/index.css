@@ -14,12 +14,12 @@
 .container.cabinet.common,
 .container.cabinet.client,
 .container.cabinet.driver.form {
-    grid-template-rows: 60px auto 1fr;
+    grid-template-rows: auto auto 1fr;
     grid-template-columns: 1fr;
 }
 
 .container.cabinet.driver.card {
-    grid-template-rows: 60px 90%;
+    grid-template-rows: auto 90%;
     grid-template-columns: 1fr;
 
     align-content: flex-start;

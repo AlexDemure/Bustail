@@ -1,7 +1,7 @@
 .container.cabinet.client .cabinet__client__applications {
     grid-row: 3 / 4;
     width: 95%;
-    height: 85%;
+    height: 100%;
 
     align-self: flex-start;
     justify-self: center;
@@ -25,11 +25,11 @@
     }
 }
 
-@media (min-width: 641px) {
+/* @media (min-width: 641px) {
     .container.cabinet.client .cabinet__client__applications {
         height: 100%;
     }
-}
+} */
 
 /* ADAPTIVE 768-801 */
 @media (min-width: 641px) and (max-width: 1023px) 
