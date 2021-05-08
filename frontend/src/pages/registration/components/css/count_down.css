@@ -10,3 +10,25 @@
         font-size: 16px;
     }
 }
+
+/* ADAPTIVE 768-801-1024px */
+@media (min-width: 641px) and (max-width: 1024px) 
+and (orientation: portrait) {
+    .registration__form__countdown-timer {
+        font-size: 20px;
+    }
+}
+
+ /* ADAPTIVE 1024,1280,1337,1440px */
+@media (min-width: 1024px) and (max-width: 1535px) {
+    .registration__form__countdown-timer {
+        font-size: 22px;
+    }
+}
+
+ /* ADAPTIVE 1536px and more */
+@media (min-width: 1536px) {
+    .registration__form__countdown-timer {
+        font-size: 24px;
+    }
+}

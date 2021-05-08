@@ -38,3 +38,41 @@
     background-color: #9B5E5D;
 }
 
+
+/* ADAPTIVE 414-600px */
+@media screen and (min-width:401px) and (max-width: 640px){
+}
+
+/* ADAPTIVE 768-801-1024px */
+@media (min-width: 641px) and (max-width: 1024px) 
+and (orientation: portrait) {
+    .switch__authorization p {
+        font-size: 22px;
+    }
+    .switch__authorization #v-line,
+    .switch__authorization .switch__authorization__item.no-active {
+        font-size: 20px;
+    }
+}
+
+ /* ADAPTIVE 1024,1280,1337,1440px */
+@media (min-width: 1024px) and (max-width: 1535px) {
+    .switch__authorization p {
+        font-size: 24px;
+    }
+    .switch__authorization #v-line,
+    .switch__authorization .switch__authorization__item.no-active {
+        font-size: 22px;
+    }
+}
+
+ /* ADAPTIVE 1536px and more */
+@media (min-width: 1536px) {
+    .switch__authorization p {
+        font-size: 26px;
+    }
+    .switch__authorization #v-line,
+    .switch__authorization .switch__authorization__item.no-active {
+        font-size: 24px;
+    }
+}

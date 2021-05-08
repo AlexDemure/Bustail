@@ -7,7 +7,8 @@
     grid-template-rows: 25% 1fr 1fr;
     grid-template-columns: 1fr;
     justify-content: center;
-    align-content: flex-start;
+    justify-items: center;
+    align-content: center;
     overflow: hidden;
 }
 
@@ -17,7 +18,7 @@
 }
 
 .container.registration .registration__form {
-    margin-top: 50px;
+    margin-top: 30px;
     grid-row: 2/3;
     justify-self: center;
     align-self: center;
@@ -59,4 +60,43 @@
     float: left;
     margin-left: 5px;
     margin-bottom: 5px;
+}
+
+
+/* ADAPTIVE 768-801-1024px */
+@media (min-width: 641px) and (max-width: 1024px) 
+and (orientation: portrait) {
+    .container.registration .registration__form {
+        width: 70%;
+    }
+    
+    .container.registration .registration__form__confirm-email label,
+    .container.registration .registration__form__confirm-email__error-text p,
+    .container.registration .registration__form__create-new-user__error-text p {
+        font-size: 20px;
+    }
+}
+
+ /* ADAPTIVE 1024,1280,1337,1440px */
+@media (min-width: 1024px) and (max-width: 1535px) {
+    .container.registration .registration__form {
+        width: 50%;
+   }
+    .container.registration .registration__form__confirm-email label,
+    .container.registration .registration__form__confirm-email__error-text p,
+    .container.registration .registration__form__create-new-user__error-text p {
+        font-size: 22px;
+    }
+}
+
+ /* ADAPTIVE 1536px and more */
+@media (min-width: 1536px) {
+    .container.registration .registration__form {
+        width: 45%;
+    }
+    .container.registration .registration__form__confirm-email label,
+    .container.registration .registration__form__confirm-email__error-text p,
+    .container.registration .registration__form__create-new-user__error-text p {
+        font-size: 24px;
+    }
 }

@@ -29,3 +29,44 @@
 .notify__common .button__common__redirect {
     align-self: center;
 }
+
+/* ADAPTIVE 768-801-1024px */
+@media (min-width: 641px) and (max-width: 1024px) 
+and (orientation: portrait) {
+    .notify__common .notify__common__title {
+        font-size: 28px;
+    }
+    .notify__common .notify__common__text {
+        font-size: 24px;
+    }
+
+    .notify__common {
+        width: 75%;
+    }
+}
+
+ /* ADAPTIVE 1024,1280,1337,1440px */
+@media (min-width: 1024px) and (max-width: 1535px) {
+    .notify__common .notify__common__title {
+        font-size: 30px;
+    }
+    .notify__common .notify__common__text {
+        font-size: 26px;
+    }
+    .notify__common {
+        width: 55%;
+    }
+}
+
+ /* ADAPTIVE 1536px and more */
+@media (min-width: 1536px) {
+    .notify__common .notify__common__title {
+        font-size: 32px;
+    }
+    .notify__common .notify__common__text {
+        font-size: 28px;
+    }
+    .notify__common {
+        width: 50%;
+    }
+}

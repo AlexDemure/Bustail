@@ -90,8 +90,14 @@ and (orientation: portrait) {
         height: 70px;
         font-size: 20px;
     }
+    .input__common.password {
+        background-size: 25px 28px;
+        background-position: 95% center;
+        font-size: 18px;
+    }
+    
     textarea {
-        height: 160px;
+        height: 140px;
     }
     input::placeholder {
         font-size: 20px;
@@ -103,12 +109,17 @@ and (orientation: portrait) {
 
 @media (min-width: 1024px) and (max-width: 1535px) {
     input {
-        background-size: 40px 40px;
+        background-size: 35px 35px;
         height: 80px;
         font-size: 22px;
     }
+    .input__common.password {
+        background-size: 30px 33px;
+        background-position: 95% center;
+        font-size: 20px;
+    }
     textarea {
-        height: 170px;
+        height: 160px;
     }
     input::placeholder {
         font-size: 22px;
@@ -120,12 +131,17 @@ and (orientation: portrait) {
 
 @media (min-width: 1536px) {
     input {
-        background-size: 45px 45px;
-        height: 100px;
+        background-size: 40px 40px;
+        height: 90px;
         font-size: 24px;
     }
+    .input__common.password {
+        background-size: 35px 38px;
+        background-position: 95% center;
+        font-size: 22px;
+    }
     textarea {
-        height: 200px;
+        height: 180px;
     }
     input::placeholder {
         font-size: 24px;

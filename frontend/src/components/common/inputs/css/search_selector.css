@@ -59,3 +59,35 @@
 .search-selector .search-selector__option li:hover {
     background-color: #fba333;
 }
+
+/* ADAPTIVE 768-801-1024px */
+@media (min-width: 641px) and (max-width: 1024px) 
+and (orientation: portrait) {
+    .search-selector .search-selector__option {
+        top: 70px
+    }
+    .search-selector .search-selector__option li  {
+        font-size: 22px;
+    }
+}
+
+ /* ADAPTIVE 1024,1280,1337,1440px */
+@media (min-width: 1024px) and (max-width: 1535px) {
+    .search-selector .search-selector__option li  {
+        font-size: 24px;
+   }
+    .search-selector .search-selector__option {
+        top: 80px
+    }
+}
+
+ /* ADAPTIVE 1536px and more */
+@media (min-width: 1536px) {
+    .search-selector .search-selector__option li  {
+        font-size: 26px;
+    }
+    .search-selector .search-selector__option {
+        top: 90px
+    }
+   
+}
