@@ -184,7 +184,7 @@
  }
 
  /* ADAPTIVE 414px */
- @media screen and (min-width:401px) and (max-width:414px){
+ @media (min-width:401px) and (max-width:640px){
     .transport__cabinet {
         height: 180px;
         grid-template-rows: 120px 60px;
@@ -224,3 +224,105 @@
         font-size: 15px;
     }
  }
+
+
+ /* ADAPTIVE 768-801 */
+@media (min-width: 641px) and (max-width: 1023px) 
+and (orientation: portrait) {
+    .transport__cabinet {
+        height: 220px;
+        grid-template-rows: 150px 70px;
+        grid-template-columns: 240px 1fr;
+    }
+    .transport__cabinet .transport__cabinet__photo {
+        height: 220px;
+        width: 240px;
+        background-size: 240px 220px;   /* x y*/
+    }
+    .transport__cabinet .transport__cabinet__card {
+        grid-template-rows: 40px 65px 115px;
+    }
+
+    .transport__cabinet .transport__cabinet__card .transport__cabinet__card__title p[id=model] {
+        font-size: 24px;
+    }
+
+    .transport__cabinet .transport__cabinet__card .transport__cabinet__card__body .transport__cabinet__item,
+    .transport__cabinet .transport__cabinet__card .transport__cabinet__card__body .transport__cabinet__item span {
+        font-size: 20px;
+    }
+
+    .transport__cabinet .transport__cabinet__about {
+        height: 220px;
+    }
+
+    .transport__cabinet .transport__cabinet__about .transport__cabinet__about__close-btn {
+        background-size: 35px 35px;
+    }
+
+    .transport__cabinet .transport__cabinet__about .transport__cabinet__about__item {
+        font-size: 20px;
+    }
+
+    .transport__cabinet .transport__cabinet__about .transport__cabinet__about__item span {
+        font-size: 20px;
+    }
+
+    .transport__cabinet .transport__cabinet__card .transport__cabinet__card__footer {
+        width: 40%;
+    }
+
+    .transport__cabinet .transport__cabinet__card .transport__cabinet__card__footer p {
+        font-size: 18px;
+    }
+}
+
+ /* ADAPTIVE 1024 and more */
+@media (min-width: 1024px) {
+    .transport__cabinet {
+        height: 250px;
+        grid-template-rows: 180px 70px;
+        grid-template-columns: 270px 1fr;
+    }
+    .transport__cabinet .transport__cabinet__photo {
+        height: 250px;
+        width: 270px;
+        background-size: 270px 250px;   /* x y*/
+    }
+    .transport__cabinet .transport__cabinet__card {
+        grid-template-rows: 40px 70px 140px;
+    }
+
+    .transport__cabinet .transport__cabinet__card .transport__cabinet__card__title p[id=model] {
+        font-size: 26px;
+    }
+
+    .transport__cabinet .transport__cabinet__card .transport__cabinet__card__body .transport__cabinet__item,
+    .transport__cabinet .transport__cabinet__card .transport__cabinet__card__body .transport__cabinet__item span {
+        font-size: 22px;
+    }
+
+    .transport__cabinet .transport__cabinet__about {
+        height: 250px;
+    }
+
+    .transport__cabinet .transport__cabinet__about .transport__cabinet__about__close-btn {
+        background-size: 40px 40px;
+    }
+
+    .transport__cabinet .transport__cabinet__about .transport__cabinet__about__item {
+        font-size: 22px;
+    }
+
+    .transport__cabinet .transport__cabinet__about .transport__cabinet__about__item span {
+        font-size: 22px;
+    }
+
+    .transport__cabinet .transport__cabinet__card .transport__cabinet__card__footer {
+        width: 35%;
+    }
+
+    .transport__cabinet .transport__cabinet__card .transport__cabinet__card__footer p {
+        font-size: 20px;
+    }
+}

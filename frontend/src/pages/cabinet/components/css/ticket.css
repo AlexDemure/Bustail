@@ -205,3 +205,177 @@
     background-color: #fbfbfb;
 }
 
+/* ADAPTIVE 768-801 */
+@media (min-width: 641px) and (max-width: 1023px) 
+and (orientation: portrait) {
+    .ticket__cabinet .ticket__cabinet__about,
+    .ticket__cabinet {
+        height: 125px;
+    }
+
+    .ticket__cabinet .ticket__cabinet__placeholder {
+        font-size: 18px;
+    }
+    .ticket__cabinet .ticket__cabinet__city {
+        font-size: 22px;
+    }
+
+    .ticket__cabinet .ticket__cabinet__details-btn {
+        font-size: 20px;
+    }
+    
+    .ticket__cabinet .ticket__cabinet__type-app {
+        font-size: 20px;
+    }
+    
+    .ticket__cabinet .ticket__cabinet__date {
+        font-size: 18px;
+    }
+    
+    .ticket__cabinet .ticket__cabinet__price {
+        font-size: 20px;
+    }
+
+    .ticket__cabinet .ticket__cabinet__reject-btn p {
+        font-size: 18px;
+    }
+    
+    .ticket__cabinet .ticket__cabinet__about .ticket__cabinet__about__close-btn {
+        width: 55px;
+        height: 45px;
+        background-size: 30px 30px;
+    }
+    
+    .ticket__cabinet .ticket__cabinet__about .ticket__cabinet__about__details .ticket__cabinet__about__item.description {
+        font-size: 20px;
+    }
+    
+    .ticket__cabinet .ticket__cabinet__about .ticket__cabinet__about__details p span {
+        font-size: 20px;
+    }
+    
+    .ticket__cabinet .ticket__cabinet__about .ticket__cabinet__about__details p span {
+        font-size: 18px;
+    }
+    
+    .ticket__cabinet .ticket__cabinet__status {
+        height: 20px;
+        width: 20px;
+    }
+}
+
+ /* ADAPTIVE 1024,1280,1337,1440px */
+@media (min-width: 1024px) and (max-width: 1535px) {
+    .ticket__cabinet .ticket__cabinet__about,
+    .ticket__cabinet {
+        height: 150px;
+    }
+
+    .ticket__cabinet .ticket__cabinet__placeholder {
+        font-size: 20px;
+    }
+    .ticket__cabinet .ticket__cabinet__city {
+        font-size: 24px;
+    }
+
+    .ticket__cabinet .ticket__cabinet__details-btn {
+        font-size: 22px;
+    }
+    
+    .ticket__cabinet .ticket__cabinet__type-app {
+        font-size: 22px;
+    }
+    
+    .ticket__cabinet .ticket__cabinet__date {
+        font-size: 20px;
+    }
+    
+    .ticket__cabinet .ticket__cabinet__price {
+        font-size: 22px;
+    }
+
+    .ticket__cabinet .ticket__cabinet__reject-btn p {
+        font-size: 20px;
+    }
+    
+    .ticket__cabinet .ticket__cabinet__about .ticket__cabinet__about__close-btn {
+        width: 60px;
+        height: 50px;
+        background-size: 35px 35px;
+    }
+    
+    .ticket__cabinet .ticket__cabinet__about .ticket__cabinet__about__details .ticket__cabinet__about__item.description {
+        font-size: 22px;
+    }
+    
+    .ticket__cabinet .ticket__cabinet__about .ticket__cabinet__about__details p span {
+        font-size: 22px;
+    }
+    
+    .ticket__cabinet .ticket__cabinet__about .ticket__cabinet__about__details p span {
+        font-size: 20px;
+    }
+    
+    .ticket__cabinet .ticket__cabinet__status {
+        height: 25px;
+        width: 25px;
+    }
+}
+
+ /* ADAPTIVE 1536px and more */
+@media (min-width: 1536px) {
+    .ticket__cabinet .ticket__cabinet__about,
+    .ticket__cabinet {
+        height: 175px;
+    }
+
+    .ticket__cabinet .ticket__cabinet__placeholder {
+        font-size: 22px;
+    }
+    .ticket__cabinet .ticket__cabinet__city {
+        font-size: 26px;
+    }
+
+    .ticket__cabinet .ticket__cabinet__details-btn {
+        font-size: 24px;
+    }
+    
+    .ticket__cabinet .ticket__cabinet__type-app {
+        font-size: 24px;
+    }
+    
+    .ticket__cabinet .ticket__cabinet__date {
+        font-size: 22px;
+    }
+    
+    .ticket__cabinet .ticket__cabinet__price {
+        font-size: 24px;
+    }
+
+    .ticket__cabinet .ticket__cabinet__reject-btn p {
+        font-size: 22px;
+    }
+    
+    .ticket__cabinet .ticket__cabinet__about .ticket__cabinet__about__close-btn {
+        width: 65px;
+        height: 55px;
+        background-size: 40px 40px;
+    }
+    
+    .ticket__cabinet .ticket__cabinet__about .ticket__cabinet__about__details .ticket__cabinet__about__item.description {
+        font-size: 24px;
+    }
+    
+    .ticket__cabinet .ticket__cabinet__about .ticket__cabinet__about__details p span {
+        font-size: 24px;
+    }
+    
+    .ticket__cabinet .ticket__cabinet__about .ticket__cabinet__about__details p span {
+        font-size: 22px;
+    }
+    
+    .ticket__cabinet .ticket__cabinet__status {
+        height: 30px;
+        width: 30px;
+    }
+}

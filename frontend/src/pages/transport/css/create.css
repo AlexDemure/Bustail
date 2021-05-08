@@ -15,8 +15,6 @@
     justify-self: center;
     align-self: center;
     text-align: center;
-
-    padding-bottom: 10vh;
 }
 
 .container.create-transport .create-transport__form__upload-cover input,
@@ -39,4 +37,41 @@
 
 .container.create-transport .create-transport__form__upload-cover .drag-drop .drag-drop__drop-area {
     height: 50vh;
+}
+
+
+@media (max-width: 640px) {
+    .container.create-transport .create-transport__form__upload-cover,
+    .container.create-transport .create-transport__form__additional-info,
+    .container.create-transport .create-transport__form__create-transport {
+        padding-bottom: 10vh;
+    } 
+}
+
+/* ADAPTIVE 768-801-1024px */
+@media (min-width: 641px) and (max-width: 1024px) 
+and (orientation: portrait) {
+    .container.create-transport .create-transport__form__upload-cover,
+    .container.create-transport .create-transport__form__additional-info,
+    .container.create-transport .create-transport__form__create-transport {
+        width: 75%;
+    }
+}
+
+ /* ADAPTIVE 1024,1280,1337,1440px */
+@media (min-width: 1024px) and (max-width: 1535px) {
+    .container.create-transport .create-transport__form__upload-cover,
+    .container.create-transport .create-transport__form__additional-info,
+    .container.create-transport .create-transport__form__create-transport {
+        width: 50%;
+    }
+}
+
+ /* ADAPTIVE 1536px and more */
+@media (min-width: 1536px) {
+    .container.create-transport .create-transport__form__upload-cover,
+    .container.create-transport .create-transport__form__additional-info,
+    .container.create-transport .create-transport__form__create-transport {
+        width: 45%;
+    }
 }

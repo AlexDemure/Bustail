@@ -10,6 +10,11 @@ body {
   background-size: cover;
 }
 
+body div[id=root] {
+  display: grid;
+  justify-items: center;
+}
+
 @font-face {
   font-family: "FuturaBookC";
   src: url("./static/fonts/FuturaBookC.woff"), url('https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap');
@@ -29,4 +34,23 @@ body {
   font-family: "FuturaMediumC";
   src: url("./static/fonts/FuturaMediumC.woff"), url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
   display: swap
+}
+
+
+/* ADAPTIVE 414-600px */
+@media screen and (min-width:401px) and (max-width: 640px){
+}
+
+/* ADAPTIVE 768-801-1024px */
+@media (min-width: 641px) and (max-width: 1024px) 
+and (orientation: portrait) {
+}
+
+ /* ADAPTIVE 1024,1280,1337,1440px */
+@media (min-width: 1024px) and (max-width: 1535px) {
+}
+
+ /* ADAPTIVE 1536px and more */
+@media (min-width: 1536px) {
+
 }

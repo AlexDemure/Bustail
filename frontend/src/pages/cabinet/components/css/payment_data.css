@@ -4,6 +4,7 @@
     grid-template-rows: repeat(3, 1fr);
     width: 100%;
     height: 175px;
+    width: 325px;
     background-color: #222222;
     box-shadow: 1px 1px 5px 1px #2e2e2e;
     border-radius: 10px;
@@ -101,4 +102,102 @@
 
 .cabinet__driver__payment-data .cabinet__driver__payment-data__pay-btn:hover p {
   color: #181818;
+}
+
+
+/* ADAPTIVE 768-801 */
+@media (min-width: 641px) and (max-width: 1023px) 
+and (orientation: portrait) {
+  .cabinet__driver__payment-data {
+    height: 250px;
+    width: 450px;
+  }
+
+  .cabinet__driver__payment-data .cabinet__driver__payment-data__item__text {
+    font-size: 22px;
+  }
+  
+  .cabinet__driver__payment-data .cabinet__driver__payment-data__item__number {
+    font-size: 24px;
+  }
+  
+  .cabinet__driver__payment-data .cabinet__driver__payment-data__card-design .cabinet__driver__payment-data__item__text {
+    font-size: 30px;
+  }
+
+  .cabinet__driver__payment-data .cabinet__driver__payment-data__total-amount .cabinet__driver__payment-data__item__number {
+    font-size: 30px;
+  }
+  
+  .cabinet__driver__payment-data .cabinet__driver__payment-data__total-amount .cabinet__driver__payment-data__item__text {
+    font-size: 24px;
+  }
+
+  .cabinet__driver__payment-data .cabinet__driver__payment-data__pay-btn p {
+    font-size: 22px;
+  }
+}
+
+ /* ADAPTIVE 1024,1280,1337,1440px */
+@media (min-width: 1024px) and (max-width: 1535px) {
+  .cabinet__driver__payment-data {
+    height: 265px;
+    width: 500px;
+  }
+
+  .cabinet__driver__payment-data .cabinet__driver__payment-data__item__text {
+    font-size: 24px;
+  }
+  
+  .cabinet__driver__payment-data .cabinet__driver__payment-data__item__number {
+    font-size: 26px;
+  }
+  
+  .cabinet__driver__payment-data .cabinet__driver__payment-data__card-design .cabinet__driver__payment-data__item__text {
+    font-size: 32px;
+  }
+
+  .cabinet__driver__payment-data .cabinet__driver__payment-data__total-amount .cabinet__driver__payment-data__item__number {
+    font-size: 32px;
+  }
+  
+  .cabinet__driver__payment-data .cabinet__driver__payment-data__total-amount .cabinet__driver__payment-data__item__text {
+    font-size: 26px;
+  }
+
+  .cabinet__driver__payment-data .cabinet__driver__payment-data__pay-btn p {
+    font-size: 24px;
+  }
+}
+
+ /* ADAPTIVE 1536px and more */
+@media (min-width: 1536px) {
+  .cabinet__driver__payment-data {
+    height: 280px;
+    width: 550px;
+  }
+
+  .cabinet__driver__payment-data .cabinet__driver__payment-data__item__text {
+    font-size: 26px;
+  }
+  
+  .cabinet__driver__payment-data .cabinet__driver__payment-data__item__number {
+    font-size: 28px;
+  }
+  
+  .cabinet__driver__payment-data .cabinet__driver__payment-data__card-design .cabinet__driver__payment-data__item__text {
+    font-size: 34px;
+  }
+
+  .cabinet__driver__payment-data .cabinet__driver__payment-data__total-amount .cabinet__driver__payment-data__item__number {
+    font-size: 34px;
+  }
+  
+  .cabinet__driver__payment-data .cabinet__driver__payment-data__total-amount .cabinet__driver__payment-data__item__text {
+    font-size: 28px;
+  }
+
+  .cabinet__driver__payment-data .cabinet__driver__payment-data__pay-btn p {
+    font-size: 26px;
+  }
 }

@@ -5,14 +5,14 @@
     justify-self: center;
 
     display: grid;
-    grid-template-rows: 190px 80px 1fr;
+    grid-template-rows: 190px 100px 1fr;
     grid-template-columns: 1fr;
     justify-items: center;
 }
 
 .container.cabinet.driver.card .cabinet__driver__payment-data {
-    width: 93%;
     grid-row: 1 / 2;
+    margin-top: 20px;
 } 
 
 .cabinet__driver__notify {
@@ -21,10 +21,10 @@
 
 .container.cabinet.driver.card .cabinet__driver .cabinet__driver__notify {
     font-family: "FuturaDemiC";
-    font-size: 16px;
+    font-size: 15px;
     color: #9B5E5D;
     text-align: center;
-    width: 85%;
+    align-self: center;
 }
 
 .container.cabinet.driver.card .cabinet__driver .cabinet__driver__transports {
@@ -33,12 +33,71 @@
     grid-row: 3 / 4;
     justify-self: center;
     
-    overflow-x: hidden;
-    padding-bottom: 10vh;
+    overflow: hidden;
 }
 
 .container.cabinet.driver.card .cabinet__driver .cabinet__driver__transports .cabinet__driver__title {
     font-family: "FuturaDemiC";
     font-size: 18px;
     color: #fbfbfb;
+}
+
+
+@media (max-width: 1023px) {
+    .container.cabinet.driver.card .cabinet__driver .cabinet__driver__transports {
+        padding-bottom: 10vh;
+    }
+    .container.cabinet.driver.card .cabinet__driver .cabinet__driver__notify {
+        width: 85%;
+    }
+}
+
+@media (min-width: 1024px) {
+    .container.cabinet.driver.card .cabinet__driver .cabinet__driver__notify {
+        width: 100%;
+    }
+}
+
+
+/* ADAPTIVE 768-801 */
+@media (min-width: 641px) and (max-width: 1023px) 
+and (orientation: portrait) {
+    .container.cabinet.driver.card .cabinet__driver {
+        grid-template-rows: 260px 100px 1fr;
+    }
+
+    .container.cabinet.driver.card .cabinet__driver .cabinet__driver__transports .cabinet__driver__title {
+        font-size: 22px;
+    }
+    .container.cabinet.driver.card .cabinet__driver .cabinet__driver__notify {
+        font-size: 20px;
+    }
+}
+
+ /* ADAPTIVE 1024,1280,1337,1440px */
+@media (min-width: 1024px) and (max-width: 1535px) {
+    .container.cabinet.driver.card .cabinet__driver {
+        grid-template-rows: 280px 110px 1fr;
+    }
+
+    .container.cabinet.driver.card .cabinet__driver .cabinet__driver__transports .cabinet__driver__title {
+        font-size: 24px;
+    }
+    .container.cabinet.driver.card .cabinet__driver .cabinet__driver__notify {
+        font-size: 22px;
+    }
+}
+
+ /* ADAPTIVE 1536px and more */
+@media (min-width: 1536px) {
+    .container.cabinet.driver.card .cabinet__driver {
+        grid-template-rows: 300px 120px 1fr;
+    }
+
+    .container.cabinet.driver.card .cabinet__driver .cabinet__driver__transports .cabinet__driver__title {
+        font-size: 26px;
+    }
+    .container.cabinet.driver.card .cabinet__driver .cabinet__driver__notify {
+        font-size: 24px;
+    }
 }

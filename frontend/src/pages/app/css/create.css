@@ -14,8 +14,6 @@
     justify-self: center;
     align-self: center;
     text-align: center;
-
-    padding-bottom: 10vh;
 }
 
 .container.create-app .create-app__form__additional input,
@@ -26,4 +24,37 @@
 .container.create-app .create-app__form__additional .input__common__submit,
 .container.create-app .create-app__form__main .input__common__submit {
     margin-top: 20px;
+}
+
+
+@media (max-width: 640px) {
+    .container.create-app .create-app__form__additional,
+    .container.create-app .create-app__form__main {
+        padding-bottom: 10vh;
+    }
+}
+
+/* ADAPTIVE 768-801-1024px */
+@media (min-width: 641px) and (max-width: 1024px) 
+and (orientation: portrait) {
+    .container.create-app .create-app__form__additional,
+    .container.create-app .create-app__form__main {
+        width: 75%;
+    }
+}
+
+ /* ADAPTIVE 1024,1280,1337,1440px */
+@media (min-width: 1024px) and (max-width: 1535px) {
+    .container.create-app .create-app__form__additional,
+    .container.create-app .create-app__form__main {
+        width: 50%;
+    }
+}
+
+ /* ADAPTIVE 1536px and more */
+@media (min-width: 1536px) {
+    .container.create-app .create-app__form__additional,
+    .container.create-app .create-app__form__main {
+        width: 45%;
+    }
 }
