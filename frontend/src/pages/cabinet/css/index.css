@@ -15,7 +15,7 @@
 .container.cabinet.client,
 .container.cabinet.driver.form {
     width: 100%;
-    grid-template-rows: 10% 18% 1fr;
+    grid-template-rows: auto auto 1fr;
     grid-template-columns: 1fr;
 }
 
