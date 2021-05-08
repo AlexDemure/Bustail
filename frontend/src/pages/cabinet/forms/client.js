@@ -82,7 +82,7 @@ export default class ClientPage extends React.Component {
 
                 <div className="container cabinet client">
                     <CabinetSwitch is_active="client" onClick={this.props.changeForm}/>
-                    <p id="warning">Сервис не несет ответственность за качество оказания услуг или спорных ситуаций при выполнении заказов3.</p>
+                    <p id="warning">Сервис не несет ответственность за качество оказания услуг или спорных ситуаций при выполнении заказов.</p>
                     <div className="cabinet__client__applications">
                         <p className="cabinet__client__title">Текущие заявки</p>
                         {
