@@ -8,7 +8,9 @@
     align-content: center;
     align-items: center;
     
-    overflow: hidden;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
 }
 
 .container.cabinet.common,
@@ -24,10 +26,6 @@
     grid-template-columns: 1fr;
 
     align-content: flex-start;
-
-    overflow-y: scroll;
-    overflow-x: hidden;
-    -webkit-overflow-scrolling: touch;
 }
 
 .container.cabinet.common p[id=warning],
