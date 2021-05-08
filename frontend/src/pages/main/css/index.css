@@ -10,7 +10,7 @@
 }
 
 .main .main__menu {
-    margin-right: 3%;
+    
     width: 90%;
     height: 75%;
     display: grid;
@@ -139,7 +139,7 @@
     margin: 0;
     padding: 0;
     margin-top: 10%;
-    margin-left: 5%;
+
     border: none;
     background-image: url('../../../static/icons/default/search.png');
     background-repeat: no-repeat;
@@ -185,4 +185,102 @@
 
 .main .main__menu .main__menu__btn__find:hover #apps:hover p {
     color: #FBFBFB;
+}
+
+
+/* ADAPTIVE 768-801-1024px */
+@media (min-width: 641px) and (max-width: 1024px) 
+and (orientation: portrait) {
+    .main .main__menu {
+        width: 80%;
+        height: 60%;
+    }
+
+    .main .main__menu div p {
+        font-size: 20px;
+    }
+    
+    .main .main__menu .main__menu__btn__cabinet p {
+        font-size: 22px;
+    }
+    
+    .main .main__menu .main__menu__btn__find #text p {
+        font-size: 22px;
+    }
+}
+
+ /* ADAPTIVE 1024,1280,1337,1440px */
+@media (min-width: 1024px) and (max-width: 1535px) {
+    .main .main__menu {
+        width: 60%;
+        height: 60%;
+        min-height: 600px;
+        max-height: 700px;
+    }
+
+    .main .main__menu div p {
+        font-size: 22px;
+    }
+
+    .main .main__menu .main__menu__btn__cabinet p {
+        font-size: 24px;
+    }
+    
+    .main .main__menu .main__menu__btn__find #text p {
+        font-size: 24px;
+    }
+    
+}
+
+ /* ADAPTIVE 1536px and more */
+@media (min-width: 1536px) {
+    
+    .main .main__menu {
+        width: 45%;
+        height: 60%;
+        min-height: 600px;
+        max-height: 900px;
+    }
+
+    .main .main__menu div p {
+        font-size: 24px;
+    }
+
+    .main .main__menu .main__menu__btn__cabinet p {
+        font-size: 26px;
+    }
+    
+    .main .main__menu .main__menu__btn__find #text p {
+        font-size: 26px;
+    }
+}
+
+
+@media (min-width: 641px) {
+    
+    .main .main__menu .main__menu__btn__create-transport,
+    .main .main__menu .main__menu__btn__create-app {
+        background-size: 90px 60px;
+    }
+
+    .main .main__menu .main__menu__btn__cabinet {
+        height: 100px;
+        background-size: 50px 50px; 
+    }
+
+    .main .main__menu .main__menu__btn__cabinet p {
+        margin-left: 90px;
+    }
+
+    .main .main__menu .main__menu__btn__find #text {
+        background-position: 30% center;
+        background-size: 50px 50px; 
+    }
+
+    .main .main__menu .main__menu__btn__find #apps,
+    .main .main__menu .main__menu__btn__find #transport {
+        width: 60%;
+        height: 70px;
+        margin-left: 20%;
+    }
 }
