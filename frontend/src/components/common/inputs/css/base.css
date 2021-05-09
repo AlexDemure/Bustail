@@ -49,7 +49,7 @@ textarea::placeholder {
 
 input {
     background-size: 25px 25px;
-    background-position: right+10px center;
+    background-position: calc(100% - 10px) center;
     background-repeat: no-repeat;
 }
 
