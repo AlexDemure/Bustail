@@ -2,7 +2,7 @@
 .container.landing .contacts .contacts__form__feedback {
     margin-top: 20px;
     text-align: center;
-    width: 80%;
+    width: 100%;
 
     justify-self: center;
     align-self: center;
@@ -35,18 +35,12 @@ and (orientation: portrait) {
     .container.landing .contacts .contacts__form__feedback p {
         font-size: 20px;
     }
-    .container.landing .contacts .contacts__form__feedback {
-        width: 70%;
-    }
 }
 
   /* ADAPTIVE 1280,1337,1440px */
   @media (min-width: 1024px) and (max-width: 1535px) {
     .container.landing .contacts .contacts__form__feedback p {
         font-size: 22px;
-    }
-    .container.landing .contacts .contacts__form__feedback {
-        width: 65%;
     }
   }
 
@@ -55,8 +49,5 @@ and (orientation: portrait) {
  @media (min-width: 1536px) {
     .container.landing .contacts .contacts__form__feedback p {
         font-size: 24px;
-    }
-    .container.landing .contacts .contacts__form__feedback {
-        width: 50%;
     }
  }

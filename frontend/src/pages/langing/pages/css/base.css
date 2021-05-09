@@ -37,7 +37,7 @@
     width: 95%;
 
     bottom: 0;
-    left: 2.5%;
+    left: 0;
 
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -113,7 +113,7 @@
     .container.landing .page .footer {
         font-size: 22px;
         width: 65vw;
-        margin-left: 17.5vw;
+        left: 17.5vw;
     }
     .container.landing .page .footer #preview-btn {
         height: 50px;
@@ -127,7 +127,7 @@
     .container.landing .page .footer {
         font-size: 24px;
         width: 50vw;
-        margin-left: 25vw;
+        left: 25vw;
     }
     .container.landing .page .footer #preview-btn {
         height: 55px;
