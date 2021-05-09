@@ -85,10 +85,10 @@ and (orientation: portrait) {
     }
     .container.landing .contacts .contacts__title p span,
     .container.landing .contacts .contacts__title a span {
-        font-size: 26px;
+        font-size: 24px;
     }
     .container.landing .contacts .contacts__notify p {
-        font-size: 26px;
+        font-size: 24px;
     }
 }
 
@@ -99,10 +99,10 @@ and (orientation: portrait) {
     }
     .container.landing .contacts .contacts__title p span,
     .container.landing .contacts .contacts__title a span {
-        font-size: 30px;
+        font-size: 26px;
     }
     .container.landing .contacts .contacts__notify p {
-        font-size: 30px;
+        font-size: 26px;
     }
 }
 
@@ -114,9 +114,9 @@ and (orientation: portrait) {
     }
     .container.landing .contacts .contacts__title p span,
     .container.landing .contacts .contacts__title a span {
-        font-size: 32px;
+        font-size: 28px;
     }
     .container.landing .contacts .contacts__notify p {
-        font-size: 32px;
+        font-size: 28px;
     }
 }
