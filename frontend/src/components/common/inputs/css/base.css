@@ -61,7 +61,7 @@ input {
 .input__common.password {
     background-image: url("../../../../static/icons/password.png");
     background-size: 20px 23px;
-    background-position: 94% center;
+    background-position: calc(100% - 10px) center;
     font-size: 12px;
     font-family: 'FuturaLightC';
 }
@@ -92,7 +92,6 @@ and (orientation: portrait) {
     }
     .input__common.password {
         background-size: 30px 33px;
-        background-position: 95% center;
         font-size: 18px;
     }
     
@@ -115,7 +114,6 @@ and (orientation: portrait) {
     }
     .input__common.password {
         background-size: 30px 33px;
-        background-position: 95% center;
         font-size: 20px;
     }
     textarea {
@@ -137,7 +135,6 @@ and (orientation: portrait) {
     }
     .input__common.password {
         background-size: 35px 38px;
-        background-position: 95% center;
         font-size: 22px;
     }
     textarea {
