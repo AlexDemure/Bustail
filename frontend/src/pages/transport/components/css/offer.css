@@ -13,7 +13,7 @@
     bottom: 0;
     left: 0;
     position: absolute;
-    height: 80%;
+    height: 90%;
     width: 100vw;
 
     background-color: #181818;
@@ -50,6 +50,7 @@
     background-position-y: center;
     background-repeat: no-repeat;
     float: right;
+    justify-self: flex-end;
 }
 
 .offer__application__modal-window__content .offer__application__modal-window__text {
@@ -95,6 +96,16 @@
     -webkit-overflow-scrolling: touch;
 }
 
+.offer__application__modal-window__content .offer__application__modal-window__choices::-webkit-scrollbar {
+    display: none;
+}
+
+.offer__application__modal-window__content .offer__application__modal-window__choices  {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+
+
 .offer__application__modal-window__content  .offer__application__modal-window__no-choices-text {
     font-size: 18px;
     font-family: "FuturaDemiC";
@@ -103,6 +114,82 @@
     justify-self: center;
     align-self: center;
 
-    height: 100%;
     margin-top: 25%;    
+}
+
+
+/* ADAPTIVE 768-801 */
+@media (min-width: 641px) and (max-width: 1023px) 
+and (orientation: portrait) {
+
+    .offer__application__modal-window__content .offer__application__modal-window__title {
+        font-size: 28px;
+    }
+
+    .offer__application__modal-window__content .offer__application__modal-window__close-btn {
+        width: 55px;
+        height: 45px;
+        background-size: 30px 30px;
+    }
+
+    .offer__application__modal-window__content .offer__application__modal-window__create-object,
+    .offer__application__modal-window__content .offer__application__modal-window__text {
+        font-size: 20px;
+    }
+
+    .offer__application__modal-window__content  .offer__application__modal-window__no-choices-text {
+        font-size: 22px;
+    }
+}
+
+ /* ADAPTIVE 1024,1280,1337,1440px */
+@media (min-width: 1024px) and (max-width: 1535px) {
+    .offer__application__modal-window__content{
+        width: 65vw;
+        margin-left: 17.5vw;
+    }
+    .offer__application__modal-window__content .offer__application__modal-window__title {
+        font-size: 28px;
+    }
+
+    .offer__application__modal-window__content .offer__application__modal-window__close-btn {
+        width: 60px;
+        height: 50px;
+        background-size: 35px 35px;
+    }
+
+    .offer__application__modal-window__content .offer__application__modal-window__create-object,
+    .offer__application__modal-window__content .offer__application__modal-window__text {
+        font-size: 24px;
+    }
+
+    .offer__application__modal-window__content  .offer__application__modal-window__no-choices-text {
+        font-size: 26px;
+    }
+}
+
+ /* ADAPTIVE 1536px and more */
+@media (min-width: 1536px) {
+    .offer__application__modal-window__content {
+        width: 50vw;
+        margin-left: 25vw;
+    }
+    .offer__application__modal-window__content .offer__application__modal-window__title {
+        font-size: 28px;
+    }
+
+    .offer__application__modal-window__content .offer__application__modal-window__close-btn {
+        width: 65px;
+        height: 55px;
+        background-size: 40px 40px;
+    }
+
+    .offer__application__modal-window__content .offer__application__modal-window__create-object,
+    .offer__application__modal-window__content .offer__application__modal-window__text {
+        font-size: 24px;
+    }
+
+    .offer__application__modal-window__content  .offer__application__modal-window__no-choices-text {
+        font-size: 26px;
+    }
 }

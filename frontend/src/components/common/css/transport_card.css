@@ -14,7 +14,7 @@
     bottom: 0;
     left: 0;
     position: absolute;
-    height: 80%;
+    height: 90%;
     width: 100vw;
     
     background-color: #181818;
@@ -231,8 +231,8 @@ and (orientation: portrait) {
  /* ADAPTIVE 1024,1280,1337,1440px */
 @media (min-width: 1024px) and (max-width: 1535px) {
     .transport_card__modal-window__content {
-        width: 60vw;
-        margin-left: 20vw;
+        width: 65vw;
+        margin-left: 17.5vw;
     }
 
     

@@ -39,7 +39,7 @@
  /* ADAPTIVE 1536px and more */
 @media (min-width: 1536px) {
     .container.history {
-        width: 60vw;
+        width: 65vw;
 
     }
 }

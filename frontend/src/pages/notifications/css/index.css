@@ -19,4 +19,44 @@
     overflow-x: hidden;
     
     -webkit-overflow-scrolling: touch;
+
+    display: grid;
+    justify-items: center;
+}
+
+.container.notifications .notifications__driver__applications::-webkit-scrollbar, 
+.container.notifications .notifications__client__applications::-webkit-scrollbar {
+    display: none;
+}
+
+.container.notifications .notifications__driver__applications, 
+.container.notifications .notifications__client__applications {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+
+.container.notifications .offer {
+    width: 100%;
+}
+
+/* ADAPTIVE 768-801 */
+@media (min-width: 641px) and (max-width: 1023px) 
+and (orientation: portrait) {
+    .container.notifications {
+        width: 80vw;
+    }
+}
+
+ /* ADAPTIVE 1024,1280,1337,1440px */
+@media (min-width: 1024px) and (max-width: 1535px) {
+    .container.notifications {
+        width: 65vw;
+    }
+}
+
+ /* ADAPTIVE 1536px and more */
+@media (min-width: 1536px) {
+    .container.notifications {
+        width: 50vw;
+    }
 }

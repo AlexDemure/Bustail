@@ -185,3 +185,190 @@
 .ticket__offer .ticket__offer__about .ticket__offer__about__details p span {
     font-size: 14px;
 }
+
+/* ADAPTIVE 768-801 */
+@media (min-width: 641px) and (max-width: 1023px) 
+and (orientation: portrait) {
+    .ticket__offer .ticket__offer__about,
+    .ticket__offer {
+        height: 125px;
+    }
+
+    .ticket__offer .ticket__offer__placeholder {
+        font-size: 18px;
+    }
+    .ticket__offer .ticket__offer__city {
+        font-size: 22px;
+    }
+
+    .ticket__offer .ticket__offer__details-btn {
+        font-size: 20px;
+    }
+    
+    .ticket__offer .ticket__offer__type-app {
+        font-size: 20px;
+    }
+    
+    .ticket__offer .ticket__offer__date {
+        font-size: 18px;
+    }
+    
+    .ticket__offer .ticket__offer__price {
+        font-size: 20px;
+    }
+
+    .ticket__offer .ticket__offer__reject-btn p {
+        font-size: 18px;
+    }
+    
+    .ticket__offer .ticket__offer__about .ticket__offer__about__close-btn {
+        width: 55px;
+        height: 45px;
+        background-size: 30px 30px;
+    }
+    
+    .ticket__offer .ticket__offer__about .ticket__offer__about__details .ticket__offer__about__item.description {
+        font-size: 20px;
+    }
+    
+    .ticket__offer .ticket__offer__about .ticket__offer__about__details p span {
+        font-size: 20px;
+    }
+    
+    .ticket__offer .ticket__offer__about .ticket__offer__about__details p span {
+        font-size: 18px;
+    }
+    
+    .ticket__offer .ticket__offer__status {
+        height: 20px;
+        width: 20px;
+    }
+
+    .ticket__offer .ticket__offer__offer-btn p {
+        font-size: 18px;
+    }
+}
+
+ /* ADAPTIVE 1024,1280,1337,1440px */
+@media (min-width: 1024px) and (max-width: 1535px) {
+    .ticket__offer .ticket__offer__about,
+    .ticket__offer {
+        height: 150px;
+    }
+
+    .ticket__offer .ticket__offer__placeholder {
+        font-size: 20px;
+    }
+    .ticket__offer .ticket__offer__city {
+        font-size: 24px;
+    }
+
+    .ticket__offer .ticket__offer__details-btn {
+        font-size: 22px;
+    }
+    
+    .ticket__offer .ticket__offer__type-app {
+        font-size: 22px;
+    }
+    
+    .ticket__offer .ticket__offer__date {
+        font-size: 20px;
+    }
+    
+    .ticket__offer .ticket__offer__price {
+        font-size: 22px;
+    }
+
+    .ticket__offer .ticket__offer__reject-btn p {
+        font-size: 20px;
+    }
+    
+    .ticket__offer .ticket__offer__about .ticket__offer__about__close-btn {
+        width: 60px;
+        height: 50px;
+        background-size: 35px 35px;
+    }
+    
+    .ticket__offer .ticket__offer__about .ticket__offer__about__details .ticket__offer__about__item.description {
+        font-size: 22px;
+    }
+    
+    .ticket__offer .ticket__offer__about .ticket__offer__about__details p span {
+        font-size: 22px;
+    }
+    
+    .ticket__offer .ticket__offer__about .ticket__offer__about__details p span {
+        font-size: 20px;
+    }
+    
+    .ticket__offer .ticket__offer__status {
+        height: 25px;
+        width: 25px;
+    }
+
+    .ticket__offer .ticket__offer__offer-btn p {
+        font-size: 20px;
+    }
+}
+
+ /* ADAPTIVE 1536px and more */
+@media (min-width: 1536px) {
+    .ticket__offer .ticket__offer__about,
+    .ticket__offer {
+        height: 175px;
+    }
+
+    .ticket__offer .ticket__offer__placeholder {
+        font-size: 22px;
+    }
+    .ticket__offer .ticket__offer__city {
+        font-size: 26px;
+    }
+
+    .ticket__offer .ticket__offer__details-btn {
+        font-size: 24px;
+    }
+    
+    .ticket__offer .ticket__offer__type-app {
+        font-size: 24px;
+    }
+    
+    .ticket__offer .ticket__offer__date {
+        font-size: 22px;
+    }
+    
+    .ticket__offer .ticket__offer__price {
+        font-size: 24px;
+    }
+
+    .ticket__offer .ticket__offer__reject-btn p {
+        font-size: 22px;
+    }
+    
+    .ticket__offer .ticket__offer__about .ticket__offer__about__close-btn {
+        width: 65px;
+        height: 55px;
+        background-size: 40px 40px;
+    }
+    
+    .ticket__offer .ticket__offer__about .ticket__offer__about__details .ticket__offer__about__item.description {
+        font-size: 24px;
+    }
+    
+    .ticket__offer .ticket__offer__about .ticket__offer__about__details p span {
+        font-size: 24px;
+    }
+    
+    .ticket__offer .ticket__offer__about .ticket__offer__about__details p span {
+        font-size: 22px;
+    }
+    
+    .ticket__offer .ticket__offer__status {
+        height: 30px;
+        width: 30px;
+    }
+
+    .ticket__offer .ticket__offer__offer-btn p {
+        font-size: 22px;
+    }
+}

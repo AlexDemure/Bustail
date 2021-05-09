@@ -31,9 +31,9 @@
     grid-column: 2 / 3;
     grid-row: 1 / 2;
     padding-left: 10px;
+    padding-right: 5px;
 
     display: grid;
-    justify-content: flex-start;
     align-content: flex-start;
     grid-template-rows: 30px 70px 40px;
 }
@@ -52,7 +52,7 @@
 .transport__search .transport__search__card .transport__search__card__title p[id=model] {
     margin-top: 5px;
     color: #FBFBFB;
-    font-size: 16px;
+    font-size: 15px;
     font-family: 'FuturaMediumC';
 }
 
@@ -79,7 +79,8 @@
     
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    border-top: 1px solid #2e2e2e;
+    justify-items: center;
+    justify-content: space-evenly;
 }
 
 .transport__search .transport__search__card .transport__search__card__controls .transport__search__control {
@@ -89,6 +90,12 @@
     background-size: 25px 25px;
     width: 55px;
     height: 40px;
+
+    border-top: 1px solid #2e2e2e;
+}
+
+.transport__search .transport__search__card .transport__search__card__controls .transport__search__control:hover {
+    border-top: 1px solid #fba333;
 }
 
 .transport__search .transport__search__control.contacts {
@@ -100,8 +107,6 @@
 }
 
 .transport__search .transport__search__control.info {
-    border-left: 1px solid rgba(255,255,255, 0.1);
-    border-right: 1px solid rgba(255,255,255, 0.1);
     background-image: url("../../../../static/icons/default/description.png");
 }
 
@@ -172,7 +177,7 @@
 
 
 /* ADAPTIVE 375px */
-@media screen and (min-width:361px) and (max-width:400px){
+@media (min-width:361px) and (max-width:400px){
     .transport__search {
         height: 160px;
         grid-template-rows: 110px 50px;
@@ -184,7 +189,7 @@
         background-size: 180px 160px;   /* x y*/
     }
     .transport__search .transport__search__card {
-        grid-template-rows: 30px 80px 50px;
+        grid-template-rows: 40px 80px 40px;
     }
 
     .transport__search .transport__search__card .transport__search__card__controls .transport__search__control {
@@ -201,7 +206,7 @@
  }
 
  /* ADAPTIVE 414px */
- @media screen and (min-width:401px) and (max-width:414px){
+ @media (min-width:401px) and (max-width:640px){
     .transport__search {
         height: 180px;
         grid-template-rows: 120px 60px;
@@ -213,7 +218,7 @@
         background-size: 200px 180px;   /* x y*/
     }
     .transport__search .transport__search__card {
-        grid-template-rows: 30px 100px 50px;
+        grid-template-rows: 40px 90px 50px;
     }
 
     .transport__search .transport__search__card .transport__search__card__title p[id=model] {
@@ -227,6 +232,8 @@
 
     .transport__search .transport__search__card .transport__search__card__controls .transport__search__control {
         background-size: 30px 30px;
+        width: 60px;
+        height: 45px;
     }
 
     .transport__search .transport__search__about {
@@ -235,6 +242,8 @@
 
     .transport__search .transport__search__about .transport__search__about__close-btn {
         background-size: 30px 30px;
+        width: 60px;
+        height: 45px;
     }
 
     .transport__search .transport__search__about .transport__search__about__item {
@@ -245,3 +254,128 @@
         font-size: 15px;
     }
  }
+
+ /* ADAPTIVE 768-801 */
+@media (min-width: 641px) and (max-width: 1023px) 
+and (orientation: portrait) {
+    .transport__search {
+        height: 220px;
+        grid-template-rows: 150px 70px;
+        grid-template-columns: 240px 1fr;
+    }
+
+    .transport__search .transport__search__card .transport__search__card__controls {
+        grid-template-columns: repeat(3, 80px);
+    }
+
+    .transport__search .transport__search__photo {
+        height: 220px;
+        width: 240px;
+        background-size: 240px 220px;   /* x y*/
+    }
+    .transport__search .transport__search__card {
+        grid-template-rows: 60px 105px 55px;
+    }
+
+    .transport__search .transport__search__card .transport__search__card__controls .transport__search__control {
+        background-size: 35px 35px;
+    }
+
+    .transport__search .transport__search__about {
+        height: 220px;
+    }
+
+    .transport__search .transport__search__about .transport__search__about__close-btn {
+        background-size: 35px 35px;
+    }
+
+    .transport__search .transport__search__card .transport__search__card__title p[id=model] {
+        font-size: 22px;
+    }
+    
+    .transport__search .transport__search__card .transport__search__card__body .transport__search__item {
+        font-size: 22px;
+     }
+    
+     .transport__search .transport__search__card .transport__search__card__body .transport__search__item span {
+        font-size: 22px;
+    }
+}
+
+ /* ADAPTIVE 1024,1280,1337,1440px */
+ @media (min-width: 1024px) and (max-width: 1535px) {
+    .transport__search {
+        height: 270px;
+        grid-template-rows: 130px 70px;
+        grid-template-columns: 300px 1fr;
+    }
+    .transport__search .transport__search__photo {
+        height: 270px;
+        width: 300px;
+        background-size: 300px 270px;   /* x y*/
+    }
+    .transport__search .transport__search__card {
+        grid-template-rows: 65px 135px 70px;
+    }
+
+    .transport__search .transport__search__card .transport__search__card__controls {
+        grid-template-columns: repeat(3, 80px);
+    }
+
+    .transport__search .transport__search__card .transport__search__card__controls .transport__search__control {
+        background-size: 45px 45px;
+        width: 75px;
+        height: 60px;
+    }
+
+    .transport__search .transport__search__card .transport__search__card__title p[id=model] {
+        font-size: 28px;
+    }
+    
+    .transport__search .transport__search__card .transport__search__card__body .transport__search__item {
+        font-size: 26px;
+     }
+    
+    .transport__search .transport__search__card .transport__search__card__body .transport__search__item span {
+        font-size: 26px;
+    }
+}
+
+ /* ADAPTIVE 1536px and more */
+@media (min-width: 1536px) {
+    .transport__search {
+        height: 300px;
+        grid-template-rows: 200px 100px;
+        grid-template-columns: 330px 1fr;
+    }
+    .transport__search .transport__search__photo {
+        height: 300px;
+        width: 330px;
+        background-size: 330px 300px;   /* x y*/
+    }
+    .transport__search .transport__search__card {
+        grid-template-rows: 70px 145px 70px;
+    }
+
+    .transport__search .transport__search__card .transport__search__card__controls {
+        grid-template-columns: repeat(3, 80px);
+    }
+
+    .transport__search .transport__search__card .transport__search__card__controls .transport__search__control {
+        background-size: 50px 50px;
+        width: 80px;
+        height: 65px;
+    }
+
+    .transport__search .transport__search__card .transport__search__card__title p[id=model] {
+        font-size: 28px;
+    }
+    
+    .transport__search .transport__search__card .transport__search__card__body .transport__search__item {
+        font-size: 26px;
+     }
+    
+     .transport__search .transport__search__card .transport__search__card__body .transport__search__item span {
+        font-size: 26px;
+    }
+}

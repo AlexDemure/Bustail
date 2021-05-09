@@ -12,7 +12,6 @@
 }
 
 .input__common__submit {
-    font-family: 'FuturaBookC';
     font-size: 16px; 
 }
 
@@ -31,10 +30,13 @@
 
 .input__common__submit,
 .button__common__redirect a {
-    font-size: 18px;
     text-decoration: none;
     color: #fbfbfb;
     font-family: 'FuturaBookC';
+}
+
+.button__common__redirect a {
+    font-size: 18px;
 }
 
 

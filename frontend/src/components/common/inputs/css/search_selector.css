@@ -67,14 +67,14 @@ and (orientation: portrait) {
         top: 70px
     }
     .search-selector .search-selector__option li  {
-        font-size: 22px;
+        font-size: 24px;
     }
 }
 
  /* ADAPTIVE 1024,1280,1337,1440px */
 @media (min-width: 1024px) and (max-width: 1535px) {
     .search-selector .search-selector__option li  {
-        font-size: 24px;
+        font-size: 26px;
    }
     .search-selector .search-selector__option {
         top: 80px
@@ -84,7 +84,7 @@ and (orientation: portrait) {
  /* ADAPTIVE 1536px and more */
 @media (min-width: 1536px) {
     .search-selector .search-selector__option li  {
-        font-size: 26px;
+        font-size: 28px;
     }
     .search-selector .search-selector__option {
         top: 90px

@@ -65,6 +65,10 @@ and (orientation: portrait) {
 
 /* ADAPTIVE 1280,1337,1440px */
 @media (min-width: 1024px) and (max-width: 1535px) {
+    header {
+        width: 65vw;
+    }
+
     header .header__common__page-name {
         font-size: 36px;
     }
@@ -76,6 +80,10 @@ and (orientation: portrait) {
 
 /* ADAPTIVE 1536px and more */
 @media (min-width: 1536px) {
+    header {
+        width: 50vw;
+    }
+
     header .header__common__page-name {
         font-size: 42px;
     }

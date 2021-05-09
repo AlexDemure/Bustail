@@ -102,8 +102,51 @@
     color: #181818;
 }
 
+
+/* ADAPTIVE 375px */
+@media (min-width:361px) and (max-width:400px){
+    .transport__offer {
+        height: 160px;
+        grid-template-rows: 110px 50px;
+        grid-template-columns: 180px 1fr;
+    }
+    .transport__offer .transport__offer__photo {
+        height: 160px;
+        width: 180px;
+        background-size: 180px 160px;   /* x y*/
+    }
+    .transport__offer .transport__offer__card {
+        grid-template-rows: 30px 40px 90px;
+    }
+
+    .transport__offer .transport__offer__card .transport__offer__card__controls .transport__offer__control {
+        background-size: 28px 28px;
+    }
+
+    .transport__offer .transport__offer__about {
+        height: 160px;
+    }
+
+    .transport__offer .transport__offer__about .transport__offer__about__close-btn {
+        background-size: 28px 28px;
+    }
+ }
+
  /* ADAPTIVE 414px */
- @media screen and (min-width:401px) and (max-width:414px){
+ @media (min-width:401px) and (max-width:640px){
+    .transport__offer {
+        height: 180px;
+        grid-template-rows: 120px 60px;
+        grid-template-columns: 200px 1fr;
+    }
+    .transport__offer .transport__offer__photo {
+        height: 180px;
+        width: 200px;
+        background-size: 200px 180px;   /* x y*/
+    }
+    .transport__offer .transport__offer__card {
+        grid-template-rows: 30px 50px 100px;
+    }
 
     .transport__offer .transport__offer__card .transport__offer__card__title p[id=model] {
         font-size: 16px;
@@ -113,4 +156,122 @@
     .transport__offer .transport__offer__card .transport__offer__card__body .transport__offer__item span {
         font-size: 16px;
     }
+
+    .transport__offer .transport__offer__about {
+        height: 180px;
+    }
+
+    .transport__offer .transport__offer__about .transport__offer__about__close-btn {
+        background-size: 30px 30px;
+    }
+
+    .transport__offer .transport__offer__about .transport__offer__about__item {
+        font-size: 16px;
+    }
+
+    .transport__offer .transport__offer__about .transport__offer__about__item span {
+        font-size: 15px;
+    }
  }
+
+
+ /* ADAPTIVE 768-801 */
+@media (min-width: 641px) and (max-width: 1023px) 
+and (orientation: portrait) {
+    .transport__offer {
+        height: 220px;
+        grid-template-rows: 150px 70px;
+        grid-template-columns: 240px 1fr;
+    }
+    .transport__offer .transport__offer__photo {
+        height: 220px;
+        width: 240px;
+        background-size: 240px 220px;   /* x y*/
+    }
+    .transport__offer .transport__offer__card {
+        grid-template-rows: 40px 65px 115px;
+    }
+
+    .transport__offer .transport__offer__card .transport__offer__card__title p[id=model] {
+        font-size: 22px;
+    }
+
+    .transport__offer .transport__offer__card .transport__offer__card__body .transport__offer__item,
+    .transport__offer .transport__offer__card .transport__offer__card__body .transport__offer__item span {
+        font-size: 20px;
+    }
+
+    .transport__offer .transport__offer__about {
+        height: 220px;
+    }
+
+    .transport__offer .transport__offer__about .transport__offer__about__close-btn {
+        background-size: 35px 35px;
+    }
+
+    .transport__offer .transport__offer__about .transport__offer__about__item {
+        font-size: 20px;
+    }
+
+    .transport__offer .transport__offer__about .transport__offer__about__item span {
+        font-size: 20px;
+    }
+
+    .transport__offer .transport__offer__card .transport__offer__card__footer {
+        width: 40%;
+    }
+
+    .transport__offer .transport__offer__card .transport__offer__card__footer p {
+        font-size: 18px;
+    }
+}
+
+ /* ADAPTIVE 1024 and more */
+@media (min-width: 1024px) {
+    .transport__offer {
+        height: 250px;
+        grid-template-rows: 180px 70px;
+        grid-template-columns: 270px 1fr;
+    }
+    .transport__offer .transport__offer__photo {
+        height: 250px;
+        width: 270px;
+        background-size: 270px 250px;   /* x y*/
+    }
+    .transport__offer .transport__offer__card {
+        grid-template-rows: 40px 70px 140px;
+    }
+
+    .transport__offer .transport__offer__card .transport__offer__card__title p[id=model] {
+        font-size: 26px;
+    }
+
+    .transport__offer .transport__offer__card .transport__offer__card__body .transport__offer__item,
+    .transport__offer .transport__offer__card .transport__offer__card__body .transport__offer__item span {
+        font-size: 22px;
+    }
+
+    .transport__offer .transport__offer__about {
+        height: 250px;
+    }
+
+    .transport__offer .transport__offer__about .transport__offer__about__close-btn {
+        background-size: 40px 40px;
+    }
+
+    .transport__offer .transport__offer__about .transport__offer__about__item {
+        font-size: 22px;
+    }
+
+    .transport__offer .transport__offer__about .transport__offer__about__item span {
+        font-size: 22px;
+    }
+
+    .transport__offer .transport__offer__card .transport__offer__card__footer {
+        width: 35%;
+    }
+
+    .transport__offer .transport__offer__card .transport__offer__card__footer p {
+        font-size: 20px;
+    }
+}

@@ -1,5 +1,6 @@
 .ticket__notification {
     width: 100%;
+    max-width: 1000px;
     height: 40px;
     background-color: #222222;
     border-top: 1px solid #262626;
@@ -65,4 +66,39 @@
     font-size: 16px;
     font-family: "FuturaDemiC";
     color: #fba333
+}
+
+
+/* ADAPTIVE 768-801 */
+@media (min-width: 641px) and (max-width: 1023px) 
+and (orientation: portrait) {
+    .ticket__notification div[id=right] p,
+    .ticket__notification div[id=left] p {
+        font-size: 20px;
+    }
+    .ticket__notification div[id=left] p[id=path] {
+        font-size: 18px;
+    }
+}
+
+ /* ADAPTIVE 1024,1280,1337,1440px */
+@media (min-width: 1024px) and (max-width: 1535px) {
+    .ticket__notification div[id=right] p,
+    .ticket__notification div[id=left] p {
+        font-size: 22px;
+    }
+    .ticket__notification div[id=left] p[id=path] {
+        font-size: 20px;
+    }
+}
+
+ /* ADAPTIVE 1536px and more */
+@media (min-width: 1536px) {
+    .ticket__notification div[id=right] p,
+    .ticket__notification div[id=left] p {
+        font-size: 24px;
+    }
+    .ticket__notification div[id=left] p[id=path] {
+        font-size: 22px;
+    }
 }
