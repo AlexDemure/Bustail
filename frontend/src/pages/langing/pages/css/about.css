@@ -103,7 +103,27 @@ and (orientation: portrait) {
 @media (min-width: 1024px) and (max-width: 1535px) {
     .container.landing .about {
         height: 75vh;
-        width: 80%;
+        width: 65%;
+    }
+    .container.landing .about .about__title #header {
+        font-size: 42px;
+    }
+    .container.landing .about .about__title #description {
+        font-size: 30px;
+    }
+    .container.landing .about .about__title #info {
+        font-size: 26px;
+    }
+    .container.landing .about .about__video p {
+        font-size: 32px;
+    }
+}
+
+  /* ADAPTIVE 1536px and more */
+  @media (min-width: 1536px) {
+    .container.landing .about {
+        height: 80vh;
+        width: 50%;
     }
     .container.landing .about .about__title #header {
         font-size: 48px;
@@ -116,25 +136,5 @@ and (orientation: portrait) {
     }
     .container.landing .about .about__video p {
         font-size: 34px;
-    }
-}
-
-  /* ADAPTIVE 1536px and more */
-  @media (min-width: 1536px) {
-    .container.landing .about {
-        height: 80vh;
-        width: 70%;
-    }
-    .container.landing .about .about__title #header {
-        font-size: 52px;
-    }
-    .container.landing .about .about__title #description {
-        font-size: 36px;
-    }
-    .container.landing .about .about__title #info {
-        font-size: 32px;
-    }
-    .container.landing .about .about__video p {
-        font-size: 36px;
     }
  }

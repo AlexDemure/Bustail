@@ -159,7 +159,30 @@ and (orientation: portrait) {
 @media (min-width: 1024px) and (max-width: 1535px) {
     .container.landing .faq {
         height: 75vh;
-        width: 80%;
+        width: 65%;
+    }
+
+    .container.landing .faq .faq__title #header {
+        font-size: 42px;
+    }
+    .container.landing .faq .faq__title #info {
+        font-size: 30px;
+    }
+    .container.landing .faq .faq__questions .faq__accordion {
+        margin-top: 15px;
+    }
+    .container.landing .faq .faq__questions .faq__accordion,
+    .container.landing .faq .faq__questions .faq__panel li,
+    .container.landing .faq .faq__questions .faq__panel p {
+        font-size: 26px;
+    }
+}
+
+/* ADAPTIVE 1536px and more */
+@media (min-width: 1536px) {
+    .container.landing .faq {
+        height: 80vh;
+        width: 50%;
     }
 
     .container.landing .faq .faq__title #header {
@@ -175,28 +198,5 @@ and (orientation: portrait) {
     .container.landing .faq .faq__questions .faq__panel li,
     .container.landing .faq .faq__questions .faq__panel p {
         font-size: 28px;
-    }
-}
-
-/* ADAPTIVE 1536px and more */
-@media (min-width: 1536px) {
-    .container.landing .faq {
-        height: 80vh;
-        width: 70%;
-    }
-
-    .container.landing .faq .faq__title #header {
-        font-size: 52px;
-    }
-    .container.landing .faq .faq__title #info {
-        font-size: 36px;
-    }
-    .container.landing .faq .faq__questions .faq__accordion {
-        margin-top: 15px;
-    }
-    .container.landing .faq .faq__questions .faq__accordion,
-    .container.landing .faq .faq__questions .faq__panel li,
-    .container.landing .faq .faq__questions .faq__panel p {
-        font-size: 32px;
     }
   }

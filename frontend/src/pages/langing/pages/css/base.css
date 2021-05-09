@@ -112,6 +112,8 @@
 @media (min-width: 1024px) and (max-width: 1535px) {
     .container.landing .page .footer {
         font-size: 22px;
+        width: 65vw;
+        margin-left: 17.5vw;
     }
     .container.landing .page .footer #preview-btn {
         height: 50px;
@@ -124,6 +126,8 @@
  @media (min-width: 1536px) {
     .container.landing .page .footer {
         font-size: 24px;
+        width: 50vw;
+        margin-left: 25vw;
     }
     .container.landing .page .footer #preview-btn {
         height: 55px;

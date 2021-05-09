@@ -1,5 +1,9 @@
 
 /* CONTACTS PAGE */
+.container.landing .page.contacts {
+    height: 85vh;
+}
+
 .container.landing .contacts {
     grid-template-rows: 85% 15%;
     justify-content: center;

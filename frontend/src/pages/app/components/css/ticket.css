@@ -158,6 +158,7 @@
     background-position-y: center;
     background-repeat: no-repeat;
     float: right;
+    justify-self: flex-end;
 }
 
 .ticket__search .ticket__search__about .ticket__search__about__details {
