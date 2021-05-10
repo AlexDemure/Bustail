@@ -269,6 +269,7 @@ and (orientation: portrait) {
 
     .transport__offer .transport__offer__card .transport__offer__card__footer {
         width: 35%;
+        height: 55px;
     }
 
     .transport__offer .transport__offer__card .transport__offer__card__footer p {

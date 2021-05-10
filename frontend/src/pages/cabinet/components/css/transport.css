@@ -212,6 +212,7 @@ and (orientation: portrait) {
 
     .transport__cabinet .transport__cabinet__card .transport__cabinet__card__footer {
         width: 35%;
+        height: 55px;
     }
 
     .transport__cabinet .transport__cabinet__card .transport__cabinet__card__footer p {
