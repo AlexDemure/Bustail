@@ -66,8 +66,8 @@
 /* ADAPTIVE 768-801-1024px */
 @media (min-width: 641px) and (max-width: 1023px) 
 and (orientation: portrait) {
-    .container.registration .registration__form {
-        width: 70%;
+    .container.registration {
+        width: 80vw;
     }
     
     .container.registration .registration__form__confirm-email label,
@@ -79,9 +79,10 @@ and (orientation: portrait) {
 
  /* ADAPTIVE 1024,1280,1337,1440px */
 @media (min-width: 1024px) and (max-width: 1535px) {
-    .container.registration .registration__form {
-        width: 50%;
-   }
+    .container.registration {
+        width: 50vw;
+    }
+
     .container.registration .registration__form__confirm-email label,
     .container.registration .registration__form__confirm-email__error-text p,
     .container.registration .registration__form__create-new-user__error-text p {
@@ -91,8 +92,8 @@ and (orientation: portrait) {
 
  /* ADAPTIVE 1536px and more */
 @media (min-width: 1536px) {
-    .container.registration .registration__form {
-        width: 45%;
+    .container.registration {
+        width: 45vw;
     }
     .container.registration .registration__form__confirm-email label,
     .container.registration .registration__form__confirm-email__error-text p,

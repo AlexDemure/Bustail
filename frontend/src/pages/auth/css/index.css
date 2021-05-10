@@ -70,9 +70,10 @@
 /* ADAPTIVE 768-801-1024px */
 @media (min-width: 641px) and (max-width: 1023px) 
 and (orientation: portrait) {
-    .container.auth .auth__body {
-        width: 70%;
+    .container.auth {
+        width: 80vw;
     }
+
     .container.auth .auth__body .auth__form__login .auth__form__login__error-text p,
     .container.auth .auth__body .auth__body__reset-password {
         font-size: 20px;
@@ -81,9 +82,10 @@ and (orientation: portrait) {
 
  /* ADAPTIVE 1024,1280,1337,1440px */
 @media (min-width: 1024px) and (max-width: 1535px) {
-   .container.auth .auth__body {
-        width: 50%;
-   }
+   .container.auth {
+        width: 50vw;
+    }
+
    .container.auth .auth__body .auth__form__login .auth__form__login__error-text p,
    .container.auth .auth__body .auth__body__reset-password {
        font-size: 22px;
@@ -92,8 +94,8 @@ and (orientation: portrait) {
 
  /* ADAPTIVE 1536px and more */
 @media (min-width: 1536px) {
-    .container.auth .auth__body {
-        width: 45%;
+    .container.auth {
+        width: 45vw;
     }
     .container.auth .auth__body .auth__form__login .auth__form__login__error-text p,
     .container.auth .auth__body .auth__body__reset-password {

@@ -63,24 +63,21 @@
 /* ADAPTIVE 768-801-1024px */
 @media (min-width: 641px) and (max-width: 1023px) 
 and (orientation: portrait) {
-    .container.recovery .recovery__form__change-password,
-    .container.recovery .recovery__form__send-code {
-        width: 70%;
+    .container.recovery {
+        width: 80vw;
     }
 }
 
  /* ADAPTIVE 1024,1280,1337,1440px */
 @media (min-width: 1024px) and (max-width: 1535px) {
-    .container.recovery .recovery__form__change-password,
-    .container.recovery .recovery__form__send-code {
-        width: 50%;
-   }
+    .container.recovery {
+        width: 50vw;
+    }
 }
 
  /* ADAPTIVE 1536px and more */
 @media (min-width: 1536px) {
-    .container.recovery .recovery__form__change-password,
-    .container.recovery .recovery__form__send-code {
-        width: 45%;
+    .container.recovery {
+        width: 45vw;
     }
 }
