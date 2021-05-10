@@ -3,6 +3,8 @@
     top: 0;
     left: 0;
     position: absolute;
+    display: grid;
+    align-items: center;
     height: 100vh;
     width: 100vw;
     background: rgba(22, 22, 22, 0.5);
@@ -10,12 +12,12 @@
 
 .search-app__filters__modal-window__content {
     z-index: 201;
-    bottom: 0;
-    left: 0;
-    position: absolute;
-    height: 90%;
-    width: 100vw;
 
+    height: auto;
+    padding-bottom: 10px;
+    width: 100vw;
+    
+    box-shadow: 0 0 10px rgb(0 0 0 / 50%);
     background-color: #181818;
     border-radius: 10px;
 
@@ -79,10 +81,9 @@
 
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 5px;
 
     width: 95%;
-    height: 50px;   
+    height: 50px;
 }
 
 .search-app__filters__modal-window__owner-types div {
@@ -134,11 +135,19 @@
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: repeat(6, 50px);
-    gap: 1px;
     overflow-x: hidden;
     overflow-y: scroll;
 
     -webkit-overflow-scrolling: touch;
+}
+
+.search-app__filters__modal-window__content .search-app__filters__modal-window__app-types::-webkit-scrollbar {
+    display: none;
+}
+
+.search-app__filters__modal-window__content .search-app__filters__modal-window__app-types  {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
 }
 
 .search-app__filters__modal-window__app-types .search-app__filters__modal-window__app-type {
@@ -149,8 +158,6 @@
 
     display: grid;
     align-items: center;
-
-    margin-bottom: 5px;
 
     background-position-y: center;
     background-position-x: 10px;
@@ -234,7 +241,7 @@
 }
 
 .search-app__filters__modal-window__content button {
-    margin-top: 20px;
+    margin-top: 10px;
     justify-self: center;
     align-self: flex-start;
 }
@@ -254,7 +261,7 @@ and (orientation: portrait) {
     }
     
     .search-app__filters__modal-window__title {
-        font-size: 28px;
+        font-size: 24px;
     }
     
     .search-app__filters__modal-window__close-btn {
@@ -264,7 +271,6 @@ and (orientation: portrait) {
     }    
     
     .search-app__filters__modal-window__content .search-app__filters__modal-window__owner-types {
-        gap: 5px;
         width: 95%;
         height: 80px;   
     }
@@ -275,7 +281,7 @@ and (orientation: portrait) {
     }
     
     .search-app__filters__modal-window__owner-types .owner-type p {
-        font-size: 24px;
+        font-size: 22px;
     }
 
     
@@ -283,7 +289,6 @@ and (orientation: portrait) {
         width: 95%;
         height: 450px;
         grid-template-rows: repeat(6, 70px);
-        gap: 5px
     }
     
     .search-app__filters__modal-window__app-types .search-app__filters__modal-window__app-type {
@@ -293,80 +298,30 @@ and (orientation: portrait) {
     }
     
     .search-app__filters__modal-window__app-type p {
-        font-size: 24px;
+        font-size: 22px;
         padding-left: 50px;
     }
     
 }
 
  /* ADAPTIVE 1024,1280,1337,1440px */
-@media (min-width: 1024px) and (max-width: 1535px) {
-    .search-app__filters__modal-window__content {
-        width: 65vw;
-        margin-left: 17.5vw;
-    }
-
-    .search-app__filters__modal-window__content form {
-        grid-template-rows: 90px 90px 450px 1fr;
-    }
-    
-    .search-app__filters__modal-window__title {
-        font-size: 28px;
-    }
-    
-    .search-app__filters__modal-window__close-btn {
-        width: 60px;
-        height: 50px;
-        background-size: 35px 35px;
-    }    
-    
-    .search-app__filters__modal-window__content .search-app__filters__modal-window__owner-types {
-        gap: 5px;
-        width: 95%;
-        height: 80px;   
-    }
-    
-    .search-app__filters__modal-window__owner-types div {
-        height: 80px;
-        background-size: 50px;
-    }
-    
-    .search-app__filters__modal-window__owner-types .owner-type p {
-        font-size: 24px;
-    }
-
-    .search-app__filters__modal-window__content .search-app__filters__modal-window__app-types {
-        width: 95%;
-        height: 450px;
-        grid-template-rows: repeat(6, 70px);
-        gap: 5px
-    }
-    
-    .search-app__filters__modal-window__app-types .search-app__filters__modal-window__app-type {
-        height: 70px;
-        margin-bottom: 10px;
-        background-size: 35px;
-    }
-    
-    .search-app__filters__modal-window__app-type p {
-        font-size: 24px;
-        padding-left: 50px;
-    }
-}
-
- /* ADAPTIVE 1536px and more */
-@media (min-width: 1536px) {
+@media (min-width: 1024px) {
     .search-app__filters__modal-window__content {
         width: 50vw;
         margin-left: 25vw;
     }
 
+    .search-app__filters__modal-window__content input {
+        height: 60px;
+        
+    }
+
     .search-app__filters__modal-window__content form {
-        grid-template-rows: 100px 90px 450px 1fr;
+        grid-template-rows: 70px 70px 400px 1fr;
     }
     
     .search-app__filters__modal-window__title {
-        font-size: 28px;
+        font-size: 26px;
     }
     
     .search-app__filters__modal-window__close-btn {
@@ -376,35 +331,34 @@ and (orientation: portrait) {
     }    
     
     .search-app__filters__modal-window__content .search-app__filters__modal-window__owner-types {
-        gap: 5px;
         width: 95%;
-        height: 80px;   
+        height: 60px;
+        gap: 5px;   
     }
     
     .search-app__filters__modal-window__owner-types div {
-        height: 80px;
-        background-size: 50px;
+        height: 60px;
+        background-size: 35px;
     }
     
     .search-app__filters__modal-window__owner-types .owner-type p {
-        font-size: 24px;
+        font-size: 22px;
     }
 
     .search-app__filters__modal-window__content .search-app__filters__modal-window__app-types {
         width: 95%;
-        height: 450px;
-        grid-template-rows: repeat(6, 70px);
+        height: 400px;
+        grid-template-rows: repeat(6, 60px);
         gap: 5px
     }
     
     .search-app__filters__modal-window__app-types .search-app__filters__modal-window__app-type {
-        height: 70px;
-        margin-bottom: 10px;
-        background-size: 35px;
+        height: 60px;
+        background-size: 30px;
     }
     
     .search-app__filters__modal-window__app-type p {
-        font-size: 24px;
+        font-size: 22px;
         padding-left: 50px;
     }
 }
