@@ -75,7 +75,7 @@ export default class CommonPage extends React.Component {
                     notify_type: "success",
                 })
                 showNotify()
-
+                this.props.changeInfo(data)
             },
             (error) => {
                 this.setState({

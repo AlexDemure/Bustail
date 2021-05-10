@@ -39,6 +39,7 @@ export default class CabinetPage extends React.Component {
         };
 
         this.changeForm = this.changeForm.bind(this)
+        this.changeInfo = this.changeInfo.bind(this)
     }
 
     changeForm(event) {
@@ -59,6 +60,15 @@ export default class CabinetPage extends React.Component {
         }
     }
 
+    changeInfo(user) {
+        this.setState({
+            user: {
+                email: this.state.user.email,
+                ...user
+            }
+        })
+    }
+    
     async componentDidMount(){
         isAuth()
 
@@ -90,6 +100,7 @@ export default class CabinetPage extends React.Component {
         if (this.state.form === "common") {
             form = <CommonPage
             changeForm={this.changeForm}
+            changeInfo={this.changeInfo}
             user={this.state.user}
             cities={this.state.cities}
             />
