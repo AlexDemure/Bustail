@@ -73,12 +73,12 @@
 @media (min-width: 1024px) and (max-width: 1535px) {
     .button__common__redirect,
     .input__common__submit {
-        height: 75px;
-        width: 200px;
+        height: 55px;
+        width: 160px;
     }
     .input__common__submit,
     .button__common__redirect a {
-        font-size: 22px;
+        font-size: 20px;
     }
 }
 
@@ -86,11 +86,11 @@
  @media (min-width: 1536px) {
     .button__common__redirect,
     .input__common__submit {
-        height: 75px;
-        width: 200px;
+        height: 60px;
+        width: 175px;
     }
     .input__common__submit,
     .button__common__redirect a {
-        font-size: 24px;
+        font-size: 22px;
     }
  }
