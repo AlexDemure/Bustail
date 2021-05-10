@@ -14,7 +14,7 @@ function FeedBackForm(props) {
     return (
         <React.Fragment>
             <div className="contacts__title">
-                <p id="email">Email: <span>bustail@support.com</span></p>
+                <p id="email">Email: <span>support@bustail.online</span></p>
                 <a href="tel:+79191231251" id="phone">Телефон: <span>+7 (351) 223-12-51</span></a>
             </div>
             <form className="contacts__form__feedback" onSubmit={props.onSubmit}>
