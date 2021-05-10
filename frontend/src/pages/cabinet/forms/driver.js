@@ -2,8 +2,7 @@ import React from 'react'
 
 import DefaultInput from '../../../components/common/inputs/default'
 import SubmitButton from '../../../components/common/buttons/submit_btn'
-import Header from '../../../components/common/header'
-import NavBar from '../../../components/common/navbar'
+
 import TransportCard from '../../../components/common/transport_card'
 
 import { ResponseNotify, showNotify } from '../../../components/common/response_notify'
@@ -11,8 +10,6 @@ import { ResponseNotify, showNotify } from '../../../components/common/response_
 import PaymentData from '../components/payment_data'
 import TransportCabinet from '../components/transport'
 import CabinetSwitch from '../components/switch_cabinet'
-
-import { getDriverCard } from '../../../components/common/api/driver_card'
 
 import { selectErrorInputs } from '../../../constants/input_parsers'
 
@@ -86,10 +83,11 @@ export default class DriverPage extends React.Component {
         super(props)
 
         this.state = {
-            form: "form",
-            driver: null,
-            transports: [],
+            driver: this.props.driver,
+            transports: this.props.transports,
             
+            transport_id: null,
+
             response_text: null,
             notify_type: null,
             error: null
@@ -209,23 +207,20 @@ export default class DriverPage extends React.Component {
         )    
     }
 
-    async componentDidMount(){
-        let driver = await getDriverCard()
-        if (driver) {
+    componentDidUpdate(prevProps) {
+        if (prevProps !== this.props) {
             this.setState({
-                form: "card",
-                driver: driver,
-                transports: driver.transports,
-
-                transport_id: null
+                driver: this.props.driver,
+                transports: this.props.transports
             })
         }
     }
 
     render() {
         let form;
+        let form_type;
 
-        if (this.state.form === "card") {
+        if (this.state.driver !== null) {
             form = <DriverCard 
             getPaymentLink={this.getPaymentLink}
             deleteTransport={this.deleteTransport}
@@ -233,8 +228,11 @@ export default class DriverPage extends React.Component {
             driver={this.state.driver}
             transports={this.state.transports}
             />
+            form_type = "card"
+
         } else {
             form = <CreateDriverForm createDriver={this.createDriver}/>
+            form_type = "form"
         }
         return (
             <React.Fragment>
@@ -251,14 +249,10 @@ export default class DriverPage extends React.Component {
                     />
                 }
 
-                <Header previous_page="/main" page_name="Личный кабинет"/>
-
-                <div className={"container cabinet driver " + this.state.form}>
+                <div className={"container cabinet driver " + form_type}>
                     <CabinetSwitch is_active="driver" onClick={this.props.changeForm}/>
                     {form}
                 </div>
-
-                <NavBar/>
 
             </React.Fragment>
             

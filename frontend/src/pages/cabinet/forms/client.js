@@ -1,12 +1,6 @@
 import React from 'react'
 
-import NavBar from '../../../components/common/navbar'
-import Header from '../../../components/common/header'
-
 import { ResponseNotify, showNotify } from '../../../components/common/response_notify'
-
-import { aboutMe } from '../../../components/common/api/about_me'
-import { getMeApps } from '../../../components/common/api/me_apps'
 
 import sendRequest from '../../../utils/fetch'
 
@@ -20,8 +14,7 @@ export default class ClientPage extends React.Component {
         super(props)
         
         this.state = {
-            user: null,
-            applications: null,
+            applications: props.applications,
 
             response_text: null,
             notify_type: null,
@@ -60,16 +53,14 @@ export default class ClientPage extends React.Component {
         )
     }
 
-    async componentDidMount(){
-        let user = await aboutMe()
-        let applications = await getMeApps()
-
-        this.setState({
-            user: user,
-            applications: applications
-        })
+    componentDidUpdate(prevProps) {
+        if (prevProps !== this.props) {
+            this.setState({
+                applications: this.props.applications,
+            })
+        }
     }
-
+    
     render() {
         return (
             <React.Fragment>
@@ -78,8 +69,6 @@ export default class ClientPage extends React.Component {
                 text={this.state.response_text}
                 />
                 
-                <Header previous_page="/main" page_name="Личный кабинет"/>
-
                 <div className="container cabinet client">
                     <CabinetSwitch is_active="client" onClick={this.props.changeForm}/>
                     <p id="warning">Сервис не несет ответственность за качество оказания услуг или спорных ситуаций при выполнении заказов.</p>
@@ -97,9 +86,6 @@ export default class ClientPage extends React.Component {
                         }
                     </div>
                 </div>
-
-                <NavBar/>
-                
             </React.Fragment>
             
         )

@@ -5,18 +5,13 @@ import SearchInput from '../../../components/common/inputs/search_selector'
 import InputPhone from '../../../components/common/inputs/phone'
 
 import SubmitButton from '../../../components/common/buttons/submit_btn'
-import NavBar from '../../../components/common/navbar'
-import Header from '../../../components/common/header'
 import CabinetSwitch from '../components/switch_cabinet'
-import { aboutMe } from '../../../components/common/api/about_me'
 
 import { ResponseNotify, showNotify } from '../../../components/common/response_notify'
-
 
 import SerializeForm from '../../../utils/form_serializer'
 import sendRequest from '../../../utils/fetch'
 
-import { getCities } from '../../../constants/cities'
 import { selectErrorInputs } from '../../../constants/input_parsers'
 
 class CommonInfoForm extends React.Component {
@@ -45,13 +40,9 @@ export default class CommonPage extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            user: {
-                email: null,
-                city: null,
-                phone: null,
-                id: null,
-            },
-            cities: [],
+
+            user: props.user,
+            cities: props.cities,
 
             response_text: null,
             notify_type: null,
@@ -108,14 +99,13 @@ export default class CommonPage extends React.Component {
         )
     }
 
-    async componentDidMount(){
-        let user = await aboutMe()
-        let data = await getCities()
-
-        this.setState({
-            user: user,
-            cities: data
-        });
+    componentDidUpdate(prevProps) {
+        if (prevProps !== this.props) {
+            this.setState({
+                user: this.props.user,
+                cities: this.props.cities
+            })
+        }
     }
 
     render() {
@@ -126,14 +116,10 @@ export default class CommonPage extends React.Component {
                 text={this.state.response_text}
                 />
 
-                <Header previous_page="/main" page_name="Личный кабинет"/>
-
                 <div className="container cabinet common">
                     <CabinetSwitch is_active="common" onClick={this.props.changeForm}/>
                     <CommonInfoForm changeInfo={this.changeInfo} user={this.state.user} cities={this.state.cities}/>
                 </div>
-
-                <NavBar/>
                 
             </React.Fragment>
             
