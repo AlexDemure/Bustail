@@ -45,6 +45,6 @@ class SetDecision(BaseModel):
 
 
 class MeNotifications(BaseModel):
-    count_notifications: int
+    count_notifications: int = 0
     driver: List[NotificationDataWithRelatedObjects] = []
     client: List[NotificationDataWithRelatedObjects] = []

@@ -54,10 +54,7 @@ async def get_driver_by_account_id(account_id: int) -> Optional[DriverData]:
 
     transports = await get_transport_with_covers(driver)
 
-    data = driver.__dict__
-    commission = data.pop("commission")
-
-    return DriverData(**data, transports=transports, commission=commission * 100)
+    return DriverData(**driver.__dict__, transports=transports)
 
 
 async def update_driver(driver_up: UpdatedBase) -> None:
@@ -218,7 +215,7 @@ async def is_transport_belongs_driver(account_id: int, transport_id: int) -> tup
 
 
 def is_driver_debt_exceeded(driver: DriverData):
-    return True if driver.debt > settings.DEFAULT_DEBT_LIMIT_IN_RUBLS else False
+    return True if driver.debt >= settings.DEFAULT_DEBT_LIMIT_IN_RUBLS else False
 
 
 async def get_driver(driver_id: int) -> Optional[DriverData]:

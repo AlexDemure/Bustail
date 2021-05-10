@@ -9,4 +9,5 @@ class BillingSettings(BaseSettings):
     YANDEX_KASSA_SECRET = os.environ.get('YANDEX_KASSA_SECRET', "test_flrVnF0TXpmlBFxsfWBp0GHjMbWcEWfR98-QPvhwTsA")
 
     DEFAULT_COMMISSION_IN_PERCENT = Decimal("0.05")
-    DEFAULT_DEBT_LIMIT_IN_RUBLS = Decimal("5000")
+    DEFAULT_COMMISSION_IN_RUBLS = Decimal("250")
+    DEFAULT_DEBT_LIMIT_IN_RUBLS = Decimal("1500")

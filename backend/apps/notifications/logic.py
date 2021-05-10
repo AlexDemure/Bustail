@@ -77,6 +77,9 @@ async def delete_notification(notification_id: int) -> None:
 
 async def get_me_notifications(applications_id: list, transports_id: list) -> MeNotifications:
     """Получение списка уведомлений по аккаунту и списку транспорта."""
+    if len(applications_id) == 0 and len(transports_id) == 0:
+        return MeNotifications()
+
     rows, count_rows = await notification_crud.get_me_notifications(applications_id, transports_id)
 
     for row in rows:

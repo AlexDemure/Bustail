@@ -1,7 +1,8 @@
 from tortoise.transactions import in_transaction
 
+from backend.core.config import settings
 from backend.apps.applications.crud import application as application_crud
-from backend.apps.billing.utils import get_commission_sum_from_application, add_amount_to_current_value
+from backend.apps.billing.utils import add_amount_to_current_value
 from backend.apps.drivers.crud import driver as driver_crud
 from backend.apps.drivers.logic import get_driver
 from backend.enums.applications import ApplicationStatus
@@ -37,13 +38,11 @@ async def completed_applications():
             if not driver:
                 continue
 
-            commission = get_commission_sum_from_application(application.price, driver.commission)
-
             driver_up = UpdatedBase(
                 id=driver.id,
                 updated_fields=dict(
                     total_amount=add_amount_to_current_value(driver.total_amount, application.price),
-                    debt=add_amount_to_current_value(driver.debt, commission)
+                    debt=add_amount_to_current_value(driver.debt, settings.DEFAULT_COMMISSION_IN_RUBLS)
                 )
             )
             await driver_crud.update(driver_up)

@@ -199,29 +199,15 @@ async def get_all_applications(
 
 
 #TODO Удалить перед выкатом
-@router.get(
-    "/test/force/in_progress",
-    response_model=ListApplications,
-    responses={
-        status.HTTP_200_OK: {"description": BaseMessage.obj_data.value},
-        **auth_responses
-    }
-)
+@router.get("/test/force/in_progress")
 async def force_in_progress():
     """Ручной перевод всех заявок подходящих по датам в статус in_progress"""
     from backend.apps.applications.tasks import in_progress_applications
-    return await in_progress_applications()
+    await in_progress_applications()
 
 
-@router.get(
-    "/test/force/completed",
-    response_model=ListApplications,
-    responses={
-        status.HTTP_200_OK: {"description": BaseMessage.obj_data.value},
-        **auth_responses
-    }
-)
+@router.get("/test/force/completed")
 async def force_in_progress():
     """Ручной перевод всех заявок подходящих по датам в статус completed"""
     from backend.apps.applications.tasks import completed_applications
-    return await completed_applications()
+    await completed_applications()

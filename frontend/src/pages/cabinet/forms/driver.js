@@ -51,7 +51,7 @@ class DriverCard extends React.Component {
             <div className="cabinet__driver"> 
                 <PaymentData
                 total={this.props.driver.total_amount}
-                commission={`${this.props.driver.commission}%`}
+                commission={`${this.props.driver.commission}р`}
                 debt={this.props.driver.debt}
                 limit={this.props.driver.limit}
                 getPaymentLink={this.props.getPaymentLink}

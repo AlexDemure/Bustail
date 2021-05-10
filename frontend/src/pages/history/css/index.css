@@ -19,6 +19,66 @@
     scrollbar-width: none;  /* Firefox */
 }
 
+.container.history .help {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: 1fr;
+    justify-items: center;
+}
+
+.container.history .help .help__item {
+    display: grid;
+    grid-template-columns: 30px 100px;
+    grid-template-rows: 40px;
+    justify-items: center;
+    align-items: center;
+    align-content: center;
+}
+
+.container.history .help .help__item #circle {
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+}
+
+.container.history .help .help__item #text {
+    margin: 0;
+    padding: 0;
+    padding-top: 5px;
+    font-size: 16px;
+    height: 20px;
+    font-family: "FuturaBookC"
+}
+
+.container.history .help .help__item.confirmed #circle {
+    background-color: #fba333;
+}
+.container.history .help .help__item.confirmed #text {
+    color: #fba333
+}
+
+.container.history .help .help__item.progress #circle {
+    background-color: #417086;
+}
+.container.history .help .help__item.progress #text {
+    color: #417086
+}
+
+.container.history .help .help__item.completed #circle {
+    background-color: #50816C;
+}
+.container.history .help .help__item.completed #text {
+    color: #50816C
+}
+
+.container.history .help .help__item.rejected #circle {
+    background-color: #9B5E5D;
+}
+.container.history .help .help__item.rejected #text {
+    color: #9B5E5D
+}
+
+
 .container.history .history__table {
     margin-top: 20px;
 }
@@ -32,7 +92,25 @@
 @media (min-width: 1024px) and (max-width: 1535px) {
     .container.history {
         width: 75vw;
+    }
 
+    .container.history .help {
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+    .container.history .help .help__item {
+        grid-template-columns: 35px 135px;
+        grid-template-rows: 50px;
+    }
+    
+    .container.history .help .help__item #circle {
+        height: 30px;
+        width: 30px;
+    }
+    
+    .container.history .help .help__item #text {
+        font-size: 20px;
+        height: 20px;
     }
 }
 
@@ -41,5 +119,24 @@
     .container.history {
         width: 65vw;
 
+    }
+
+    .container.history .help {
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+    .container.history .help .help__item {
+        grid-template-columns: 45px 145px;
+        grid-template-rows: 70px;
+    }
+    
+    .container.history .help .help__item #circle {
+        height: 35px;
+        width: 35px;
+    }
+    
+    .container.history .help .help__item #text {
+        font-size: 24px;
+        height: 24px;
     }
 }

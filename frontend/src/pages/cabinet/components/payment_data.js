@@ -1,9 +1,5 @@
 import React from 'react'
 
-import { ResponseNotify, showNotify } from '../../../components/common/response_notify'
-
-import sendRequest from '../../../utils/fetch'
-
 import './css/payment_data.css'
 
 export default class PaymentData extends React.Component {
