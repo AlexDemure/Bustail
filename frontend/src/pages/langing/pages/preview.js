@@ -7,10 +7,10 @@ export default function PreviewPage(props) {
     return (
         <div className="preview page">
             <div className="preview__title">
-                <p id="name">Bustail</p>
-                <p id="description">
+                <h1 id="name">Bustail</h1>
+                <h2 id="description">
                     сервис пассажирских перевозок
-                </p>
+                </h2>
             </div>
             <div className="preview__btns">
                 <div id="login-btn" onClick={() => window.location.replace('/login')}>

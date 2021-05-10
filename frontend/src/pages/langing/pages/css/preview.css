@@ -10,6 +10,8 @@
     align-self: flex-end;
 }
 
+.container.landing .preview .preview__title h1,
+.container.landing .preview .preview__title h2,
 .container.landing .preview .preview__title p {
     margin: 0;
     padding: 0;
