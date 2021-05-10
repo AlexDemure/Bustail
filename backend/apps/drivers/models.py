@@ -18,7 +18,7 @@ class Driver(models.Model):
     #PAYMENT DATA
     total_amount = fields.DecimalField(max_digits=20, decimal_places=3, default=Decimal("0"))
     debt = fields.DecimalField(max_digits=10, decimal_places=3, default=Decimal("0"))
-    commission = fields.DecimalField(max_digits=5, decimal_places=3, default=settings.DEFAULT_COMMISSION_IN_RUBLS)
+    commission = fields.DecimalField(max_digits=10, decimal_places=3, default=settings.DEFAULT_COMMISSION_IN_RUBLS)
     limit = fields.DecimalField(max_digits=10, decimal_places=3, default=settings.DEFAULT_DEBT_LIMIT_IN_RUBLS)
 
 
