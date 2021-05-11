@@ -26,7 +26,7 @@ export default class TransportCabinet extends React.Component {
 
                 <div className="transport__cabinet__card">
                     <div className="transport__cabinet__card__title">
-                        <p id="model">{this.props.transport.mark} {this.props.transport.model}</p>
+                        <p id="model">{this.props.transport.brand} {this.props.transport.model}</p>
                     </div>
                     <div className="transport__cabinet__card__body">
                         <div id="info">
