@@ -11,3 +11,4 @@ class YandexObjectStorage(BaseSettings):
 
 
 IMAGE_LIMIT_SIZE_TO_BYTES = Decimal(5 * 1024 * 1024)  # 5 MB
+FILE_LIMIT_SIZE_TO_BYTES = Decimal(10 * 1024 * 1024)  # 10 MB

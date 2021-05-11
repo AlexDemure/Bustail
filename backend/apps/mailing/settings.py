@@ -9,4 +9,5 @@ class MailingSettings(BaseSettings):
     MAILING_NAME: str = os.environ.get("MAILING_NAME", "NOT_SET")
 
 
+SUPPORT_EMAIL = "support@bustail.online"
 SERVICE_NAME = "MAILING"

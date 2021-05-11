@@ -7,7 +7,7 @@ from tenacity import retry, stop_after_attempt, wait_exponential
 
 from backend.core.config import settings
 from backend.enums.system import SystemEnvs
-from backend.schemas.mailing import BaseEmail, SendVerifyCodeEvent, ChangePassword
+from backend.schemas.mailing import BaseEmail, SendVerifyCodeEvent, ChangePassword, FeedbackMessage
 from backend.submodules.common.enums import BaseSystemErrors
 
 
@@ -44,7 +44,7 @@ class SenderBase:
     def validate_data(self):
         assert isinstance(self.schema, self.validation_schema), BaseSystemErrors.schema_wrong_format.value
 
-    def get_send_grid_template(self, subject: str, html: str) -> dict:
+    def get_send_grid_template(self, subject: str, html: str, file: dict = None) -> dict:
         data = {
             "personalizations": [
                 {
@@ -69,6 +69,14 @@ class SenderBase:
             }
         }
 
+        if file:
+            data['attachments'] = [
+                {
+                    "content": file.get("content", None),
+                    "filename": file.get("filename", None)
+                }
+            ]
+
         return data
 
     @retry(
@@ -76,8 +84,8 @@ class SenderBase:
         stop=stop_after_attempt(5),
         reraise=True,
     )
-    async def send_html(self, subject: str, html: str):
-        data = self.get_send_grid_template(subject, html)
+    async def send_html(self, subject: str, html: str, file: dict = None):
+        data = self.get_send_grid_template(subject, html, file)
 
         async with httpx.AsyncClient() as client:
             if settings.ENV == SystemEnvs.prod.value:
@@ -94,7 +102,7 @@ class SenderBase:
 
 
 class SendVerifyCodeMessage(SenderBase):
-    template_name = 'base.html'
+    template_name = 'verify_code.html'
 
     validation_schema = SendVerifyCodeEvent
 
@@ -109,22 +117,6 @@ class SendVerifyCodeMessage(SenderBase):
 
     def get_context(self) -> dict:
         return dict(verify_code=self.schema.message)
-
-
-class SendWelcomeMessage(SenderBase):
-    template_name = 'welcome.html'
-
-    async def send_email(self):
-        self.validate_data()
-
-        context = self.get_context()
-        html = self.prepared_html(context)
-        subject = "Добро пожаловать!"
-
-        return await self.send_html(subject, html)
-
-    def get_context(self) -> dict:
-        return dict()
 
 
 class ChangePasswordMessage(SenderBase):
@@ -143,3 +135,24 @@ class ChangePasswordMessage(SenderBase):
 
     def get_context(self) -> dict:
         return dict(url=self.schema.message)
+
+
+class SendFeedbackMessage(SenderBase):
+
+    template_name = 'feedback.html'
+
+    validation_schema = FeedbackMessage
+
+    async def send_email(self):
+        self.validate_data()
+
+        html = self.prepared_html(self.get_context())
+        subject = "Форма обратной связи"
+
+        return await self.send_html(subject, html, self.schema.file)
+
+    def get_context(self) -> dict:
+        return dict(
+            email_from=self.schema.email_from,
+            message=self.schema.message
+        )

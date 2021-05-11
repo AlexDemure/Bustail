@@ -5,7 +5,7 @@ import TextAreaInput from '../../../components/common/inputs/textarea'
 import SubmitButton from '../../../components/common/buttons/submit_btn'
 import DragAndDrop from '../../../components/common/drag_and_drop'
 
-import SerializeForm from '../../../utils/form_serializer'
+import { uploadFile } from '../../../utils/upload_file'
 
 import './css/form_contacts.css'
 
@@ -19,9 +19,9 @@ function FeedBackForm(props) {
             </div>
             <form className="contacts__form__feedback" onSubmit={props.onSubmit}>
                 <p>Форма обратной связи</p>
-                <DefaultInput input_type="email" size="25" placeholder="Электронная почта"/>
-                <TextAreaInput name="description" rows="5" placeholder="Текст сообщения"/>
-                <DragAndDrop/>
+                <DefaultInput name="email" input_type="email" size="25" placeholder="Электронная почта"/>
+                <TextAreaInput name="text" rows="5" placeholder="Текст сообщения"/>
+                <DragAndDrop saveFile={props.saveFile}/>
                 <SubmitButton value="Отправить"/>
             </form>
         </React.Fragment>
@@ -47,24 +47,45 @@ export default class ContactsFeedBackForm extends React.Component {
             form: "contacts"
         }
         this.sendMessage = this.sendMessage.bind(this)
+        this.saveFile = this.saveFile.bind(this)
+    }
+
+    saveFile(file, isUploaded) {
+        this.setState({
+            isUploaded: isUploaded,
+            file: file,
+        })
     }
 
     sendMessage(event) {
         event.preventDefault();
-        let prepared_data = SerializeForm(event.target, new FormData(event.target))
-        this.setState({
-            form: "notify"
-        })
-        console.log(prepared_data);
 
-        // TODO FETCH
+        let url = `/api/v1/mailing/feedback/`
+        let data  = new FormData(event.target);
+
+        if (this.state.file) {
+            data.append("file", this.state.file, this.state.file.name)
+        }
+        
+        uploadFile(url, data)
+        .then(
+            (result) => {
+                console.log(result);
+                this.setState({
+                    form: "notify"
+                })
+            },
+            (error) => {
+                console.log(error.message)
+            }
+        )
     }
     render() {
         let form;
         if (this.state.form === "notify") {
             form = <FeedBackNotify/>
         }else {
-            form = <FeedBackForm onSubmit={this.sendMessage}/>
+            form = <FeedBackForm saveFile={this.saveFile} onSubmit={this.sendMessage}/>
         }
         return (
             <React.Fragment>

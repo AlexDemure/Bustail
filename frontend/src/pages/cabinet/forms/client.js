@@ -71,7 +71,7 @@ export default class ClientPage extends React.Component {
                 
                 <div className="container cabinet client">
                     <CabinetSwitch is_active="client" onClick={this.props.changeForm}/>
-                    <p id="warning">Сервис не несет ответственность за качество оказания услуг или спорных ситуаций при выполнении заказов.</p>
+                    <p id="warning">Заявки отображаются до подтверждения ее водителем, дальнейший статус заявки можно посмотреть на странице "История".</p>
                     <div className="cabinet__client__applications">
                         <p className="cabinet__client__title">Текущие заявки</p>
                         {

@@ -6,7 +6,7 @@ from structlog import get_logger
 
 from backend.apps.accounts.crud import account as account_crud
 from backend.apps.accounts.models import Account
-from backend.apps.mailing.logic import send_verify_code, send_welcome_message, is_verify_token
+from backend.apps.mailing.logic import send_verify_code, is_verify_token
 from backend.enums.accounts import AccountErrors
 from backend.enums.system import SystemLogs
 from backend.schemas.accounts import AccountCreate
@@ -97,8 +97,6 @@ async def confirmed_account(account: Account) -> None:
     )
     await account_crud.update(account_up)
     logger.debug(SystemLogs.account_confirmed.value)
-
-    await send_welcome_message(account.email)
 
 
 async def change_password(password: str, security_token: str) -> None:

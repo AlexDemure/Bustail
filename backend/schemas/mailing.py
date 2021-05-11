@@ -26,6 +26,12 @@ class ChangePasswordEventCreate(BaseEmail):
     message: str
 
 
+class FeedbackMessage(BaseEmail):
+    email_from: str
+    message: str
+    file: dict
+
+
 class MailingTask(BaseModel):
     task_id: str = str(uuid4())
     service_name: str = SERVICE_NAME

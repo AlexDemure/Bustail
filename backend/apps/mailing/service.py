@@ -4,7 +4,7 @@ from backend.enums.mailing import MailingTypes
 from backend.apps.mailing import sender
 from backend.apps.mailing.settings import SERVICE_NAME
 from backend.submodules.redis.service import redis
-from backend.schemas.mailing import SendVerifyCodeEvent, BaseEmail, ChangePassword
+from backend.schemas.mailing import SendVerifyCodeEvent, BaseEmail, ChangePassword, FeedbackMessage
 
 logger = get_logger()
 
@@ -18,16 +18,16 @@ async def service_mailing():
                     schema = SendVerifyCodeEvent(**task['data'])
                     await sender.SendVerifyCodeMessage(schema).send_email()
 
-                elif task['message_type'] == MailingTypes.send_welcome_message.value:
-                    schema = BaseEmail(**task['data'])
-                    await sender.SendWelcomeMessage(schema).send_email()
-
                 elif task['message_type'] == MailingTypes.send_change_password_message.value:
                     schema = ChangePassword(**task['data'])
                     await sender.ChangePasswordMessage(schema).send_email()
 
+                elif task['message_type'] == MailingTypes.send_feedback_message.value:
+                    schema = FeedbackMessage(**task['data'])
+                    await sender.SendFeedbackMessage(schema).send_email()
+
                 else:
                     logger.debug(f"Service:{SERVICE_NAME} message_type is not found")
             except Exception as e:
-                print(f"Service:{SERVICE_NAME} error:{str(e)}")
-                await redis.append_task_first(SERVICE_NAME, task)
+                logger.error(f"Service:{SERVICE_NAME} error:{str(e)}")
+                continue
