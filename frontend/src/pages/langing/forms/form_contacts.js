@@ -60,6 +60,9 @@ export default class ContactsFeedBackForm extends React.Component {
     sendMessage(event) {
         event.preventDefault();
 
+        let btn = document.getElementsByClassName('input__common__submit')[0]
+        btn.disabled = true
+
         let url = `/api/v1/mailing/feedback/`
         let data  = new FormData(event.target);
 
@@ -77,6 +80,7 @@ export default class ContactsFeedBackForm extends React.Component {
             },
             (error) => {
                 console.log(error.message)
+                btn.disabled = false
             }
         )
     }

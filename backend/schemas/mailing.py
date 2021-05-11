@@ -29,7 +29,7 @@ class ChangePasswordEventCreate(BaseEmail):
 class FeedbackMessage(BaseEmail):
     email_from: str
     message: str
-    file: dict
+    file: dict = None
 
 
 class MailingTask(BaseModel):

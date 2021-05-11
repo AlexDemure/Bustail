@@ -75,7 +75,7 @@ async def verify_code(payload: BaseEmail, account: Account = Depends(current_acc
     }
 )
 async def send_feedback(
-        file: UploadFile = File(...),
+        file: UploadFile = File(None),
         email: str = Form(...),
         text: str = Form(...),
         file_size_to_mb: Decimal = Depends(valid_file_content_length),
