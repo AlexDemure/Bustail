@@ -83,7 +83,7 @@ class CRUDApplication(CRUDBase[Application, ApplicationCreate, UpdatedBase]):
     ) -> Tuple[List[Application], int]:
 
         filters_or = [Q(to_go_from__icontains=city), Q(to_go_to__icontains=city)]
-        filters_req = [Q(application_status=ApplicationStatus.waiting), Q(to_go_to__icontains=city)]
+        filters_req = [Q(application_status=ApplicationStatus.waiting)]
 
         if application_type:
             filters_req.append(
@@ -94,7 +94,7 @@ class CRUDApplication(CRUDBase[Application, ApplicationCreate, UpdatedBase]):
             self.model.all()
                 .filter(
                 Q(*filters_or, join_type="OR"),
-                Q(*filters_req)
+                Q(*filters_req),
             )
             .order_by(f'{"-" if order_type == "desc" else ""}{order_by}')
             .limit(limit=limit)
