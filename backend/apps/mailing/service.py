@@ -12,7 +12,12 @@ logger = get_logger()
 async def service_mailing():
     while True:
         async for task in redis.get_tasks(SERVICE_NAME):
-            logger.debug(F"Service:{SERVICE_NAME} accepted task", task=task)
+            logger.debug(
+                F"Service:{SERVICE_NAME} accepted task",
+                task_id=task.get("task_id"),
+                email=task.get("email"),
+                message_type=task.get("message_type")
+            )
             try:
                 if task['message_type'] == MailingTypes.send_verify_code.value:
                     schema = SendVerifyCodeEvent(**task['data'])
