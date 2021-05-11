@@ -25,6 +25,15 @@
     pointer-events: auto;
 }
 
+.search-selector.active .search-selector__option::-webkit-scrollbar {
+    display: none;
+}
+
+.search-selector.active .search-selector__option {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+
 .search-selector .search-selector__input__common {
     background-image: url("../../../../static/icons/default/search.png");
 }
