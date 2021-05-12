@@ -17,7 +17,7 @@ export default function AboutPage(props) {
             <div className="about__video">
                 <p>Как пользоваться сервисом?</p>
                 <iframe
-                    src="https://www.youtube.com/embed/5qap5aO4i9A">
+                    src="https://www.youtube.com/embed/QjECdVpEmKg">
                 </iframe>
             </div>
             <div className="footer">
