@@ -1,9 +1,5 @@
 
 /* CONTACTS PAGE */
-.container.landing .page.contacts {
-    height: 85vh;
-}
-
 .container.landing .contacts {
     grid-template-rows: 85% 15%;
     justify-content: center;
@@ -47,6 +43,14 @@
     font-family: "FuturaDemiC";
     font-size: 18px;
     text-align: center;
+}
+
+
+.container.landing .contacts .footer a {
+    text-decoration: none;
+    color: #535353;
+    font-family: "FuturaMediumC";
+    font-size: 14px;
 }
 
 @media screen and (min-width:361px) and (max-width:400px) {

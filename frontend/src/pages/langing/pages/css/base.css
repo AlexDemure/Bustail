@@ -37,10 +37,10 @@
     width: 95%;
 
     bottom: 0;
-    left: 0;
+    left: 2.5%;
 
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: 35% 35% 30%;
 
     color: #fba333;
     font-family: "FuturaDemiC";
