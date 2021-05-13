@@ -19,6 +19,7 @@ export default class TransportOffer extends React.Component {
             <div className="transport__offer">
                 <img 
                 src={image_url}
+                alt="preview"
                 className="transport__offer__photo"
                 onClick={() => this.props.showTransportCard(this.props.transport.id)}
                 ></img>

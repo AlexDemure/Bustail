@@ -104,6 +104,7 @@ export default class TransportCard extends React.Component {
                         <div className="transport_card__photos">
                         <img 
                             src={image_url}
+                            alt="preview"
                             className="transport_card__photo"
                         ></img>
                         <div className="transport_card__other-photos">

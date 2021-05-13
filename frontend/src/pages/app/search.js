@@ -188,7 +188,6 @@ export default class SearchAppPage extends React.Component {
             apps: response.applications,
             total_rows: response.total_rows,
             offset: response.applications.length,
-            city: data.city,
             
             application_type: data.application_type,
             city: data.city,
@@ -246,7 +245,7 @@ export default class SearchAppPage extends React.Component {
                 }
 
                 {
-                    this.state.windowType == "filters" &&
+                    this.state.windowType === "filters" &&
                     <SearchFilters
                     city={this.state.city !== null ? this.state.city : this.state.user.city}
                     active_items={this.state.active_items}

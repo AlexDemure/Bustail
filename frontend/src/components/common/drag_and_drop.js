@@ -64,7 +64,7 @@ const DragAndDrop = (props) => {
                     <p>Отпустите файлы, чтобы загрузить их (размер файла до 5МБ)</p>
                     {
                         file_path &&
-                        <img src={file_path}/>
+                        <img alt="preview" src={file_path}/>
                     }
                   </div>
                 : <div
@@ -77,7 +77,7 @@ const DragAndDrop = (props) => {
                     <input type="file" onChange={(e) => uploadHandler(e)}></input>
                     {
                         file_path &&
-                        <img src={file_path}/>
+                        <img alt="preview" src={file_path}/>
                     }
                   </div>
             }

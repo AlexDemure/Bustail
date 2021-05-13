@@ -55,6 +55,7 @@ export default class TransportSearch extends React.Component {
             <div className="transport__search">
                 <img 
                     src={image_url}
+                    alt="preview"
                     className="transport__search__photo"
                     >
                 </img>

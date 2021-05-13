@@ -49,7 +49,7 @@ export default class CabinetPage extends React.Component {
             this.setState({
                 form: "common",
             })
-        } else if (event.target.id == "client"){
+        } else if (event.target.id === "client"){
             this.setState({
                 form: "client",
             }) 

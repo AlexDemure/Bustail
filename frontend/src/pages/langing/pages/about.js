@@ -16,7 +16,7 @@ export default function AboutPage(props) {
             </div>
             <div className="about__video">
                 <p>Как пользоваться сервисом?</p>
-                <iframe
+                <iframe title="bustail intro"
                     src="https://www.youtube.com/embed/QjECdVpEmKg">
                 </iframe>
             </div>

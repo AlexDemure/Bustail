@@ -35,32 +35,33 @@
     align-self: flex-start;
 
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: 1fr;
+    grid-template-rows: 90px 70px 50px;
+    gap: 5px;
     justify-content: center;
 }
 
-.container.landing .preview .preview__btns div {
-    height: 120px;
-    width: 130px;
-    margin: 5px;
+.container.landing .preview .preview__btns div[id="login-btn"] {
+    height: 80px;
+    width: 250px;
 
     border: 2px solid #262626;
     border-radius: 10px;
 
     color: #535353;
     font-family: "FuturaDemiC";
-    font-size: 13px;
+    font-size: 16px;
 
-    background-position: center 30px;
+    background-position: 10px center;
     background-repeat: no-repeat;
-    background-size: 60px;
+    background-size: 50px;
+
+    display: grid;
+    align-items: center;
+    justify-items: center;
 }
 
-.container.landing .preview .preview__btns div p {
-    margin-top: 90px;
-}
-
-.container.landing .preview .preview__btns div:hover {
+.container.landing .preview .preview__btns div[id="login-btn"]:hover {
     color: #fba333;
     border: 2px solid #fba333;
 }
@@ -72,16 +73,65 @@
     background-image: url("../../../../static/icons/active/pc.png");    
 }
 
-.container.landing .preview .preview__btns #pwa-btn {
-    background-image: url("../../../../static/icons/default/pwa.png");
-    background-position: center 40px;    
+.container.landing .preview .preview__btns div[id="socials"] {
+    grid-row: 2 / 3;
+    display: grid;
+    grid-template-columns: repeat(3, 60px);
+    gap: 5px;
+
+    justify-items: center;
+    justify-content: center;
+    align-items: center;
 }
 
-.container.landing .preview .preview__btns #pwa-btn:hover {
-    background-image: url("../../../../static/icons/active/pwa.png");    
+.container.landing .preview .preview__btns div[id="socials"] div {
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 50px;
+    width: 60px;
+    height: 60px;
+    opacity: 0.7;
+}
+.container.landing .preview .preview__btns div[id="socials"] div:hover {
+    opacity: 1;
 }
 
+.container.landing .preview .preview__btns div[id="socials"] div[id=vk] {
+    background-size: 55px;
+}
+.container.landing .preview .preview__btns div[id="socials"] div[id=vk] {
+    background-image: url("../../../../static/icons/default/vk.png");
+}
+.container.landing .preview .preview__btns div[id="socials"] div[id=vk]:hover {
+    background-image: url("../../../../static/icons/active/vk.png");
+}
 
+.container.landing .preview .preview__btns div[id="socials"] div[id=youtube] {
+    background-image: url("../../../../static/icons/default/youtube.png");
+}
+.container.landing .preview .preview__btns div[id="socials"] div[id=youtube]:hover {
+    background-image: url("../../../../static/icons/active/youtube.png");
+}
+
+.container.landing .preview .preview__btns div[id="socials"] div[id=instagram] {
+    background-image: url("../../../../static/icons/default/instagram.png");
+}
+.container.landing .preview .preview__btns div[id="socials"] div[id=instagram]:hover {
+    background-image: url("../../../../static/icons/active/instagram.png");
+}
+
+.container.landing .preview .preview__btns div[id="pwa-btn"] {
+    height: 50px;
+    width: 250px;
+    border-bottom: 1px solid #222222;
+}
+
+.container.landing .preview .preview__btns div[id="pwa-btn"] p {
+    color: #fba333;
+    font-family: "FuturaDemiC";
+    font-size: 16px;
+}
+ 
 /* ADAPTIVE 375px */
 @media screen and (min-width:361px) and (max-width:400px){
     .container.landing .preview .preview__title #name {
@@ -90,21 +140,6 @@
     
     .container.landing .preview .preview__title #description {
         font-size: 20px;
-    }
-
-    .container.landing .preview .preview__btns div {
-        height: 140px;
-        width: 140px;
-    
-        font-size: 14px;
-    
-        background-position: center 40px;
-        background-repeat: no-repeat;
-        background-size: 70px;
-    }
-    
-    .container.landing .preview .preview__btns div p {
-        margin-top: 100px;
     }
  }
 
@@ -117,29 +152,10 @@
     .container.landing .preview .preview__title #description {
         font-size: 22px;
     }
-
-    .container.landing .preview .preview__btns div {
-        height: 150px;
-        width: 150px;
-    
-        font-size: 15px;
-    
-        background-position: center 40px;
-        background-repeat: no-repeat;
-        background-size: 80px;
-    }
-    
-    .container.landing .preview .preview__btns div p {
-        margin-top: 110px;
-    }
-
-    .container.landing .preview .preview__btns #pwa-btn {
-        background-position: center 50px;
-    }
  }
 
  /* ADAPTIVE 768-801-1024px */
- @media (min-width: 641px) and (max-width: 1023px) 
+ @media (min-width: 641px) and (max-width: 1023px)
  and (orientation: portrait) {
     .container.landing .preview .preview__title #name {
         font-size: 40px; 
@@ -148,9 +164,44 @@
     .container.landing .preview .preview__title #description {
         font-size: 24px;
     }
+    .container.landing .preview .preview__btns {
+        grid-template-rows: 100px 80px 60px;
+    }
+    
+    .container.landing .preview .preview__btns div[id="login-btn"] {
+        height: 90px;
+        width: 350px;
+    
+        font-size: 20px;
+    
+        background-size: 60px;
+    }
+
+    .container.landing .preview .preview__btns div[id="socials"] {
+        grid-template-columns: repeat(3, 70px);
+    }
+    
+    .container.landing .preview .preview__btns div[id="socials"] div {
+        background-size: 60px;
+        width: 70px;
+        height: 70px;
+    }
+    
+    .container.landing .preview .preview__btns div[id="socials"] div[id=vk] {
+        background-size: 65px;
+    }
+
+    .container.landing .preview .preview__btns div[id="pwa-btn"] {
+        height: 60px;
+        width: 350px;
+    }
+    
+    .container.landing .preview .preview__btns div[id="pwa-btn"] p {
+        font-size: 18px;
+    }
  }
 
-  /* ADAPTIVE 1024,1280,1337,1440px */
+/* ADAPTIVE 1024,1280,1337,1440px */
  @media (min-width: 1024px) and (max-width: 1535px) {
     .container.landing .preview .preview__title #name {
         font-size: 48px; 
@@ -161,8 +212,8 @@
     }
  }
 
-  /* ADAPTIVE 1536px and more */
- @media (min-width: 1536px) {
+/* ADAPTIVE 1536px and more */
+@media (min-width: 1536px) {
     .container.landing .preview .preview__title #name {
         font-size: 54px; 
     }
@@ -173,23 +224,40 @@
  }
 
 
- @media (min-width: 641px) {
-    .container.landing .preview .preview__btns div {
-        height: 180px;
-        width: 180px;
+@media (min-width: 1024px) {
+    .container.landing .preview .preview__btns {
+        grid-template-rows: 120px 100px 80px;
+    }
     
-        font-size: 17px;
+    .container.landing .preview .preview__btns div[id="login-btn"] {
+        height: 110px;
+        width: 400px;
     
-        background-position: center 50px;
-        background-repeat: no-repeat;
-        background-size: 80px;
+        font-size: 24px;
+    
+        background-size: 70px;
     }
 
-    .container.landing .preview .preview__btns div p {
-        margin-top: 140px;
+    .container.landing .preview .preview__btns div[id="socials"] {
+        grid-template-columns: repeat(3, 90px);
+    }
+    
+    .container.landing .preview .preview__btns div[id="socials"] div {
+        background-size: 70px;
+        width: 90px;
+        height: 90px;
+    }
+    
+    .container.landing .preview .preview__btns div[id="socials"] div[id=vk] {
+        background-size: 75px;
     }
 
-    .container.landing .preview .preview__btns #pwa-btn {
-        background-position: center 60px;
+    .container.landing .preview .preview__btns div[id="pwa-btn"] {
+        height: 80px;
+        width: 400px;
+    }
+    
+    .container.landing .preview .preview__btns div[id="pwa-btn"] p {
+        font-size: 22px;
     }
  }

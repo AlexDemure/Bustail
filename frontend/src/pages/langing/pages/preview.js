@@ -16,8 +16,13 @@ export default function PreviewPage(props) {
                 <div id="login-btn" onClick={() => window.location.replace('/login')}>
                     <p>В приложение</p>
                 </div>
+                <div id="socials">
+                    <div id="vk" onClick={() => window.location.replace('https://vk.com/bustail')}></div>
+                    <div id="youtube" onClick={() => window.location.replace('https://www.youtube.com/channel/UCuSfwVO7usNuBj6XzHd7iPw')}></div>
+                    <div id="instagram" onClick={() => window.location.replace('https://www.instagram.com/_bustail/')}></div>
+                </div>
                 <div id="pwa-btn" onClick={() => window.location.replace('https://support.google.com/chrome/answer/9658361?co=GENIE.Platform%3DAndroid&hl=ru&oco=1')}>
-                    <p>Как установить</p>
+                    <p>Как установить приложение?</p>
                 </div>
             </div>
             <div className="footer">

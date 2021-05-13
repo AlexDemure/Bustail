@@ -251,7 +251,7 @@ export default class SearchTransportPage extends React.Component {
                 }
                 
                 {
-                    this.state.windowType == "filters" &&
+                    this.state.windowType === "filters" &&
                     <SearchFilters
                     city={this.state.city !== null ? this.state.city : this.state.user.city}
                     active_items={this.state.active_items}

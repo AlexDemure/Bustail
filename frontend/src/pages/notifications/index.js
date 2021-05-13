@@ -50,9 +50,9 @@ export default class NotificationPage extends React.Component {
     deleteElementInArray(index_array) {
         let notifications = this.state.notifications;
 
-        if (this.state.form == "client") {
+        if (this.state.form === "client") {
             notifications.client.splice(index_array, 1)
-        } else if (this.state.form == "driver") {
+        } else if (this.state.form === "driver") {
             notifications.driver.splice(index_array, 1)
         } else {
             return
@@ -165,9 +165,9 @@ export default class NotificationPage extends React.Component {
         if (this.state.notifications) {
             count_notifications = this.state.notifications.count_notifications
             console.log(count_notifications)
-            if (this.state.form == "client") {
+            if (this.state.form === "client") {
                 notifications = this.state.notifications.client
-            } else if (this.state.form == "driver") {
+            } else if (this.state.form === "driver") {
                 notifications = this.state.notifications.driver
             }
         }

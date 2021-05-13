@@ -11,7 +11,7 @@ export default function InputPhone(props) {
     return (
         <input
         required={props.isRequired === false ? false : true} 
-        className={"input__common " + "phone"}
+        className="input__common phone"
         name="phone"
         type="text"
         size={props.size}

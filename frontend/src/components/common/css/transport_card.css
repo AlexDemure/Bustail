@@ -85,6 +85,8 @@
 .transport_card__modal-window__card .transport_card__photos {
     grid-row: 1 / 2;
     width: 100%;
+    max-width: 800px;
+    justify-self: center;
     height: 225px;
 
     display: grid;
@@ -178,7 +180,7 @@ and (orientation: portrait) {
         grid-template-rows: 330px 1fr;
     }
     .transport_card__modal-window__content .transport_card__modal-window__title {
-        font-size: 28px;
+        font-size: 26px;
     }
     
     .transport_card__modal-window__content .transport_card__modal-window__close-btn {
@@ -203,27 +205,27 @@ and (orientation: portrait) {
     }
     
     .transport_card__photos .transport_card__other-photos div p {
-        font-size: 24px;
+        font-size: 22px;
     }
 
     .transport_card__details .transport_card__additionals {
-        gap: 20px
+        gap: 15px
     }
     
     .transport_card__details .transport_card__detail {
-        font-size: 24px;
+        font-size: 22px;
     }
     
     .transport_card__details .transport_card__detail span {
-        font-size: 24px;
+        font-size: 22px;
     }
     
     .transport_card__details .transport_card__detail.transport-name {
-        font-size: 28px;
+        font-size: 24px;
     }
     
     .transport_card__details .transport_card__detail.state-number {
-        font-size: 24px;
+        font-size: 22px;
         margin-top: 4px;
     }
 }
@@ -231,16 +233,16 @@ and (orientation: portrait) {
  /* ADAPTIVE 1024,1280,1337,1440px */
 @media (min-width: 1024px) and (max-width: 1535px) {
     .transport_card__modal-window__content {
-        width: 65vw;
-        margin-left: 17.5vw;
+        width: 55vw;
+        margin-left: 22.5vw;
     }
 
     
     .transport_card__modal-window__card {
-        grid-template-rows: 330px 1fr;
+        grid-template-rows: 300px 1fr;
     }
     .transport_card__modal-window__content .transport_card__modal-window__title {
-        font-size: 28px;
+        font-size: 26px;
     }
     
     .transport_card__modal-window__content .transport_card__modal-window__close-btn {
@@ -251,41 +253,41 @@ and (orientation: portrait) {
     
     
     .transport_card__modal-window__card .transport_card__photos {
-        height: 325px;
+        height: 300px;
     } 
     
     .transport_card__photos .transport_card__photo{
-        height: 325px;
+        height: 300px;
     }
     
     .transport_card__photos .transport_card__other-photos div{
-        height: 101.5px;
+        height: 94.5px;
         width: 90%;
         margin-bottom: 5px;
     }
     
     .transport_card__photos .transport_card__other-photos div p {
-        font-size: 24px;
+        font-size: 20px;
     }
 
     .transport_card__details .transport_card__additionals {
-        gap: 20px
+        gap: 10px
     }
     
     .transport_card__details .transport_card__detail {
-        font-size: 24px;
+        font-size: 20px;
     }
     
     .transport_card__details .transport_card__detail span {
-        font-size: 24px;
+        font-size: 20px;
     }
     
     .transport_card__details .transport_card__detail.transport-name {
-        font-size: 28px;
+        font-size: 22px;
     }
     
     .transport_card__details .transport_card__detail.state-number {
-        font-size: 24px;
+        font-size: 20px;
         margin-top: 4px;
     }
 }
@@ -293,8 +295,8 @@ and (orientation: portrait) {
  /* ADAPTIVE 1536px and more */
 @media (min-width: 1536px) {
     .transport_card__modal-window__content {
-        width: 50vw;
-        margin-left: 25vw;
+        width: 45vw;
+        margin-left: 27.5vw;
     }
 
     
@@ -302,7 +304,7 @@ and (orientation: portrait) {
         grid-template-rows: 400px 1fr;
     }
     .transport_card__modal-window__content .transport_card__modal-window__title {
-        font-size: 28px;
+        font-size: 26px;
     }
     
     .transport_card__modal-window__content .transport_card__modal-window__close-btn {
@@ -327,27 +329,27 @@ and (orientation: portrait) {
     }
     
     .transport_card__photos .transport_card__other-photos div p {
-        font-size: 24px;
+        font-size: 22px;
     }
 
     .transport_card__details .transport_card__additionals {
-        gap: 20px
+        gap: 10px
     }
     
     .transport_card__details .transport_card__detail {
-        font-size: 24px;
+        font-size: 22px;
     }
     
     .transport_card__details .transport_card__detail span {
-        font-size: 24px;
+        font-size: 22px;
     }
     
     .transport_card__details .transport_card__detail.transport-name {
-        font-size: 28px;
+        font-size: 24px;
     }
     
     .transport_card__details .transport_card__detail.state-number {
-        font-size: 24px;
+        font-size: 22px;
         margin-top: 4px;
     }
 }

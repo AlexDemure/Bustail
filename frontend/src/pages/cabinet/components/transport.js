@@ -20,6 +20,7 @@ export default class TransportCabinet extends React.Component {
             <div className={"transport__cabinet"}>
                 <img 
                     src={image_url}
+                    alt="preview"
                     className="transport__cabinet__photo"
                     onClick={() => this.props.showTransportCard(this.props.transport.id)}>
                 </img>

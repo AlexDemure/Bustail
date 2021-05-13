@@ -38,6 +38,7 @@ export default class TransportNotification extends React.Component {
             <div id={this.props.transport.id} className="transport__notification">
                 <img 
                 src={image_url}
+                alt="preview"
                 className="transport__notification__photo"
                 onClick={this.props.showTransportCard}
                 >

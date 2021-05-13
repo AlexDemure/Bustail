@@ -129,7 +129,6 @@ export default class DriverPage extends React.Component {
                         company_name: result.company_name,
                         account_id: result.account_id,
                         transports: result.transports,
-                        id: result.id,
                         total_amount: result.total_amount,
                         commission: result.commission,
                         debt: result.debt,
