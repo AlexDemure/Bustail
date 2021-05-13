@@ -94,6 +94,10 @@ and (orientation: portrait) {
     .container.landing .contacts .contacts__notify p {
         font-size: 24px;
     }
+    .container.landing .contacts .footer a {
+        font-size: 16px;
+    }
+
 }
 
 @media (min-width: 1024px) and (max-width: 1535px) {
@@ -107,6 +111,9 @@ and (orientation: portrait) {
     }
     .container.landing .contacts .contacts__notify p {
         font-size: 26px;
+    }
+    .container.landing .contacts .footer a {
+        font-size: 18px;
     }
 }
 
@@ -122,5 +129,8 @@ and (orientation: portrait) {
     }
     .container.landing .contacts .contacts__notify p {
         font-size: 28px;
+    }
+    .container.landing .contacts .footer a {
+        font-size: 18px;
     }
 }
