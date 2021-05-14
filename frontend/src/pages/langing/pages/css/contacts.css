@@ -1,7 +1,7 @@
 
 /* CONTACTS PAGE */
 .container.landing .contacts {
-    grid-template-rows: 85% 15%;
+    grid-template-rows: 70% 30%;
     justify-content: center;
 }
 
@@ -13,6 +13,8 @@
 .container.landing .contacts .contacts__title {
     align-self: flex-end;
     margin-left: 10px;
+    display: grid;
+    grid-template-columns: 1fr;
 }
 
 .container.landing .contacts .contacts__title p,
@@ -24,6 +26,10 @@
     margin-bottom: 10px;
     text-align: left;
 
+}
+
+.container.landing .contacts .contacts__title .docs {
+    font-size: 14px;
 }
 
 .container.landing .contacts .contacts__title p span,
@@ -45,13 +51,6 @@
     text-align: center;
 }
 
-
-.container.landing .contacts .footer a {
-    text-decoration: none;
-    color: #535353;
-    font-family: "FuturaMediumC";
-    font-size: 14px;
-}
 
 @media screen and (min-width:361px) and (max-width:400px) {
     .container.landing .contacts .contacts__title p,
@@ -94,7 +93,8 @@ and (orientation: portrait) {
     .container.landing .contacts .contacts__notify p {
         font-size: 24px;
     }
-    .container.landing .contacts .footer a {
+    
+    .container.landing .contacts .contacts__title .docs {
         font-size: 16px;
     }
 
@@ -112,7 +112,8 @@ and (orientation: portrait) {
     .container.landing .contacts .contacts__notify p {
         font-size: 26px;
     }
-    .container.landing .contacts .footer a {
+    
+    .container.landing .contacts .contacts__title .docs {
         font-size: 18px;
     }
 }
@@ -130,7 +131,8 @@ and (orientation: portrait) {
     .container.landing .contacts .contacts__notify p {
         font-size: 28px;
     }
-    .container.landing .contacts .footer a {
+    
+    .container.landing .contacts .contacts__title .docs {
         font-size: 18px;
     }
 }
