@@ -64,7 +64,7 @@ export default class SearchTransportPage extends React.Component {
         })
     }
 
-    createOffer(event, ticket_id) {
+    createOffer(event, ticket_id, price) {
         event.preventDefault();
 
 
@@ -73,6 +73,11 @@ export default class SearchTransportPage extends React.Component {
             transport_id: this.state.transports[this.state.offerData].id,
             notification_type: this.state.offer_type
         }
+
+        if (price !== null && price !== 0) {
+            data["price"] = price
+        }
+
         sendRequest('/api/v1/notifications/', "POST", data)
         .then(
             (result) => {
@@ -80,7 +85,8 @@ export default class SearchTransportPage extends React.Component {
                 this.setState({
                     response_text: "Предложение успешно отправлено",
                     notify_type: "success",
-                    error: null
+                    error: null,
+                    offerData: null
                 })
                 showNotify()
             },

@@ -2,7 +2,7 @@
     z-index: 200;
     top: 0;
     left: 0;
-    position: absolute;
+    position: fixed;
     display: grid;
     align-items: center;
     height: 100vh;

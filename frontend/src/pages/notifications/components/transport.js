@@ -34,6 +34,16 @@ export default class TransportNotification extends React.Component {
             </React.Fragment>
         }
 
+        let price;
+        if (this.props.new_price !== null && this.props.new_price !== 0) {
+            price = `${this.props.new_price} (изменено)`
+        } else {
+            if (this.props.application_price !== 0) {
+                price = this.props.application_price
+            } else {
+                price = "Не указано"
+            }
+        }
         return (
             <div id={this.props.transport.id} className="transport__notification">
                 <img 
@@ -49,16 +59,17 @@ export default class TransportNotification extends React.Component {
                     </div>
                     <div className="transport__notification__card__body">
                         <div id="info">
-                            <p className="transport__notification__item">вместимость: <span>{this.props.transport.count_seats}</span></p>
-                            <p className="transport__notification__item">стоимость: <span>{this.props.transport.price}</span></p>
+                            <p className="transport__notification__item">
+                                    Cтоимость: <span>{price}</span>
+                            </p>
                             <p className="transport__notification__item">город: <span>{this.props.transport.city}</span></p>
                         </div>
                     </div>
-                    
                     <div className="transport__notification__card__footer">
                         {footer}
                     </div>
                 </div>
+               
             </div>
         )
     }

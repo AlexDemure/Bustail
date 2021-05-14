@@ -205,10 +205,8 @@ export default class NotificationPage extends React.Component {
                             notifications.map(
                                 (notification, index) => {
                                     return <Notification
-                                            application={notification.application}
-                                            transport={notification.transport}
+                                            notifiation={notification}
                                             notification_owner={this.state.form}
-                                            notification_type={notification.notification_type}
                                             setOfferDecision={(e) => this.setOfferDecision(e, notification.id, index)}
                                             removeOffer={() => this.removeOffer(notification.id, index)}
                                             showTransportCard={() => this.showTransportCard(notification.transport.id)}

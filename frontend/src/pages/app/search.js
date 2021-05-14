@@ -70,14 +70,20 @@ export default class SearchAppPage extends React.Component {
         })
     }
 
-    createOffer(event, transport_id) {
+    createOffer(event, transport_id, price) {
         event.preventDefault();
 
+       
         let data = {
             application_id: this.state.apps[this.state.offerData].id,
             transport_id: transport_id,
-            notification_type: this.state.offer_type
+            notification_type: this.state.offer_type,
         }
+
+        if (price !== null && price !== 0) {
+            data["price"] = price
+        }
+
         sendRequest('/api/v1/notifications/', "POST", data)
         .then(
             (result) => {
@@ -85,7 +91,8 @@ export default class SearchAppPage extends React.Component {
                 this.setState({
                     response_text: "Предложение успешно отправлено",
                     notify_type: "success",
-                    error: null
+                    error: null,
+                    offerData: null
                 })
                 showNotify()
             },
@@ -235,6 +242,7 @@ export default class SearchAppPage extends React.Component {
                 { this.state.offerData !== null && (
                         <OfferForm
                         closeOffer={() => this.setState({offerData: null})}
+                        ticket={this.state.apps[this.state.offerData]}
                         offer_type="Предложение аренды"
                         create_link="/transport/create"
                         choices={this.state.me_transports}
