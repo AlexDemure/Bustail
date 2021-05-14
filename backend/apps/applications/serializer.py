@@ -1,10 +1,11 @@
 from backend.apps.applications.models import Application
+from backend.enums.applications import ApplicationTypes
 from backend.schemas.applications import HistoryApplication, ApplicationData
 
 
 def prepare_application(app: Application) -> ApplicationData:
     data = app.__dict__
-    application_type = data.pop('application_type')
+    application_type = data.pop('application_type', ApplicationTypes.other)
     return ApplicationData(
         application_type=application_type.description,
         **data
