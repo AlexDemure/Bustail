@@ -34,6 +34,9 @@ class NotificationDataWithRelatedObjects(BaseModel):
     notification_type: NotificationTypes
     price: int = None
 
+    class Config:
+        orm_mode = True
+
 
 class NotificationDelete(BaseModel):
     notification_id: int

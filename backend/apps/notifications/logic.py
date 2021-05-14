@@ -1,5 +1,4 @@
 from typing import Optional
-
 from structlog import get_logger
 
 from backend.apps.applications.logic import confirm_application
@@ -9,7 +8,8 @@ from backend.apps.drivers.serializer import prepare_transport_with_photos
 from backend.apps.notifications.crud import notification as notification_crud
 from backend.enums.notifications import NotificationErrors
 from backend.enums.system import SystemLogs
-from backend.schemas.notifications import NotificationCreate, NotificationData, MeNotifications
+
+from backend.schemas.notifications import NotificationCreate, NotificationData, MeNotifications, NotificationDataWithRelatedObjects
 from backend.submodules.common.enums import BaseSystemErrors, BaseMessage
 from backend.submodules.common.schemas import UpdatedBase
 
@@ -83,11 +83,8 @@ async def get_me_notifications(applications_id: list, transports_id: list) -> Me
     rows, count_rows = await notification_crud.get_me_notifications(applications_id, transports_id)
 
     for row in rows:
-        prepared_transport = prepare_transport_with_photos(row.transport)
-        prepared_application = prepare_application(row.application)
-
-        row.transport = prepared_transport
-        row.application = prepared_application
+        row.transport = prepare_transport_with_photos(row.transport)
+        row.application = prepare_application(row.application)
 
     return MeNotifications(
         count_notifications=count_rows,

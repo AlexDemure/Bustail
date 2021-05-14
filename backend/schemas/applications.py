@@ -1,5 +1,5 @@
 from datetime import date, datetime
-from typing import List
+from typing import List, Any
 
 from pydantic import BaseModel, constr, validator, conint
 
@@ -53,7 +53,7 @@ class ApplicationData(BaseModel):
     application_status: ApplicationStatus = ApplicationStatus.waiting.value
     created_at: datetime
     confirmed_at: datetime = None
-    application_type: str
+    application_type: Any
 
 
 class ListApplications(BaseModel):
