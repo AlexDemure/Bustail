@@ -30,7 +30,7 @@ export default function InputDate(props) {
           dateFormat="dd.MM.yyyy"
           selected={startDate}
           onChange={date => setStartDate(date)}
-          className="input__common date"
+          className="input__common date required"
           name={props.name}
           locale={locale}
           minDate={new Date()}

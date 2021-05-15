@@ -17,6 +17,7 @@ input {
     padding-left: 10px;
     
 }
+
 input[type=email]:read-only {
     opacity: 0.5;
 }
@@ -82,6 +83,24 @@ input[name=phone] {
     background-image: url("../../../../static/icons/default/call.png");
 }
 
+input[name=vk] {
+    background-size: 25px 28px;
+    background-image: url("../../../../static/icons/default/vk.png");
+}
+
+input[name=instagram] {
+    background-size: 23px 18px;
+    background-image: url("../../../../static/icons/default/instagram.png");
+}
+
+
+.input__common.required {
+    border-left: 2px solid #fba333
+}
+textarea,
+.input__common.no-required {
+    border-left: 2px solid #535353
+}
 
 @media (min-width: 641px) and (max-width: 1023px) 
 and (orientation: portrait) {
@@ -89,6 +108,13 @@ and (orientation: portrait) {
         background-size: 35px 35px;
         height: 70px;
         font-size: 24px;
+    }
+
+    input[name=vk] {
+        background-size: 40px 43px;
+    }
+    input[name=instagram] {
+        background-size: 38px 30px;
     }
     .input__common.password {
         background-size: 30px 33px;
@@ -112,6 +138,12 @@ and (orientation: portrait) {
         height: 80px;
         font-size: 22px;
     }
+    input[name=vk] {
+        background-size: 40px 43px;
+    }
+    input[name=instagram] {
+        background-size: 38px 30px;
+    }
     .input__common.password {
         background-size: 30px 33px;
         font-size: 20px;
@@ -132,6 +164,12 @@ and (orientation: portrait) {
         background-size: 40px 40px;
         height: 90px;
         font-size: 24px;
+    }
+    input[name=vk] {
+        background-size: 45px 48px;
+    }
+    input[name=instagram] {
+        background-size: 43px 35px;
     }
     .input__common.password {
         background-size: 35px 38px;

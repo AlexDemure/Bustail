@@ -38,6 +38,10 @@
     background-image: url("../../../../static/icons/default/search.png");
 }
 
+.search-selector .search-selector__input__common.required {
+    border-left: 2px solid #fba333
+}
+
 .search-selector .search-selector__option li {
     display: none;
     width: 100%;

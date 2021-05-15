@@ -1,11 +1,14 @@
 .switch__cabinet {
     text-align: left;
     margin-left: 10px;
+    position: relative;
+    height: 30px;
 }
 
 .switch__cabinet p {
+    margin: 0;
+    padding: 0;
     display: inline;
-
     color: #FBFBFB;
     font-size: 18px;
     font-family: 'FuturaDemiC';
@@ -20,6 +23,12 @@
 .switch__cabinet .switch__cabinet__item.no-active {
     opacity: 0.3;
     font-size: 16px;
+}
+
+.switch__cabinet #company {
+    right: 0;
+    top: 0;
+    position: absolute;
 }
 
 /* ADAPTIVE 768-801-1024px */

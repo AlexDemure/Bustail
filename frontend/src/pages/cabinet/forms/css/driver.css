@@ -10,7 +10,7 @@
     justify-items: center;
 }
 
-.container.cabinet.driver.card .cabinet__driver__payment-data {
+.container.cabinet.driver.card .cabinet__payment-data {
     grid-row: 1 / 2;
     margin-top: 20px;
 } 

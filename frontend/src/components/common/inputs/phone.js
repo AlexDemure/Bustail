@@ -10,8 +10,8 @@ export default function InputPhone(props) {
 
     return (
         <input
-        required={props.isRequired === false ? false : true} 
-        className="input__common phone"
+        required={true} 
+        className="input__common phone required"
         name="phone"
         type="text"
         size={props.size}

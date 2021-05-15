@@ -17,7 +17,7 @@ function DefaultInput(props) {
     } else {
         input_type = <input
         required={props.isRequired === false ? false : true} 
-        className={"input__common " + props.input_type}
+        className={`input__common ${props.input_type} ${props.isRequired === false ? "no-required" : "required"}`}
         name={props.name}
         type={props.input_type} 
         size={props.size}
@@ -28,7 +28,7 @@ function DefaultInput(props) {
         defaultValue={props.value}
         readOnly={props.readOnly || false}
         inputmode={props.input_type === "number" ? "numeric" : null}
-        pattern={props.input_type === "number" ? "[0-9]*" : null}
+        pattern={props.input_type === "number" ? "[0-9]*" : props.pattern}
         ></input>
     }
     return (

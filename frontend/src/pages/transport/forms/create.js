@@ -67,7 +67,7 @@ class MainFormCreateTransport extends React.Component {
 function AdditionalFormCreateTransport(props) {
     return (
         <form className="create-transport__form__additional-info" onSubmit={props.onSubmit}>
-            <TextAreaInput name="description" rows="5" placeholder="Описание автомобиля (не обязательно)"/>
+            <TextAreaInput name="description" rows="5" placeholder="Описание автомобиля"/>
             <DefaultInput name="price" input_type="number" maxLength={7} size="7" placeholder="Стоимость в час"/>
             <SubmitButton value="Далее"/>
         </form>

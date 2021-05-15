@@ -1,4 +1,4 @@
-.cabinet__driver__payment-data {
+.cabinet__payment-data {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(3, 1fr);
@@ -10,30 +10,30 @@
     border-radius: 10px;
 }
 
-.cabinet__driver__payment-data div p {
+.cabinet__payment-data div p {
   margin: 0;
   padding: 0;
 }
 
-.cabinet__driver__payment-data .cabinet__driver__payment-data__item__text {
+.cabinet__payment-data .cabinet__payment-data__item__text {
   font-size: 16px;
   color: #6e6e6e;
   font-family: 'FuturaBookC';
 }
 
-.cabinet__driver__payment-data .cabinet__driver__payment-data__item__number {
+.cabinet__payment-data .cabinet__payment-data__item__number {
   font-size: 18px;
   color: #fbfbfb;
   font-family: 'FuturaDemiC';
 }
 
 
-.cabinet__driver__payment-data .cabinet__driver__payment-data__card-design {
+.cabinet__payment-data .cabinet__payment-data__card-design {
   grid-row: 1 / 2;
   grid-column: 1 / 4;
 }
 
-.cabinet__driver__payment-data .cabinet__driver__payment-data__card-design .cabinet__driver__payment-data__item__text {
+.cabinet__payment-data .cabinet__payment-data__card-design .cabinet__payment-data__item__text {
   color: #fba333;
   font-family: 'FuturaDemiC';
   font-size: 18px;
@@ -42,45 +42,45 @@
   margin-top: 15px;
 }
 
-.cabinet__driver__payment-data .cabinet__driver__payment-data__total-amount {
+.cabinet__payment-data .cabinet__payment-data__total-amount {
   grid-row: 2 / 3;
   grid-column: 1 / 3;
   margin-left: 5px;
   border-bottom: 1px solid #fba333;
 }
 
-.cabinet__driver__payment-data .cabinet__driver__payment-data__total-amount p {
+.cabinet__payment-data .cabinet__payment-data__total-amount p {
   margin-left: 10px;
   
 }
 
-.cabinet__driver__payment-data .cabinet__driver__payment-data__total-amount .cabinet__driver__payment-data__item__number {
+.cabinet__payment-data .cabinet__payment-data__total-amount .cabinet__payment-data__item__number {
   font-size: 24px;
   
 }
 
-.cabinet__driver__payment-data .cabinet__driver__payment-data__total-amount .cabinet__driver__payment-data__item__text {
+.cabinet__payment-data .cabinet__payment-data__total-amount .cabinet__payment-data__item__text {
   font-size: 18px;
   color: #fba333;
 }
 
-.cabinet__driver__payment-data .cabinet__driver__payment-data__commission-amount,
-.cabinet__driver__payment-data .cabinet__driver__payment-data__debt-amount,
-.cabinet__driver__payment-data .cabinet__driver__payment-data__limit-amount {
+.cabinet__payment-data .cabinet__payment-data__commission-amount,
+.cabinet__payment-data .cabinet__payment-data__debt-amount,
+.cabinet__payment-data .cabinet__payment-data__limit-amount {
   
   display: grid;
   justify-content: center;
   align-content: center;
   width: 100%;
 }
-.cabinet__driver__payment-data .cabinet__driver__payment-data__commission-amount p,
-.cabinet__driver__payment-data .cabinet__driver__payment-data__debt-amount p,
-.cabinet__driver__payment-data .cabinet__driver__payment-data__limit-amount p {
+.cabinet__payment-data .cabinet__payment-data__commission-amount p,
+.cabinet__payment-data .cabinet__payment-data__debt-amount p,
+.cabinet__payment-data .cabinet__payment-data__limit-amount p {
   text-align: center;
 }
 
 
-.cabinet__driver__payment-data .cabinet__driver__payment-data__pay-btn {
+.cabinet__payment-data .cabinet__payment-data__pay-btn {
   display: grid;
   align-content: center;
   background-color: #262626;
@@ -90,17 +90,17 @@
   border: 1px solid #222222;
 }
 
-.cabinet__driver__payment-data .cabinet__driver__payment-data__pay-btn:hover {
+.cabinet__payment-data .cabinet__payment-data__pay-btn:hover {
   background-color: #fba333;
 }
 
-.cabinet__driver__payment-data .cabinet__driver__payment-data__pay-btn p {
+.cabinet__payment-data .cabinet__payment-data__pay-btn p {
   font-family: 'FuturaBookC';
   font-size: 16px;
   color: #6e6e6e;
 }
 
-.cabinet__driver__payment-data .cabinet__driver__payment-data__pay-btn:hover p {
+.cabinet__payment-data .cabinet__payment-data__pay-btn:hover p {
   color: #181818;
 }
 
@@ -108,96 +108,96 @@
 /* ADAPTIVE 768-801 */
 @media (min-width: 641px) and (max-width: 1023px) 
 and (orientation: portrait) {
-  .cabinet__driver__payment-data {
+  .cabinet__payment-data {
     height: 250px;
     width: 450px;
   }
 
-  .cabinet__driver__payment-data .cabinet__driver__payment-data__item__text {
+  .cabinet__payment-data .cabinet__payment-data__item__text {
     font-size: 22px;
   }
   
-  .cabinet__driver__payment-data .cabinet__driver__payment-data__item__number {
+  .cabinet__payment-data .cabinet__payment-data__item__number {
     font-size: 24px;
   }
   
-  .cabinet__driver__payment-data .cabinet__driver__payment-data__card-design .cabinet__driver__payment-data__item__text {
+  .cabinet__payment-data .cabinet__payment-data__card-design .cabinet__payment-data__item__text {
     font-size: 30px;
   }
 
-  .cabinet__driver__payment-data .cabinet__driver__payment-data__total-amount .cabinet__driver__payment-data__item__number {
+  .cabinet__payment-data .cabinet__payment-data__total-amount .cabinet__payment-data__item__number {
     font-size: 30px;
   }
   
-  .cabinet__driver__payment-data .cabinet__driver__payment-data__total-amount .cabinet__driver__payment-data__item__text {
+  .cabinet__payment-data .cabinet__payment-data__total-amount .cabinet__payment-data__item__text {
     font-size: 24px;
   }
 
-  .cabinet__driver__payment-data .cabinet__driver__payment-data__pay-btn p {
+  .cabinet__payment-data .cabinet__payment-data__pay-btn p {
     font-size: 22px;
   }
 }
 
  /* ADAPTIVE 1024,1280,1337,1440px */
 @media (min-width: 1024px) and (max-width: 1535px) {
-  .cabinet__driver__payment-data {
+  .cabinet__payment-data {
     height: 265px;
     width: 500px;
   }
 
-  .cabinet__driver__payment-data .cabinet__driver__payment-data__item__text {
+  .cabinet__payment-data .cabinet__payment-data__item__text {
     font-size: 24px;
   }
   
-  .cabinet__driver__payment-data .cabinet__driver__payment-data__item__number {
+  .cabinet__payment-data .cabinet__payment-data__item__number {
     font-size: 26px;
   }
   
-  .cabinet__driver__payment-data .cabinet__driver__payment-data__card-design .cabinet__driver__payment-data__item__text {
+  .cabinet__payment-data .cabinet__payment-data__card-design .cabinet__payment-data__item__text {
     font-size: 32px;
   }
 
-  .cabinet__driver__payment-data .cabinet__driver__payment-data__total-amount .cabinet__driver__payment-data__item__number {
+  .cabinet__payment-data .cabinet__payment-data__total-amount .cabinet__payment-data__item__number {
     font-size: 32px;
   }
   
-  .cabinet__driver__payment-data .cabinet__driver__payment-data__total-amount .cabinet__driver__payment-data__item__text {
+  .cabinet__payment-data .cabinet__payment-data__total-amount .cabinet__payment-data__item__text {
     font-size: 26px;
   }
 
-  .cabinet__driver__payment-data .cabinet__driver__payment-data__pay-btn p {
+  .cabinet__payment-data .cabinet__payment-data__pay-btn p {
     font-size: 24px;
   }
 }
 
  /* ADAPTIVE 1536px and more */
 @media (min-width: 1536px) {
-  .cabinet__driver__payment-data {
+  .cabinet__payment-data {
     height: 280px;
     width: 550px;
   }
 
-  .cabinet__driver__payment-data .cabinet__driver__payment-data__item__text {
+  .cabinet__payment-data .cabinet__payment-data__item__text {
     font-size: 26px;
   }
   
-  .cabinet__driver__payment-data .cabinet__driver__payment-data__item__number {
+  .cabinet__payment-data .cabinet__payment-data__item__number {
     font-size: 28px;
   }
   
-  .cabinet__driver__payment-data .cabinet__driver__payment-data__card-design .cabinet__driver__payment-data__item__text {
+  .cabinet__payment-data .cabinet__payment-data__card-design .cabinet__payment-data__item__text {
     font-size: 34px;
   }
 
-  .cabinet__driver__payment-data .cabinet__driver__payment-data__total-amount .cabinet__driver__payment-data__item__number {
+  .cabinet__payment-data .cabinet__payment-data__total-amount .cabinet__payment-data__item__number {
     font-size: 34px;
   }
   
-  .cabinet__driver__payment-data .cabinet__driver__payment-data__total-amount .cabinet__driver__payment-data__item__text {
+  .cabinet__payment-data .cabinet__payment-data__total-amount .cabinet__payment-data__item__text {
     font-size: 28px;
   }
 
-  .cabinet__driver__payment-data .cabinet__driver__payment-data__pay-btn p {
+  .cabinet__payment-data .cabinet__payment-data__pay-btn p {
     font-size: 26px;
   }
 }

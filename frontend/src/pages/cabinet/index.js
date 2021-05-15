@@ -9,12 +9,15 @@ import { getCities } from '../../constants/cities'
 import { aboutMe } from '../../components/common/api/about_me'
 import { getMeApps } from '../../components/common/api/me_apps'
 import { getDriverCard } from '../../components/common/api/driver_card'
+import { getCompanyCard } from '../../components/common/api/company_card'
 
 import CommonPage from './forms/common'
 import ClientPage from './forms/client'
 import DriverPage from './forms/driver'
+import CompanyPage from './forms/company'
 
 import './css/index.css'
+
 
 
 export default class CabinetPage extends React.Component {
@@ -36,6 +39,9 @@ export default class CabinetPage extends React.Component {
             
             driver: null,
             driver_transports: null,
+
+            company: null,
+            company_transports: null,
         };
 
         this.changeForm = this.changeForm.bind(this)
@@ -53,10 +59,14 @@ export default class CabinetPage extends React.Component {
             this.setState({
                 form: "client",
             }) 
-        } else {
+        } else if (event.target.id === "driver") {
             this.setState({
                 form: "driver",
             }) 
+        } else {
+            this.setState({
+                form: "company",
+            })
         }
     }
 
@@ -92,6 +102,14 @@ export default class CabinetPage extends React.Component {
             })
         }
 
+        let company = await getCompanyCard()
+        if (company) {
+            this.setState({
+                company: company,
+                company_transports: company.transports
+            })
+        }
+
     }
 
     render() {
@@ -109,11 +127,17 @@ export default class CabinetPage extends React.Component {
             changeForm={this.changeForm}
             applications={this.state.user_applications}
             />
-        } else {
+        } else if (this.state.form === "driver") {
             form = <DriverPage
             changeForm={this.changeForm}
             driver={this.state.driver}
             transports={this.state.driver_transports}
+            />
+        } else if (this.state.form === "company") {
+            form = <CompanyPage
+            changeForm={this.changeForm}
+            company={this.state.company}
+            transports={this.state.company_transports}
             />
         }
 

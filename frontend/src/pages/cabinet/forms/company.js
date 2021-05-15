@@ -17,45 +17,50 @@ import { selectErrorInputs } from '../../../constants/input_parsers'
 import sendRequest from '../../../utils/fetch'
 import SerializeForm from '../../../utils/form_serializer'
 
-import './css/driver.css'
+import './css/company.css'
 
 
-function DriverForm(props) {
-        return (
-            <React.Fragment>
-                <p id="warning">
-                    Для оказания услуг перевозок на транспорте от 8 мест водитель должен обладать
-                    лицензией перевозчика или выполнять заказы от компании.
-                </p>
-                <form className="cabinet__driver__form__driver-info" onSubmit={props.onSubmit} autoComplete="off">
-                    <DefaultInput value={props.driver ? props.driver.inn : null} name="inn"  input_type="text" size="25" minLength={12} maxLength={12} placeholder="ИНН"/>
-                    <DefaultInput value={props.driver ? props.driver.company_name : null} name="company_name" input_type="text" size="25" placeholder="Наименование Юр.лица, ИП" isRequired={false}/>
-                    <DefaultInput value={props.driver ? props.driver.license_number : null} name="license_number" input_type="text" size="25" placeholder="Номер лицензии" isRequired={false}/>
-                    <SubmitButton value={props.driver === null ? "Создать" : "Сохранить" }/>
-                </form>
-            </React.Fragment>           
-        )
+function CompanyForm(props) {
+    return (
+        <React.Fragment>
+            <p id="warning">
+                Для оказания услуг перевозок компания должна обладать
+                лицензией перевозчика.
+            </p>
+            <form className="cabinet__company__form__company-info" onSubmit={props.onSubmit} autoComplete="off">
+                <DefaultInput value={props.company ? props.company.inn : null} name="inn" input_type="text" size="25" minLength={12} maxLength={12} placeholder="ИНН"/>
+                <DefaultInput value={props.company ? props.company.ogrn : null} name="ogrn" input_type="text" size="25" minLength={13} maxLength={15} placeholder="ОГРН"/>
+                <DefaultInput value={props.company ? props.company.company_name : null} name="company_name" input_type="text" size="25" placeholder="Наименование Юр.лица, ИП"/>
+                <DefaultInput value={props.company ? props.company.license_number : null} name="license_number" input_type="text" size="25" placeholder="Номер лицензии"/>
+                <DefaultInput value={props.company ? props.company.page_url : null} name="page_url" input_type="text" size="64" minLength={6} maxLength={64} placeholder="Название страницы на англ." isRequired={false} pattern={"[a-zA-Z\d]*"}/>
+                <DefaultInput value={props.company && props.company.socials ? props.company.socials.vk : null} name="vk" minLength={1} maxLength={64} input_type="text" size="64" placeholder="Группа в Вконтакте" isRequired={false}/>
+                <DefaultInput value={props.company && props.company.socials ? props.company.socials.instagram : null} minLength={1} maxLength={64} name="instagram" input_type="text" size="64"  placeholder="Страница в Инстаграм" isRequired={false}/>
+                <SubmitButton value={props.company === null ? "Создать" : "Сохранить" }/>
+            </form>
+        </React.Fragment> 
+    )
 }
 
-class DriverCard extends React.Component {
+
+class CompanyCard extends React.Component {
     constructor(props) {
         super(props)
     }
 
     render() {
         return (
-            <div className="cabinet__driver"> 
+            <div className="cabinet__company"> 
                 <PaymentData
-                total={this.props.driver.total_amount}
-                commission={`${this.props.driver.commission}р`}
-                debt={this.props.driver.debt}
-                limit={this.props.driver.limit}
+                total={this.props.company.total_amount}
+                commission={`${this.props.company.commission}р`}
+                debt={this.props.company.debt}
+                limit={this.props.company.limit}
                 getPaymentLink={this.props.getPaymentLink}
                 />
-                <p className="cabinet__driver__notify">При достижении суммы коммиссии свыше допустимого лимита подбор заявок будет не доступен</p>
-                <div className="cabinet__driver__transports">
+                <p className="cabinet__company__notify">При достижении суммы коммиссии свыше допустимого лимита подбор заявок будет не доступен</p>
+                <div className="cabinet__company__transports">
                     
-                    <p className="cabinet__driver__title">Автопарк</p>
+                    <p className="cabinet__company__title">Автопарк</p>
                     {   
                         this.props.transports &&
                         this.props.transports.map(
@@ -74,13 +79,14 @@ class DriverCard extends React.Component {
 
 }
 
-export default class DriverPage extends React.Component {
+export default class CompanyPage extends React.Component {
     constructor(props) {
         super(props)
 
         this.state = {
             form: "form",
-            driver: this.props.driver,
+
+            company: this.props.company,
             transports: this.props.transports,
             
             transport_id: null,
@@ -91,7 +97,7 @@ export default class DriverPage extends React.Component {
         }
 
         this.changeForm = this.changeForm.bind(this)
-        this.setDriverInfo = this.setDriverInfo.bind(this)
+        this.setCompanyInfo = this.setCompanyInfo.bind(this)
         this.deleteTransport = this.deleteTransport.bind(this)
         this.showTransportCard = this.showTransportCard.bind(this)
     }
@@ -116,44 +122,52 @@ export default class DriverPage extends React.Component {
         }
     }
 
-    setDriverInfo(event, method) {
+    setCompanyInfo(event, method) {
         event.preventDefault();
 
         let prepared_data = SerializeForm(event.target, new FormData(event.target))
 
         let data = {
-            company_name: prepared_data.get("company_name") || null,
+            company_name: prepared_data.get("company_name"),
             inn: prepared_data.get("inn"),
-            license_number: prepared_data.get("license_number") || null
+            ogrn: prepared_data.get("ogrn"),
+            license_number: prepared_data.get("license_number"),
+            page_url: prepared_data.get("page_url"),
+            socials: {
+                vk: prepared_data.get("vk"),
+                instagram: prepared_data.get("instagram") || null
+            }
         }
-        sendRequest('/api/v1/drivers/', method, data)
+        sendRequest('/api/v1/company/', method, data)
         .then(
             (result) => {
                 if (this.state.error) {
                     selectErrorInputs(this.state.error, false)
                 }
-                
                 this.setState({
-                    driver: {
+                    company: {
                         id: result.id,
+                        account_id: result.account_id,
+
                         license_number: result.license_number,
                         inn: result.inn,
+                        ogrn: result.ogrn,
                         company_name: result.company_name,
-                        account_id: result.account_id,
+                        socials: result.socials,
+                        page_url: result.page_url,
+
                         transports: result.transports,
+                        
                         total_amount: result.total_amount,
                         commission: result.commission,
                         debt: result.debt,
                         limit: result.limit
                     },
-
                     error: null,
                     response_text: "Данные успешно изменены",
                     notify_type: "success",
                 })
-                
                 showNotify()
-                
             },
             (error) => {
                 this.setState({
@@ -171,14 +185,13 @@ export default class DriverPage extends React.Component {
                         response_text: error.message,
                     })
                 }
-
                 showNotify()
             }
         )
     }
-
+    
     deleteTransport(index_array) {
-        sendRequest(`api/v1/drivers/transports/${this.state.transports[index_array].id}/`, "DELETE")
+        sendRequest(`api/v1/company/transports/${this.state.transports[index_array].id}/`, "DELETE")
         .then(
             (result) => {
                 console.log(result)
@@ -227,7 +240,7 @@ export default class DriverPage extends React.Component {
     componentDidUpdate(prevProps) {
         if (prevProps !== this.props) {
             this.setState({
-                driver: this.props.driver,
+                company: this.props.company,
                 transports: this.props.transports
             })
         }
@@ -237,22 +250,23 @@ export default class DriverPage extends React.Component {
         let form;
 
         if (this.state.form === "card") {
-            form = <DriverCard 
+            form = <CompanyCard 
             getPaymentLink={this.getPaymentLink}
             deleteTransport={this.deleteTransport}
             showTransportCard={this.showTransportCard}
-            driver={this.state.driver}
+            company={this.state.company}
             transports={this.state.transports}
             />
 
         } else if (this.state.form === "form") {
-            let method = this.state.driver === null ? "POST" : "PUT"
-            
-            form = <DriverForm
-            driver={this.state.driver}
-            onSubmit={(e) => this.setDriverInfo(e, method)}
+            let method = this.state.company === null ? "POST" : "PUT"
+
+            form = <CompanyForm
+            company={this.state.company}
+            onSubmit={(e) => this.setCompanyInfo(e, method)}
             />
         }
+
         return (
             <React.Fragment>
                 <ResponseNotify
@@ -268,9 +282,9 @@ export default class DriverPage extends React.Component {
                     />
                 }
 
-                <div className={"container cabinet driver " + this.state.form}>
-                    <CabinetSwitch is_active="driver" onClick={this.props.changeForm}/>
-                    <CardSwitch is_active={this.state.form} isDisable={this.state.driver === null ? true : false} onClick={this.changeForm}/>
+                <div className={"container cabinet company " + this.state.form}>
+                    <CabinetSwitch is_active="company" onClick={this.props.changeForm}/>
+                    <CardSwitch is_active={this.state.form} isDisable={this.state.company === null ? true : false} onClick={this.changeForm}/>
                     {form}
                 </div>
 
