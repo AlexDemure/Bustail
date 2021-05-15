@@ -1,6 +1,7 @@
 import React from 'react'
 
 import { getTransportCard } from '../common/api/transport_card'
+import { getCompanyCard } from '../common/api/company_card'
 
 import sendRequest from '../../utils/fetch'
 
@@ -12,11 +13,16 @@ export default class TransportCard extends React.Component {
         super(props)
 
         this.state = {
+            driver: null,
+            company: null,
+            
             user: {
                 fullname: null,
                 phone: null
             },
             transport: {
+                driver_id: null,
+                company_id: null,
                 brand: null,
                 model: null,
                 state_number: null,
@@ -67,20 +73,32 @@ export default class TransportCard extends React.Component {
     }
 
     async componentDidMount() {
+        let user;
+        let driver;
+        let company;
         let transport = await getTransportCard(this.props.transport_id)
-        let driver = await this.getDriverInfo(transport.driver_id)
+        
+        if (transport.driver_id !== null) {
+            driver = await this.getDriverInfo(transport.driver_id)
+
+            if (driver) {
+                user = await this.getUserInfo(driver.account_id)
+            }
+        }
+
+        if (transport.company_id !== null) {
+            company = await getCompanyCard(transport.company_id)
+            if (company) {
+                user = await this.getUserInfo(company.account_id)
+            }
+        }
         
         this.setState({
+            user: user,
+            driver: driver,
+            company: company,
             transport: transport,
-            driver: driver
         })
-
-        if (driver) {
-            let user = await this.getUserInfo(driver.account_id)
-            this.setState({
-                user: user
-            })
-        }
     }
 
     render() {

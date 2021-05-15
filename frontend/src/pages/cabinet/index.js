@@ -9,7 +9,7 @@ import { getCities } from '../../constants/cities'
 import { aboutMe } from '../../components/common/api/about_me'
 import { getMeApps } from '../../components/common/api/me_apps'
 import { getDriverCard } from '../../components/common/api/driver_card'
-import { getCompanyCard } from '../../components/common/api/company_card'
+import { getMeCompanyCard } from '../../components/common/api/company_card'
 
 import CommonPage from './forms/common'
 import ClientPage from './forms/client'
@@ -102,7 +102,7 @@ export default class CabinetPage extends React.Component {
             })
         }
 
-        let company = await getCompanyCard()
+        let company = await getMeCompanyCard()
         if (company) {
             this.setState({
                 company: company,

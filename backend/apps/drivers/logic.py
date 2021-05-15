@@ -5,7 +5,6 @@ from fastapi import HTTPException, status
 from fastapi import UploadFile
 from structlog import get_logger
 
-from backend.apps.accounts.models import Account
 from backend.apps.drivers.crud import (
     driver as driver_crud,
     transport as transport_crud,
@@ -13,9 +12,11 @@ from backend.apps.drivers.crud import (
 )
 from backend.apps.drivers.models import Driver
 from backend.apps.drivers.serializer import prepare_transport_with_photos, prepare_driver_data
+from backend.apps.company.logic import get_company_by_account_id
 from backend.core.config import settings
 from backend.enums.drivers import DriverErrors
 from backend.enums.system import SystemLogs, SystemEnvs
+from backend.enums.company import CompanyErrors
 from backend.schemas.drivers import (
     DriverCreate, DriverData, TransportData, TransportCreate, CoverData,
     ListTransports, TransportUpdate, TransportPhotoData, TransportPhotoCreate
@@ -31,15 +32,14 @@ object_storage = ObjectStorage(
 )
 
 
-async def create_driver(driver_in: DriverCreate, account: Account) -> DriverData:
+async def create_driver(driver_in: DriverCreate) -> DriverData:
     """Создание карточки водителя."""
-    logger = get_logger().bind(payload=driver_in.dict(), account_id=account.id)
-
+    logger = get_logger().bind(payload=driver_in.dict())
     assert isinstance(driver_in, DriverCreate), BaseSystemErrors.schema_wrong_format.value
 
-    driver = await get_driver_by_account_id(account.id)
+    driver = await driver_crud.find_by_params(driver_in.inn)
     if driver:
-        return driver
+        raise ValueError(DriverErrors.inn_is_already.value)
 
     driver = await driver_crud.create(driver_in)
     logger.debug(SystemLogs.driver_is_created.value, driver_id=driver.id)
@@ -52,16 +52,20 @@ async def get_driver_by_account_id(account_id: int) -> Optional[DriverData]:
     if not driver:
         return None
 
-    transports = await get_transport_with_covers(driver)
+    transports = [
+        prepare_transport_with_photos(x) for x in driver.transports
+    ]
 
     return DriverData(**driver.__dict__, transports=transports)
 
 
-async def update_driver(driver_up: UpdatedBase) -> None:
+async def update_driver(driver_up: UpdatedBase) -> DriverData:
     logger = get_logger().bind(payload=driver_up.dict(), driver_id=driver_up.id)
     assert isinstance(driver_up, UpdatedBase), BaseSystemErrors.schema_wrong_format.value
     await driver_crud.update(driver_up)
     logger.debug(SystemLogs.driver_is_updated.value)
+
+    return await get_driver(driver_up.id)
 
 
 async def create_transport(transport_in: TransportCreate) -> TransportData:
@@ -183,18 +187,9 @@ async def download_transport_cover(transport_cover_id: int) -> Tuple[bytes, str]
     return file_content, transport_cover.media_type.value
 
 
-async def is_transport_belongs_driver(account_id: int, transport_id: int) -> tuple:
+async def is_transport_belongs_carrie(account_id: int, transport_id: int) -> tuple:
     """Проверка принадлежности водителя к транспорту."""
     logger = get_logger().bind(account_id=account_id, transport_id=transport_id)
-
-    driver = await get_driver_by_account_id(account_id)
-    if not driver:
-        logger.debug(SystemLogs.driver_not_found.value)
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail=BaseMessage.obj_is_not_created.value
-        )
-
     transport = await get_transport(transport_id)
     if not transport:
         logger.debug(SystemLogs.transport_not_found.value)
@@ -203,19 +198,50 @@ async def is_transport_belongs_driver(account_id: int, transport_id: int) -> tup
             detail=BaseMessage.obj_is_not_found.value
         )
 
-    # Если транспорт не принадлежит данному водителю.
-    if transport.driver_id != driver.id:
-        logger.warning(f"{SystemLogs.violation_business_logic} {SystemLogs.transport_not_belong_to_driver.value}")
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail=DriverErrors.car_not_belong_to_driver.value
-        )
+    if transport.driver_id:
+        driver = await get_driver_by_account_id(account_id)
+        if not driver:
+            logger.debug(SystemLogs.driver_not_found.value)
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND,
+                detail=BaseMessage.obj_is_not_found.value
+            )
 
-    return driver, transport
+        # Если транспорт не принадлежит данному водителю.
+        if transport.driver_id != driver.id:
+            logger.warning(
+                f"{SystemLogs.violation_business_logic} {SystemLogs.transport_not_belong_to_driver.value}"
+            )
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail=DriverErrors.car_not_belong_to_driver.value
+            )
+
+        return driver, transport
+    else:
+        company = await get_company_by_account_id(account_id)
+        if not company:
+            logger.debug(SystemLogs.company_not_found.value)
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND,
+                detail=BaseMessage.obj_is_not_found.value
+            )
+
+            # Если транспорт не принадлежит данному водителю.
+        if transport.company_id != company.id:
+            logger.warning(
+                f"{SystemLogs.violation_business_logic} {SystemLogs.transport_not_belong_to_company.value}"
+            )
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail=CompanyErrors.car_not_belong_to_company.value
+            )
+
+        return company, transport
 
 
 def is_driver_debt_exceeded(driver: DriverData):
-    return True if driver.debt >= settings.DEFAULT_DEBT_LIMIT_IN_RUBLS else False
+    return True if driver.debt >= settings.DEFAULT_DEBT_LIMIT_FOR_DRIVER_IN_RUBLS else False
 
 
 async def get_driver(driver_id: int) -> Optional[DriverData]:
@@ -244,3 +270,9 @@ async def get_transport_with_covers(driver: Driver) -> List[TransportData]:
     return [
         prepare_transport_with_photos(x) for x in transports
     ]
+
+
+async def get_transport_by_company_id(transport_id: int, company_id: int) -> Optional[TransportData]:
+    """Получение карточки транспорта по айди-компании и айди транспорта"""
+    transport = await transport_crud.get_by_company_id(transport_id, company_id)
+    return prepare_transport_with_photos(transport) if transport else None

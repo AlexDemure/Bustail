@@ -3,7 +3,7 @@ from typing import Optional, List, Tuple
 from tortoise.query_utils import Q, Prefetch
 
 from backend.apps.drivers.models import Driver, Transport, TransportPhoto
-from backend.apps.notifications.models import Notification
+
 from backend.schemas.drivers import DriverCreate, TransportCreate, TransportPhotoCreate
 from backend.submodules.common.crud import CRUDBase
 from backend.submodules.common.schemas import UpdatedBase
@@ -43,6 +43,9 @@ class CRUDDriver(CRUDBase[Driver, DriverCreate, UpdatedBase]):
             )
         )
 
+    async def find_by_params(self, inn: str) -> Optional[Driver]:
+        return await self.model.filter(inn=inn).first()
+
 
 driver = CRUDDriver(Driver)
 
@@ -56,6 +59,15 @@ class CRUDTransport(CRUDBase[Transport, TransportCreate, UpdatedBase]):
                 Prefetch(
                     'transport_covers',
                     queryset=TransportPhoto.all()
+                )
+            )
+        )
+
+    async def get_by_company_id(self, transport_id: int, company_id: int):
+        return await (
+            self.model.get_or_none(
+                Q(
+                    Q(company_id=company_id), Q(transport_id=transport_id), join_type="AND"
                 )
             )
         )

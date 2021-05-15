@@ -1,8 +1,9 @@
 from decimal import Decimal
 from enum import Enum
+from uuid import uuid4
 from typing import List
 
-from pydantic import BaseModel, validator, constr, conint
+from pydantic import BaseModel, validator, constr, conint, root_validator
 
 from backend.enums.drivers import TransportType
 from backend.utils import get_cities
@@ -18,9 +19,9 @@ class CoverData(BaseModel):
 
 
 class DriverBase(BaseModel):
-    company_name: constr(min_length=3, max_length=255)
     inn: constr(min_length=11, max_length=12)
-    license_number: constr(min_length=6, max_length=255)
+    company_name: constr(min_length=3, max_length=255) = None
+    license_number: constr(min_length=6, max_length=255) = None
 
 
 class DriverCreate(DriverBase):
@@ -28,6 +29,9 @@ class DriverCreate(DriverBase):
 
 
 class TransportBase(BaseModel):
+    driver_id: int = None
+    company_id: int = None
+
     brand: constr(min_length=1, max_length=255)
     model: constr(min_length=1, max_length=255)
     count_seats: conint(ge=0, lt=5000) = 1
@@ -51,12 +55,11 @@ class TransportUpdate(BaseModel):
 
 
 class TransportCreate(TransportBase):
-    driver_id: int
+    pass
 
 
 class TransportData(TransportBase):
     id: int
-    driver_id: int
     transport_type: TransportType
     transport_covers: list = []
 
@@ -89,3 +92,57 @@ class DriverData(DriverBase):
     commission: Decimal
     debt: Decimal
     limit: Decimal
+
+
+class CompanyBase(BaseModel):
+    inn: constr(min_length=11, max_length=12)
+    ogrn: constr(min_length=13, max_length=15)
+    company_name: constr(min_length=3, max_length=255)
+    license_number: constr(min_length=6, max_length=255)
+    socials: dict = None
+    page_url: constr(min_length=6, max_length=64) = None
+
+    @root_validator
+    def set_page_url(cls, values):
+        if values.get('page_url', None) is None:
+            values['page_url'] = uuid4().hex
+
+        return values
+
+
+class CompanyUpdate(CompanyBase):
+    pass
+
+
+class CompanyCreate(CompanyBase):
+    account_id: int
+
+
+class CompanyData(CompanyBase):
+    id: int
+    account_id: int
+
+    socials: dict = None
+    page_url: constr(min_length=6, max_length=64) = None
+
+    transports: List[TransportData] = []
+    company_files: list = []
+    total_amount: Decimal
+    commission: Decimal
+    debt: Decimal
+    limit: Decimal
+
+
+class CompanyFileBase(BaseModel):
+    company_id: int
+    file_uri: constr(min_length=1, max_length=255)
+    file_hash: constr(min_length=1, max_length=255)
+    media_type: FileMimetypes
+
+
+class CompanyFileCreate(CompanyFileBase):
+    pass
+
+
+class CompanyFileData(CompanyFileBase):
+    id: int

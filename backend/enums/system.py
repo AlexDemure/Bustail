@@ -20,7 +20,13 @@ class SystemLogs(Enum):
     driver_not_found = "Driver is not found."
     driver_is_have_debt = "Driver is have debt limit."
 
+    company_is_created = "Company is created."
+    company_not_found = "Company is not found."
+    company_is_updated = "Driver is updated."
+    company_already_exist = "Company already exist."
+
     transport_not_belong_to_driver = "Transport not belong to driver."
+    transport_not_belong_to_company = "Transport not belong to company."
     transport_already_exist = "Transport already exist."
     transport_is_updated = "Transport is updated."
     transport_is_deleted = "Transport is deleted."

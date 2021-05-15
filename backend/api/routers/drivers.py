@@ -12,7 +12,7 @@ from backend.apps.accounts.models import Account
 from backend.apps.drivers.logic import (
     get_driver_by_account_id, update_driver, download_transport_cover,
     get_driver as logic_get_driver,
-    is_transport_belongs_driver, upload_transport_cover,
+    is_transport_belongs_carrie, upload_transport_cover,
     create_driver as logic_create_driver,
     create_transport as logic_create_transport,
     get_transports as logic_get_transports,
@@ -78,7 +78,7 @@ async def create_cover_transport(
             detail=UploadErrors.file_is_large.value
         )
 
-    driver, transport = await is_transport_belongs_driver(account.id, transport_id)
+    carrier, transport = await is_transport_belongs_carrie(account.id, transport_id)
 
     cover = await upload_transport_cover(transport, file)
 
@@ -196,7 +196,7 @@ async def change_transport_data(
         account: Account = Depends(confirmed_account)
 ) -> Message:
     """Изменение данных в карточке транспорта."""
-    driver, transport = await is_transport_belongs_driver(account.id, transport_id)
+    carrier, transport = await is_transport_belongs_carrie(account.id, transport_id)
 
     await logic_change_transport_data(transport, payload)
 
@@ -215,7 +215,7 @@ async def change_transport_data(
 async def delete_transport(transport_id: int, account: Account = Depends(confirmed_account)) -> Message:
     """Удаление собственного транспорта."""
 
-    driver, transport = await is_transport_belongs_driver(account.id, transport_id)
+    carrier, transport = await is_transport_belongs_carrie(account.id, transport_id)
 
     try:
         await logic_delete_transport(transport.id)
@@ -247,10 +247,7 @@ async def create_transport(payload: TransportBase, account: Account = Depends(co
             detail=BaseMessage.obj_is_not_found.value
         )
 
-    create_schema = TransportCreate(
-        driver_id=driver.id,
-        **payload.dict()
-    )
+    create_schema = TransportCreate(**payload.dict())
     try:
         transport = await logic_create_transport(create_schema)
     except ValueError as e:
@@ -344,14 +341,14 @@ async def get_driver(driver_id: int, account: Account = Depends(confirmed_accoun
 
 @router.put(
     "/",
-    response_model=Message,
+    response_model=DriverData,
     responses={
         status.HTTP_200_OK: {"description": BaseMessage.obj_is_changed.value},
         status.HTTP_404_NOT_FOUND: {"description": BaseMessage.obj_is_not_found.value},
         **auth_responses
     }
 )
-async def change_driver_data(payload: DriverBase, account: Account = Depends(confirmed_account)) -> Message:
+async def change_driver_data(payload: DriverBase, account: Account = Depends(confirmed_account)) -> DriverData:
     """Смена данных в карточки водителя."""
     logger = get_logger().bind(account_id=account.id, payload=payload.dict())
     driver = await get_driver_by_account_id(account.id)
@@ -363,9 +360,8 @@ async def change_driver_data(payload: DriverBase, account: Account = Depends(con
         )
 
     update_schema = UpdatedBase(id=driver.id, updated_fields=payload.dict())
-    await update_driver(update_schema)
-
-    return Message(msg=BaseMessage.obj_is_changed.value)
+    driver = await update_driver(update_schema)
+    return driver
 
 
 @router.post(
@@ -390,7 +386,14 @@ async def create_driver(payload: DriverBase, account: Account = Depends(confirme
         account_id=account.id,
         **payload.dict()
     )
-    driver = await logic_create_driver(create_schema, account)
+    try:
+        driver = await logic_create_driver(create_schema)
+    except ValueError as e:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=str(e)
+        )
+
     return JSONResponse(
         status_code=status.HTTP_201_CREATED,
         content=jsonable_encoder(driver)

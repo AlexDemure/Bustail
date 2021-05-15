@@ -7,7 +7,7 @@ from backend.api.deps.accounts import confirmed_account
 from backend.apps.accounts.models import Account
 from backend.apps.applications.logic import get_application, get_account_applications
 from backend.apps.drivers.logic import (
-    is_transport_belongs_driver, is_driver_debt_exceeded, get_driver_by_account_id,
+    is_transport_belongs_carrie, is_driver_debt_exceeded, get_driver_by_account_id,
 )
 from backend.apps.notifications.logic import (
     create_notification as logic_create_notification,
@@ -16,6 +16,7 @@ from backend.apps.notifications.logic import (
 )
 from backend.enums.applications import ApplicationErrors, ApplicationStatus
 from backend.enums.drivers import DriverErrors
+from backend.schemas.drivers import DriverData
 from backend.enums.notifications import NotificationTypes, NotificationErrors
 from backend.enums.system import SystemLogs
 from backend.schemas.notifications import (
@@ -57,13 +58,15 @@ async def create_notification(notification_in: NotificationCreate, account: Acco
         )
 
     if notification_in.notification_type == NotificationTypes.driver_to_client:
-        driver, transport = await is_transport_belongs_driver(account.id, notification_in.transport_id)
-        if is_driver_debt_exceeded(driver):
-            logger.debug(SystemLogs.driver_is_have_debt.value, debt=driver.debt)
-            raise HTTPException(
-                status_code=status.HTTP_400_BAD_REQUEST,
-                detail=DriverErrors.driver_have_debt_limit.value
-            )
+        carrier, transport = await is_transport_belongs_carrie(account.id, notification_in.transport_id)
+        if isinstance(carrier, DriverData):
+            if is_driver_debt_exceeded(carrier):
+                logger.debug(SystemLogs.driver_is_have_debt.value, debt=carrier.debt)
+                raise HTTPException(
+                    status_code=status.HTTP_400_BAD_REQUEST,
+                    detail=DriverErrors.driver_have_debt_limit.value
+                )
+        #TODO FOR COMPANY
 
         applications = await get_account_applications(account)
         if notification_in.application_id in [x.id for x in applications.applications]:
@@ -161,15 +164,16 @@ async def notification_decision(payload: SetDecision, account: Account = Depends
 
     # Если уведомление от клиента тогда смотрим принадлежит ли этот транспорт данному пользователю т.е водителю.
     elif notification.notification_type == NotificationTypes.client_to_driver:
-        driver, transport = await is_transport_belongs_driver(account.id, notification.transport_id)
-
-        # Имеет ли водитель задолженность.
-        if is_driver_debt_exceeded(driver):
-            logger.debug(SystemLogs.driver_is_have_debt.value, debt=driver.debt)
-            raise HTTPException(
-                status_code=status.HTTP_400_BAD_REQUEST,
-                detail=DriverErrors.driver_have_debt_limit.value
-            )
+        carrier, transport = await is_transport_belongs_carrie(account.id, notification.transport_id)
+        if isinstance(carrier, DriverData):
+            # Имеет ли водитель задолженность.
+            if is_driver_debt_exceeded(carrier):
+                logger.debug(SystemLogs.driver_is_have_debt.value, debt=carrier.debt)
+                raise HTTPException(
+                    status_code=status.HTTP_400_BAD_REQUEST,
+                    detail=DriverErrors.driver_have_debt_limit.value
+                )
+        # TODO FOR COMPANY
 
     await set_decision(notification.id, payload.decision)
 

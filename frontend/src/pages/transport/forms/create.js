@@ -82,6 +82,10 @@ export default class CreateTransportForm extends React.Component {
 
         this.state = {
             form: "main",
+            owner: this.props.owner,
+            driver: this.props.driver || null,
+            company: this.props.company || null,
+
             transport: null,
             
             isUploaded: false,
@@ -120,6 +124,8 @@ export default class CreateTransportForm extends React.Component {
          );
 
         let data = {
+            driver_id: this.state.driver !== null ? this.state.driver.id : null,
+            company_id: this.state.company !== null ? this.state.company.id : null,
             brand: prepared_data.get("brand"),
             model: prepared_data.get("model"),
             count_seats: parseInt(prepared_data.get("count_seats")),

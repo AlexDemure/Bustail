@@ -132,7 +132,7 @@ export default class CompanyPage extends React.Component {
             inn: prepared_data.get("inn"),
             ogrn: prepared_data.get("ogrn"),
             license_number: prepared_data.get("license_number"),
-            page_url: prepared_data.get("page_url"),
+            page_url: prepared_data.get("page_url") || null,
             socials: {
                 vk: prepared_data.get("vk"),
                 instagram: prepared_data.get("instagram") || null
@@ -191,7 +191,7 @@ export default class CompanyPage extends React.Component {
     }
     
     deleteTransport(index_array) {
-        sendRequest(`api/v1/company/transports/${this.state.transports[index_array].id}/`, "DELETE")
+        sendRequest(`api/v1/drivers/transports/${this.state.transports[index_array].id}/`, "DELETE")
         .then(
             (result) => {
                 console.log(result)
