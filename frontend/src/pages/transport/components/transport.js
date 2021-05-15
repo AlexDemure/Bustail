@@ -71,6 +71,14 @@ export default class TransportSearch extends React.Component {
                         </div>
                     </div>
                     <div className="transport__search__card__controls">
+                        {
+                            this.props.transport.company_page_url !== null &&
+                            <a href={`/company/pages/${this.props.transport.company_page_url}`} className="transport__search__control company"><div></div></a>
+                        }
+                        {
+                            this.props.transport.company_page_url === null &&
+                            <div className="transport__search__control person"></div>
+                        }
                         <a href={"tel:"+ this.state.phone} className="transport__search__control contacts"><div></div></a>
                         <div className="transport__search__control info" onClick={this.props.showTransportCard}></div>
                         <div className="transport__search__control offer" onClick={this.props.openOffer}></div>

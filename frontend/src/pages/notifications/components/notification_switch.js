@@ -14,7 +14,7 @@ function NotificationSwitch(props) {
                
             </div>
             <div className={`switch__notification__item ${props.is_active === 'driver' ? "active" : "no-active"}`} id="driver" onClick={props.onClick}>
-                <p id="driver">Водитель</p>
+                <p id="driver">Перевозчик</p>
                 { props.driver_notifications > 0 && (
                     <div id="driver" className="switch__notification__circle">
                          <p>{props.driver_notifications}</p>

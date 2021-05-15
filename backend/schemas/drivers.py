@@ -60,6 +60,8 @@ class TransportCreate(TransportBase):
 
 class TransportData(TransportBase):
     id: int
+    company_page_url: str = None
+    company_files: list = []
     transport_type: TransportType
     transport_covers: list = []
 

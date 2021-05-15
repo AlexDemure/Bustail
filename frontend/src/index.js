@@ -12,6 +12,7 @@ import MainPage from './pages/main/index'
 import CabinetPage from './pages/cabinet/index'
 import HistoryPage from './pages/history/index'
 import NotificationPage from './pages/notifications/index'
+import CompanyPage from './pages/company/index'
 
 import SearchTransportPage from './pages/transport/search'
 import CreateTransportPage from './pages/transport/create'
@@ -45,10 +46,22 @@ ReactDOM.render(
           <Route path="/notifications" component={NotificationPage} />
           <Route path="/cabinet" component={CabinetPage} />
 
+          <Route path="/test" component={TestComp} />
+          <Route path='/company/pages/:page_url' component={CompanyPage} />
+
       </Switch>
   </Router>,
   document.getElementById('root')
 );
+
+function TestComp() {
+  return (
+    <div>
+      <a href="/company/pages/bustail">Test</a>
+    </div>
+  )
+}
+
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

@@ -2,7 +2,7 @@ from typing import Optional, List, Tuple
 
 from tortoise.query_utils import Q, Prefetch
 
-from backend.apps.drivers.models import Driver, Transport, TransportPhoto
+from backend.apps.drivers.models import Driver, Transport, TransportPhoto, Company
 
 from backend.schemas.drivers import DriverCreate, TransportCreate, TransportPhotoCreate
 from backend.submodules.common.crud import CRUDBase
@@ -61,6 +61,7 @@ class CRUDTransport(CRUDBase[Transport, TransportCreate, UpdatedBase]):
                     queryset=TransportPhoto.all()
                 )
             )
+            .prefetch_related(Prefetch('company', queryset=Company.all()))
         )
 
     async def get_by_company_id(self, transport_id: int, company_id: int):
@@ -120,6 +121,7 @@ class CRUDTransport(CRUDBase[Transport, TransportCreate, UpdatedBase]):
             .limit(limit=limit)
             .offset(offset=offset)
             .prefetch_related(Prefetch('transport_covers', queryset=TransportPhoto.all()))
+            .prefetch_related(Prefetch('company', queryset=Company.all()))
         )
 
         total_rows = await (

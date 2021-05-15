@@ -78,7 +78,7 @@
     grid-row: 3 / 4;
     
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     justify-items: center;
     justify-content: space-evenly;
 }
@@ -88,7 +88,7 @@
     background-position-y: center;
     background-repeat: no-repeat;
     background-size: 25px 25px;
-    width: 55px;
+    width: 40px;
     height: 40px;
 
     border-top: 1px solid #2e2e2e;
@@ -96,6 +96,25 @@
 
 .transport__search .transport__search__card .transport__search__card__controls .transport__search__control:hover {
     border-top: 1px solid #fba333;
+}
+
+.transport__search .transport__search__control.company {
+    background-image: url("../../../../static/icons/default/company_card.png");
+}
+
+.transport__search .transport__search__control.company:hover {
+    background-image: url("../../../../static/icons/active/company_card.png");
+}
+
+.transport__search .transport__search__control.person {
+    pointer-events: none;
+    opacity: 0.5;
+    background-image: url("../../../../static/icons/default/cabinet.png");
+}
+
+.transport__search .transport__search__control.person:hover {
+    background-image: url("../../../../static/icons/default/cabinet.png");
+    border-top: none
 }
 
 .transport__search .transport__search__control.contacts {
@@ -232,7 +251,7 @@
 
     .transport__search .transport__search__card .transport__search__card__controls .transport__search__control {
         background-size: 30px 30px;
-        width: 60px;
+        width: 45px;
         height: 45px;
     }
 
@@ -265,7 +284,7 @@ and (orientation: portrait) {
     }
 
     .transport__search .transport__search__card .transport__search__card__controls {
-        grid-template-columns: repeat(3, 80px);
+        grid-template-columns: repeat(4, 80px);
     }
 
     .transport__search .transport__search__photo {
@@ -319,7 +338,7 @@ and (orientation: portrait) {
     }
 
     .transport__search .transport__search__card .transport__search__card__controls {
-        grid-template-columns: repeat(3, 80px);
+        grid-template-columns: repeat(4, 80px);
     }
 
     .transport__search .transport__search__card .transport__search__card__controls .transport__search__control {
@@ -358,7 +377,7 @@ and (orientation: portrait) {
     }
 
     .transport__search .transport__search__card .transport__search__card__controls {
-        grid-template-columns: repeat(3, 80px);
+        grid-template-columns: repeat(4, 80px);
     }
 
     .transport__search .transport__search__card .transport__search__card__controls .transport__search__control {

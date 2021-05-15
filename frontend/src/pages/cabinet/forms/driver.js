@@ -24,7 +24,7 @@ function DriverForm(props) {
         return (
             <React.Fragment>
                 <p id="warning">
-                    Для оказания услуг перевозок на транспорте от 8 мест водитель должен обладать
+                    Для оказания услуг перевозок на транспорте от 8 мест перевозчик должен обладать
                     лицензией перевозчика или выполнять заказы от компании.
                 </p>
                 <form className="cabinet__driver__form__driver-info" onSubmit={props.onSubmit} autoComplete="off">

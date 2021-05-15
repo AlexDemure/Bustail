@@ -60,7 +60,11 @@ class CompanyCard extends React.Component {
                 <p className="cabinet__company__notify">При достижении суммы коммиссии свыше допустимого лимита подбор заявок будет не доступен</p>
                 <div className="cabinet__company__transports">
                     
-                    <p className="cabinet__company__title">Автопарк</p>
+                    <div className="cabinet__company__transports__title">
+                        <p id="title">Автопарк</p>
+                        <a id="page" href={`/company/pages/${this.props.company.page_url}`}>Личная страница</a>
+                    </div>
+                   
                     {   
                         this.props.transports &&
                         this.props.transports.map(

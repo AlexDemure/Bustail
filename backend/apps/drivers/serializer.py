@@ -25,7 +25,16 @@ def prepare_driver_data(driver: Driver, transports: List[Transport]) -> DriverDa
 
 
 def prepare_transport_with_photos(transport: Transport) -> TransportData:
+    company_page_url = None
+    company_files = []
+
+    if transport.company_id:
+        if getattr(transport.company, 'page_url', None) is not None:
+            company_page_url = transport.company.page_url
+
     return TransportData(
+        company_page_url=company_page_url,
+        company_files=company_files,
         transport_covers=[TransportPhotoData(**x.__dict__) for x in transport.transport_covers.related_objects],
         **transport.__dict__
     )

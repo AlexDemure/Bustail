@@ -35,11 +35,25 @@
     
     overflow: hidden;
 }
+.container.cabinet.company.card .cabinet__company .cabinet__company__transports .cabinet__company__transports__title {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    align-items: center;
+}
 
-.container.cabinet.company.card .cabinet__company .cabinet__company__transports .cabinet__company__title {
+.container.cabinet.company.card .cabinet__company .cabinet__company__transports .cabinet__company__transports__title a {
+    justify-self: flex-end;
+    text-decoration: none;
+    color: #fba333;
+}
+.container.cabinet.company.card .cabinet__company .cabinet__company__transports .cabinet__company__transports__title p {
+    color: #fbfbfb;
+}
+
+.container.cabinet.company.card .cabinet__company .cabinet__company__transports .cabinet__company__transports__title a,
+.container.cabinet.company.card .cabinet__company .cabinet__company__transports .cabinet__company__transports__title p {
     font-family: "FuturaDemiC";
     font-size: 18px;
-    color: #fbfbfb;
 }
 
 
@@ -66,7 +80,8 @@ and (orientation: portrait) {
         grid-template-rows: 260px 100px 1fr;
     }
 
-    .container.cabinet.company.card .cabinet__company .cabinet__company__transports .cabinet__company__title {
+    .container.cabinet.company.card .cabinet__company .cabinet__company__transports .cabinet__company__transports__title a,
+    .container.cabinet.company.card .cabinet__company .cabinet__company__transports .cabinet__company__transports__title p {
         font-size: 22px;
     }
     .container.cabinet.company.card .cabinet__company .cabinet__company__notify {
@@ -80,7 +95,8 @@ and (orientation: portrait) {
         grid-template-rows: 280px 110px 1fr;
     }
 
-    .container.cabinet.company.card .cabinet__company .cabinet__company__transports .cabinet__company__title {
+    .container.cabinet.company.card .cabinet__company .cabinet__company__transports .cabinet__company__transports__title a,
+    .container.cabinet.company.card .cabinet__company .cabinet__company__transports .cabinet__company__transports__title p {
         font-size: 24px;
     }
     .container.cabinet.company.card .cabinet__company .cabinet__company__notify {
@@ -94,7 +110,8 @@ and (orientation: portrait) {
         grid-template-rows: 300px 120px 1fr;
     }
 
-    .container.cabinet.company.card .cabinet__company .cabinet__company__transports .cabinet__company__title {
+    .container.cabinet.company.card .cabinet__company .cabinet__company__transports .cabinet__company__transports__title a,
+    .container.cabinet.company.card .cabinet__company .cabinet__company__transports .cabinet__company__transports__title p {
         font-size: 26px;
     }
     .container.cabinet.company.card .cabinet__company .cabinet__company__notify {
