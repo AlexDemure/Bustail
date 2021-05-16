@@ -69,7 +69,8 @@ export default class SearchInput extends React.Component {
         return (
             <div className={"search-selector " + (this.state.result.length ? "active" : "")}>
                 <input
-                className="search-selector__input__common required" 
+                required={this.props.isRequired === false ? false : true} 
+                className={`search-selector__input__common ${this.props.isRequired === false ? "no-required" : "required"}`}
                 name={this.props.name}
                 type="text"
                 size="45"

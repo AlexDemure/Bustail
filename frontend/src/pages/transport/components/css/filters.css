@@ -33,7 +33,7 @@
     
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: 55px 55px 310px 1fr;
+    grid-template-rows: 55px 310px 1fr;
 }
 
 .search-transport__filters__modal-window__content form .search-selector__input__common {
@@ -75,7 +75,7 @@
     justify-self: flex-end;
 }
 
-.search-transport__filters__modal-window__content .search-transport__filters__modal-window__owner-types {
+/* .search-transport__filters__modal-window__content .search-transport__filters__modal-window__owner-types {
     justify-self: center;
 
     display: grid;
@@ -133,7 +133,7 @@
 
 .search-transport__filters__modal-window__owner-types .owner-type.company.active {
     background-image: url('../../../../static/icons/active/company_card.png');
-}
+} */
 
 .search-transport__filters__modal-window__content .search-transport__filters__modal-window__transport-types {
     margin-top: 5px;
@@ -255,7 +255,7 @@ and (orientation: portrait) {
     
     .search-transport__filters__modal-window__content form {
         width: 95%;
-        grid-template-rows: 80px 90px 450px 1fr;
+        grid-template-rows: 80px 450px 1fr;
     }
     
     .search-transport__filters__modal-window__title {
@@ -314,7 +314,7 @@ and (orientation: portrait) {
     }
 
     .search-transport__filters__modal-window__content form {
-        grid-template-rows: 70px 70px 400px 1fr;
+        grid-template-rows: 70px 400px 1fr;
     }
     
     .search-transport__filters__modal-window__title {

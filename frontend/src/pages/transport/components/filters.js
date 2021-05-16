@@ -69,14 +69,14 @@ export default class SearchFilters extends React.Component {
                     <form className="search-transport__filters__form" onSubmit={this.props.onSubmit}>
                         <SearchInput name="city" options={this.state.cities} value={this.props.city ? this.props.city : null} isRequired={false}/>
                         
-                        <div className="search-transport__filters__modal-window__owner-types">
+                        {/* <div className="search-transport__filters__modal-window__owner-types">
                         <div className="owner-type individual active">
                             <p>Частное лицо</p>
                         </div>
                         <div className="owner-type company">
                             <p>Компания</p>
                         </div>
-                        </div>
+                        </div> */}
                         <div className="search-transport__filters__modal-window__transport-types">
                             {
                                 options &&
