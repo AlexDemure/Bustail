@@ -6,6 +6,7 @@ import TransportCard from '../../components/common/transport_card'
 import { ResponseNotify, showNotify } from '../../components/common/response_notify'
 
 import { aboutMe } from '../../components/common/api/about_me'
+import { getMeApps } from '../../components/common/api/me_apps'
 
 import { transportTypes } from '../../constants/transport_types'
 
@@ -100,20 +101,6 @@ export default class SearchTransportPage extends React.Component {
                 showNotify()
             }
         )
-    }
-
-    async getMeApps() {
-        let me_apps = [];
-        await sendRequest('/api/v1/applications/client/', "GET")
-        .then(
-            (result) => {
-                me_apps = result.applications
-            },
-            (error) => {
-                console.log(error)
-            }
-        )
-        return me_apps
     }
 
     async getTransports(city = null, transport_type = null, offset = 0) {
@@ -212,7 +199,7 @@ export default class SearchTransportPage extends React.Component {
     async componentDidMount(){
         let user = await aboutMe()
     
-        let user_apps = await this.getMeApps()
+        let user_apps = await getMeApps()
         
         let transport_data = await this.getTransports()
 

@@ -6,7 +6,7 @@ from structlog import get_logger
 from backend.apps.accounts.models import Account
 from backend.apps.applications.crud import application as application_crud
 from backend.apps.applications.serializer import prepare_apps_for_history_table, prepare_application
-from backend.apps.drivers.crud import driver as driver_crud
+from backend.apps.drivers.logic import get_transport
 from backend.enums.applications import ApplicationErrors, ApplicationStatus
 from backend.enums.system import SystemLogs
 from backend.schemas.applications import (
@@ -93,27 +93,26 @@ async def delete_application(account: Account, application_id: int) -> None:
     logger.debug(SystemLogs.application_not_found.value)
 
 
-async def confirm_application(application_id: int, transport_id: int, driver_id: int, change_price: int = None) -> None:
+async def confirm_application(application_id: int, transport_id: int, change_price: int = None) -> None:
     """Подтверждение заявки, происходит после того когда клиент или водитель приняк заявку."""
-    logger = get_logger().bind(
-        application_id=application_id, transport_id=transport_id,
-        driver_id=driver_id, changed_price=change_price
-    )
+    logger = get_logger().bind(application_id=application_id, transport_id=transport_id, changed_price=change_price)
+
     application = await application_crud.get(application_id)
     if not application:
         logger.debug(SystemLogs.application_not_found.value)
         raise ValueError(BaseMessage.obj_is_not_found.value)
 
-    driver = await driver_crud.get(driver_id)
-    if not driver:
-        logger.debug(SystemLogs.driver_not_found.value)
+    transport = await get_transport(transport_id)
+    if not transport:
+        logger.debug(SystemLogs.transport_not_found.value)
         raise ValueError(BaseMessage.obj_is_not_found.value)
 
     app_up = UpdatedBase(
         id=application.id,
         updated_fields=dict(
             confirmed_at=datetime.utcnow(),
-            driver_id=driver_id,
+            company_id=transport.company_id,
+            driver_id=transport.driver_id,
             transport_id=transport_id,
             price=change_price if change_price else application.price,
             application_status=ApplicationStatus.confirmed

@@ -1,37 +1,48 @@
 from tortoise import models, fields
 
 from decimal import Decimal
-from backend.enums.drivers import TransportType
+from backend.enums.drivers import TransportType, CarrierType
 from backend.submodules.object_storage.enums import FileMimetypes
 
 from backend.core.config import settings
 
 
-class Carrie:
-    """Миксин для перевозчиков"""
+class Company(models.Model):
     id = fields.IntField(pk=True)
-    created_at = fields.DatetimeField(auto_now_add=True)
-    inn = fields.CharField(max_length=32, unique=True)
-    total_amount = fields.DecimalField(max_digits=20, decimal_places=3, default=Decimal("0"))
-    debt = fields.DecimalField(max_digits=10, decimal_places=3, default=Decimal("0"))
-    commission = fields.DecimalField(max_digits=10, decimal_places=3, default=settings.DEFAULT_COMMISSION_IN_RUBLS)
-
-
-class Company(models.Model, Carrie):
     account = fields.ForeignKeyField('models.Account', related_name='company', on_delete=fields.CASCADE)
+    carrie_type = fields.CharEnumField(CarrierType, max_length=64, default=CarrierType.base)
+
+    created_at = fields.DatetimeField(auto_now_add=True)
+
+    inn = fields.CharField(max_length=32, unique=True)
     company_name = fields.CharField(max_length=255)
     license_number = fields.CharField(max_length=64, unique=True)
     ogrn = fields.CharField(max_length=32, unique=True)
-    socials = fields.JSONField(null=True)
+
     page_url = fields.CharField(max_length=64, unique=True)
+    socials = fields.JSONField(null=True)
+
+    total_amount = fields.DecimalField(max_digits=20, decimal_places=3, default=Decimal("0"))
+    debt = fields.DecimalField(max_digits=10, decimal_places=3, default=Decimal("0"))
+    commission = fields.DecimalField(max_digits=10, decimal_places=3, default=settings.DEFAULT_COMMISSION_IN_RUBLS)
     limit = fields.DecimalField(max_digits=10, decimal_places=3, default=settings.DEFAULT_DEBT_LIMIT_FOR_COMPANY_IN_RUBLS)
 
 
-class Driver(models.Model, Carrie):
+class Driver(models.Model):
+    id = fields.IntField(pk=True)
     account = fields.ForeignKeyField('models.Account', related_name='drivers', on_delete=fields.CASCADE)
+    carrie_type = fields.CharEnumField(CarrierType, max_length=64, default=CarrierType.base)
+
+    created_at = fields.DatetimeField(auto_now_add=True)
+
+    inn = fields.CharField(max_length=32, unique=True)
     company_name = fields.CharField(max_length=255, null=True)
     license_number = fields.CharField(max_length=64, null=True)
+
+    total_amount = fields.DecimalField(max_digits=20, decimal_places=3, default=Decimal("0"))
+    debt = fields.DecimalField(max_digits=10, decimal_places=3, default=Decimal("0"))
     limit = fields.DecimalField(max_digits=10, decimal_places=3, default=settings.DEFAULT_DEBT_LIMIT_FOR_DRIVER_IN_RUBLS)
+    commission = fields.DecimalField(max_digits=10, decimal_places=3, default=settings.DEFAULT_COMMISSION_IN_RUBLS)
 
 
 class Transport(models.Model):

@@ -8,6 +8,7 @@ import { ResponseNotify, showNotify } from '../../components/common/response_not
 
 import { getDriverCard } from '../../components/common/api/driver_card'
 import { aboutMe } from '../../components/common/api/about_me'
+import { getMeCompanyCard } from '../../components/common/api/company_card'
 
 import { getCities } from '../../constants/cities'
 import { appTypes } from '../../constants/app_types'
@@ -24,6 +25,7 @@ import './css/search.css'
 
 
 
+
 export default class SearchAppPage extends React.Component {
     constructor() {
         super()
@@ -36,7 +38,9 @@ export default class SearchAppPage extends React.Component {
             offerData: null,
 
             user: null,
-            me_transports: [],
+            driver_transports: [],
+            company_transports: [],
+
             cities: null,
             
             apps: null,
@@ -205,6 +209,7 @@ export default class SearchAppPage extends React.Component {
     async componentDidMount(){
         let user = await aboutMe()
         let driver = await getDriverCard()
+        let company = await getMeCompanyCard()
 
         let cities = await getCities()
         let apps_data = await this.getApps()
@@ -213,7 +218,9 @@ export default class SearchAppPage extends React.Component {
 
         this.setState({
             user: user,
-            me_transports: driver ? driver.transports : [],
+            driver_transports: driver ? driver.transports : [],
+            company_transports: company ? company.transports: [],
+
             cities: cities,
             
             apps: apps_data.applications,
@@ -245,7 +252,8 @@ export default class SearchAppPage extends React.Component {
                         ticket={this.state.apps[this.state.offerData]}
                         offer_type="Предложение аренды"
                         create_link="/transport/create"
-                        choices={this.state.me_transports}
+                        driver_transports={this.state.driver_transports}
+                        company_transports={this.state.company_transports}
                         createOffer={this.createOffer}
                         showTransportCard={this.showTransportCard}
                         />

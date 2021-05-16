@@ -5,12 +5,6 @@ from structlog import get_logger
 
 from backend.api.deps.accounts import confirmed_account
 from backend.apps.accounts.models import Account
-
-from backend.apps.drivers.logic import (
-    delete_transport as logic_delete_transport,
-    get_transport_by_company_id,
-)
-
 from backend.apps.company.logic import (
     get_company_by_account_id,
     create_company as logic_create_company,
@@ -18,51 +12,13 @@ from backend.apps.company.logic import (
     change_company_data as logic_change_company_data,
     get_company as logic_get_company
 )
-from backend.schemas.drivers import CompanyData, CompanyBase, CompanyCreate, CompanyUpdate
-from backend.enums.system import SystemLogs
 from backend.enums.company import CompanyErrors
+from backend.enums.system import SystemLogs
+from backend.schemas.drivers import CompanyData, CompanyBase, CompanyCreate, CompanyUpdate
 from backend.submodules.common.enums import BaseMessage
 from backend.submodules.common.responses import auth_responses
-from backend.submodules.common.schemas import Message
 
 router = APIRouter()
-
-
-@router.delete(
-    "/transports/{transport_id}/",
-    response_model=Message,
-    responses={
-        status.HTTP_200_OK: {"description": BaseMessage.obj_is_deleted.value},
-        status.HTTP_400_BAD_REQUEST: {"description": CompanyErrors.car_not_belong_to_company.value},
-        **auth_responses
-    }
-)
-async def delete_transport(transport_id: int, account: Account = Depends(confirmed_account)) -> Message:
-    """Удаление транспорта компании."""
-
-    company = await get_company_by_account_id(account.id)
-    if not company:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail=BaseMessage.obj_is_not_found.value
-        )
-
-    transport = await get_transport_by_company_id(transport_id, company.id)
-    if not transport:
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail=CompanyErrors.car_not_belong_to_company.value
-        )
-
-    try:
-        await logic_delete_transport(transport.id)
-    except AssertionError as e:
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail=str(e)
-        )
-
-    return Message(msg=BaseMessage.obj_is_deleted.value)
 
 
 @router.get(
@@ -76,7 +32,7 @@ async def delete_transport(transport_id: int, account: Account = Depends(confirm
 )
 async def read_company_me(account: Account = Depends(confirmed_account)) -> CompanyData:
     """
-    Карточка компании.
+    Карточка компании принадлежащая пользователю.
 
     - **returned**: Возвращает карточку компании со списком транспортов, обложек к ним.
     """
@@ -138,7 +94,7 @@ async def create_company(payload: CompanyBase, account: Account = Depends(confir
     }
 )
 async def get_company_by_url(page_url: str, account: Account = Depends(confirmed_account)) -> CompanyData:
-    """Получение карточки компании по поиской строке."""
+    """Получение карточки компании по названию в адресной строке браузера."""
     logger = get_logger().bind(account_id=account.id, page_url=page_url)
 
     company = await logic_get_company_by_url(page_url)
@@ -162,7 +118,7 @@ async def get_company_by_url(page_url: str, account: Account = Depends(confirmed
     }
 )
 async def get_company(company_id: int, account: Account = Depends(confirmed_account)) -> CompanyData:
-    """Получение карточки компании по поиской строке."""
+    """Получение карточки компании по id."""
     logger = get_logger().bind(account_id=account.id, company_id=company_id)
 
     company = await logic_get_company(company_id)
@@ -190,7 +146,7 @@ async def change_company_data(
         payload: CompanyUpdate,
         account: Account = Depends(confirmed_account)
 ) -> CompanyData:
-    """Изменение данных в карточке транспорта."""
+    """Изменение данных в карточке компании."""
     company = await get_company_by_account_id(account.id)
     if not company:
         raise HTTPException(

@@ -5,23 +5,19 @@ from backend.apps.applications.models import Application
 from backend.apps.applications.tasks import completed_applications
 from backend.apps.billing.crud import payment_operation as crud_payment_operation
 from backend.enums.applications import ApplicationStatus
+from backend.enums.billing import PaymentCardType
 from backend.tests.data import BaseTest, NotificationData
 from backend.tests.fixtures import *
 
 
-class TestPayments(BaseTest):
+class BasePayments:
 
-    notifications = NotificationData()
-
-    async def test_notifications(self):
-        await self.notifications.generate_notifications()
-
-    async def test_payments(self):
+    async def complete_payment(self, headers, payment_card: PaymentCardType):
         with patch('backend.apps.applications.crud.application.completed_applications') as perm_mock:
             perm_mock.return_value = await ApplicationCrud.completed_applications()
             await completed_applications()
 
-        response = await self.get_payment_link(self.notifications.driver_profile.headers)
+        response = await self.get_payment_link(headers, payment_card)
 
         payment_operation = await crud_payment_operation.get(response.json()['payment_operation_id'])
         payment_notification_in_json = self.get_test_json_data(payment_operation.operation_id)
@@ -29,9 +25,9 @@ class TestPayments(BaseTest):
         response = await self.close_debt(payment_notification_in_json)
         print(response)
 
-    async def get_payment_link(self, headers: dict):
+    async def get_payment_link(self, headers: dict, payment_card: PaymentCardType):
         async with self.client as ac:
-            response = await ac.get("payments/", headers=headers)
+            response = await ac.get(f"payments?payment_card={payment_card.value}", headers=headers)
             assert response.status_code == 201
 
         return response
@@ -57,6 +53,28 @@ class TestPayments(BaseTest):
             json_data['object']['payment_method']['id'] = operation_id
 
         return json_data
+
+
+class TestPaymentsDriver(BaseTest, BasePayments):
+
+    notifications = NotificationData()
+
+    async def test_driver_and_client_notifications(self):
+        await self.notifications.generate_driver_and_client_notifications()
+
+    async def test_driver_payments(self):
+        await self.complete_payment(self.notifications.driver_profile.headers, PaymentCardType.personal)
+
+
+class TestPaymentsCompany(BaseTest, BasePayments):
+
+    notifications = NotificationData()
+
+    async def test_company_and_client_notifications(self):
+        await self.notifications.generate_company_and_client_notifications()
+
+    async def test_company_payments(self):
+        await self.complete_payment(self.notifications.company_profile.headers, PaymentCardType.company)
 
 
 class ApplicationCrud:

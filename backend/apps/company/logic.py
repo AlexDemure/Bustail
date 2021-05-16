@@ -1,6 +1,7 @@
 from typing import Optional
 
 from structlog import get_logger
+from backend.core.config import settings
 from backend.apps.drivers.models import Company
 from backend.apps.company.crud import company as company_crud
 from backend.apps.drivers.serializer import prepare_transport_with_photos
@@ -100,3 +101,17 @@ async def change_company_data(company: CompanyData, company_up: CompanyUpdate) -
     logger.debug(SystemLogs.company_is_updated.value)
 
     return await get_company(company.id)
+
+
+async def update_company(company_up: UpdatedBase) -> CompanyData:
+    logger = get_logger().bind(payload=company_up.dict(), company_id=company_up.id)
+    assert isinstance(company_up, UpdatedBase), BaseSystemErrors.schema_wrong_format.value
+
+    await company_crud.update(company_up)
+    logger.debug(SystemLogs.company_is_updated.value)
+
+    return await get_company(company_up.id)
+
+
+def is_company_debt_exceeded(company: CompanyData):
+    return True if company.debt >= settings.DEFAULT_DEBT_LIMIT_FOR_COMPANY_IN_RUBLS else False

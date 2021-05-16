@@ -46,21 +46,12 @@ ReactDOM.render(
           <Route path="/notifications" component={NotificationPage} />
           <Route path="/cabinet" component={CabinetPage} />
 
-          <Route path="/test" component={TestComp} />
           <Route path='/company/pages/:page_url' component={CompanyPage} />
 
       </Switch>
   </Router>,
   document.getElementById('root')
 );
-
-function TestComp() {
-  return (
-    <div>
-      <a href="/company/pages/bustail">Test</a>
-    </div>
-  )
-}
 
 
 // If you want your app to work offline and load faster, you can change

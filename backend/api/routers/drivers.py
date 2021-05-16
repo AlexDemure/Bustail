@@ -1,5 +1,5 @@
-from typing import List
 from decimal import Decimal
+from typing import List
 
 from fastapi import APIRouter, Depends, status, HTTPException, File, UploadFile, Query
 from fastapi.encoders import jsonable_encoder
@@ -9,6 +9,7 @@ from structlog import get_logger
 from backend.api.deps.accounts import confirmed_account
 from backend.api.deps.uploads import valid_image_content_length
 from backend.apps.accounts.models import Account
+from backend.apps.company.logic import get_company_by_account_id
 from backend.apps.drivers.logic import (
     get_driver_by_account_id, update_driver, download_transport_cover,
     get_driver as logic_get_driver,
@@ -239,13 +240,23 @@ async def create_transport(payload: TransportBase, account: Account = Depends(co
     """Создание карточки транспорта."""
     logger = get_logger().bind(account_id=account.id, payload=payload.dict())
 
-    driver = await get_driver_by_account_id(account.id)
-    if not driver:
-        logger.debug(SystemLogs.driver_not_found.value)
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail=BaseMessage.obj_is_not_found.value
-        )
+    if payload.driver_id:
+        driver = await get_driver_by_account_id(account.id)
+        if not driver or payload.driver_id != driver.id:
+            logger.debug(SystemLogs.driver_not_found.value)
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND,
+                detail=BaseMessage.obj_is_not_found.value
+            )
+
+    if payload.company_id:
+        company = await get_company_by_account_id(account.id)
+        if not company or payload.company_id != company.id:
+            logger.debug(SystemLogs.company_not_found.value)
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND,
+                detail=BaseMessage.obj_is_not_found.value
+            )
 
     create_schema = TransportCreate(**payload.dict())
     try:

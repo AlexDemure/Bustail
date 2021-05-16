@@ -146,14 +146,17 @@ export default class TransportCard extends React.Component {
                                 <p className="transport_card__detail city"><span>Город:</span> {this.state.transport.city}</p>
                                 {
                                     this.state.transport.company_id &&
-                                    <p className="transport_card__detail driver-name"><span id="personal">Компания:</span> {this.state.company.company_name}</p>
+                                    <a 
+                                    href={`/company/pages/${this.state.company.page_url}`}
+                                    className="transport_card__detail driver-name"><span id="company">Компания: {this.state.company.company_name}</span>
+                                    </a>
                                 }
                                 {
                                     this.state.transport.driver_id &&
-                                    <p className="transport_card__detail driver-name"><span id="personal">Водитель:</span> {this.state.user.fullname ? this.state.user.fullname : "Не указано"}</p>
+                                    <p className="transport_card__detail driver-name"><span>Водитель:</span> {this.state.user.fullname ? this.state.user.fullname : "Не указано"}</p>
                                 }
                                 
-                                <p className="transport_card__detail phone"><span id="personal">Телефон:</span> {this.state.user.phone ? this.state.user.phone : "Не указано"}</p>
+                                <p className="transport_card__detail phone"><span>Телефон:</span> {this.state.user.phone ? this.state.user.phone : "Не указано"}</p>
                             </div>
                         </div>
                     </div>

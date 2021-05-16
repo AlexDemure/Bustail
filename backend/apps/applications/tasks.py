@@ -4,7 +4,9 @@ from backend.core.config import settings
 from backend.apps.applications.crud import application as application_crud
 from backend.apps.billing.utils import add_amount_to_current_value
 from backend.apps.drivers.crud import driver as driver_crud
+from backend.apps.company.crud import company as company_crud
 from backend.apps.drivers.logic import get_driver
+from backend.apps.company.logic import get_company
 from backend.enums.applications import ApplicationStatus
 from backend.submodules.common.schemas import UpdatedBase
 
@@ -34,16 +36,30 @@ async def completed_applications():
             )
             await application_crud.update(app_up)
 
-            driver = await get_driver(application.driver_id)
-            if not driver:
-                continue
+            if application.driver_id:
+                driver = await get_driver(application.driver_id)
+                if not driver:
+                    continue
 
-            driver_up = UpdatedBase(
-                id=driver.id,
-                updated_fields=dict(
-                    total_amount=add_amount_to_current_value(driver.total_amount, application.price),
-                    debt=add_amount_to_current_value(driver.debt, settings.DEFAULT_COMMISSION_IN_RUBLS)
+                driver_up = UpdatedBase(
+                    id=driver.id,
+                    updated_fields=dict(
+                        total_amount=add_amount_to_current_value(driver.total_amount, application.price),
+                        debt=add_amount_to_current_value(driver.debt, settings.DEFAULT_COMMISSION_IN_RUBLS)
+                    )
                 )
-            )
-            await driver_crud.update(driver_up)
+                await driver_crud.update(driver_up)
 
+            elif application.company_id:
+                company = await get_company(application.company_id)
+                if not company:
+                    continue
+
+                company_up = UpdatedBase(
+                    id=company.id,
+                    updated_fields=dict(
+                        total_amount=add_amount_to_current_value(company.total_amount, application.price),
+                        debt=add_amount_to_current_value(company.debt, settings.DEFAULT_COMMISSION_IN_RUBLS)
+                    )
+                )
+                await company_crud.update(company_up)

@@ -1,9 +1,12 @@
 from tortoise import models, fields
 
+from backend.enums.billing import PaymentCardType
+
 
 class PaymentOperation(models.Model):
     id = fields.IntField(pk=True)
     account = fields.ForeignKeyField('models.Account', related_name='payment_operations', on_delete=fields.CASCADE)
+    payment_card = fields.CharEnumField(PaymentCardType, max_length=64)
     status = fields.BooleanField(null=True)
     created_at = fields.DatetimeField(auto_now_add=True)
     updated_at = fields.DatetimeField(null=True)

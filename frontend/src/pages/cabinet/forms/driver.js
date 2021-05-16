@@ -207,7 +207,7 @@ export default class DriverPage extends React.Component {
     }
 
     getPaymentLink = () => {
-        sendRequest("/api/v1/payments/", "GET")
+        sendRequest("/api/v1/payments?payment_card=personal", "GET")
         .then(
             (result) => {
                 window.location.replace(result.payment_url)
@@ -217,6 +217,7 @@ export default class DriverPage extends React.Component {
                 this.setState({
                     error: error.message,
                     notify_type: "error",
+                    
                     response_text: error.message,
                 })
                 showNotify()

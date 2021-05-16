@@ -11,7 +11,7 @@ from backend.apps.billing.crud import payment_operation as crud_payment_operatio
 from backend.apps.billing.errors import PaymentError
 from backend.apps.billing.utils import concat_card_number
 from backend.core.config import settings
-from backend.enums.billing import PaymentErrors, PaymentOperationStatus
+from backend.enums.billing import PaymentErrors, PaymentOperationStatus, PaymentCardType
 from backend.enums.system import SystemLogs
 from backend.schemas.billing import PaymentOperationCreate
 from backend.submodules.common.schemas import UpdatedBase
@@ -26,27 +26,28 @@ class PaymentBase:
     account = None
     amount = None
 
-    redirect_url = "https://bustail.online/"
+    redirect_url = "https://bustail.online/cabinet"
     currency = "RUB"
 
     vat_code = "1" #  Ставка НДС https://yookassa.ru/developers/54fz/parameters-values#vat-codes
-    operation_description = "Получение услуг от сервиса bustail.online"
+    operation_description = "Вознаграждение сервису bustail за предоставление услуги"
 
     # Признак способа расчета. Полная предоплата  # https://yookassa.ru/developers/54fz/parameters-values#payment-mode
-    payment_mode = "full_prepayment"
+    payment_mode = "full_payment"
 
     # Признак предмета расчета. Платеж https://yookassa.ru/developers/54fz/parameters-values#payment-subject
-    payment_subject = "payment"
+    payment_subject = "service"
 
     # Тип расчета. Безналичный расчет. https://yookassa.ru/developers/54fz/parameters-values#settlement-type
     settlements_type = "cashless"
 
     payment_method = "bank_card"
 
-    def __init__(self, account: Account, amount: Decimal):
+    def __init__(self, account: Account, amount: Decimal, payment_card: PaymentCardType):
         self.logger = get_logger()
         self.account = account
         self.amount = amount
+        self.payment_card = payment_card
 
     async def create_payment_operation(self):
         raise NotImplementedError
@@ -145,6 +146,7 @@ class Payment(PaymentBase):
 
         payment_operation_in = PaymentOperationCreate(
             account_id=self.account.id,
+            payment_card=self.payment_card,
             sum=self.amount,
             operation_id=yandex_payment_object.id,
             metadata=yandex_payment_object.metadata.get('scid', None)

@@ -47,13 +47,14 @@ class TestAccountData:
         )
 
 
-class TestDriverData:
+class TestCarrierData:
     company_name = generate_random_code(size=8, only_digits=False)
     inn = generate_random_code(size=12, only_digits=True)
     license_number = generate_random_code(size=16, only_digits=False)
+    ogrn = generate_random_code(size=13, only_digits=True)
 
     @staticmethod
-    def driver_transports() -> list:
+    def me_transports() -> list:
         transports = list()
         for _ in range(5):
             transport_data = {
@@ -169,8 +170,12 @@ class BaseTest:
 
 class AccountProfile(BaseTest):
 
-    account_data = TestAccountData()
-    application_data = TestApplicationData()
+    account_data = None
+    application_data = None
+
+    def __init__(self):
+        self.account_data = TestAccountData()
+        self.application_data = TestApplicationData()
 
     async def create_client_account(self):
         await self.create_account()
@@ -194,8 +199,12 @@ class AccountProfile(BaseTest):
 
 class DriverProfile(BaseTest):
 
-    account_data = TestAccountData()
-    driver_data = TestDriverData()
+    account_data = None
+    driver_data = None
+
+    def __init__(self):
+        self.account_data = TestAccountData()
+        self.driver_data = TestCarrierData()
 
     async def create_driver_account(self):
         await self.create_account()
@@ -213,9 +222,14 @@ class DriverProfile(BaseTest):
         assert response.status_code == 201
 
     async def create_driver_transports(self):
-
         transports_id = list()
-        for transport in self.driver_data.driver_transports():
+
+        async with self.client as ac:
+            driver_response = await ac.get("/drivers/me/", headers=self.headers)
+            assert driver_response.status_code == 200
+
+        for transport in self.driver_data.me_transports():
+            transport['driver_id'] = driver_response.json()['id']
             async with self.client as ac:
                 response = await ac.post("/drivers/transports/", headers=self.headers, json=transport)
             assert response.status_code == 201
@@ -226,9 +240,54 @@ class DriverProfile(BaseTest):
         return transports_id
 
 
+class CompanyProfile(BaseTest):
+
+    company_data = None
+    account_data = None
+
+    def __init__(self):
+        self.company_data = TestCarrierData()
+        self.account_data = TestAccountData()
+
+    async def create_company_account(self):
+        await self.create_account()
+
+        async with self.client as ac:
+            response = await ac.post(
+                "/company/",
+                headers=self.headers,
+                json={
+                    "company_name": self.company_data.company_name,
+                    "inn": self.company_data.inn,
+                    "license_number": self.company_data.license_number,
+                    "ogrn": self.company_data.ogrn
+                }
+            )
+        assert response.status_code == 201
+
+    async def create_company_transports(self):
+        transports_id = list()
+
+        async with self.client as ac:
+            company_response = await ac.get("/company/me/", headers=self.headers)
+            assert company_response.status_code == 200
+
+        for transport in self.company_data.me_transports():
+            transport['company_id'] = company_response.json()['id']
+            async with self.client as ac:
+                response = await ac.post("/drivers/transports/", headers=self.headers, json=transport)
+                assert response.status_code == 201
+
+            response_json = response.json()
+            transports_id.append(response_json['id'])
+
+        return transports_id
+
+
 class NotificationData(BaseTest):
 
     driver_profile = None
+    company_profile = None
     client_profile = None
 
     async def create_notification(
@@ -263,9 +322,8 @@ class NotificationData(BaseTest):
 
         return response
 
-    async def generate_notifications(self):
+    async def generate_driver_and_client_notifications(self):
         """Генерирование уведомлений."""
-
         self.driver_profile = DriverProfile()
         self.client_profile = AccountProfile()
 
@@ -305,3 +363,45 @@ class NotificationData(BaseTest):
             response_json = response.json()
 
             await self.set_decision(self.driver_profile.headers, response_json['id'])
+
+    async def generate_company_and_client_notifications(self):
+        """Генерирование уведомлений."""
+        self.company_profile = CompanyProfile()
+        self.client_profile = AccountProfile()
+
+        await self.company_profile.create_company_account()
+        transports_id = await self.company_profile.create_company_transports()
+
+        await self.client_profile.create_client_account()
+        applications_id = await self.client_profile.create_applications()
+
+        notification_driver_to_client = [(transports_id[i], applications_id[i]) for i in range(5)]
+        notification_client_to_driver = [(applications_id[i], transports_id[i]) for i in range(5)]
+
+        for notification in notification_driver_to_client:
+            response = await self.create_notification(
+                headers=self.company_profile.headers,
+                transport_id=notification[0],
+                application_id=notification[1],
+                notification_type=NotificationTypes.driver_to_client.value,
+            )
+
+            assert response.status_code == 201
+            response_json = response.json()
+
+            await self.set_decision(self.client_profile.headers, response_json['id'])
+
+        for notification in notification_client_to_driver:
+            response = await self.create_notification(
+                headers=self.client_profile.headers,
+                transport_id=notification[1],
+                application_id=notification[0],
+                notification_type=NotificationTypes.client_to_driver.value,
+            )
+            if response.status_code == 400:
+                continue
+
+            assert response.status_code == 201
+            response_json = response.json()
+
+            await self.set_decision(self.company_profile.headers, response_json['id'])

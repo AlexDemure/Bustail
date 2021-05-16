@@ -1,0 +1,174 @@
+.container.company-page {
+    position: relative;
+
+    width: 95vw;
+
+    display: grid;
+    grid-template-rows: 40px 1fr;
+
+    justify-content: center;
+    align-content: flex-start;
+    
+    overflow: hidden;
+}
+
+.container.company-page .company-page__title {
+    display: grid;
+    width: inherit;
+    height: 40px;
+    grid-template-columns: 1fr 80px;
+    grid-template-rows: 40px;
+
+    align-items: center;
+}
+
+.container.company-page .company-page__title p {
+    font-size: 18px;
+    color: #fbfbfb;
+    font-family: "FuturaDemic";
+}
+
+.container.company-page .company-page__title .company-page__socials {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    justify-items: center;
+}
+
+.container.company-page .company-page__title .company-page__socials #vk {
+    background-image: url('../../../static/icons/default/vk.png');
+    background-size: 35px 38px;
+}
+
+.container.company-page .company-page__title .company-page__socials #instagram {
+    background-image: url('../../../static/icons/default/instagram.png');
+    background-size: 35px 28px;
+}
+
+.container.company-page .company-page__title .company-page__socials a {
+    height: 35px;
+    width: 35px;
+    background-position: center;
+    background-repeat: no-repeat;
+    margin: 2.5px;
+}
+
+.container.company-page .company-page__transports {
+    margin-top: 10px;
+
+    width: 100%;
+    justify-self: center;
+    
+    padding-bottom: 10vh;
+    
+    overflow-y: scroll;
+    overflow-x: hidden;
+    
+    -webkit-overflow-scrolling: touch;
+
+    justify-items: center;
+}
+
+.container.company-page .company-page__transports::-webkit-scrollbar {
+    display: none;
+}
+
+.container.company-page .company-page__transports  {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+
+
+
+/* ADAPTIVE 768-801-1024px */
+@media (min-width: 641px) and (max-width: 1023px) 
+and (orientation: portrait) {
+    .container.company-page {
+        width: 80vw;
+        grid-template-rows: 50px 1fr;
+    }
+
+    .container.company-page .company-page__title {
+        height: 50px;
+        grid-template-columns: 1fr 90px;
+        grid-template-rows: 50px;
+    }
+    
+    .container.company-page .company-page__title p {
+        font-size: 22px;
+    }
+    
+    .container.company-page .company-page__title .company-page__socials #vk {
+        background-size: 40px 43px;
+    }
+    
+    .container.company-page .company-page__title .company-page__socials #instagram {
+        background-size: 35px 28px;
+    }
+    
+    .container.company-page .company-page__title .company-page__socials a {
+        height: 40px;
+        width: 40px;
+    }
+}
+
+ /* ADAPTIVE 1024,1280,1337,1440px */
+@media (min-width: 1024px) and (max-width: 1535px) {
+    .container.company-page {
+        width: 60vw;
+        grid-template-rows: 80px 1fr;
+    }
+
+    .container.company-page .company-page__title {
+        height: 80px;
+        grid-template-columns: 1fr 120px;
+        grid-template-rows: 80px;
+    }
+    
+    .container.company-page .company-page__title p {
+        font-size: 26px;
+    }
+    
+    .container.company-page .company-page__title .company-page__socials #vk {
+        background-size: 50px 53px;
+    }
+    
+    .container.company-page .company-page__title .company-page__socials #instagram {
+        background-size: 45px 38px;
+    }
+    
+    .container.company-page .company-page__title .company-page__socials a {
+        height: 50px;
+        width: 50px;
+    }
+}
+
+ /* ADAPTIVE 1536px and more */
+@media (min-width: 1536px) {
+    .container.company-page {
+        width: 50vw;
+        grid-template-rows: 100px 1fr;
+    }
+
+    .container.company-page .company-page__title {
+        height: 100px;
+        grid-template-columns: 1fr 140px;
+        grid-template-rows: 100px;
+    }
+    
+    .container.company-page .company-page__title p {
+        font-size: 28px;
+    }
+    
+    .container.company-page .company-page__title .company-page__socials #vk {
+        background-size: 60px 63px;
+    }
+    
+    .container.company-page .company-page__title .company-page__socials #instagram {
+        background-size: 50px 43px;
+    }
+    
+    .container.company-page .company-page__title .company-page__socials a {
+        height: 60px;
+        width: 60px;
+    }
+}

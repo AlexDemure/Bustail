@@ -1,16 +1,15 @@
 from typing import Optional
+
 from structlog import get_logger
 
 from backend.apps.applications.logic import confirm_application
 from backend.apps.applications.serializer import prepare_application
-from backend.apps.drivers.logic import get_driver_by_transport_id
 from backend.apps.drivers.serializer import prepare_transport_with_photos
 from backend.apps.notifications.crud import notification as notification_crud
 from backend.enums.notifications import NotificationErrors
 from backend.enums.system import SystemLogs
-
-from backend.schemas.notifications import NotificationCreate, NotificationData, MeNotifications, NotificationDataWithRelatedObjects
-from backend.submodules.common.enums import BaseSystemErrors, BaseMessage
+from backend.schemas.notifications import NotificationCreate, NotificationData, MeNotifications
+from backend.submodules.common.enums import BaseSystemErrors
 from backend.submodules.common.schemas import UpdatedBase
 
 
@@ -35,23 +34,11 @@ async def get_notification(notification_id: int) -> Optional[NotificationData]:
     return NotificationData(**notification.__dict__) if notification else None
 
 
-async def set_decision(notification_id: int, decision: bool) -> None:
-    logger = get_logger().bind(notification_id=notification_id, decision=decision)
-    notification = await get_notification(notification_id)
-    if not notification:
-        logger.debug(SystemLogs.notification_not_found.value)
-        raise ValueError(BaseMessage.obj_is_not_found.value)
+async def set_decision(notification: NotificationData, decision: bool) -> None:
+    logger = get_logger().bind(notification_id=notification.id, decision=decision)
 
     if decision is True:
-        driver = await get_driver_by_transport_id(notification.transport_id)
-        if not driver:
-            logger.warning(
-                f"{SystemLogs.violation_business_logic.value} "
-                f"{SystemLogs.driver_not_found.value}"
-            )
-            raise ValueError(BaseMessage.obj_is_not_found.value)
-
-        await confirm_application(notification.application_id, notification.transport_id, driver.id, notification.price)
+        await confirm_application(notification.application_id, notification.transport_id, notification.price)
 
     notify_up = UpdatedBase(
         id=notification.id,
@@ -59,9 +46,6 @@ async def set_decision(notification_id: int, decision: bool) -> None:
     )
     await notification_crud.update(notify_up)
     logger.debug(SystemLogs.notification_is_updated.value, payload=notify_up.dict())
-
-    notification = await get_notification(notification_id)
-    assert notification.decision == decision, "Decision is not set"
 
 
 async def delete_notification(notification_id: int) -> None:

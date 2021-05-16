@@ -139,6 +139,7 @@
     margin: 0;
     padding: 0;
     font-size: 16px;
+    text-decoration: none;
 }
 
 .transport_card__details .transport_card__detail span {
@@ -147,8 +148,9 @@
     font-family: "FuturaBookC";
 }
 
-.transport_card__details .transport_card__detail span[id='personal'] {
+.transport_card__details .transport_card__detail span[id='company'] {
     color: #fba333;
+    font-family: "FuturaDemiC";
 }
 
 .transport_card__details .transport_card__detail.transport-name {

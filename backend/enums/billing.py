@@ -11,6 +11,11 @@ class PaymentOperationStatus(Enum):
     success = "succeeded"
 
 
+class PaymentCardType(Enum):
+    personal = "personal"
+    company = "company"
+
+
 class PaymentErrors(Enum):
 
     operation_id_is_not_found = "ID операции не найдено."

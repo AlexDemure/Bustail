@@ -6,6 +6,7 @@ from structlog import get_logger
 from backend.api.deps.accounts import confirmed_account
 from backend.apps.accounts.models import Account
 from backend.apps.applications.logic import get_application, get_account_applications
+from backend.apps.company.logic import get_company_by_account_id, is_company_debt_exceeded
 from backend.apps.drivers.logic import (
     is_transport_belongs_carrie, is_driver_debt_exceeded, get_driver_by_account_id,
 )
@@ -15,10 +16,11 @@ from backend.apps.notifications.logic import (
     get_me_notifications
 )
 from backend.enums.applications import ApplicationErrors, ApplicationStatus
+from backend.enums.company import CompanyErrors
 from backend.enums.drivers import DriverErrors
-from backend.schemas.drivers import DriverData
 from backend.enums.notifications import NotificationTypes, NotificationErrors
 from backend.enums.system import SystemLogs
+from backend.schemas.drivers import DriverData, CompanyData
 from backend.schemas.notifications import (
     NotificationData, NotificationCreate,
     SetDecision, NotificationDelete, MeNotifications
@@ -66,7 +68,14 @@ async def create_notification(notification_in: NotificationCreate, account: Acco
                     status_code=status.HTTP_400_BAD_REQUEST,
                     detail=DriverErrors.driver_have_debt_limit.value
                 )
-        #TODO FOR COMPANY
+
+        elif isinstance(carrier, CompanyData):
+            if is_company_debt_exceeded(carrier):
+                logger.debug(SystemLogs.company_is_have_debt.value, debt=carrier.debt)
+                raise HTTPException(
+                    status_code=status.HTTP_400_BAD_REQUEST,
+                    detail=CompanyErrors.company_have_debt_limit.value
+                )
 
         applications = await get_account_applications(account)
         if notification_in.application_id in [x.id for x in applications.applications]:
@@ -85,15 +94,6 @@ async def create_notification(notification_in: NotificationCreate, account: Acco
                 status_code=status.HTTP_400_BAD_REQUEST,
                 detail=ApplicationErrors.application_does_not_belong_this_user.value
             )
-
-        # Проверяем есть ли кароточк водителя и не принадлежит ли транспорт этому клиенту.
-        driver = await get_driver_by_account_id(account.id)
-        if driver:
-            if notification_in.transport_id in [x.id for x in driver.transports]:
-                raise HTTPException(
-                    status_code=status.HTTP_400_BAD_REQUEST,
-                    detail=ApplicationErrors.user_not_create_offer_yourself.value
-                )
 
     try:
         notification = await logic_create_notification(notification_in)
@@ -143,6 +143,7 @@ async def notification_decision(payload: SetDecision, account: Account = Depends
         )
 
     # Если уведомление от водителя тогда смотрим принадлежит ли это заявка данному пользователю.
+    # Здесь реверсивная логика - То есть решение дает противоположная сторона.
     if notification.notification_type == NotificationTypes.driver_to_client:
         application = await get_application(notification.application_id)
         if not application:
@@ -163,6 +164,7 @@ async def notification_decision(payload: SetDecision, account: Account = Depends
             )
 
     # Если уведомление от клиента тогда смотрим принадлежит ли этот транспорт данному пользователю т.е водителю.
+    # Здесь реверсивная логика - То есть решение дает противоположная сторона.
     elif notification.notification_type == NotificationTypes.client_to_driver:
         carrier, transport = await is_transport_belongs_carrie(account.id, notification.transport_id)
         if isinstance(carrier, DriverData):
@@ -173,9 +175,15 @@ async def notification_decision(payload: SetDecision, account: Account = Depends
                     status_code=status.HTTP_400_BAD_REQUEST,
                     detail=DriverErrors.driver_have_debt_limit.value
                 )
-        # TODO FOR COMPANY
+        elif isinstance(carrier, CompanyData):
+            if is_company_debt_exceeded(carrier):
+                logger.debug(SystemLogs.company_is_have_debt.value, debt=carrier.debt)
+                raise HTTPException(
+                    status_code=status.HTTP_400_BAD_REQUEST,
+                    detail=CompanyErrors.company_have_debt_limit.value
+                )
 
-    await set_decision(notification.id, payload.decision)
+    await set_decision(notification, payload.decision)
 
     return Message(msg=BaseMessage.obj_is_changed.value)
 
@@ -235,7 +243,7 @@ async def notification_delete(payload: NotificationDelete, account: Account = De
 
     # Если уведомление от водителя тогда смотрим принадлежит ли этот транспорт данному пользователю.
     elif notification.notification_type == NotificationTypes.driver_to_client:
-        if await is_transport_belongs_driver(account.id, notification.transport_id) is False:
+        if await is_transport_belongs_carrie(account.id, notification.transport_id) is False:
             logger.warning(
                 f"{SystemLogs.violation_business_logic.value} "
                 f"{SystemLogs.transport_not_belong_to_driver.value}"
@@ -261,9 +269,22 @@ async def notification_delete(payload: NotificationDelete, account: Account = De
 async def me_notifications(account: Account = Depends(confirmed_account)) -> MeNotifications:
     """Получение списка всех уведомлений по заявкам и предложениям."""
     driver = await get_driver_by_account_id(account.id)
+    company = await get_company_by_account_id(account.id)
+
+    find_transports = []
+    if driver:
+        for x in driver.transports:
+            find_transports.append(x.id)
+
+    if company:
+        for x in company.transports:
+            find_transports.append(x.id)
+
+    unique_transports = list(set(find_transports))
 
     applications = await get_account_applications(account)
     return await get_me_notifications(
         applications_id=[x.id for x in applications.applications],
-        transports_id=[x.id for x in driver.transports] if driver else []
+        transports_id=unique_transports
     )
+

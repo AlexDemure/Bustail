@@ -1,7 +1,7 @@
 .switch__card {
     position: relative;
 
-    height: 40px;
+    height: 45px;
     width: 90%;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -18,7 +18,7 @@
     padding: 0;
     
     color: #FBFBFB;
-    font-size: 16px;
+    font-size: 14px;
     font-family: 'FuturaDemiC';
     
     height: 40px;
@@ -64,6 +64,20 @@
     background-image: url('../../../../static/icons/active/driver_card.png');
 }
 
+.switch__card #personal {
+    background-image: url('../../../../static/icons/default/driver_card.png');
+}
+.switch__card #personal.active {
+    background-image: url('../../../../static/icons/active/driver_card.png');
+}
+
+.switch__card #company {
+    background-image: url('../../../../static/icons/default/company_card.png');
+}
+.switch__card #company.active  {
+    background-image: url('../../../../static/icons/active/company_card.png');
+}
+
 /* ADAPTIVE 768-801-1024px */
 @media (min-width: 641px) and (max-width: 1023px) 
 and (orientation: portrait) {
@@ -72,7 +86,7 @@ and (orientation: portrait) {
     }
     .switch__card p {
         height: 50px;
-        font-size: 20px;
+        font-size: 18px;
         background-position: 15px center;
         background-size: 30px;
     }

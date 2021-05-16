@@ -5,6 +5,7 @@ import ChangePrice from '../../../components/common/change_price_modal'
 import SerializeForm from '../../../utils/form_serializer'
 
 import TransportOffer from './transport'
+import ChoicesTypeSwitch from './switch_choices_type'
 
 import './css/offer.css'
 
@@ -21,6 +22,8 @@ function ChoicesElements(props) {
                     <a href={props.create_link} className="offer__transport__modal-window__create-object">Создать</a>
                 </div>
                 
+                <ChoicesTypeSwitch is_active={props.activeChoiceType} onClick={props.changeChoicesType}/>
+
                 <div className="offer__transport__modal-window__choices">
                     {
                         props.choices.length > 0 ?
@@ -45,9 +48,13 @@ export default class OfferForm extends React.Component {
         
         this.state = {
             form: "choices",
+            choices_type: "personal",
+            
             transport_id: null,
             price: null,
         }
+
+        this.changeChoicesType = this.changeChoicesType.bind(this)
         this.setPrice = this.setPrice.bind(this)
         this.createOffer = this.createOffer.bind(this)
     }
@@ -65,18 +72,35 @@ export default class OfferForm extends React.Component {
         this.props.createOffer(e, this.state.transport_id, prepared_data.get("price"))
     }
 
+    changeChoicesType(event) {
+        event.preventDefault();
+
+        if (event.target.id === "personal") {
+            this.setState({
+                choices_type: "personal",
+            })
+        } else if (event.target.id === "company"){
+            this.setState({
+                choices_type: "company",
+            }) 
+        }
+    }
+
     render() {
         let form;
 
         if (this.state.form === "choices") {
             form = <ChoicesElements
-            choices={this.props.choices}
-            createOffer={this.createOffer}
+            choices={this.state.choices_type === "personal" ? this.props.driver_transports : this.props.company_transports}
             price={this.state.price}
             showTransportCard={this.props.showTransportCard}
             offer_type={this.props.offer_type}
             closeOffer={this.props.closeOffer}
             create_link={this.props.create_link}
+
+            activeChoiceType={this.state.choices_type}
+            createOffer={this.createOffer}
+            changeChoicesType={this.changeChoicesType}
             />
         } else if (this.state.form === "price") {
             form = <ChangePrice

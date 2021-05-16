@@ -54,14 +54,15 @@ class CRUDTransport(CRUDBase[Transport, TransportCreate, UpdatedBase]):
 
     async def get(self, object_id: int):
         return await (
-            self.model.get_or_none(id=object_id)
+            self.model.filter(id=object_id).first()
             .prefetch_related(
                 Prefetch(
                     'transport_covers',
                     queryset=TransportPhoto.all()
-                )
+                ),
+                Prefetch('company', queryset=Company.all()),
+                Prefetch('driver', queryset=Driver.all())
             )
-            .prefetch_related(Prefetch('company', queryset=Company.all()))
         )
 
     async def get_by_company_id(self, transport_id: int, company_id: int):
