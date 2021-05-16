@@ -32,10 +32,6 @@
     grid-template-rows: 10% 60px 18% 1fr;
 }
 
-.container.cabinet.company.form {
-    padding-bottom: 15vh;
-}
-
 .container.cabinet.company.card,
 .container.cabinet.driver.card {
     grid-template-rows: 10% 60px 1fr;
@@ -79,10 +75,15 @@
 .container.cabinet.company.form .cabinet__company__form__company-info,
 .container.cabinet.driver.form .cabinet__driver__form__driver-info,
 .container.cabinet.common .cabinet__form__client-info {
-    width: 80%;
+    width: calc(80% - 15px);
+    margin-right: 15px;
     justify-self: center;
     align-self: flex-start;
     text-align: center;
+}
+
+.container.cabinet.company.form .cabinet__company__form__company-info {
+    padding-bottom: 10vh;
 }
 
 .container.cabinet.company.form .cabinet__company__form__company-info
