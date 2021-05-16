@@ -15,7 +15,10 @@ from backend.submodules.sentry.service import sentry
 
 logger = get_logger()
 
-app = FastAPI(middleware=middleware.utils)
+app = FastAPI(
+    version="2.0",
+    middleware=middleware.utils
+)
 add_timing_middleware(app, record=logger.debug, prefix="app", exclude="untimed")
 
 
