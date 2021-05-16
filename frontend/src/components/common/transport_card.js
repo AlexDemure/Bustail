@@ -147,7 +147,7 @@ export default class TransportCard extends React.Component {
                                 {
                                     this.state.transport.company_id &&
                                     <a 
-                                    href={`/company/pages/${this.state.company.page_url}`}
+                                    href={`/company/${this.state.company.page_url}`}
                                     className="transport_card__detail driver-name"><span id="company">Компания: {this.state.company.company_name}</span>
                                     </a>
                                 }

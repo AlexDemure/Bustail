@@ -132,12 +132,12 @@ class CompanyPage extends React.Component {
                     />  
                 }
 
-                <Header previous_page="/main" page_name={this.state.company.company_name}/>
+                <Header previous_page="/main" page_name="Страница компании"/>
 
                 <div className="container company-page">
                     
                     <div className="company-page__title">
-                        <p id="company-name">Страница компании</p>
+                        <p id="company-name">{this.state.company.company_name}</p>
                         <div className="company-page__socials">
                             <a href={"tel:"+ this.state.company.company_phone} id="phone"></a>
                             <a href={`${this.state.company.socials.vk || '#'}`} id="vk"></a>

@@ -46,7 +46,7 @@ ReactDOM.render(
           <Route path="/notifications" component={NotificationPage} />
           <Route path="/cabinet" component={CabinetPage} />
 
-          <Route path='/company/pages/:page_url' component={CompanyPage} />
+          <Route path='/company/:page_url' component={CompanyPage} />
 
       </Switch>
   </Router>,

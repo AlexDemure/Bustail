@@ -62,7 +62,7 @@ class CompanyCard extends React.Component {
                     
                     <div className="cabinet__company__transports__title">
                         <p id="title">Автопарк</p>
-                        <a id="page" href={`/company/pages/${this.props.company.page_url}`}>Личная страница</a>
+                        <a id="page" href={`/company/${this.props.company.page_url}`}>Личная страница</a>
                     </div>
                    
                     {   
