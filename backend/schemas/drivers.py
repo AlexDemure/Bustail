@@ -123,7 +123,7 @@ class CompanyCreate(CompanyBase):
 class CompanyData(CompanyBase):
     id: int
     account_id: int
-
+    company_phone: str = None
     socials: dict = None
     page_url: constr(min_length=6, max_length=64) = None
 

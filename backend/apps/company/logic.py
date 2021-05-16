@@ -47,7 +47,7 @@ async def get_company_by_url(page_url: str) -> Optional[CompanyData]:
         prepare_transport_with_photos(x) for x in company.transports
     ]
 
-    return CompanyData(**company.__dict__, transports=transports)
+    return CompanyData(**company.__dict__, company_phone=company.account.phone, transports=transports)
 
 
 async def create_company(company_in: CompanyCreate) -> CompanyData:

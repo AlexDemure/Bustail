@@ -2,6 +2,7 @@ from typing import Optional
 
 from tortoise.query_utils import Prefetch, Q
 
+from backend.apps.accounts.models import Account
 from backend.apps.drivers.models import Transport, TransportPhoto, Company
 from backend.schemas.drivers import CompanyCreate
 from backend.submodules.common.crud import CRUDBase
@@ -54,7 +55,8 @@ class CRUDCompany(CRUDBase[Company, CompanyCreate, UpdatedBase]):
                             queryset=TransportPhoto.all()
                         )
                     )
-                )
+                ),
+                Prefetch('account', queryset=Account.all())
             )
         )
 

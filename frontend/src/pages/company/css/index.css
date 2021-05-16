@@ -16,7 +16,7 @@
     display: grid;
     width: inherit;
     height: 40px;
-    grid-template-columns: 1fr 80px;
+    grid-template-columns: 1fr 120px;
     grid-template-rows: 40px;
 
     align-items: center;
@@ -30,13 +30,26 @@
 
 .container.company-page .company-page__title .company-page__socials {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     justify-items: center;
+}
+
+
+.container.company-page .company-page__title .company-page__socials a {
+    height: 35px;
+    width: 35px;
+    background-size: 30px 30px;
+    background-position: center;
+    background-repeat: no-repeat;
+    margin: 2.5px;
 }
 
 .container.company-page .company-page__title .company-page__socials #vk {
     background-image: url('../../../static/icons/default/vk.png');
     background-size: 35px 38px;
+}
+.container.company-page .company-page__title .company-page__socials #vk:hover {
+    background-image: url('../../../static/icons/active/vk.png');
 }
 
 .container.company-page .company-page__title .company-page__socials #instagram {
@@ -44,12 +57,16 @@
     background-size: 35px 28px;
 }
 
-.container.company-page .company-page__title .company-page__socials a {
-    height: 35px;
-    width: 35px;
-    background-position: center;
-    background-repeat: no-repeat;
-    margin: 2.5px;
+.container.company-page .company-page__title .company-page__socials #instagram:hover {
+    background-image: url('../../../static/icons/active/instagram.png');
+}
+
+.container.company-page .company-page__title .company-page__socials #phone {
+    background-image: url('../../../static/icons/default/call.png');
+}
+
+.container.company-page .company-page__title .company-page__socials #phone:hover {
+    background-image: url('../../../static/icons/active/call.png');
 }
 
 .container.company-page .company-page__transports {
@@ -89,7 +106,7 @@ and (orientation: portrait) {
 
     .container.company-page .company-page__title {
         height: 50px;
-        grid-template-columns: 1fr 90px;
+        grid-template-columns: 1fr 135px;
         grid-template-rows: 50px;
     }
     
@@ -108,6 +125,7 @@ and (orientation: portrait) {
     .container.company-page .company-page__title .company-page__socials a {
         height: 40px;
         width: 40px;
+        background-size: 35px 35px;
     }
 }
 
@@ -120,7 +138,7 @@ and (orientation: portrait) {
 
     .container.company-page .company-page__title {
         height: 80px;
-        grid-template-columns: 1fr 120px;
+        grid-template-columns: 1fr 180px;
         grid-template-rows: 80px;
     }
     
@@ -139,6 +157,7 @@ and (orientation: portrait) {
     .container.company-page .company-page__title .company-page__socials a {
         height: 50px;
         width: 50px;
+        background-size: 45px 45px;
     }
 }
 
@@ -151,7 +170,7 @@ and (orientation: portrait) {
 
     .container.company-page .company-page__title {
         height: 100px;
-        grid-template-columns: 1fr 140px;
+        grid-template-columns: 1fr 210px;
         grid-template-rows: 100px;
     }
     
@@ -160,15 +179,16 @@ and (orientation: portrait) {
     }
     
     .container.company-page .company-page__title .company-page__socials #vk {
-        background-size: 60px 63px;
+        background-size: 60px 60px;
     }
     
     .container.company-page .company-page__title .company-page__socials #instagram {
-        background-size: 50px 43px;
+        background-size: 60px 45px;
     }
     
     .container.company-page .company-page__title .company-page__socials a {
         height: 60px;
         width: 60px;
+        background-size: 55px 55px;
     }
 }

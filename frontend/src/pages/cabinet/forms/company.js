@@ -138,7 +138,7 @@ export default class CompanyPage extends React.Component {
             license_number: prepared_data.get("license_number"),
             page_url: prepared_data.get("page_url") || null,
             socials: {
-                vk: prepared_data.get("vk"),
+                vk: prepared_data.get("vk") || null,
                 instagram: prepared_data.get("instagram") || null
             }
         }

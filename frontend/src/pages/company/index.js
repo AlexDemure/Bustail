@@ -28,6 +28,7 @@ class CompanyPage extends React.Component {
                 company_name: null,
                 page_url: null,
                 transports: null,
+                company_phone: null,
                 socials: {
                     vk: null,
                     instagram: null
@@ -138,6 +139,7 @@ class CompanyPage extends React.Component {
                     <div className="company-page__title">
                         <p id="company-name">{this.state.company.company_name}</p>
                         <div className="company-page__socials">
+                            <a href={"tel:"+ this.state.company.company_phone} id="phone"></a>
                             <a href={`${this.state.company.socials.vk || '#'}`} id="vk"></a>
                             <a href={`${this.state.company.socials.instagram || '#'}`} id="instagram"></a>
                         </div>
