@@ -3,7 +3,7 @@ body {
   padding: 0;
   height: 100vh;
   max-height: 100vh;
-
+  background-color: #181818;
   background-image: url('./static/images/background.jpg');
   background-repeat: no-repeat;
   background-attachment: fixed;
