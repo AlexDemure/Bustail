@@ -43,7 +43,7 @@ export default class AuthForm extends React.Component {
             <React.Fragment>
                 <AuthSwitch is_active="login"/>
                 <form className="auth__form__login" onSubmit={this.login}>
-                    <DefaultInput name="email" input_type="email" size="25" placeholder="Электронная почта"/>
+                    <DefaultInput name="email" input_type="email" parser="lowercase" size="25" placeholder="Электронная почта"/>
                     <DefaultInput name="password" input_type="password" size="25" placeholder="Пароль"/>
                     {
                     this.state.error &&
