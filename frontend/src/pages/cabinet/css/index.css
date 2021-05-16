@@ -32,6 +32,10 @@
     grid-template-rows: 10% 60px 18% 1fr;
 }
 
+.container.cabinet.company.form {
+    padding-bottom: 10vh;
+}
+
 .container.cabinet.company.card,
 .container.cabinet.driver.card {
     grid-template-rows: 10% 60px 1fr;
