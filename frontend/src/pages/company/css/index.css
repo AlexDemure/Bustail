@@ -23,7 +23,7 @@
 }
 
 .container.company-page .company-page__title p {
-    font-size: 18px;
+    font-size: 22px;
     color: #fbfbfb;
     font-family: "FuturaDemic";
 }
@@ -94,7 +94,7 @@ and (orientation: portrait) {
     }
     
     .container.company-page .company-page__title p {
-        font-size: 22px;
+        font-size: 28px;
     }
     
     .container.company-page .company-page__title .company-page__socials #vk {
@@ -125,7 +125,7 @@ and (orientation: portrait) {
     }
     
     .container.company-page .company-page__title p {
-        font-size: 26px;
+        font-size: 32px;
     }
     
     .container.company-page .company-page__title .company-page__socials #vk {
@@ -156,7 +156,7 @@ and (orientation: portrait) {
     }
     
     .container.company-page .company-page__title p {
-        font-size: 28px;
+        font-size: 36px;
     }
     
     .container.company-page .company-page__title .company-page__socials #vk {
