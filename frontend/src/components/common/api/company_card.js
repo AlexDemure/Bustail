@@ -45,7 +45,7 @@ export let getCompanyCardByUrl = async(page_url) => {
             company = {
                 id: result.id,
                 account_id: result.account_id,
-
+                company_phone: result.company_phone,
                 license_number: result.license_number,
                 inn: result.inn,
                 ogrn: result.ogrn,
