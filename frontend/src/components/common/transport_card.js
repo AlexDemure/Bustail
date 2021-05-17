@@ -105,7 +105,7 @@ export default class TransportCard extends React.Component {
         let image_url
         
         if (this.state.transport.transport_covers.length > 0) {
-            image_url = `/api/v1/drivers/transports/${this.state.transport.id}/covers/${this.state.transport.transport_covers[0].id}`
+            image_url = this.state.transport.transport_covers[0].file_uri
         } else {
             image_url = null
         }

@@ -2,7 +2,7 @@ from typing import List
 
 from backend.apps.drivers.models import Transport, TransportPhoto, Driver
 from backend.schemas.drivers import TransportPhotoData, DriverData, TransportData
-from backend.schemas.notifications import NotificationData
+from backend.submodules.object_storage.uploader import object_storage
 
 
 def prepare_driver_data(driver: Driver, transports: List[Transport]) -> DriverData:
@@ -35,6 +35,15 @@ def prepare_transport_with_photos(transport: Transport) -> TransportData:
     return TransportData(
         company_page_url=company_page_url,
         company_files=company_files,
-        transport_covers=[TransportPhotoData(**x.__dict__) for x in transport.transport_covers.related_objects],
+        transport_covers=[prepare_transport_photo(x) for x in transport.transport_covers.related_objects],
         **transport.__dict__
+    )
+
+
+def prepare_transport_photo(transport_photo: TransportPhoto) -> TransportPhotoData:
+    data = transport_photo.__dict__
+    file_uri = object_storage.get_url(data.pop("file_uri"))
+    return TransportPhotoData(
+        file_uri=file_uri,
+        **data
     )

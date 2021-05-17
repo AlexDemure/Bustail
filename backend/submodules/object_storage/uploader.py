@@ -6,6 +6,8 @@ import boto3
 from .callback import ProgressPercentage
 from .enums import FileMimetypes
 
+from backend.core.config import settings
+
 
 class ObjectStorage:
 
@@ -57,3 +59,14 @@ class ObjectStorage:
             self.client.download_fileobj(self.bucket_name, file_uri, temp_file)
             temp_file.seek(0)
             return temp_file.file.read()
+
+    def get_url(self, file_uri: str) -> str:
+        """Генерирует урл для доступа к файлу"""
+        return f'{self.endpoint_url}/{self.bucket_name}/{file_uri}'
+
+
+object_storage = ObjectStorage(
+    settings.YANDEX_ACCESS_KEY_ID,
+    settings.YANDEX_SECRET_ACCESS_KEY,
+    settings.YANDEX_BUCKET_NAME
+)

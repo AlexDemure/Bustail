@@ -24,12 +24,8 @@ from backend.schemas.drivers import (
 from backend.submodules.common.enums import BaseMessage, BaseSystemErrors
 from backend.submodules.common.schemas import UpdatedBase
 from backend.submodules.object_storage.enums import FileStorages, FileMimetypes
-from backend.submodules.object_storage.uploader import ObjectStorage
+from backend.submodules.object_storage.uploader import object_storage
 from backend.submodules.object_storage.utils import get_file_hash, compression_image
-
-object_storage = ObjectStorage(
-    settings.YANDEX_ACCESS_KEY_ID, settings.YANDEX_SECRET_ACCESS_KEY, settings.YANDEX_BUCKET_NAME
-)
 
 
 async def create_driver(driver_in: DriverCreate) -> DriverData:
