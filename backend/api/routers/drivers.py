@@ -3,7 +3,7 @@ from typing import List
 
 from fastapi import APIRouter, Depends, status, HTTPException, File, UploadFile, Query
 from fastapi.encoders import jsonable_encoder
-from fastapi.responses import JSONResponse, Response
+from fastapi.responses import JSONResponse
 from structlog import get_logger
 
 from backend.api.deps.accounts import confirmed_account
@@ -11,8 +11,7 @@ from backend.api.deps.uploads import valid_image_content_length
 from backend.apps.accounts.models import Account
 from backend.apps.company.logic import get_company_by_account_id
 from backend.apps.drivers.logic import (
-    get_driver_by_account_id, update_driver, download_transport_cover,
-    get_driver as logic_get_driver,
+    get_driver_by_account_id, update_driver, get_driver as logic_get_driver,
     is_transport_belongs_carrie, upload_transport_cover,
     create_driver as logic_create_driver,
     create_transport as logic_create_transport,
@@ -20,7 +19,6 @@ from backend.apps.drivers.logic import (
     get_transport as logic_get_transport,
     change_transport_data as logic_change_transport_data,
     delete_transport as logic_delete_transport,
-    get_transport_cover as logic_get_transport_cover,
 )
 from backend.enums.drivers import DriverErrors, TransportType
 from backend.enums.system import SystemLogs
@@ -88,51 +86,6 @@ async def create_cover_transport(
         content=jsonable_encoder(cover)
     )
 
-
-@router.get(
-    "/transports/{transport_id}/covers/{cover_id}",
-    responses={
-        status.HTTP_200_OK: {"description": BaseMessage.obj_data.value},
-        status.HTTP_400_BAD_REQUEST: {
-            "description": f"{UploadErrors.file_is_large.value} or {UploadErrors.mime_type_is_wrong_format.value}"
-        },
-        status.HTTP_404_NOT_FOUND: {"description": BaseMessage.obj_is_not_found},
-        **auth_responses
-    }
-)
-async def get_transport_cover(transport_id: int, cover_id: int) -> Response:
-    """
-    Получение обложки к транспорту.
-
-    - **returned**: Возвращает response с параметрами content, media_type.
-    """
-    logger = get_logger().bind(transport_id=transport_id, cover_id=cover_id)
-    transport = await logic_get_transport(transport_id)
-    if not transport:
-        logger.debug(SystemLogs.transport_not_found.value)
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail=BaseMessage.obj_is_not_found.value
-        )
-
-    cover = await logic_get_transport_cover(cover_id)
-    if not cover:
-        logger.debug(SystemLogs.cover_not_found.value)
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail=BaseMessage.obj_is_not_found.value
-        )
-
-    if transport.id != cover.transport_id:
-        logger.warning(f"{SystemLogs.violation_business_logic.value} {SystemLogs.cover_not_belong_to_transport.value}")
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail=BaseMessage.obj_is_not_found.value
-        )
-
-    file_to_bytes, media_type = await download_transport_cover(cover_id)
-
-    return Response(content=file_to_bytes, status_code=status.HTTP_200_OK, media_type=media_type)
 
 
 @router.get(
