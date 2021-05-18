@@ -55,7 +55,6 @@ class ChoiceCar extends React.Component {
     }
 
     render() {
-        console.log(this.state.cars)
         return (
             <React.Fragment>
                 <SearchInput name="brand" placeholder="Марка" choiceValue={this.choiceBrand} options={this.state.brands}/>
