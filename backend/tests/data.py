@@ -10,7 +10,7 @@ from backend.core.application import app
 from backend.enums.applications import ApplicationTypes
 from backend.enums.drivers import TransportType
 from backend.enums.notifications import NotificationTypes
-from backend.utils import get_cities
+from backend.utils import get_cities, get_cars
 from backend.submodules.security.utils import generate_random_code
 
 ASYNC_CLIENT = AsyncClient(app=app, base_url="http://localhost/api/v1")
@@ -57,9 +57,12 @@ class TestCarrierData:
     def me_transports() -> list:
         transports = list()
         for _ in range(5):
+            cars = get_cars()
+            brand = random.choice(list(cars.keys()))
+
             transport_data = {
-                "brand": generate_random_code(size=16, only_digits=False),
-                "model": generate_random_code(size=10, only_digits=False),
+                "brand": brand,
+                "model": random.choice(cars[brand]),
                 "count_seats": random.randint(1, 50),
                 "price": random.randint(1000, 10000),
                 "city": random.choice(get_cities()),
