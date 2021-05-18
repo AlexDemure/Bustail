@@ -6,7 +6,7 @@ from typing import List
 from pydantic import BaseModel, validator, constr, conint, root_validator
 
 from backend.enums.drivers import TransportType
-from backend.utils import get_cities
+from backend.utils import get_cities, get_cars
 from backend.submodules.object_storage.enums import FileMimetypes
 
 
@@ -42,9 +42,26 @@ class TransportBase(BaseModel):
     transport_type: TransportType
 
     @validator('city')
-    def check_values(cls, value):
+    def check_city(cls, value):
         if value not in get_cities():
             raise ValueError("City is not found")
+
+        return value
+
+    @validator('brand')
+    def check_brand(cls, value):
+        cars = get_cars()
+        if value not in cars:
+            raise ValueError("Brand is not found")
+
+        return value
+
+    @validator('model')
+    def check_model(cls, value, values):
+        cars = get_cars()
+        brand = values.get("brand")
+        if value not in cars[brand]:
+            raise ValueError("Model is not found")
 
         return value
 
