@@ -2,11 +2,16 @@
 .container.landing .contacts .contacts__form__feedback {
     margin-top: 20px;
     text-align: center;
-    width: 90%;
+    width: calc(90% - 15px);
 
     justify-self: center;
     align-self: center;
     grid-row: 1 / 2;
+}
+
+.container.landing .contacts .contacts__form__feedback .drag-drop {
+    justify-self: center;
+    padding-left: 10px;
 }
 
 .container.landing .contacts .contacts__form__feedback input, 
