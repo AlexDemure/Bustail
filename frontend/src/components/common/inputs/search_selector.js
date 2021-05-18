@@ -28,6 +28,10 @@ export default class SearchInput extends React.Component {
             result: []
         })
 
+        if (this.props.choiceValue) {
+            this.props.choiceValue(e,  e.currentTarget.textContent)
+        }
+
     }
     keyUpHandler(e) {
 
@@ -80,6 +84,7 @@ export default class SearchInput extends React.Component {
                 placeholder={this.props.placeholder ? this.props.placeholder : "Введите название города"}
                 onChange={this.keyUpHandler}
                 onClick={this.onClick}
+                disabled={this.props.isDisabled === true ? true : false}
                 >
                 </input>
                 

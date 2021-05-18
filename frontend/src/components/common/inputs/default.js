@@ -29,6 +29,7 @@ function DefaultInput(props) {
         readOnly={props.readOnly || false}
         inputmode={props.input_type === "number" ? "numeric" : null}
         pattern={props.input_type === "number" ? "[0-9]*" : props.pattern}
+        disabled={props.isDisabled === true ? true : false}
         ></input>
     }
     return (
