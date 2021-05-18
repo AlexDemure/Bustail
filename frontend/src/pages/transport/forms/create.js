@@ -9,6 +9,7 @@ import DragAndDrop from '../../../components/common/drag_and_drop'
 import { ResponseNotify, showNotify } from '../../../components/common/response_notify'
 
 import { getCities } from '../../../constants/cities'
+import { getCars } from '../../../constants/cars'
 import { transportTypes } from '../../../constants/transport_types'
 
 import { selectErrorInputs, validateImageFile } from '../../../constants/input_parsers'
@@ -18,6 +19,51 @@ import { uploadFile } from '../../../utils/upload_file'
 
 import SerializeForm from '../../../utils/form_serializer'
 
+
+
+class ChoiceCar extends React.Component {
+    constructor() {
+        super()
+        this.state = {
+            isChoised: false,
+            
+            cars: [],
+            brands: [],
+            models: [],
+        }
+        
+        this.choiceBrand = this.choiceBrand.bind(this)
+    }
+
+    choiceBrand(e, value) {
+        let models = Object.keys(this.state.cars).filter(key => key === value).map(key => this.state.cars[key])
+                    
+        this.setState({
+            isChoised: true,
+            models: models[0]
+        })
+    }
+
+    async componentDidMount() {
+        let cars = await getCars()
+        this.setState({
+            cars: cars,
+            brands: Object.keys(cars).map(
+                key => key
+            )
+        })
+    }
+
+    render() {
+        return (
+            <React.Fragment>
+                <SearchInput name="brand" placeholder="Марка" choiceValue={this.choiceBrand} options={this.state.brands}/>
+                <SearchInput name="model" placeholder="Модель" isDisabled={this.state.isChoised === false ? true : false} options={this.state.models}/>
+            </React.Fragment>
+        )
+    }
+
+}
 
 class ImageFormCreateTransport extends React.Component {
     constructor(props) {
@@ -53,9 +99,7 @@ class MainFormCreateTransport extends React.Component {
             <form className="create-transport__form__create-transport" onSubmit={this.props.onSubmit} autoComplete="off">
                 <SearchInput name="city" placeholder="Город" options={this.state.cities}/>
                 <SearchInput name="transport_type" placeholder="Тип транспорта" options={this.props.transport_types}/>
-
-                <DefaultInput name="brand" input_type="text" size="25" placeholder="Марка"/>
-                <DefaultInput name="model" input_type="text" size="25" placeholder="Модель"/>
+                <ChoiceCar/>               
                 <DefaultInput name="count_seats" maxLength={4} input_type="number" size="4" placeholder="Пассажиров"/>
                 <DefaultInput name="state_number" input_type="text" size="12" placeholder="Гос номер"/>
                 <SubmitButton value="Далее"/>

@@ -6,9 +6,10 @@ from structlog import get_logger
 from backend.api.deps.accounts import confirmed_account
 from backend.apps.accounts.models import Account
 from backend.apps.applications.logic import get_application, get_account_applications
-from backend.apps.company.logic import get_company_by_account_id, is_company_debt_exceeded
+from backend.apps.company.logic import get_company_by_account_id, is_company_debt_exceeded, get_company
 from backend.apps.drivers.logic import (
     is_transport_belongs_carrie, is_driver_debt_exceeded, get_driver_by_account_id,
+    get_driver, get_transport
 )
 from backend.apps.notifications.logic import (
     create_notification as logic_create_notification,
@@ -94,6 +95,22 @@ async def create_notification(notification_in: NotificationCreate, account: Acco
                 status_code=status.HTTP_400_BAD_REQUEST,
                 detail=ApplicationErrors.application_does_not_belong_this_user.value
             )
+
+        transport = await get_transport(notification_in.transport_id)
+        if transport.driver_id:
+            driver = await get_driver(transport.driver_id)
+            if not driver or driver.account_id == application.account_id:
+                raise HTTPException(
+                    status_code=status.HTTP_400_BAD_REQUEST,
+                    detail=ApplicationErrors.user_not_create_offer_yourself.value
+                )
+        elif transport.company_id:
+            company = await get_company(transport.company_id)
+            if not company or company.account_id == application.account_id:
+                raise HTTPException(
+                    status_code=status.HTTP_400_BAD_REQUEST,
+                    detail=ApplicationErrors.user_not_create_offer_yourself.value
+                )
 
     try:
         notification = await logic_create_notification(notification_in)

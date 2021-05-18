@@ -1,4 +1,5 @@
 import csv
+import json
 
 from backend.core.config import settings
 
@@ -19,6 +20,16 @@ def get_cities() -> list:
     path = f'static/cities.csv'
     cities = read_csv_file(path)
     return [x[0] for x in cities]  # x[2] - Индекс №0 отвечает за столбец "Название города"
+
+
+def get_cars() -> dict:
+    """Получение списка марок и моделей автомобилей"""
+    path = f'static/cars.json'
+
+    with open(path, 'r') as file:
+        data = json.load(file)
+
+    return data
 
 
 def get_current_domain():
