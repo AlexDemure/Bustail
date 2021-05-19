@@ -133,8 +133,7 @@
     }
 }
 
-@media (min-width: 641px) and (max-width: 1023px) 
-and (orientation: portrait) {
+@media (min-width: 641px) and (max-width: 1023px) {
     .container.landing .faq {
         height: 75vh;
     }

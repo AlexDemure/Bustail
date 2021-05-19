@@ -176,8 +176,7 @@
 }
 
 /* ADAPTIVE 768-801 */
-@media (min-width: 641px) and (max-width: 1023px) 
-and (orientation: portrait) {
+@media (min-width: 641px) and (max-width: 1023px) {
     .transport_card__modal-window__card {
         grid-template-rows: 330px 1fr;
     }

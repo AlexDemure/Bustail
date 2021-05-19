@@ -39,8 +39,7 @@
 }
 
 /* ADAPTIVE 768-801 */
-@media (min-width: 641px) and (max-width: 1023px) 
-and (orientation: portrait) {
+@media (min-width: 641px) and (max-width: 1023px) {
     .container.cabinet.client .cabinet__client__title {
         font-size: 22px;
     }

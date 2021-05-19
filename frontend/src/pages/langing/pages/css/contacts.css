@@ -80,8 +80,7 @@
     }
 }
 
-@media (min-width: 641px) and (max-width: 1023px) 
-and (orientation: portrait) {
+@media (min-width: 641px) and (max-width: 1023px) {
     .container.landing .contacts .contacts__title p,
     .container.landing .contacts .contacts__title a {
         font-size: 24px;

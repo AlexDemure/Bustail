@@ -34,8 +34,7 @@
     color: #6e6e6e;
 }
 
-@media (min-width: 641px) and (max-width: 1023px) 
-and (orientation: portrait) {
+@media (min-width: 641px) and (max-width: 1023px) {
     .container.landing .contacts .contacts__form__feedback p {
         font-size: 20px;
     }

@@ -98,8 +98,7 @@
 }
 
 /* ADAPTIVE 768-801-1024px */
-@media (min-width: 641px) and (max-width: 1023px) 
-and (orientation: portrait) {
+@media (min-width: 641px) and (max-width: 1023px) {
     .container.create-transport .create-transport__form__upload-cover,
     .container.create-transport .create-transport__form__additional-info,
     .container.create-transport .create-transport__form__create-transport {

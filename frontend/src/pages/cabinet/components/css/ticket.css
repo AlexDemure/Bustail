@@ -207,8 +207,7 @@
 }
 
 /* ADAPTIVE 768-801 */
-@media (min-width: 641px) and (max-width: 1023px) 
-and (orientation: portrait) {
+@media (min-width: 641px) and (max-width: 1023px) {
     .ticket__cabinet .ticket__cabinet__about,
     .ticket__cabinet {
         height: 125px;

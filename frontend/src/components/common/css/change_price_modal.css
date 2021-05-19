@@ -94,8 +94,7 @@
 
 
 /* ADAPTIVE 768-801-1024px */
-@media (min-width: 641px) and (max-width: 1023px) 
-and (orientation: portrait) {
+@media (min-width: 641px) and (max-width: 1023px) {
     
     .change_price__modal-window__content form  {
         width: 95%;

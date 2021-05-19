@@ -77,8 +77,7 @@
 }
 
 /* ADAPTIVE 768-801-1024px */
-@media (min-width: 641px) and (max-width: 1023px) 
-and (orientation: portrait) {
+@media (min-width: 641px) and (max-width: 1023px) {
     .cookie__modal-window__title {
         font-size: 24px;
     }

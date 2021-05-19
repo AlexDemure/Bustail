@@ -96,8 +96,7 @@
 
 
 /* ADAPTIVE 768-801-1024px */
-@media (min-width: 641px) and (max-width: 1023px) 
-and (orientation: portrait) {
+@media (min-width: 641px) and (max-width: 1023px) {
     .container.company-page {
         width: 80vw;
         grid-template-rows: 50px 1fr;

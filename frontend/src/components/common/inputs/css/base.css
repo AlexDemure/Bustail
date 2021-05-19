@@ -105,8 +105,7 @@ textarea,
     border-left: 2px solid #535353
 }
 
-@media (min-width: 641px) and (max-width: 1023px) 
-and (orientation: portrait) {
+@media (min-width: 641px) and (max-width: 1023px) {
     input {
         background-size: 35px 35px;
         height: 70px;

@@ -106,8 +106,7 @@
 
 
 /* ADAPTIVE 768-801 */
-@media (min-width: 641px) and (max-width: 1023px) 
-and (orientation: portrait) {
+@media (min-width: 641px) and (max-width: 1023px) {
   .cabinet__payment-data {
     height: 250px;
     width: 450px;

@@ -33,8 +33,7 @@
 }
 
 /* ADAPTIVE 768-801-1024px */
-@media (min-width: 641px) and (max-width: 1023px) 
-and (orientation: portrait) {
+@media (min-width: 641px) and (max-width: 1023px) {
     .switch__cabinet p {
         font-size: 24px;
     }

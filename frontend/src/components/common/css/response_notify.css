@@ -76,8 +76,7 @@
 
 
 /* ADAPTIVE 768-801 */
-@media (min-width: 641px) and (max-width: 1023px) 
-and (orientation: portrait) {
+@media (min-width: 641px) and (max-width: 1023px) {
     .response-notify__common__border {
         height: 100px;
         width: 500px;

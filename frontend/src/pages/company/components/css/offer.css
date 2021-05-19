@@ -119,8 +119,7 @@
 
 
 /* ADAPTIVE 768-801 */
-@media (min-width: 641px) and (max-width: 1023px) 
-and (orientation: portrait) {
+@media (min-width: 641px) and (max-width: 1023px) {
 
     .offer__application__modal-window__content .offer__application__modal-window__title {
         font-size: 28px;

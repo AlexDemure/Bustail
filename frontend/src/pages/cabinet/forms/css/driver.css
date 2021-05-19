@@ -60,8 +60,7 @@
 
 
 /* ADAPTIVE 768-801 */
-@media (min-width: 641px) and (max-width: 1023px) 
-and (orientation: portrait) {
+@media (min-width: 641px) and (max-width: 1023px) {
     .container.cabinet.driver.card .cabinet__driver {
         grid-template-rows: 260px 100px 1fr;
     }
