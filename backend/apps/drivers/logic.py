@@ -135,7 +135,7 @@ async def upload_transport_cover(transport: TransportData, file: UploadFile) -> 
     compression_file = compression_image(file.file, file_media_type) # Сжатие изображения
 
     # Загрузка файла в облако.
-    if settings.ENV == SystemEnvs.dev.value:
+    if settings.ENV == SystemEnvs.prod.value:
         object_storage.upload(
             file_content=compression_file,
             content_type=file.content_type,
