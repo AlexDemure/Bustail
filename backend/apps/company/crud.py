@@ -21,7 +21,8 @@ class CRUDCompany(CRUDBase[Company, CompanyCreate, UpdatedBase]):
                         Prefetch(
                             'transport_covers',
                             queryset=TransportPhoto.all()
-                        )
+                        ),
+                        Prefetch('company', queryset=Company.all()),
                     )
                 ),
                 Prefetch('account', queryset=Account.all())
@@ -38,7 +39,8 @@ class CRUDCompany(CRUDBase[Company, CompanyCreate, UpdatedBase]):
                         Prefetch(
                             'transport_covers',
                             queryset=TransportPhoto.all()
-                        )
+                        ),
+                        Prefetch('company', queryset=Company.all()),
                     )
                 ),
                 Prefetch('account', queryset=Account.all())
@@ -55,7 +57,8 @@ class CRUDCompany(CRUDBase[Company, CompanyCreate, UpdatedBase]):
                         Prefetch(
                             'transport_covers',
                             queryset=TransportPhoto.all()
-                        )
+                        ),
+                        Prefetch('company', queryset=Company.all()),
                     )
                 ),
                 Prefetch('account', queryset=Account.all())
