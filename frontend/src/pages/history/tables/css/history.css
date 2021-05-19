@@ -23,6 +23,7 @@
 .history .history__table .history__table__rows tr td p {
     text-decoration: none;
     color: #fba333;
+    cursor: pointer;
 }
 
 .history .history__table .history__table__rows tr td div {

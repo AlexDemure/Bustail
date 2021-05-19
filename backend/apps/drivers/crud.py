@@ -2,6 +2,7 @@ from typing import Optional, List, Tuple
 
 from tortoise.query_utils import Q, Prefetch
 
+from backend.apps.accounts.models import Account
 from backend.apps.drivers.models import Driver, Transport, TransportPhoto, Company
 
 from backend.schemas.drivers import DriverCreate, TransportCreate, TransportPhotoCreate
@@ -23,7 +24,8 @@ class CRUDDriver(CRUDBase[Driver, DriverCreate, UpdatedBase]):
                             queryset=TransportPhoto.all()
                         )
                     )
-                )
+                ),
+                Prefetch('account', queryset=Account.all())
             )
         )
 
@@ -39,7 +41,8 @@ class CRUDDriver(CRUDBase[Driver, DriverCreate, UpdatedBase]):
                             queryset=TransportPhoto.all()
                         )
                     )
-                )
+                ),
+                Prefetch('account', queryset=Account.all())
             )
         )
 

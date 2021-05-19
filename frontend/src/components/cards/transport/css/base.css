@@ -1,0 +1,430 @@
+.transport {
+    margin-bottom: 10px;
+    background-color: #222222;
+    border: 1px solid rgb(46, 44, 45);
+    border-radius: 5px;
+    width: 100%;
+    min-height: 140px;
+    height: auto;
+
+    display: grid;
+    grid-template-rows: auto auto;
+    grid-template-columns: 160px 1fr;
+
+    position: relative;
+}
+
+
+.transport .transport__photo {
+    grid-column: 1 / 2;
+    grid-row: 1 / 3;
+
+    min-height: 140px;
+    height: 100%;
+    width: 160px;
+
+    border-radius: 5px;
+}
+
+.transport .transport__card {
+    grid-column: 2 / 3;
+    grid-row: 1 / 2;
+    padding-left: 10px;
+    min-height: 140px;
+
+    display: grid;
+    justify-content: flex-start;
+    align-content: flex-start;
+    grid-template-rows: auto 1fr 1fr;
+    grid-template-columns: 1fr;
+}
+
+.transport__card p {
+    margin: 0;
+    padding: 0;
+    margin-top: 5px;
+}
+
+.transport__card .transport__card__title {
+    grid-column: 1 / 3;
+    grid-row: 1 / 2;
+}
+
+.transport__card .transport__card__title p[id=model] {
+    margin-top: 10px;
+    color: #FBFBFB;
+    font-size: 15px;
+    font-family: 'FuturaMediumC';
+}
+
+.transport__card .transport__card__body {
+    grid-column: 1 / 3;
+    grid-row: 2 / 3;
+}
+
+.transport__card .transport__card__controls {
+    grid-column: 1 / 3;
+    grid-row: 3 / 4;
+    display: grid;
+    align-self: flex-end;
+    justify-items: center;
+}
+
+.transport__card #offer,
+.transport__card #remove {
+    border-radius: 5px;
+    text-align: center;
+    align-self: center;
+    justify-self: center;
+    height: 40px;
+    width: 100px;
+    display: grid;
+    align-items: center;
+}
+
+.transport__card #offer {
+    background-color: #262626;
+}
+
+.transport__card #remove {
+    background-color: #9B5E5D;
+}
+
+.transport__card #offer:hover,
+.transport__card #remove:hover {
+    background-color: #fba333;
+}
+
+.transport__card #offer p,
+.transport__card #remove p {
+    color: #FBFBFB;
+    font-family: "FuturaBookC";
+    font-size: 14px;
+
+}
+
+.transport__card #offer:hover p,
+.transport__card #remove:hover p {
+    color: #181818;
+}
+
+
+.transport__card .transport__card__controls.multi {
+    grid-template-columns: repeat(4, 40px);
+    width: 100%;
+    justify-self: center;
+    justify-items: center;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.transport__card .transport__card__controls.multi .transport__card__control {
+    background-position-x: center;
+    background-position-y: center;
+    background-repeat: no-repeat;
+    background-size: 25px 25px;
+    width: 40px;
+    height: 40px;
+
+    border-top: 1px solid #2e2e2e;
+}
+
+.transport__card .transport__card__controls.notification {
+    grid-column: 1 / 3;
+    
+    text-align: center;
+    align-self: center;
+    justify-self: center;
+
+    height: 40px;
+    width: 100%;
+
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: 1fr;
+    justify-items: center;
+    justify-content: center;
+    align-content: center;
+}
+
+.transport__card .transport__card__controls.notification p {
+    margin: 0;
+    color: #FBFBFB;
+    font-family: "FuturaBookC";
+    font-size: 14px;
+}
+
+.transport__card .transport__card__controls.notification .transport__notification__btn-remove-offer {
+    grid-column: 1 / 3;
+    width: 80%;
+}
+.transport__card .transport__card__controls.notification .transport__notification__btn-set-decision-offer.accept {
+    grid-column: 1 / 2;
+    background-color: #478341;
+    border-radius: 5px;
+    width: 90%;
+}
+.transport__card .transport__card__controls.notification .transport__notification__btn-set-decision-offer.reject {
+    grid-column: 2 / 3;
+    width: 90%;
+}
+
+.transport__card .transport__card__controls.notification .transport__notification__btn-remove-offer,
+.transport__card .transport__card__controls.notification .transport__notification__btn-set-decision-offer.reject {
+    background-color: #9B5E5D;
+    border-radius: 5px;
+}
+
+.transport__card .transport__card__controls.notification .transport__notification__btn-remove-offer,
+.transport__card .transport__card__controls.notification .transport__notification__btn-set-decision-offer {
+    display: grid;
+    align-items: center;
+}
+
+
+.transport__card .transport__card__body .transport__card__item {
+    color: #535353;
+    font-family: 'FuturaBookC';
+    font-size: 14px;
+ }
+
+ .transport__card .transport__card__body .transport__card__item span {
+    color: #FBFBFB;
+    font-size: 14px;
+    font-family: 'FuturaMediumC';
+}
+
+
+
+/* ADAPTIVE 375px */
+@media (min-width:361px) and (max-width:400px){
+    .transport {
+        min-height: 160px;
+        grid-template-columns: 180px 1fr;
+    }
+
+    .transport .transport__card {
+        min-height: 160px;
+    }
+
+    .transport .transport__photo {
+        min-height: 160px;
+        width: 180px;
+        background-size: 180px 160px;   /* x y*/
+    }
+   
+    .transport__card .transport__card__controls.multi .transport__card__control {
+        background-size: 28px 28px;
+    }
+    .transport__card #offer,
+    .transport__card #remove {
+        height: 45px;
+        width: 120px;
+    }
+
+ }
+
+ /* ADAPTIVE 414px */
+ @media (min-width:401px) and (max-width:640px){
+    .transport {
+        min-height: 180px;
+        grid-template-columns: 200px 1fr;
+    }
+
+    .transport .transport__card {
+        min-height: 180px;
+    }
+
+    .transport .transport__photo {
+        min-height: 180px;
+        width: 200px;
+        background-size: 200px 180px;   /* x y*/
+    }
+   
+    .transport__card .transport__card__title p[id=model] {
+        font-size: 16px;
+    }
+
+    .transport__card .transport__card__controls.multi {
+        grid-template-columns: repeat(4, 45px);
+    }
+
+    .transport__card .transport__card__controls.multi .transport__card__control {
+        background-size: 30px 30px;
+        width: 45px;
+        height: 45px;
+    }
+
+    .transport__card #offer p,
+    .transport__card #remove p {
+        font-size: 16px;
+    }
+
+    .transport__card .transport__card__body .transport__card__item,
+    .transport__card .transport__card__body .transport__card__item span {
+        font-size: 16px;
+    }
+ }
+
+
+ /* ADAPTIVE 768-801 */
+@media (min-width: 641px) and (max-width: 1023px) 
+and (orientation: portrait) {
+    .transport {
+        min-height: 220px;
+        grid-template-columns: 240px 1fr;
+    }
+
+    .transport .transport__card {
+        min-height: 220px;
+    }
+
+    .transport .transport__photo {
+        min-height: 220px;
+        width: 240px;
+        background-size: 240px 220px;   /* x y*/
+    }
+
+    .transport__card .transport__card__title p[id=model] {
+        font-size: 22px;
+    }
+
+    .transport__card .transport__card__controls.multi {
+        grid-template-columns: repeat(4, 50px);
+    }
+
+    .transport__card .transport__card__controls.multi .transport__card__control {
+        background-size: 35px 35px;
+        width: 50px;
+        height: 50px;
+    }
+
+    .transport__card #offer,
+    .transport__card #remove {
+        height: 50px;
+        width: 150px;
+    }
+    
+    .transport__card #offer p,
+    .transport__card #remove p {
+        font-size: 18px;
+    }
+
+    .transport__card .transport__card__body .transport__card__item,
+    .transport__card .transport__card__body .transport__card__item span {
+        font-size: 20px;
+    }
+
+    .transport__card .transport__card__controls.notification {
+        width: 80%;
+        height: 50px;
+    }
+
+    .transport__card .transport__card__controls.notification p {
+        font-size: 18px;
+    }
+}
+
+ /* ADAPTIVE 1024 and more */
+@media (min-width: 1024px) {
+    .transport {
+        min-height: 250px;
+        grid-template-columns: 270px 1fr;
+    }
+    
+    .transport .transport__card {
+        min-height: 250px;
+    }
+
+    .transport .transport__photo {
+        min-height: 250px;
+        width: 270px;
+        background-size: 270px 250px;   /* x y*/
+    }
+
+    .transport__card .transport__card__title p[id=model] {
+        font-size: 26px;
+    }
+
+    .transport__card .transport__card__controls.multi {
+        grid-template-columns: repeat(4, 70px);
+    }
+
+    .transport__card .transport__card__controls.multi .transport__card__control {
+        background-size: 45px 45px;
+        width: 70px;
+        height: 70px;
+    }
+
+    .transport__card #offer,
+    .transport__card #remove {
+        height: 50px;
+        width: 150px;
+    }
+    
+    .transport__card #offer p,
+    .transport__card #remove p {
+        font-size: 18px;
+    }
+
+    .transport__card .transport__card__body .transport__card__item,
+    .transport__card .transport__card__body .transport__card__item span {
+        font-size: 22px;
+    }
+
+    .transport__card .transport__card__controls.notification {
+        width: 80%;
+        height: 50px;
+    }
+
+    .transport__card .transport__card__controls.notification p {
+        font-size: 20px;
+    }
+}
+
+.transport__card .transport__card__controls .transport__card__control:hover {
+    border-top: 1px solid #fba333; 
+}
+
+.transport__card .transport__card__controls .transport__card__control.company {
+    background-image: url("../../../../static/icons/default/company_card.png");
+}
+
+.transport__card .transport__card__controls .transport__card__control.company:hover {
+    background-image: url("../../../../static/icons/active/company_card.png");
+}
+
+.transport__card .transport__card__controls .transport__card__control.person {
+    pointer-events: none;
+    opacity: 0.5;
+    background-image: url("../../../../static/icons/default/cabinet.png");
+}
+
+.transport__card .transport__card__controls .transport__card__control.person:hover {
+    background-image: url("../../../../static/icons/default/cabinet.png");
+    border-top: none
+}
+
+.transport__card .transport__card__controls .transport__card__control.contacts {
+    background-image: url("../../../../static/icons/default/call.png");
+}
+
+.transport__card .transport__card__controls .transport__card__control.contacts:hover {
+    background-image: url("../../../../static/icons/active/call.png");
+}
+
+.transport__card .transport__card__controls .transport__card__control.info {
+    background-image: url("../../../../static/icons/default/description.png");
+}
+
+.transport__card .transport__card__controls .transport__card__control.info:hover {
+    background-image: url("../../../../static/icons/active/description.png");
+}
+
+.transport__card .transport__card__controls .transport__card__control.offer {
+    background-image: url("../../../../static/icons/default/offer.png");
+}
+
+.transport__card .transport__card__controls .transport__card__control.offer:hover {
+    background-image: url("../../../../static/icons/active/offer.png");
+}

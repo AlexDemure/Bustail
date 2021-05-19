@@ -39,7 +39,7 @@ async def create_driver(driver_in: DriverCreate) -> DriverData:
 
     driver = await driver_crud.create(driver_in)
     logger.debug(SystemLogs.driver_is_created.value, driver_id=driver.id)
-    return DriverData(**driver.__dict__)
+    return await get_driver(driver.id)
 
 
 async def get_driver_by_account_id(account_id: int) -> Optional[DriverData]:
@@ -52,7 +52,7 @@ async def get_driver_by_account_id(account_id: int) -> Optional[DriverData]:
         prepare_transport_with_photos(x) for x in driver.transports
     ]
 
-    return DriverData(**driver.__dict__, transports=transports)
+    return prepare_driver_data(driver, transports)
 
 
 async def update_driver(driver_up: UpdatedBase) -> DriverData:
@@ -135,7 +135,7 @@ async def upload_transport_cover(transport: TransportData, file: UploadFile) -> 
     compression_file = compression_image(file.file, file_media_type) # Сжатие изображения
 
     # Загрузка файла в облако.
-    if settings.ENV == SystemEnvs.prod.value:
+    if settings.ENV == SystemEnvs.dev.value:
         object_storage.upload(
             file_content=compression_file,
             content_type=file.content_type,
@@ -242,7 +242,9 @@ def is_driver_debt_exceeded(driver: DriverData):
 
 async def get_driver(driver_id: int) -> Optional[DriverData]:
     driver = await driver_crud.get(driver_id)
-    return prepare_driver_data(driver, driver.transports.related_objects) if driver else None
+
+    transports = [prepare_transport_with_photos(x) for x in driver.transports.related_objects]
+    return prepare_driver_data(driver, transports) if driver else None
 
 
 async def get_driver_by_transport_id(transport_id: int) -> Optional[DriverData]:

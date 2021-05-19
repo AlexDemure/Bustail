@@ -112,6 +112,9 @@ async def create_notification(notification_in: NotificationCreate, account: Acco
                     detail=ApplicationErrors.user_not_create_offer_yourself.value
                 )
 
+    if notification_in.price:
+        if application.price == notification_in.price:
+            notification_in.price = None
     try:
         notification = await logic_create_notification(notification_in)
     except ValueError as e:

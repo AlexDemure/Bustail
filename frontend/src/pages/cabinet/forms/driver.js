@@ -2,13 +2,12 @@ import React from 'react'
 
 import DefaultInput from '../../../components/common/inputs/default'
 import SubmitButton from '../../../components/common/buttons/submit_btn'
-
 import TransportCard from '../../../components/common/transport_card'
+import Transport from '../../../components/cards/transport'
 
 import { ResponseNotify, showNotify } from '../../../components/common/response_notify'
 
 import PaymentData from '../components/payment_data'
-import TransportCabinet from '../components/transport'
 import CabinetSwitch from '../components/switch_cabinet'
 import CardSwitch from '../components/switch_card'
 
@@ -18,6 +17,7 @@ import sendRequest from '../../../utils/fetch'
 import SerializeForm from '../../../utils/form_serializer'
 
 import './css/driver.css'
+
 
 
 function DriverForm(props) {
@@ -60,7 +60,8 @@ class DriverCard extends React.Component {
                         this.props.transports &&
                         this.props.transports.map(
                             (transport, index) =>
-                            <TransportCabinet
+                            <Transport
+                            controls="remove"
                             transport={transport}
                             showTransportCard={this.props.showTransportCard}
                             deleteTransport={() => this.props.deleteTransport(index)}

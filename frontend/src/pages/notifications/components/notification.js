@@ -1,6 +1,7 @@
 import React from 'react'
 
-import TransportNotification from './transport'
+import Transport from '../../../components/cards/transport/index'
+
 import TicketNotification from './ticket'
 
 
@@ -14,10 +15,9 @@ export default class Notification extends React.Component {
             <React.Fragment>
                 <div className="offer">
                     <TicketNotification ticket={this.props.notifiation.application}/>
-                    <TransportNotification
+                    <Transport
+                    controls="notification"
                     transport={this.props.notifiation.transport}
-                    new_price={this.props.notifiation.price}
-                    application_price={this.props.notifiation.application.price}
                     notification_owner={this.props.notification_owner}
                     notification_type={this.props.notifiation.notification_type}
                     setOfferDecision={this.props.setOfferDecision}

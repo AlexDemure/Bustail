@@ -1,13 +1,15 @@
 import React from 'react'
 
 import ChangePrice from '../../../components/common/change_price_modal'
+import Transport from '../../../components/cards/transport'
 
 import SerializeForm from '../../../utils/form_serializer'
 
-import TransportOffer from './transport'
+
 import ChoicesTypeSwitch from './switch_choices_type'
 
 import './css/offer.css'
+
 
 function ChoicesElements(props) {
     return (
@@ -29,7 +31,8 @@ function ChoicesElements(props) {
                         props.choices.length > 0 ?
                         props.choices.map(
                             (choice) =>
-                            <TransportOffer
+                            <Transport
+                            controls="offer"
                             createOffer={(e) => props.createOffer(e, choice.id)}
                             showTransportCard={props.showTransportCard}
                             transport={choice}/>

@@ -5,6 +5,7 @@ import { getCompanyCardByUrl } from '../../components/common/api/company_card'
 import NavBar from '../../components/common/navbar'
 import Header from '../../components/common/header'
 import TransportCard from '../../components/common/transport_card'
+import Transport from '../../components/cards/transport'
 
 import { getMeApps } from '../../components/common/api/me_apps'
 
@@ -12,10 +13,10 @@ import { ResponseNotify, showNotify } from '../../components/common/response_not
 
 import sendRequest from '../../utils/fetch'
 
-import TransportCompany from './components/transport'
 import OfferForm from "./components/offer"
 
 import './css/index.css'
+
 
 class CompanyPage extends React.Component {
     constructor(props) {
@@ -150,7 +151,8 @@ class CompanyPage extends React.Component {
                             this.state.company.transports &&
                             this.state.company.transports.map(
                                 (transport, index) => 
-                                <TransportCompany
+                                <Transport
+                                controls="multi"
                                 transport={transport}
                                 company={this.state.company}
                                 showTransportCard={() => this.showTransportCard(transport.id)}

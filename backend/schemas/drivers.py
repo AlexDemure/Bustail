@@ -5,6 +5,7 @@ from typing import List
 
 from pydantic import BaseModel, validator, constr, conint, root_validator
 
+from backend.schemas.accounts import AccountData
 from backend.enums.drivers import TransportType
 from backend.utils import get_cities, get_cars
 from backend.submodules.object_storage.enums import FileMimetypes
@@ -106,6 +107,7 @@ class TransportPhotoData(TransportPhotoBase):
 class DriverData(DriverBase):
     id: int
     account_id: int
+    account: AccountData
     transports: List[TransportData] = []
     total_amount: Decimal
     commission: Decimal
@@ -140,6 +142,7 @@ class CompanyCreate(CompanyBase):
 class CompanyData(CompanyBase):
     id: int
     account_id: int
+    account: AccountData
     company_phone: str = None
     socials: dict = None
     page_url: constr(min_length=6, max_length=64) = None

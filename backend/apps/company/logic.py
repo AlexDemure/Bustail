@@ -5,6 +5,7 @@ from backend.core.config import settings
 from backend.apps.drivers.models import Company
 from backend.apps.company.crud import company as company_crud
 from backend.apps.drivers.serializer import prepare_transport_with_photos
+from backend.apps.company.serializer import prepare_company_data
 from backend.enums.system import SystemLogs
 from backend.enums.company import CompanyErrors
 from backend.schemas.drivers import CompanyData, CompanyCreate, CompanyUpdate
@@ -21,7 +22,7 @@ async def get_company(company_id: int) -> Optional[CompanyData]:
         prepare_transport_with_photos(x) for x in company.transports
     ]
 
-    return CompanyData(**company.__dict__, transports=transports)
+    return prepare_company_data(company, transports)
 
 
 async def get_company_by_account_id(account_id: int) -> Optional[CompanyData]:
@@ -34,7 +35,7 @@ async def get_company_by_account_id(account_id: int) -> Optional[CompanyData]:
         prepare_transport_with_photos(x) for x in company.transports
     ]
 
-    return CompanyData(**company.__dict__, transports=transports)
+    return prepare_company_data(company, transports)
 
 
 async def get_company_by_url(page_url: str) -> Optional[CompanyData]:
@@ -47,7 +48,7 @@ async def get_company_by_url(page_url: str) -> Optional[CompanyData]:
         prepare_transport_with_photos(x) for x in company.transports
     ]
 
-    return CompanyData(**company.__dict__, company_phone=company.account.phone, transports=transports)
+    return prepare_company_data(company, transports)
 
 
 async def create_company(company_in: CompanyCreate) -> CompanyData:
@@ -66,7 +67,7 @@ async def create_company(company_in: CompanyCreate) -> CompanyData:
 
     company = await company_crud.create(company_in)
     logger.debug(SystemLogs.company_is_created.value, company_id=company.id)
-    return CompanyData(**company.__dict__)
+    return prepare_company_data(company)
 
 
 def check_not_unique_field(company: Company, schema):

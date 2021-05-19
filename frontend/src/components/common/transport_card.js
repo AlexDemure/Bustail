@@ -82,14 +82,18 @@ export default class TransportCard extends React.Component {
             driver = await this.getDriverInfo(transport.driver_id)
 
             if (driver) {
-                user = await this.getUserInfo(driver.account_id)
+                user = {
+                    fullname: driver.account.fullname,
+                    phone: driver.account.phone
+                }
             }
         }
 
         if (transport.company_id !== null) {
             company = await getCompanyCard(transport.company_id)
-            if (company) {
-                user = await this.getUserInfo(company.account_id)
+            user = {
+                fullname: company.account.fullname,
+                phone: company.company_phone
             }
         }
         

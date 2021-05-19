@@ -31,6 +31,14 @@
     scrollbar-width: none;  /* Firefox */
 }
 
+.container.landing #pwa-btn, 
+.container.landing #about-btn,
+.container.landing #contacts-btn,
+.container.landing #preview-btn,
+.container.landing #faq-btn {
+    cursor: pointer;
+}
+
 .container.landing .page .footer {
     position: fixed;
     height: 10vh;

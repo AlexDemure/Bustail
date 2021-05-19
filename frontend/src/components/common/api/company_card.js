@@ -9,7 +9,7 @@ export let getMeCompanyCard = async() => {
             company = {
                 id: result.id,
                 account_id: result.account_id,
-
+                account: result.account,
                 license_number: result.license_number,
                 inn: result.inn,
                 ogrn: result.ogrn,
@@ -45,6 +45,7 @@ export let getCompanyCardByUrl = async(page_url) => {
             company = {
                 id: result.id,
                 account_id: result.account_id,
+                account: result.account,
                 company_phone: result.company_phone,
                 license_number: result.license_number,
                 inn: result.inn,
@@ -81,7 +82,7 @@ export let getCompanyCard = async(company_id) => {
             company = {
                 id: result.id,
                 account_id: result.account_id,
-
+                account: result.account,
                 license_number: result.license_number,
                 inn: result.inn,
                 ogrn: result.ogrn,

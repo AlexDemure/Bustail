@@ -85,6 +85,10 @@ export default class HistoryPage extends React.Component {
                 
                 <div className="container history">
                     <div className="help">
+                        <div className="help__item rejected">
+                            <div id="circle"></div>
+                            <p id="text">Отменена</p>
+                        </div>
                         <div className="help__item confirmed">
                             <div id="circle"></div>
                             <p id="text">Подтверждена</p>
@@ -96,10 +100,6 @@ export default class HistoryPage extends React.Component {
                         <div className="help__item completed">
                             <div id="circle"></div>
                             <p id="text">Выполнена</p>
-                        </div>
-                        <div className="help__item rejected">
-                            <div id="circle"></div>
-                            <p id="text">Отменена</p>
                         </div>
                     </div>
                     <div className="history__table">

@@ -81,7 +81,7 @@ and (orientation: portrait) {
  /* ADAPTIVE 1024,1280,1337,1440px */
 @media (min-width: 1024px) and (max-width: 1535px) {
     .container.search-transport {
-        width: 65vw;
+        width: 55vw;
     }
     .container.search-transport .search-transport__filters {
         height: 50px;
@@ -97,7 +97,7 @@ and (orientation: portrait) {
  /* ADAPTIVE 1536px and more */
 @media (min-width: 1536px) {
     .container.search-transport {
-        width: 50vw;
+        width: 45vw;
     }
     .container.search-transport .search-transport__filters {
         height: 55px;

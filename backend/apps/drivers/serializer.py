@@ -1,25 +1,15 @@
 from typing import List
 
 from backend.apps.drivers.models import Transport, TransportPhoto, Driver
+from backend.schemas.accounts import AccountData
 from backend.schemas.drivers import TransportPhotoData, DriverData, TransportData
 from backend.submodules.object_storage.uploader import object_storage
 
 
-def prepare_driver_data(driver: Driver, transports: List[Transport]) -> DriverData:
-    """
-    Подготавливае данные о водителе вместе со списком транспорта и их обложек.
-
-    Использовать только если query запрос делает prefetch transport_covers у transport иначе будет AttributeError.
-    """
-    serialized_transports = list()
-
-    for transport in transports:
-        serialized_transports.append(
-            prepare_transport_with_photos(transport)
-        )
-
+def prepare_driver_data(driver: Driver, transports: List[TransportData] = None) -> DriverData:
     return DriverData(
-        transports=serialized_transports,
+        transports=transports if transports else [],
+        account=AccountData(**driver.account.__dict__),
         **driver.__dict__
     )
 

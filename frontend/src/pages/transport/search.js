@@ -2,6 +2,7 @@ import React from 'react'
 import NavBar from '../../components/common/navbar'
 import Header from '../../components/common/header'
 import TransportCard from '../../components/common/transport_card'
+import Transport from '../../components/cards/transport/index'
 
 import { ResponseNotify, showNotify } from '../../components/common/response_notify'
 
@@ -13,7 +14,7 @@ import { transportTypes } from '../../constants/transport_types'
 import SerializeForm from '../../utils/form_serializer'
 import sendRequest from '../../utils/fetch'
 
-import TransportSearch from './components/transport'
+
 import OfferForm from "./components/offer"
 import SearchFilters from './components/filters'
 
@@ -264,7 +265,8 @@ export default class SearchTransportPage extends React.Component {
                             this.state.transports &&
                             this.state.transports.map(
                                 (transport, index) => 
-                                <TransportSearch
+                                <Transport
+                                controls="multi"
                                 transport={transport}
                                 showTransportCard={() => this.showTransportCard(transport.id)}
                                 openOffer={() => this.setState({offerData: index})}

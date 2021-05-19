@@ -23,7 +23,8 @@ class CRUDCompany(CRUDBase[Company, CompanyCreate, UpdatedBase]):
                             queryset=TransportPhoto.all()
                         )
                     )
-                )
+                ),
+                Prefetch('account', queryset=Account.all())
             )
         )
 
@@ -39,7 +40,8 @@ class CRUDCompany(CRUDBase[Company, CompanyCreate, UpdatedBase]):
                             queryset=TransportPhoto.all()
                         )
                     )
-                )
+                ),
+                Prefetch('account', queryset=Account.all())
             )
         )
 
