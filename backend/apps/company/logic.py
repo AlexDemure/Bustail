@@ -67,7 +67,7 @@ async def create_company(company_in: CompanyCreate) -> CompanyData:
 
     company = await company_crud.create(company_in)
     logger.debug(SystemLogs.company_is_created.value, company_id=company.id)
-    return prepare_company_data(company)
+    return await get_company(company.id)
 
 
 def check_not_unique_field(company: Company, schema):
