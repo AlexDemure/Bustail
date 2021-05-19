@@ -31,9 +31,6 @@ def prepare_transport_with_photos(transport: Transport) -> TransportData:
 
 
 def prepare_transport_photo(transport_photo: TransportPhoto) -> TransportPhotoData:
-    data = transport_photo.__dict__
-    file_uri = object_storage.get_url(data.pop("file_uri"))
-    return TransportPhotoData(
-        file_uri=file_uri,
-        **data
-    )
+    data = TransportPhotoData(**transport_photo.__dict__)
+    data.file_uri = object_storage.get_url(data.file_uri)
+    return data

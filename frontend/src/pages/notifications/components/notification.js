@@ -14,7 +14,10 @@ export default class Notification extends React.Component {
         return (
             <React.Fragment>
                 <div className="offer">
-                    <TicketNotification ticket={this.props.notifiation.application}/>
+                    <TicketNotification
+                    ticket={this.props.notifiation.application}
+                    new_price={this.props.notifiation.price}
+                    />
                     <Transport
                     controls="notification"
                     transport={this.props.notifiation.transport}
