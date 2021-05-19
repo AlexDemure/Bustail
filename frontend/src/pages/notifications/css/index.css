@@ -1,5 +1,5 @@
 .container.notifications {
-    width: 100vw;
+    width: 95vw;
 
     display: grid;
     grid-template-rows: auto 1fr;
@@ -10,7 +10,6 @@
 
 .container.notifications .notifications__driver__applications, 
 .container.notifications .notifications__client__applications {
-    width: 95%;
     justify-self: center;
     
     padding-bottom: 10vh;

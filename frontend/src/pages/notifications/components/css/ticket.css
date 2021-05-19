@@ -1,6 +1,6 @@
 .ticket__notification {
     width: 100%;
-    max-width: 700px;
+    max-width: 650px;
     height: 70px;
     background-color: #222222;
     border-top: 2px solid #262626;
@@ -29,18 +29,17 @@
     font-family: "FuturaDemiC";
     font-size: 18px;
     margin-left: 10px;
+    color: #fbfbfb;
 }
 
 .ticket__notification .ticket__notification__city.from {
     grid-row: 1 / 2;
     grid-column: 2 / 3;
-    color: #fba333;
 }
 
 .ticket__notification .ticket__notification__city.to {
     grid-row: 2 / 3;
     grid-column: 2 / 3;
-    color: #50816C;
 }
 
 .ticket__notification .ticket__notification__date,
@@ -64,6 +63,7 @@
     color: #fbfbfb;
 }
 
+.ticket__notification .ticket__notification__city span,
 .ticket__notification .ticket__notification__price span {
     font-size: 16px;
     color: #535353;
@@ -81,9 +81,9 @@
    left: 10px;
    top: 10px;
    background-color: #222222;
-   border: 2px solid #fba333;
-
+   border: 2px solid #535353;
 }
+
 .ticket__notification__direction .ticket__notification__line {
     position: absolute;
     left: 12.5px;
@@ -97,7 +97,7 @@
     left: 10px;
     bottom: 10px;
     background-color: #222222;
-    border: 2px solid #50816C;
+    border: 2px solid #fba333;
 }
 
 
