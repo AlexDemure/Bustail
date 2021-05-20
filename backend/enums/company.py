@@ -9,3 +9,4 @@ class CompanyErrors(Enum):
     car_not_belong_to_company = "Данный транспорт не принадлежит текущей компании."
     user_not_belong_to_company = "Данная компания не принадлежит текущему пользователю."
     company_have_debt_limit = "Превышен лимит задолженности. Необходимо оплатить задолженность."
+    inn_not_found = "Данный ИНН не найден в реестрах."

@@ -17,6 +17,7 @@ from backend.enums.system import SystemLogs
 from backend.schemas.drivers import CompanyData, CompanyBase, CompanyCreate, CompanyUpdate
 from backend.submodules.common.enums import BaseMessage
 from backend.submodules.common.responses import auth_responses
+from backend.submodules.dadata.utils import DaCompany
 
 router = APIRouter()
 
@@ -64,6 +65,14 @@ async def create_company(payload: CompanyBase, account: Account = Depends(confir
         return JSONResponse(
             status_code=status.HTTP_200_OK,
             content=jsonable_encoder(company)
+        )
+
+    # Проверка ИНН по базе
+    _, is_find = await DaCompany().find(payload.inn)
+    if not is_find:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=CompanyErrors.inn_not_found.value
         )
 
     create_schema = CompanyCreate(

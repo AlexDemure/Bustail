@@ -4,16 +4,17 @@ import secrets
 from backend.apps.billing.settings import BillingSettings
 from backend.apps.mailing.settings import MailingSettings
 from backend.db.settings import PostgresDBSettings, SQLiteDBSettings
-from backend.submodules.object_storage.settings import YandexObjectStorage
 from backend.submodules.auth.settings import AuthSettings
-from backend.submodules.security.settings import SecuritySettings
+from backend.submodules.dadata.setting import DaDataSetting
+from backend.submodules.object_storage.settings import YandexObjectStorage
 from backend.submodules.redis.settings import RedisSettings
+from backend.submodules.security.settings import SecuritySettings
 
 # INCLUDE SETTINGS
 configs = [
     PostgresDBSettings, SQLiteDBSettings, AuthSettings,
     YandexObjectStorage, MailingSettings, BillingSettings,
-    SecuritySettings, RedisSettings
+    SecuritySettings, RedisSettings, DaDataSetting
 ]
 
 
