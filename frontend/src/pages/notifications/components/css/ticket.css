@@ -87,7 +87,7 @@
 
 .ticket__notification__direction .ticket__notification__line {
     position: absolute;
-    left: 10px;
+    left: 12.5px;
 
     background-color: #414141;
     width: 5px;
