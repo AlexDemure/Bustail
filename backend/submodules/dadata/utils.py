@@ -19,7 +19,7 @@ class DaBase:
 
     async def send(self, data: dict) -> dict:
         async with httpx.AsyncClient() as client:
-            if settings.ENV == SystemEnvs.dev.value:
+            if settings.ENV == SystemEnvs.prod.value:
                 self.logger.debug("Send to DaData service", data=data)
                 response = await client.post(
                     url=self.endpoint_url,
