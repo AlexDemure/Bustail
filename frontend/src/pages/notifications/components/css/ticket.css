@@ -75,10 +75,11 @@
     width: 12.5px;
     border-radius: 50%;
     z-index: 1;
+    position: absolute;
 }
 
 .ticket__notification__direction .ticket__notification__circle.top {
-   left: 10px;
+   left: 7.5px;
    top: 10px;
    background-color: #222222;
    border: 2px solid #535353;
@@ -86,7 +87,7 @@
 
 .ticket__notification__direction .ticket__notification__line {
     position: absolute;
-    left: 12.5px;
+    left: 10px;
 
     background-color: #414141;
     width: 5px;
@@ -94,7 +95,7 @@
     align-self: center;
 }
 .ticket__notification__direction .ticket__notification__circle.bottom {
-    left: 10px;
+    left: 7.5px;
     bottom: 10px;
     background-color: #222222;
     border: 2px solid #fba333;
