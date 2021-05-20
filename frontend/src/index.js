@@ -13,6 +13,8 @@ import CabinetPage from './pages/cabinet/index'
 import HistoryPage from './pages/history/index'
 import NotificationPage from './pages/notifications/index'
 import CompanyPage from './pages/company/index'
+import DocsTermsPage from './pages/docs/terms'
+import DocsPrivecyPage from './pages/docs/privecy'
 
 import SearchTransportPage from './pages/transport/search'
 import CreateTransportPage from './pages/transport/create'
@@ -45,6 +47,9 @@ ReactDOM.render(
           <Route path="/history" component={HistoryPage} />
           <Route path="/notifications" component={NotificationPage} />
           <Route path="/cabinet" component={CabinetPage} />
+
+          <Route path="/docs/terms" component={DocsTermsPage} />
+          <Route path="/docs/privecy" component={DocsPrivecyPage} />
 
           <Route path='/company/:page_url' component={CompanyPage} />
 

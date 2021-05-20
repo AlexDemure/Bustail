@@ -8,7 +8,6 @@ import DragAndDrop from '../../../components/common/drag_and_drop'
 import { uploadFile } from '../../../utils/upload_file'
 
 import './css/form_contacts.css'
-import { Link } from 'react-router-dom'
 
 function FeedBackForm(props) {
     return (
@@ -16,8 +15,8 @@ function FeedBackForm(props) {
             <div className="contacts__title">
                 <p id="email">Email: <span>support@bustail.online</span></p>
                 <a href="tel:+79191231251" id="phone">Телефон: <span>+7 (351) 223-12-51</span></a>
-                <Link to="/docs/privecy.docx" download target="_blank" className="docs">Политика конфиденциальности</Link>
-                <Link to="/docs/terms.docx" download target="_blank" className="docs">Пользовательское соглашение</Link>
+                <a href="/docs/privecy" className="docs">Политика конфиденциальности</a>
+                <a href="/docs/terms" className="docs">Пользовательское соглашение</a>
             </div>
             <form className="contacts__form__feedback" onSubmit={props.onSubmit}>
                 <p>Форма обратной связи</p>

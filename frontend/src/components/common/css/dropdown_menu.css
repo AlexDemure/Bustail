@@ -90,6 +90,20 @@
 }
 
 
+.dropdown-menu .dropdown-menu__docs {
+    justify-self: center;
+    align-self: center;
+    display: grid;
+    grid-template-rows: 1fr;
+    grid-template-columns: 1fr;
+}
+.dropdown-menu .dropdown-menu__docs a {
+    text-decoration: none;
+    font-size: 16px;
+    color: #fba333;
+    margin: 5px;
+    font-family: "FuturaBookC";
+}
 
 @media screen and (min-width:361px) and (max-width:400px) {
     .dropdown-menu .dropdown-menu__contacts a,

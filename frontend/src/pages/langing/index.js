@@ -1,7 +1,6 @@
 import React from 'react'
 
 import Header from '../../components/common/header'
-import CookieChecker from '../../components/common/cookie_modal';
 
 import PreviewPage from './pages/preview'
 import AboutPage from './pages/about'
@@ -47,7 +46,6 @@ export default class LangingPage extends React.Component {
         return (
             <React.Fragment>
                 <Header page_name={this.state.page_name}/>
-                <CookieChecker/>
                 <div className="container landing">
                     
                     {

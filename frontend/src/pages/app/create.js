@@ -10,9 +10,6 @@ import './css/create.css'
 
 
 export default class CreateAppPage extends React.Component {
-    constructor() {
-        super()
-    }
 
     async componentDidMount(){
         isAuth()

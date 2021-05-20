@@ -23,7 +23,10 @@ function DropdownMenu() {
                 </ul>
             </div>
             <RedirectButton onClick={() => logout()} text="Выйти"/>
-
+            <div className="dropdown-menu__docs">
+                <a href="/docs/privecy" className="docs">Политика конфиденциальности</a>
+                <a href="/docs/terms" className="docs">Пользовательское соглашение</a>
+            </div>
         </div>
     )
 }

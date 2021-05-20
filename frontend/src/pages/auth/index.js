@@ -9,9 +9,6 @@ import './css/index.css'
 
 
 export default class AuthPage extends React.Component {
-    constructor() {
-        super()
-    }
 
     componentDidMount() {
         let clientIsAuth = isAuth()
