@@ -46,6 +46,7 @@ export async function getAuthToken(username, password) {
         let result = await response.json()
 
         localStorage.setItem('token', result.access_token)
+        localStorage.setItem('is_confirmed', true)
         localStorage.setItem('refresh', result.refresh_token)
 
     } else {

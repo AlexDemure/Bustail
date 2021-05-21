@@ -163,6 +163,11 @@
     grid-column: 1 / 3;
     width: 80%;
 }
+
+.transport__card .transport__card__controls.notification .transport__notification__btn-set-decision-offer {
+    min-width: 75px;
+}
+
 .transport__card .transport__card__controls.notification .transport__notification__btn-set-decision-offer.accept {
     grid-column: 1 / 2;
     background-color: #478341;
@@ -221,6 +226,7 @@
     .transport__card .transport__card__controls.multi .transport__card__control {
         background-size: 28px 28px;
     }
+    
     .transport__card #offer,
     .transport__card #remove {
         height: 45px;
@@ -320,12 +326,15 @@
     }
 
     .transport__card .transport__card__controls.notification {
-        width: 80%;
         height: 50px;
     }
 
     .transport__card .transport__card__controls.notification p {
         font-size: 18px;
+    }
+
+    .transport__card .transport__card__controls.notification .transport__notification__btn-set-decision-offer {
+        min-width: 100px;
     }
 }
 
@@ -377,12 +386,15 @@
     }
 
     .transport__card .transport__card__controls.notification {
-        width: 80%;
         height: 50px;
     }
 
     .transport__card .transport__card__controls.notification p {
         font-size: 20px;
+    }
+
+    .transport__card .transport__card__controls.notification .transport__notification__btn-set-decision-offer {
+        min-width: 125px;
     }
 }
 

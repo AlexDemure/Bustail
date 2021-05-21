@@ -52,13 +52,13 @@
 }
 
 .ticket__notification .ticket__notification__date {
-    grid-row: 1 / 2;
+    grid-row: 2 / 3;
     grid-column: 3 / 4;
     color: #fba333;
 }
 
 .ticket__notification .ticket__notification__price {
-    grid-row: 2 / 3;
+    grid-row: 1 / 2;
     grid-column: 3 / 4;
     color: #fbfbfb;
 }

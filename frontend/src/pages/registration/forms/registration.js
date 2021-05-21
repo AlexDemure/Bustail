@@ -104,6 +104,7 @@ export default class RegistrationForm extends React.Component {
                 console.log(result);
                 
                 localStorage.setItem('token', result.access_token);
+                localStorage.setItem('is_confirmed', false)
                 
                 this.setState({
                     form: "confirm",
