@@ -130,7 +130,7 @@
  /* ADAPTIVE 1024,1280,1337,1440px */
 @media (min-width: 1024px) and (max-width: 1535px) {
     .container.company-page {
-        width: 55vw;
+        width: 65vw;
         grid-template-rows: 80px 1fr;
     }
 
@@ -162,7 +162,7 @@
  /* ADAPTIVE 1536px and more */
 @media (min-width: 1536px) {
     .container.company-page {
-        width: 45vw;
+        width: 55vw;
         grid-template-rows: 100px 1fr;
     }
 

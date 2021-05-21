@@ -48,13 +48,13 @@
  /* ADAPTIVE 1024,1280,1337,1440px */
 @media (min-width: 1024px) and (max-width: 1535px) {
     .container.notifications {
-        width: 55vw;
+        width: 65vw;
     }
 }
 
  /* ADAPTIVE 1536px and more */
 @media (min-width: 1536px) {
     .container.notifications {
-        width: 45vw;
+        width: 55vw;
     }
 }

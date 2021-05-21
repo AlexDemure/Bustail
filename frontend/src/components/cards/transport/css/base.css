@@ -344,7 +344,7 @@
 @media (min-width: 1024px) {
     .transport {
         min-height: 250px;
-        grid-template-columns: 300px 1fr;
+        grid-template-columns: 350px 1fr;
     }
     
     .transport .transport__card {
@@ -353,8 +353,8 @@
 
     .transport .transport__photo {
         min-height: 250px;
-        width: 300px;
-        background-size: 300px 250px;   /* x y*/
+        width: 350px;
+        background-size: 350px 250px;   /* x y*/
     }
 
     .transport__card .transport__card__title p[id=model] {
