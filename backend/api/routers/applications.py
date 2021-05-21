@@ -17,6 +17,7 @@ from backend.apps.applications.logic import (
     get_history_applications as logic_get_history_applications
 )
 from backend.apps.drivers.logic import get_driver_by_account_id
+from backend.apps.company.logic import get_company_by_account_id
 from backend.enums.applications import ApplicationErrors, ApplicationTypes
 from backend.schemas.applications import (
     ListApplications, ApplicationData, HistoryApplication,
@@ -61,7 +62,8 @@ def get_app_types() -> dict:
 async def get_history_applications(account: Account = Depends(confirmed_account)) -> List[HistoryApplication]:
     """Получение истории по заявкам которые находятся в конечном статусе."""
     driver = await get_driver_by_account_id(account.id)
-    return await logic_get_history_applications(account, driver)
+    company = await get_company_by_account_id(account.id)
+    return await logic_get_history_applications(account, getattr(driver, 'id', None), getattr(company, 'id', None))
 
 
 @router.get(
@@ -199,15 +201,15 @@ async def get_all_applications(
 
 
 #TODO Удалить перед выкатом
-@router.get("/test/force/in_progress")
-async def force_in_progress():
-    """Ручной перевод всех заявок подходящих по датам в статус in_progress"""
-    from backend.apps.applications.tasks import in_progress_applications
-    await in_progress_applications()
-
-
-@router.get("/test/force/completed")
-async def force_in_progress():
-    """Ручной перевод всех заявок подходящих по датам в статус completed"""
-    from backend.apps.applications.tasks import completed_applications
-    await completed_applications()
+# @router.get("/test/force/in_progress")
+# async def force_in_progress():
+#     """Ручной перевод всех заявок подходящих по датам в статус in_progress"""
+#     from backend.apps.applications.tasks import in_progress_applications
+#     await in_progress_applications()
+#
+#
+# @router.get("/test/force/completed")
+# async def force_in_progress():
+#     """Ручной перевод всех заявок подходящих по датам в статус completed"""
+#     from backend.apps.applications.tasks import completed_applications
+#     await completed_applications()

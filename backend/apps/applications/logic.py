@@ -145,7 +145,9 @@ async def reject_application(account: Account, application_id: int) -> None:
     assert application.application_status == ApplicationStatus.rejected, "Application is not rejected"
 
 
-async def get_history_applications(account: Account, driver: DriverData = None) -> List[HistoryApplication]:
+async def get_history_applications(
+        account: Account, driver_id: int = None, company_id: int = None
+) -> List[HistoryApplication]:
     """Получение истории по заявкам которые находятся в конечном статусе."""
-    history = await application_crud.get_history(account.id, getattr(driver, 'id', None))
+    history = await application_crud.get_history(account.id, driver_id, company_id)
     return [prepare_apps_for_history_table(x) for x in history]

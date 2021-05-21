@@ -63,12 +63,15 @@ class CRUDApplication(CRUDBase[Application, ApplicationCreate, UpdatedBase]):
             ).all()
         )
 
-    async def get_history(self, account_id: int, driver_id: int = None) -> List[Application]:
+    async def get_history(self, account_id: int, driver_id: int = None, company_id: int = None) -> List[Application]:
         """История заявок по которым был проставлен конечный статус."""
         return await (
             self.model.filter(
                 Q(
-                    Q(account_id=account_id), Q(driver_id=driver_id), join_type="OR"
+                    Q(account_id=account_id),
+                    Q(driver_id=driver_id),
+                    Q(company_id=company_id),
+                    join_type="OR"
                 ),
                 Q(
                     Q(application_status__not_in=[ApplicationStatus.waiting]),
