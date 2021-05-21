@@ -78,6 +78,12 @@
     background-image: url('../../../../static/icons/active/company_card.png');
 }
 
+@media (min-width: 414px) and (max-width: 640px) {
+    .switch__card p {
+        background-size: 25px;
+    }
+    
+}
 /* ADAPTIVE 768-801-1024px */
 @media (min-width: 641px) and (max-width: 1023px) {
     .switch__card {
