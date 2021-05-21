@@ -155,6 +155,11 @@ export default class DriverPage extends React.Component {
                 
                 showNotify()
                 
+                if (method === "POST") {
+                    this.setState({
+                        form: "card"
+                    })
+                }
             },
             (error) => {
                 this.setState({

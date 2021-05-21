@@ -174,6 +174,12 @@ export default class CompanyPage extends React.Component {
                     notify_type: "success",
                 })
                 showNotify()
+
+                if (method === "POST") {
+                    this.setState({
+                        form: "card"
+                    })
+                }
             },
             (error) => {
                 this.setState({
