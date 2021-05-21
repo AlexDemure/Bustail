@@ -170,7 +170,7 @@ export default class SearchTransportPage extends React.Component {
             transport_type: ""
         }
 
-        let transport_types = [].slice.call(e.target.children[2].children)
+        let transport_types = [].slice.call(e.target.children[1].children)
         
         for (var key in transport_types) {
             
