@@ -11,6 +11,19 @@ from backend.enums.applications import ApplicationStatus
 from backend.submodules.common.schemas import UpdatedBase
 
 
+async def expire_applications():
+    """Перевод заявок в истеченные"""
+    async with in_transaction():
+        applications = await application_crud.expired_applications()
+
+        for application in applications:
+            app_up = UpdatedBase(
+                id=application.id,
+                updated_fields=dict(application_status=ApplicationStatus.expired)
+            )
+            await application_crud.update(app_up)
+
+
 async def in_progress_applications():
     """Перевод заявок из подтвержденных в процессе"""
     async with in_transaction():

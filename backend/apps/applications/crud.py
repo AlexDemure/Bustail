@@ -36,7 +36,7 @@ class CRUDApplication(CRUDBase[Application, ApplicationCreate, UpdatedBase]):
             self.model.filter(
                 Q(
                     Q(application_status=ApplicationStatus.confirmed),
-                    # Q(to_go_when__lte=datetime.utcnow().date())
+                    Q(to_go_when__lte=datetime.utcnow().date())
                 )
             ).all()
         )
@@ -47,17 +47,31 @@ class CRUDApplication(CRUDBase[Application, ApplicationCreate, UpdatedBase]):
             self.model.filter(
                 Q(
                     Q(application_status=ApplicationStatus.progress),
-                    # Q(to_go_when__lt=datetime.utcnow().date())
+                    Q(to_go_when__lt=datetime.utcnow().date())
                 )
             ).all()
         )
 
-    async def get_history(self, account_id: int, driver_id: int = None) -> List[Application]:
+    async def expired_applications(self) -> List[Application]:
+        """Заявки которые не были подтверждены но у них истекла дата исполнения."""
+        return await (
+            self.model.filter(
+                Q(
+                    Q(application_status=ApplicationStatus.waiting),
+                    Q(to_go_when__gt=datetime.utcnow().date())
+                )
+            ).all()
+        )
+
+    async def get_history(self, account_id: int, driver_id: int = None, company_id: int = None) -> List[Application]:
         """История заявок по которым был проставлен конечный статус."""
         return await (
             self.model.filter(
                 Q(
-                    Q(account_id=account_id), Q(driver_id=driver_id), join_type="OR"
+                    Q(account_id=account_id),
+                    Q(driver_id=driver_id),
+                    Q(company_id=company_id),
+                    join_type="OR"
                 ),
                 Q(
                     Q(application_status__not_in=[ApplicationStatus.waiting]),
