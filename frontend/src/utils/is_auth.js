@@ -1,4 +1,4 @@
-export default function isAuth(redirect = false) {
+export default function isAuth(redirect = true) {
     let token = localStorage.getItem("token")
     let is_confirmed = localStorage.getItem("is_confirmed")
 
