@@ -91,11 +91,6 @@
     overflow-x: hidden;
     
     -webkit-overflow-scrolling: touch;
-
-    width: 95%;
-    display: grid;
-    justify-items: center;
-    align-self: flex-start;
 }
 
 .offer__transport__modal-window__content .offer__transport__modal-window__choices::-webkit-scrollbar {
