@@ -192,8 +192,14 @@
 /* ADAPTIVE 768-801 */
 @media (min-width: 641px) and (max-width: 1023px) {
     .transport_card__modal-window__card {
-        grid-template-rows: 330px 1fr;
+        grid-template-rows: 300px 1fr;
     }
+
+    .transport_card__modal-window__card .transport_card__photos {
+        
+        width: 85%;
+    }
+
     .transport_card__modal-window__content .transport_card__modal-window__title {
         font-size: 26px;
     }
@@ -206,16 +212,16 @@
     
     
     .transport_card__modal-window__card .transport_card__photos {
-        height: 325px;
+        height: 300px;
     } 
     
     .transport_card__photos .transport_card__photo{
-        height: 325px;
+        height: 300px;
     }
     
     .transport_card__photos .transport_card__other-photos div,
     .transport_card__photos .transport_card__other-photos .transport_card__additional-photo{
-        height: 101.5px;
+        height: 94.5px;
         width: 90%;
         margin-bottom: 5px;
     }
