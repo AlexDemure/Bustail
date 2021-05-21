@@ -32,7 +32,7 @@
     height: 100%;
     grid-row: 3 / 4;
     justify-self: center;
-    
+    display: grid;
     overflow: hidden;
 }
 .container.cabinet.company.card .cabinet__company .cabinet__company__transports .cabinet__company__transports__title {
@@ -54,6 +54,10 @@
 .container.cabinet.company.card .cabinet__company .cabinet__company__transports .cabinet__company__transports__title p {
     font-family: "FuturaDemiC";
     font-size: 18px;
+}
+
+.container.cabinet.company.card .cabinet__company .cabinet__company__transports .transport {
+    justify-self: center;
 }
 
 

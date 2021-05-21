@@ -162,10 +162,12 @@
 .transport__card .transport__card__controls.notification .transport__notification__btn-remove-offer {
     grid-column: 1 / 3;
     width: 80%;
+    cursor: pointer;
 }
 
 .transport__card .transport__card__controls.notification .transport__notification__btn-set-decision-offer {
     min-width: 75px;
+    cursor: pointer;
 }
 
 .transport__card .transport__card__controls.notification .transport__notification__btn-set-decision-offer.accept {
@@ -282,17 +284,17 @@
 @media (min-width: 641px) and (max-width: 1023px) {
     .transport {
         min-height: 220px;
-        grid-template-columns: 240px 1fr;
+        grid-template-columns: 270px 1fr;
     }
 
     .transport .transport__card {
-        min-height: 220px;
+        min-height: 270px;
     }
 
     .transport .transport__photo {
         min-height: 220px;
-        width: 240px;
-        background-size: 240px 220px;   /* x y*/
+        width: 270px;
+        background-size: 270px 220px;   /* x y*/
     }
 
     .transport__card .transport__card__title p[id=model] {
@@ -342,7 +344,7 @@
 @media (min-width: 1024px) {
     .transport {
         min-height: 250px;
-        grid-template-columns: 270px 1fr;
+        grid-template-columns: 300px 1fr;
     }
     
     .transport .transport__card {
@@ -351,8 +353,8 @@
 
     .transport .transport__photo {
         min-height: 250px;
-        width: 270px;
-        background-size: 270px 250px;   /* x y*/
+        width: 300px;
+        background-size: 300px 250px;   /* x y*/
     }
 
     .transport__card .transport__card__title p[id=model] {
