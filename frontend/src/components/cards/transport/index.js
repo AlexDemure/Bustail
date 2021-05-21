@@ -148,7 +148,7 @@ export default class Transport extends React.Component {
                     <div className="transport__card__body">
                         <div id="info">
                             <p className="transport__card__item">вместимость: <span>{this.props.transport.count_seats}</span></p>
-                            <p className="transport__card__item">стоимость: <span>{this.props.transport.price}</span></p>
+                            <p className="transport__card__item">стоимость: <span>{this.props.transport.price === 0 ? "Не указано" : this.props.transport.price}</span></p>
                             <p className="transport__card__item">город: <span>{this.props.transport.city}</span></p>
                         </div>
                     </div>
