@@ -142,6 +142,7 @@ export default class RegistrationForm extends React.Component {
         .then(
             (data) => {
                 console.log(data);
+                localStorage.setItem('is_confirmed', true)
                 window.location.replace("/main");
             },
             (error) => {

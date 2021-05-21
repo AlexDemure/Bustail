@@ -25,6 +25,7 @@ import CreateAppPage from './pages/app/create'
 import './index.css'
 
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
+import DragAndDrop from './components/common/drag_and_drop';
 
 ReactDOM.render(
   <Router>
@@ -50,6 +51,7 @@ ReactDOM.render(
 
           <Route path="/docs/terms" component={DocsTermsPage} />
           <Route path="/docs/privecy" component={DocsPrivecyPage} />
+          <Route path="/test" component={TestComp} />
 
           <Route path='/company/:page_url' component={CompanyPage} />
 
@@ -58,6 +60,15 @@ ReactDOM.render(
   document.getElementById('root')
 );
 
+function TestComp() {
+  function saveFiles(files) {
+    console.log(files)
+  }
+
+  return (
+    <DragAndDrop saveFiles={saveFiles}/>
+  )
+}
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

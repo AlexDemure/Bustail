@@ -8,6 +8,18 @@ import sendRequest from '../../utils/fetch'
 import './css/transport_card.css'
 
 
+function ZoomPhoto(props) {
+    return (
+        <div className="zoom-photo__modal__bg" onClick={props.onClick}>
+            <img 
+                src={props.file_uri}
+                alt="preview"
+                className="zoomed-photo"
+            ></img>
+        </div>
+    )
+}
+
 export default class TransportCard extends React.Component {
     constructor(props) {
         super(props)
@@ -30,7 +42,10 @@ export default class TransportCard extends React.Component {
                 city: null,
                 count_seats: null,
                 transport_covers: []
-            }
+            },
+
+            zoomMode: false,
+            zoomObject: null,
         }
     }
 
@@ -106,66 +121,100 @@ export default class TransportCard extends React.Component {
     }
 
     render() {
-        let image_url
+        let main_img
+        let div_blocks = []
         
+
         if (this.state.transport.transport_covers.length > 0) {
-            image_url = this.state.transport.transport_covers[0].file_uri
+            main_img = this.state.transport.transport_covers[0].file_uri
         } else {
-            image_url = null
+            main_img = null
         }
         
-       
+        for (let i = 0; i < 3 - this.state.transport.transport_covers.slice(1).length; i++) { // выведет 0, затем 1, затем 2
+            div_blocks.push(
+                <div></div>
+            )
+          }
+
+          
         return(
-            <div className="transport_card__modal-window__bg">
-                <div className="transport_card__modal-window__content">
-                    <div>
-                        <p className="transport_card__modal-window__title">Карточка автомобиля</p>
-                        <div className="transport_card__modal-window__close-btn" onClick={this.props.onClose}></div>
-                    </div>
-                    <div className="transport_card__modal-window__card">
-                        <div className="transport_card__photos">
-                        <img 
-                            src={image_url}
-                            alt="preview"
-                            className="transport_card__photo"
-                        ></img>
-                        <div className="transport_card__other-photos">
-                            <div>
-                                <p>+</p>
-                            </div>
-                            <div>
-                                <p>+</p>
-                            </div>
-                            <div>
-                                <p>+</p>
+
+            <React.Fragment>
+                {
+                    this.state.zoomMode &&
+                    <ZoomPhoto file_uri={this.state.zoomObject.file_uri} onClick={() => this.setState({zoomMode: false})}/>
+                }
+                
+                <div className="transport_card__modal-window__bg">
+                    <div className="transport_card__modal-window__content">
+                        <div>
+                            <p className="transport_card__modal-window__title">Карточка автомобиля</p>
+                            <div className="transport_card__modal-window__close-btn" onClick={this.props.onClose}></div>
+                        </div>
+                        <div className="transport_card__modal-window__card">
+                            <div className="transport_card__photos">
+                            {
+                                main_img ?
+                                <img 
+                                    src={main_img}
+                                    onClick={() => this.setState({
+                                        zoomMode: true,
+                                        zoomObject: this.state.transport.transport_covers[0],
+                                    })}
+                                    alt="preview"
+                                    className="transport_card__photo"
+                                ></img> :
+                                <div></div>
+                            }
+                           
+                            <div className="transport_card__other-photos">
+                                {
+                                    this.state.transport.transport_covers.length > 0 &&
+                                    this.state.transport.transport_covers.slice(1).map(
+                                        (cover, index) =>
+                                        <img
+                                        src={cover.file_uri}
+                                        onClick={() => this.setState({
+                                            zoomMode: true,
+                                            zoomObject: this.state.transport.transport_covers[index + 1],
+                                        })}
+                                        
+                                        alt="preview"
+                                        className="transport_card__additional-photo">
+                                        </img>
+                                    )
+                                }
+                                {div_blocks}
                             </div>
                         </div>
-                    </div>
-                        <div className="transport_card__details">
-                            <p className="transport_card__detail transport-name">{this.state.transport.brand} {this.state.transport.model}</p>
-                            <p className="transport_card__detail state-number">{this.state.transport.state_number}</p>
-                            <div className="transport_card__additionals">
-                                <p className="transport_card__detail count-seats"><span>Вместимость:</span> {this.state.transport.count_seats}</p>
-                                <p className="transport_card__detail price"><span>Стоимость:</span> {this.state.transport.price}</p>
-                                <p className="transport_card__detail city"><span>Город:</span> {this.state.transport.city}</p>
-                                {
-                                    this.state.transport.company_id &&
-                                    <a 
-                                    href={`/company/${this.state.company.page_url}`}
-                                    className="transport_card__detail driver-name"><span id="company">Компания: {this.state.company.company_name}</span>
-                                    </a>
-                                }
-                                {
-                                    this.state.transport.driver_id &&
-                                    <p className="transport_card__detail driver-name"><span>Водитель:</span> {this.state.user.fullname ? this.state.user.fullname : "Не указано"}</p>
-                                }
-                                
-                                <p className="transport_card__detail phone"><span>Телефон:</span> {this.state.user.phone ? this.state.user.phone : "Не указано"}</p>
+                            <div className="transport_card__details">
+                                <p className="transport_card__detail transport-name">{this.state.transport.brand} {this.state.transport.model}</p>
+                                <p className="transport_card__detail state-number">{this.state.transport.state_number}</p>
+                                <div className="transport_card__additionals">
+                                    <p className="transport_card__detail count-seats"><span>Вместимость:</span> {this.state.transport.count_seats}</p>
+                                    <p className="transport_card__detail price"><span>Стоимость:</span> {this.state.transport.price}</p>
+                                    <p className="transport_card__detail city"><span>Город:</span> {this.state.transport.city}</p>
+                                    {
+                                        this.state.transport.company_id &&
+                                        <a 
+                                        href={`/company/${this.state.company.page_url}`}
+                                        className="transport_card__detail driver-name"><span id="company">Компания: {this.state.company.company_name}</span>
+                                        </a>
+                                    }
+                                    {
+                                        this.state.transport.driver_id &&
+                                        <p className="transport_card__detail driver-name"><span>Водитель:</span> {this.state.user.fullname ? this.state.user.fullname : "Не указано"}</p>
+                                    }
+                                    
+                                    <p className="transport_card__detail phone"><span>Телефон:</span> {this.state.user.phone ? this.state.user.phone : "Не указано"}</p>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </React.Fragment>
+            
         )
        
     }

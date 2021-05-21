@@ -1,3 +1,22 @@
+.zoom-photo__modal__bg {
+    z-index: 300;
+    bottom: 0;
+    left: 0;
+    position: fixed;
+    height: 100vh;
+    width: 100vw;
+    background: rgba(22, 22, 22, 0.8);
+    display: grid;
+    justify-items: center;
+    align-items: center;
+}
+
+.zoomed-photo {
+    z-index: 301;
+    height: 50vh;
+    width: 95vw;
+}
+
 .transport_card__modal-window__bg {
     z-index: 250;
     bottom: 0;
@@ -105,7 +124,8 @@
     grid-column: 2 / 3;
 }
 
-.transport_card__photos .transport_card__other-photos div{
+.transport_card__photos .transport_card__other-photos div,
+.transport_card__photos .transport_card__other-photos .transport_card__additional-photo{
     height: 68.5px;
     width: 90%;
     border: 1px dashed #535353;
@@ -118,12 +138,6 @@
     align-content: center;
     align-items: center;
 
-}
-
-.transport_card__photos .transport_card__other-photos div p {
-    color: #535353;
-    font-size: 16px;
-    font-family: "FuturaDemiC"; 
 }
 
 .transport_card__modal-window__card .transport_card__details {
@@ -199,16 +213,13 @@
         height: 325px;
     }
     
-    .transport_card__photos .transport_card__other-photos div{
+    .transport_card__photos .transport_card__other-photos div,
+    .transport_card__photos .transport_card__other-photos .transport_card__additional-photo{
         height: 101.5px;
         width: 90%;
         margin-bottom: 5px;
     }
     
-    .transport_card__photos .transport_card__other-photos div p {
-        font-size: 22px;
-    }
-
     .transport_card__details .transport_card__additionals {
         gap: 15px
     }
@@ -233,6 +244,11 @@
 
  /* ADAPTIVE 1024,1280,1337,1440px */
 @media (min-width: 1024px) and (max-width: 1535px) {
+    .zoomed-photo {
+        height: 450px;
+        width: 650px;
+    }
+
     .transport_card__modal-window__content {
         width: 55vw;
         margin-left: 22.5vw;
@@ -261,14 +277,11 @@
         height: 300px;
     }
     
-    .transport_card__photos .transport_card__other-photos div{
+    .transport_card__photos .transport_card__other-photos div,
+    .transport_card__photos .transport_card__other-photos .transport_card__additional-photo{
         height: 94.5px;
         width: 90%;
         margin-bottom: 5px;
-    }
-    
-    .transport_card__photos .transport_card__other-photos div p {
-        font-size: 20px;
     }
 
     .transport_card__details .transport_card__additionals {
@@ -295,6 +308,12 @@
 
  /* ADAPTIVE 1536px and more */
 @media (min-width: 1536px) {
+    
+    .zoomed-photo {
+        height: 500px;
+        width: 700px;
+    }
+
     .transport_card__modal-window__content {
         width: 45vw;
         margin-left: 27.5vw;
@@ -323,16 +342,13 @@
         height: 400px;
     }
     
-    .transport_card__photos .transport_card__other-photos div{
+    .transport_card__photos .transport_card__other-photos div,
+    .transport_card__photos .transport_card__other-photos .transport_card__additional-photo{
         height: 127.5px;
         width: 90%;
         margin-bottom: 5px;
     }
     
-    .transport_card__photos .transport_card__other-photos div p {
-        font-size: 22px;
-    }
-
     .transport_card__details .transport_card__additionals {
         gap: 10px
     }

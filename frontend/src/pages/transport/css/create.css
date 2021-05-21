@@ -18,7 +18,7 @@
 }
 
 .create-transport__choice-owner {
-    width: 80%;
+    width: 100%;
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: repeat(2, 150px);
@@ -85,7 +85,7 @@
 }
 
 .container.create-transport .create-transport__form__upload-cover .drag-drop .drag-drop__drop-area {
-    height: 50vh;
+    height: 15vh;
 }
 
 

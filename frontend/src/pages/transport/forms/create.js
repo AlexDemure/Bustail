@@ -73,7 +73,7 @@ class ImageFormCreateTransport extends React.Component {
     render() {
         return (
             <form className="create-transport__form__upload-cover" onSubmit={this.props.uploadCover}>
-            <DragAndDrop saveFile={this.props.saveFile}/>
+            <DragAndDrop saveFiles={this.props.saveFiles}/>
             <SubmitButton className={this.props.isUploaded ? "" : "disabled"} value="Далее"/>
         </form>
         )
@@ -111,7 +111,7 @@ class MainFormCreateTransport extends React.Component {
 function AdditionalFormCreateTransport(props) {
     return (
         <form className="create-transport__form__additional-info" onSubmit={props.onSubmit}>
-            <TextAreaInput name="description" rows="5" placeholder="Описание автомобиля"/>
+            <TextAreaInput name="description" size="5" placeholder="Описание автомобиля"/>
             <DefaultInput name="price" input_type="number" maxLength={7} size="7" placeholder="Стоимость в час"/>
             <SubmitButton value="Далее"/>
         </form>
@@ -133,7 +133,7 @@ export default class CreateTransportForm extends React.Component {
             transport: null,
             
             isUploaded: false,
-            file: null,
+            files: null,
 
             transport_types: null,
             transport_types_list: null,
@@ -146,7 +146,7 @@ export default class CreateTransportForm extends React.Component {
         this.mainCard = this.mainCard.bind(this);
         this.additionalCard = this.additionalCard.bind(this);
         this.uploadCover = this.uploadCover.bind(this);
-        this.saveFile = this.saveFile.bind(this)
+        this.saveFiles = this.saveFiles.bind(this)
         
     }
 
@@ -247,55 +247,75 @@ export default class CreateTransportForm extends React.Component {
         )
     }
 
-    saveFile(file, isUploaded) {
+    saveFiles(files, isUploaded) {
         this.setState({
             isUploaded: isUploaded,
-            file: file,
+            files: files,
         })
     }
 
     uploadCover(event) {
-        event.preventDefault();
-        console.log(this.state);
+        let error;
 
-        if (this.state.file) {
-            let isCorrect = validateImageFile(this.state.file)
-            if (!isCorrect) {
+        event.preventDefault();
+        
+        if (this.state.files) {
+            
+            // Проверка на тип
+            this.state.files.forEach(
+                function(file) {
+                    let isCorrect = validateImageFile(file)
+                    console.log("Check", isCorrect)
+
+                    if (!isCorrect) {
+                        error = true
+                        return
+                    }
+                }
+            )
+            
+            if (error) {
+                
                 this.setState({
                     isUploaded: false,
                     file: null,
                     
-                    response_text: "Файл должен быть формата jpeg, image, png",
-                    error: "Файл должен быть формата jpeg, image, png",
+                    response_text: "Файлы должны быть формате jpeg, image, png",
+                    error: "Файлы должны быть формате jpeg, image, png",
                     notify_type: "error"
                 })
+
                 showNotify()
                 return
-
-            } else {
-                let url = `/api/v1/drivers/transports/${this.state.transport.id}/covers/`
-                let data  = new FormData();
-                data.append("file", this.state.file, this.state.file.name)
-                
-                uploadFile(url, data)
-                .then(
-                    (result) => {
-                        this.props.changePage("notify")
-                    },
-                    (error) => {
-                        this.setState({
-                            isUploaded: false,
-                            file: null,
-                            
-                            response_text: error.message,
-                            error: error.message,
-                            notify_type: "error"
-                        })
-                        showNotify()
-                    }
-                )
-            
             }
+
+            let url = `/api/v1/drivers/transports/${this.state.transport.id}/covers/`
+            let data  = new FormData();
+            this.state.files.forEach(
+                function(file) {
+                    data.append("files", file, file.name)
+                    console.log("Append")
+                }
+            )
+            
+            uploadFile(url, data)
+            .then(
+                (result) => {
+                    this.props.changePage("notify")
+                },
+                (error) => {
+                    this.setState({
+                        isUploaded: false,
+                        files: null,
+                        
+                        response_text: error.message,
+                        error: error.message,
+                        notify_type: "error"
+                    })
+                    showNotify()
+                }
+            )
+            
         }
         
     }
@@ -328,7 +348,7 @@ export default class CreateTransportForm extends React.Component {
             changePage={this.props.changePage}
             transport={this.state.transport}
             uploadCover={this.uploadCover}
-            saveFile={this.saveFile}
+            saveFiles={this.saveFiles}
             isUploaded={this.state.isUploaded}
             />
         }

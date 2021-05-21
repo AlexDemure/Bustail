@@ -4,6 +4,9 @@ from backend.apps.drivers.models import Transport, TransportPhoto, Driver
 from backend.schemas.accounts import AccountData
 from backend.schemas.drivers import TransportPhotoData, DriverData, TransportData
 from backend.submodules.object_storage.uploader import object_storage
+from backend.core.config import settings
+from backend.utils import get_current_api
+from backend.enums.system import SystemEnvs
 
 
 def prepare_driver_data(driver: Driver, transports: List[TransportData] = None) -> DriverData:
@@ -32,5 +35,10 @@ def prepare_transport_with_photos(transport: Transport) -> TransportData:
 
 def prepare_transport_photo(transport_photo: TransportPhoto) -> TransportPhotoData:
     data = TransportPhotoData(**transport_photo.__dict__)
-    data.file_uri = object_storage.get_url(data.file_uri)
+
+    if settings.ENV == SystemEnvs.prod.value:
+        data.file_uri = object_storage.get_url(data.file_uri)
+    else:
+        data.file_uri = f"{get_current_api()}/drivers/transports/{data.transport_id}/covers/{data.id}"
+
     return data

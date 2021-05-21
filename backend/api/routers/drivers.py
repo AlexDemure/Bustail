@@ -1,16 +1,16 @@
-from decimal import Decimal
 from typing import List
 
 from fastapi import APIRouter, Depends, status, HTTPException, File, UploadFile, Query
 from fastapi.encoders import jsonable_encoder
 from fastapi.responses import JSONResponse
+from fastapi.responses import Response
 from structlog import get_logger
 
 from backend.api.deps.accounts import confirmed_account
-from backend.api.deps.uploads import valid_image_content_length
 from backend.apps.accounts.models import Account
 from backend.apps.company.logic import get_company_by_account_id
 from backend.apps.drivers.logic import (
+    download_transport_cover,
     get_driver_by_account_id, update_driver, get_driver as logic_get_driver,
     is_transport_belongs_carrie, upload_transport_cover,
     create_driver as logic_create_driver,
@@ -19,18 +19,19 @@ from backend.apps.drivers.logic import (
     get_transport as logic_get_transport,
     change_transport_data as logic_change_transport_data,
     delete_transport as logic_delete_transport,
+    get_transport_cover as logic_get_transport_cover,
 )
 from backend.enums.drivers import DriverErrors, TransportType
 from backend.enums.system import SystemLogs
 from backend.schemas.drivers import (
     DriverBase, DriverCreate, DriverData,
-    TransportData, TransportBase, TransportCreate, ListTransports, TransportUpdate,
-    TransportPhotoData
+    TransportData, TransportBase, TransportCreate, ListTransports, TransportUpdate
 )
 from backend.submodules.common.enums import BaseMessage
 from backend.submodules.common.responses import auth_responses
 from backend.submodules.common.schemas import Message, UpdatedBase
 from backend.submodules.object_storage.enums import UploadErrors, FileMimetypes
+from backend.submodules.object_storage.settings import IMAGE_LIMIT_SIZE_TO_BYTES
 from backend.submodules.object_storage.utils import check_file_type, check_file_size
 
 router = APIRouter()
@@ -38,7 +39,7 @@ router = APIRouter()
 
 @router.post(
     "/transports/{transport_id}/covers/",
-    response_model=TransportPhotoData,
+    response_model=Message,
     responses={
         status.HTTP_201_CREATED: {"description": BaseMessage.obj_is_created.value},
         status.HTTP_400_BAD_REQUEST: {"description": UploadErrors.mime_type_is_wrong_format.value},
@@ -49,10 +50,9 @@ router = APIRouter()
 )
 async def create_cover_transport(
         transport_id: int,
-        file: UploadFile = File(...),
-        file_size_to_mb: Decimal = Depends(valid_image_content_length),
+        files: List[UploadFile] = File(...),
         account: Account = Depends(confirmed_account),
-) -> JSONResponse:
+) -> Message:
     """
     Загрузка обложки к транспорту.
 
@@ -61,30 +61,74 @@ async def create_cover_transport(
     """
     logger = get_logger().bind(transport_id=transport_id, account_id=account.id)
 
-    # Разрешенный тип только png или jpeg
-    if check_file_type(file.content_type, [FileMimetypes.png, FileMimetypes.jpeg]) is False:
-        logger.debug(SystemLogs.file_is_wrong_format.value, content_type=file.content_type)
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail=UploadErrors.mime_type_is_wrong_format.value
-        )
+    for file in files:
+        # Разрешенный тип только png или jpeg
+        if check_file_type(file.content_type, [FileMimetypes.png, FileMimetypes.jpeg]) is False:
+            logger.debug(SystemLogs.file_is_wrong_format.value, content_type=file.content_type)
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail=UploadErrors.mime_type_is_wrong_format.value
+            )
 
-    # Разрешенный размер файла устанавливается в Depends/uploads.py в объекте Headers параметр lt=value_to_bytes
-    if check_file_size(file.file, file_size_to_mb) is False:
-        logger.debug(SystemLogs.file_is_large.value)
-        raise HTTPException(
-            status_code=status.HTTP_413_REQUEST_ENTITY_TOO_LARGE,
-            detail=UploadErrors.file_is_large.value
-        )
+        # Разрешенный размер файла устанавливается в Depends/uploads.py в объекте Headers параметр lt=value_to_bytes
+        if check_file_size(file.file, IMAGE_LIMIT_SIZE_TO_BYTES) is False:
+            logger.debug(SystemLogs.file_is_large.value)
+            raise HTTPException(
+                status_code=status.HTTP_413_REQUEST_ENTITY_TOO_LARGE,
+                detail=UploadErrors.file_is_large.value
+            )
 
     carrier, transport = await is_transport_belongs_carrie(account.id, transport_id)
 
-    cover = await upload_transport_cover(transport, file)
+    for file in files:
+        await upload_transport_cover(transport, file)
 
-    return JSONResponse(
-        status_code=status.HTTP_201_CREATED,
-        content=jsonable_encoder(cover)
-    )
+    return Message(msg=BaseMessage.obj_is_created.value)
+
+
+@router.get(
+    "/transports/{transport_id}/covers/{cover_id}",
+    responses={
+        status.HTTP_200_OK: {"description": BaseMessage.obj_data.value},
+        status.HTTP_400_BAD_REQUEST: {
+            "description": f"{UploadErrors.file_is_large.value} or {UploadErrors.mime_type_is_wrong_format.value}"
+        },
+        status.HTTP_404_NOT_FOUND: {"description": BaseMessage.obj_is_not_found},
+        **auth_responses
+    }
+)
+async def get_transport_cover(transport_id: int, cover_id: int) -> Response:
+    """
+    Получение обложки к транспорту.
+    - **returned**: Возвращает response с параметрами content, media_type.
+    """
+    logger = get_logger().bind(transport_id=transport_id, cover_id=cover_id)
+    transport = await logic_get_transport(transport_id)
+    if not transport:
+        logger.debug(SystemLogs.transport_not_found.value)
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=BaseMessage.obj_is_not_found.value
+        )
+
+    cover = await logic_get_transport_cover(cover_id)
+    if not cover:
+        logger.debug(SystemLogs.cover_not_found.value)
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=BaseMessage.obj_is_not_found.value
+        )
+
+    if transport.id != cover.transport_id:
+        logger.warning(f"{SystemLogs.violation_business_logic.value} {SystemLogs.cover_not_belong_to_transport.value}")
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=BaseMessage.obj_is_not_found.value
+        )
+
+    file_to_bytes, media_type = await download_transport_cover(cover_id)
+
+    return Response(content=file_to_bytes, status_code=status.HTTP_200_OK, media_type=media_type)
 
 
 @router.get(

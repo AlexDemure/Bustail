@@ -13,16 +13,16 @@ function FeedBackForm(props) {
     return (
         <React.Fragment>
             <div className="contacts__title">
-                <p id="email">Email: <span>support@bustail.online</span></p>
-                <a href="tel:+79191231251" id="phone">Телефон: <span>+7 (351) 223-12-51</span></a>
                 <a href="/docs/privecy" className="docs">Политика конфиденциальности</a>
                 <a href="/docs/terms" className="docs">Пользовательское соглашение</a>
+                <p id="email">Email: <span>support@bustail.online</span></p>
+                <a href="tel:+79191231251" id="phone">Телефон: <span>+7 (351) 223-12-51</span></a>
             </div>
             <form className="contacts__form__feedback" onSubmit={props.onSubmit}>
                 <p>Форма обратной связи</p>
                 <DefaultInput name="email" input_type="email" size="25" placeholder="Электронная почта"/>
-                <TextAreaInput name="text" rows="5" placeholder="Текст сообщения"/>
-                <DragAndDrop saveFile={props.saveFile}/>
+                <TextAreaInput name="text" size="3" placeholder="Текст сообщения"/>
+                <DragAndDrop saveFiles={props.saveFiles}/>
                 <SubmitButton value="Отправить"/>
             </form>
         </React.Fragment>
@@ -48,13 +48,13 @@ export default class ContactsFeedBackForm extends React.Component {
             form: "contacts"
         }
         this.sendMessage = this.sendMessage.bind(this)
-        this.saveFile = this.saveFile.bind(this)
+        this.saveFiles = this.saveFiles.bind(this)
     }
 
-    saveFile(file, isUploaded) {
+    saveFiles(files, isUploaded) {
         this.setState({
             isUploaded: isUploaded,
-            file: file,
+            file: files[0],
         })
     }
 
@@ -90,7 +90,7 @@ export default class ContactsFeedBackForm extends React.Component {
         if (this.state.form === "notify") {
             form = <FeedBackNotify/>
         }else {
-            form = <FeedBackForm saveFile={this.saveFile} onSubmit={this.sendMessage}/>
+            form = <FeedBackForm saveFiles={this.saveFiles} onSubmit={this.sendMessage}/>
         }
         return (
             <React.Fragment>

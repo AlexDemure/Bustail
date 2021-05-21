@@ -6,7 +6,8 @@
 
     justify-self: center;
     align-self: center;
-    grid-row: 1 / 2;
+    grid-row: 2 / 3;
+    padding-bottom: 10vh;
 }
 
 .container.landing .contacts .contacts__form__feedback .drag-drop {

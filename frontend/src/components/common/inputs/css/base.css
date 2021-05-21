@@ -33,7 +33,6 @@ textarea {
     font-family: 'FuturaBookC';
     font-size: 18px;
     
-    height: 120px;
     width: calc(100% - 10px);
     border-radius: 5px;
     
@@ -123,9 +122,6 @@ textarea,
         font-size: 18px;
     }
     
-    textarea {
-        height: 140px;
-    }
     input::placeholder {
         font-size: 20px;
     }
@@ -150,9 +146,7 @@ textarea,
         background-size: 30px 35px;
         font-size: 20px;
     }
-    textarea {
-        height: 160px;
-    }
+
     input::placeholder {
         font-size: 22px;
     }
@@ -177,9 +171,7 @@ textarea,
         background-size: 35px 40px;
         font-size: 22px;
     }
-    textarea {
-        height: 180px;
-    }
+
     input::placeholder {
         font-size: 24px;
     }

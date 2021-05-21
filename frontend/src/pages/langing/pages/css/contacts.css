@@ -1,7 +1,8 @@
 
 /* CONTACTS PAGE */
 .container.landing .contacts {
-    grid-template-rows: 70% 30%;
+    overflow-y: scroll;
+    overflow-x: hidden;
     justify-content: center;
 }
 

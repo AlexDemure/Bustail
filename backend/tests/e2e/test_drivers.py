@@ -59,7 +59,7 @@ class TestDriver(BaseTest):
             response = await ac.post(
                 f"/drivers/transports/{transport_id}/covers/",
                 headers=self.headers,
-                files={'file': (file_name, file_content, 'image/jpeg')}
+                files={'files': (file_name, file_content, 'image/jpeg')}
             )
 
         assert response.status_code == 201

@@ -4,7 +4,7 @@ import './css/drag_and_drop.css'
 
 const DragAndDrop = (props) => {
     const [drag, setDrag] = useState(false)
-    const [file_path, fileReader] = useState(null)
+    const [files, saveFiles] = useState(null)
 
     function dragStartHandler(e) {
         e.preventDefault()
@@ -18,37 +18,21 @@ const DragAndDrop = (props) => {
 
     function onDropHandler(e) {
         e.preventDefault()
-        let files = [...e.dataTransfer.files]
-
-        saveFile(files[0])
-
-        showPreviewFile(files[0])
+        save([...e.dataTransfer.files].slice(0, 4))
     }
 
     function uploadHandler(e) {
         e.preventDefault()
-        let files = [...e.target.files]
-
-        saveFile(files[0])
-
-        showPreviewFile(files[0])
+        save([...e.target.files].slice(0, 4))
     }
 
-    function showPreviewFile(file) {
-        var reader = new FileReader();
+    function save(files) {
+        console.log(files)
 
-        reader.onloadend = function () {
-            fileReader(reader.result);
-          }
-        
-        reader.readAsDataURL(file);
+        setDrag(false)
+        saveFiles(files)
+        props.saveFiles(files, true)
     }
-
-    function saveFile(file) {
-        setDrag(false);
-        props.saveFile(file, true)
-    }
-
 
     return (
         <div className="drag-drop">
@@ -62,10 +46,6 @@ const DragAndDrop = (props) => {
                     onDrop={e => onDropHandler(e)}
                   >
                     <p>Отпустите файлы, чтобы загрузить их (размер файла до 5МБ)</p>
-                    {
-                        file_path &&
-                        <img alt="preview" src={file_path}/>
-                    }
                   </div>
                 : <div
                     className="drag-drop__drop-area"
@@ -74,13 +54,30 @@ const DragAndDrop = (props) => {
                     onDragOver={e => dragStartHandler(e)}
                   >
                     <p>Перетащите файлы или нажмите на форму (размер файла до 5МБ)</p>
-                    <input type="file" onChange={(e) => uploadHandler(e)}></input>
-                    {
-                        file_path &&
-                        <img alt="preview" src={file_path}/>
-                    }
+                    <input type="file" multiple onChange={(e) => uploadHandler(e)}></input>
                   </div>
             }
+
+            <div className={`drag-drop__preview ${files ? "show" : "hidden"}`}>
+                {
+                    files &&
+                    files.map(
+                        file => {
+                            return (
+                                <React.Fragment>
+                                    {
+                                        file.type.split('/')[0] === "image" ?
+                                        <img className="drag-drop__item img" src={URL.createObjectURL(file)}></img> :
+                                        <div className="drag-drop__item file">
+                                            <p>{file.name}</p>
+                                        </div>
+                                    } 
+                                </React.Fragment>
+                            )
+                        }
+                    )
+                }
+            </div>
         </div>
     )
 }
