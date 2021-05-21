@@ -243,18 +243,29 @@
 }
 
  /* ADAPTIVE 1024,1280,1337,1440px */
-@media (min-width: 1024px) and (max-width: 1535px) {
+@media (min-width: 1024px) and (max-width: 1335px) {
+    .transport_card__modal-window__content {
+        width: 55vw;
+        margin-left: 22.5vw;
+    }
+    .zoomed-photo {
+        height: 400px;
+        width: 600px;
+    }
+
+}
+
+@media (min-width: 1336px) and (max-width: 1536px) {
     .zoomed-photo {
         height: 450px;
         width: 650px;
     }
 
     .transport_card__modal-window__content {
-        width: 55vw;
-        margin-left: 22.5vw;
+        width: 50vw;
+        margin-left: 25vw;
     }
 
-    
     .transport_card__modal-window__card {
         grid-template-rows: 300px 1fr;
     }
@@ -321,7 +332,7 @@
 
     
     .transport_card__modal-window__card {
-        grid-template-rows: 400px 1fr;
+        grid-template-rows: 350px 1fr;
     }
     .transport_card__modal-window__content .transport_card__modal-window__title {
         font-size: 26px;
@@ -335,16 +346,16 @@
     
     
     .transport_card__modal-window__card .transport_card__photos {
-        height: 400px;
+        height: 350px;
     } 
     
     .transport_card__photos .transport_card__photo{
-        height: 400px;
+        height: 350px;
     }
     
     .transport_card__photos .transport_card__other-photos div,
     .transport_card__photos .transport_card__other-photos .transport_card__additional-photo{
-        height: 127.5px;
+        height: 111.5px;
         width: 90%;
         margin-bottom: 5px;
     }
