@@ -59,7 +59,7 @@ body div[id=root] {
  /* ADAPTIVE 1024,1280,1337,1440px */
 @media (min-width: 1024px) and (max-width: 1535px) {
   .container {
-    width: 50vw;
+    width: 65vw;
   }
 }
 
