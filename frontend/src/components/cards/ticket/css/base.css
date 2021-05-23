@@ -165,7 +165,16 @@
     color: #181818;
 }
 
-
+.ticket .ticket__status {
+    height: 15px;
+    width: 15px;
+    opacity: 0.5;
+    position: absolute;
+    border-radius: 50%;
+    margin-top: -5px;
+    top: 5px;
+    right: 0;
+}
 
 .ticket .ticket__status.confirmed{
     background-color: #fba333;
