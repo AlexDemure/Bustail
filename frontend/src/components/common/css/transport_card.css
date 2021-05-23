@@ -97,7 +97,7 @@
     margin-top: 10px;
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: 280px 1fr;
+    grid-template-rows: 230px 1fr;
     
 }
 
@@ -107,7 +107,7 @@
     width: 100%;
     max-width: 800px;
     justify-self: center;
-    height: 275px;
+    height: 225px;
 
     display: grid;
     grid-template-columns: 70% 30%;
@@ -117,7 +117,7 @@
 .transport_card__photos .transport_card__photo{
     grid-column: 1 / 2;
     width: 100%;
-    height: 275px;
+    height: 225px;
     border-radius: 2px;
 }
 
@@ -127,7 +127,7 @@
 
 .transport_card__photos .transport_card__other-photos div,
 .transport_card__photos .transport_card__other-photos .transport_card__additional-photo{
-    height: 85.5px;
+    height: 69.5px;
     width: 90%;
     border: 1px dashed #535353;
 
@@ -217,6 +217,25 @@
 .transport_card__details .transport_card__detail.description {
     grid-column: 1 / 3;
     grid-row: 3 / 4;
+}
+
+
+@media (min-width:414px) and (max-width:640px) {
+    .transport_card__modal-window__card {
+        grid-template-rows: 255px 1fr;
+        
+    }
+    .transport_card__photos .transport_card__other-photos div,
+    .transport_card__photos .transport_card__other-photos .transport_card__additional-photo{
+        height: 78px;
+    }
+    .transport_card__modal-window__card .transport_card__photos {
+        height: 250px;
+    } 
+    
+    .transport_card__photos .transport_card__photo{
+        height: 250px;
+    }
 }
 
 /* ADAPTIVE 768-801 */
