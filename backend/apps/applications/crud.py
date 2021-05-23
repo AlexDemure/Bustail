@@ -65,12 +65,18 @@ class CRUDApplication(CRUDBase[Application, ApplicationCreate, UpdatedBase]):
 
     async def get_history(self, account_id: int, driver_id: int = None, company_id: int = None) -> List[Application]:
         """История заявок по которым был проставлен конечный статус."""
+        filers = [Q(account_id=account_id)]
+
+        if driver_id:
+            filers.append(Q(driver_id=driver_id))
+
+        if company_id:
+            filers.append(Q(company_id=company_id))
+
         return await (
             self.model.filter(
                 Q(
-                    Q(account_id=account_id),
-                    Q(driver_id=driver_id),
-                    Q(company_id=company_id),
+                    *filers,
                     join_type="OR"
                 ),
                 Q(
@@ -83,7 +89,7 @@ class CRUDApplication(CRUDBase[Application, ApplicationCreate, UpdatedBase]):
                     'transport',
                     queryset=Transport.all()
                 ),
-            ).order_by("-to_go_when")
+            ).order_by("-id")
         )
 
     async def get_all_applications(

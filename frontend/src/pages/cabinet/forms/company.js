@@ -29,7 +29,7 @@ function CompanyForm(props) {
                 лицензией перевозчика.
             </p>
             <form className="cabinet__company__form__company-info" onSubmit={props.onSubmit} autoComplete="off">
-                <DefaultInput value={props.company ? props.company.inn : null} name="inn" input_type="text" size="25" minLength={12} maxLength={12} placeholder="ИНН"/>
+                <DefaultInput value={props.company ? props.company.inn : null} name="inn" input_type="text" size="25" minLength={10} maxLength={12} placeholder="ИНН"/>
                 <DefaultInput value={props.company ? props.company.ogrn : null} name="ogrn" input_type="text" size="25" minLength={13} maxLength={15} placeholder="ОГРН"/>
                 <DefaultInput value={props.company ? props.company.company_name : null} name="company_name" input_type="text" size="25" placeholder="Название компании"/>
                 <DefaultInput value={props.company ? props.company.license_number : null} name="license_number" input_type="text" size="25" placeholder="Номер лицензии"/>

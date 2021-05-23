@@ -20,7 +20,7 @@ class CoverData(BaseModel):
 
 
 class DriverBase(BaseModel):
-    inn: constr(min_length=11, max_length=12)
+    inn: constr(min_length=10, max_length=12)
     company_name: constr(min_length=3, max_length=255) = None
     license_number: constr(min_length=6, max_length=255) = None
 
@@ -116,7 +116,7 @@ class DriverData(DriverBase):
 
 
 class CompanyBase(BaseModel):
-    inn: constr(min_length=11, max_length=12)
+    inn: constr(min_length=10, max_length=12)
     ogrn: constr(min_length=13, max_length=15)
     company_name: constr(min_length=3, max_length=255)
     license_number: constr(min_length=6, max_length=255)

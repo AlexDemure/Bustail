@@ -1,21 +1,12 @@
-.container.create-app {
-    width: 100vw;
-    height: 80vh;
 
-    display: grid;
-    align-items: center;
-    justify-items: center;
-    overflow: hidden;
-}
 
 .container.create-app .create-app__form__additional,
 .container.create-app .create-app__form__main {
-    width: 80%;
-    justify-self: center;
-    align-self: center;
     text-align: center;
+    width: 80%;
 }
 
+.container.create-app .create-app__form__additional textarea,
 .container.create-app .create-app__form__additional input,
 .container.create-app .create-app__form__main input {
     margin-bottom: 5px;
@@ -31,29 +22,5 @@
     .container.create-app .create-app__form__additional,
     .container.create-app .create-app__form__main {
         padding-bottom: 10vh;
-    }
-}
-
-/* ADAPTIVE 768-801-1024px */
-@media (min-width: 641px) and (max-width: 1023px) {
-    .container.create-app .create-app__form__additional,
-    .container.create-app .create-app__form__main {
-        width: 75%;
-    }
-}
-
- /* ADAPTIVE 1024,1280,1337,1440px */
-@media (min-width: 1024px) and (max-width: 1535px) {
-    .container.create-app .create-app__form__additional,
-    .container.create-app .create-app__form__main {
-        width: 50%;
-    }
-}
-
- /* ADAPTIVE 1536px and more */
-@media (min-width: 1536px) {
-    .container.create-app .create-app__form__additional,
-    .container.create-app .create-app__form__main {
-        width: 45%;
     }
 }

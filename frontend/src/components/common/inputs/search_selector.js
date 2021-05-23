@@ -13,6 +13,7 @@ export default class SearchInput extends React.Component {
         this.keyUpHandler = this.keyUpHandler.bind(this);
         this.onClick = this.onClick.bind(this)
         this.choiceValue = this.choiceValue.bind(this);
+        
 
         this.state = {
             result: [],
@@ -33,6 +34,7 @@ export default class SearchInput extends React.Component {
         }
 
     }
+
     keyUpHandler(e) {
 
         let emptyArray = [];
@@ -69,9 +71,10 @@ export default class SearchInput extends React.Component {
         })
     }
 
+    
     render() {
         return (
-            <div className={"search-selector " + (this.state.result.length ? "active" : "")}>
+            <div className={"search-selector " + (this.state.result.length > 0 ? "active" : "")}>
                 <input
                 required={this.props.isRequired === false ? false : true} 
                 className={`search-selector__input__common ${this.props.isRequired === false ? "no-required" : "required"}`}
@@ -88,13 +91,18 @@ export default class SearchInput extends React.Component {
                 >
                 </input>
                 
-                <div className="search-selector__option">
-                  {
-                    this.state.result.map(
-                        (choice, index) => <li key={index} onClick={this.choiceValue}>{choice}</li>
-                    )
-                  }
-                </div> 
+                {
+                    this.state.result.length > 0 && 
+                    <div className="search-selector__option">
+                        {
+                        this.state.result.map(
+                            (choice, index) => <li key={index} onClick={this.choiceValue}>{choice}</li>
+                        )
+                        }
+                    </div> 
+
+                }
+               
             </div>
         )
     }

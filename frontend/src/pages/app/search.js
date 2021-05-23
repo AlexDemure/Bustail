@@ -3,6 +3,8 @@ import NavBar from '../../components/common/navbar'
 import Header from '../../components/common/header'
 
 import TransportCard from '../../components/common/transport_card'
+import Ticket from '../../components/cards/ticket/index'
+import TicketCard from '../../components/common/ticket_card'
 
 import { ResponseNotify, showNotify } from '../../components/common/response_notify'
 
@@ -17,7 +19,7 @@ import sendRequest from '../../utils/fetch'
 import SerializeForm from '../../utils/form_serializer'
 
 import OfferForm from "./components/offer"
-import TicketSearch from './components/ticket'
+
 import SearchFilters from './components/filters'
 
 
@@ -53,6 +55,7 @@ export default class SearchAppPage extends React.Component {
             isScrolling: true,
 
             transport_id: null,
+            ticket_id: null,
 
             response_text: null,
             notify_type: null,
@@ -66,11 +69,18 @@ export default class SearchAppPage extends React.Component {
         this.getApps = this.getApps.bind(this)
         this.createOffer = this.createOffer.bind(this)
         this.showTransportCard = this.showTransportCard.bind(this)
+        this.showTicketCard = this.showTicketCard.bind(this)
     }
 
     showTransportCard(transport_id) {
         this.setState({
             transport_id: transport_id
+        })
+    }
+
+    showTicketCard(ticket_id) {
+        this.setState({
+            ticket_id: ticket_id
         })
     }
 
@@ -245,6 +255,13 @@ export default class SearchAppPage extends React.Component {
                     onClose={() => this.setState({transport_id: null})}
                     />
                 }
+                {
+                    this.state.ticket_id && 
+                    <TicketCard
+                    ticket_id={this.state.ticket_id}
+                    onClose={() => this.setState({ticket_id: null})}
+                    />
+                }
 
                 { this.state.offerData !== null && (
                         <OfferForm
@@ -280,9 +297,11 @@ export default class SearchAppPage extends React.Component {
                             this.state.apps &&
                             this.state.apps.map(
                                 (ticket, index) => 
-                                <TicketSearch
+                                <Ticket
                                 ticket={ticket}
-                                openOffer={() => this.setState({offerData: index})}
+                                controls="offer"
+                                showTicketCard={() => this.showTicketCard(ticket.id)}
+                                makeOffer={() => this.setState({offerData: index})}
                                 />
                             )
                         }

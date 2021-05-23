@@ -28,7 +28,7 @@ function DriverForm(props) {
                     лицензией перевозчика или выполнять заказы от компании.
                 </p>
                 <form className="cabinet__driver__form__driver-info" onSubmit={props.onSubmit} autoComplete="off">
-                    <DefaultInput value={props.driver ? props.driver.inn : null} name="inn"  input_type="text" size="25" minLength={12} maxLength={12} placeholder="ИНН"/>
+                    <DefaultInput value={props.driver ? props.driver.inn : null} name="inn"  input_type="text" size="25" minLength={10} maxLength={12} placeholder="ИНН"/>
                     <DefaultInput value={props.driver ? props.driver.company_name : null} name="company_name" input_type="text" size="25" placeholder="Наименование Юр.лица, ИП" isRequired={false}/>
                     <DefaultInput value={props.driver ? props.driver.license_number : null} name="license_number" input_type="text" size="25" placeholder="Номер лицензии" isRequired={false}/>
                     <SubmitButton value={props.driver === null ? "Создать" : "Сохранить" }/>

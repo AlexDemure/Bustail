@@ -5,32 +5,6 @@ import sendRequest from '../../../utils/fetch'
 import './css/base.css'
 
 
-function NotificationControls(props) {
-    let controls;
-
-    if (
-        (props.notification_owner === "driver" && props.notification_type === "driver_to_client") || 
-        (props.notification_owner === "client" && props.notification_type === "client_to_driver") 
-    ) {
-        controls = <p className="transport__notification__btn-remove-offer" onClick={props.removeOffer}>Отменить предложение</p>
-    } else if (
-        (props.notification_owner === "driver" && props.notification_type === "client_to_driver") || 
-        (props.notification_owner === "client" && props.notification_type === "driver_to_client")
-    ) {
-        controls = 
-        <React.Fragment>
-            <p id="accept" className="transport__notification__btn-set-decision-offer accept" onClick={props.setOfferDecision}>Принять</p>
-            <p id="reject" className="transport__notification__btn-set-decision-offer reject" onClick={props.setOfferDecision}>Отменить</p>
-        </React.Fragment>
-    }
-
-    return (
-        <div className="transport__card__controls notification" id="notification">
-            {controls}
-        </div>
-    )
-}
-
 function OfferControls(props) {
     return (
         <div className="transport__card__controls offer" id="offer" onClick={props.createOffer}>
@@ -122,14 +96,6 @@ export default class Transport extends React.Component {
             // Используется в модальном окне Предложение транспорта
             controls = <OfferControls createOffer={this.props.createOffer}/>
         
-        } else if (this.props.controls === "notification") {
-             // Используется на странице Уведомления
-            controls = <NotificationControls
-            notification_owner={this.props.notification_owner}
-            notification_type={this.props.notification_type}
-            setOfferDecision={this.props.setOfferDecision}
-            removeOffer={this.props.removeOffer}
-            />
         }
         
         return (

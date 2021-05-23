@@ -7,7 +7,7 @@
     justify-items: center;
     align-content: center;
     text-align: center;
-    width: 85%;
+    width: 90%;
 }
 
 .notify__common .notify__common__title {
@@ -38,10 +38,6 @@
     .notify__common .notify__common__text {
         font-size: 24px;
     }
-
-    .notify__common {
-        width: 75%;
-    }
 }
 
  /* ADAPTIVE 1024,1280,1337,1440px */
@@ -52,9 +48,6 @@
     .notify__common .notify__common__text {
         font-size: 26px;
     }
-    .notify__common {
-        width: 55%;
-    }
 }
 
  /* ADAPTIVE 1536px and more */
@@ -64,8 +57,5 @@
     }
     .notify__common .notify__common__text {
         font-size: 28px;
-    }
-    .notify__common {
-        width: 50%;
     }
 }

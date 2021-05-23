@@ -1,10 +1,9 @@
 import React from 'react'
 
 import ChangePrice from '../../../components/common/change_price_modal'
+import Ticket from '../../../components/cards/ticket/index'
 
 import SerializeForm from '../../../utils/form_serializer'
-
-import TicketOffer from './ticket'
 
 import './css/offer.css'
 
@@ -26,10 +25,17 @@ function ChoicesElements(props) {
                     {
                         props.choices.length > 0 ?
                         props.choices.map(
-                            (choice) =>
-                            <TicketOffer
-                            createOffer={(e) => props.createOffer(e, choice.id, choice.price)}
-                            ticket={choice}/>
+                            (choice) => {
+                                if (choice.application_status !== "confirmed") {
+                                    return <Ticket
+                                    controls="offer"
+                                    makeOffer={(e) => props.createOffer(e, choice.id, choice.price)}
+                                    showTicketCard={() => props.showTicketCard(choice.id)}
+                                    ticket={choice}
+                                    />
+                                }
+                            }
+                            
                         ) :
                         <p className="offer__application__modal-window__no-choices-text">Список предложений пуст</p>
                     }
@@ -73,6 +79,7 @@ export default class OfferForm extends React.Component {
             form = <ChoicesElements
             choices={this.props.choices}
             createOffer={this.createOffer}
+            showTicketCard={this.props.showTicketCard}
             offer_type={this.props.offer_type}
             closeOffer={this.props.closeOffer}
             create_link={this.props.create_link}

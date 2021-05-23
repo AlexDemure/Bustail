@@ -190,11 +190,13 @@ export default class TransportCard extends React.Component {
                         </div>
                             <div className="transport_card__details">
                                 <p className="transport_card__detail transport-name">{this.state.transport.brand} {this.state.transport.model}</p>
-                                <p className="transport_card__detail state-number">{this.state.transport.state_number}</p>
+                                <p className="transport_card__detail state-number"><span>Номер:</span> {this.state.transport.state_number}</p>
                                 <div className="transport_card__additionals">
                                     <p className="transport_card__detail count-seats"><span>Вместимость:</span> {this.state.transport.count_seats}</p>
                                     <p className="transport_card__detail price"><span>Стоимость:</span> {this.state.transport.price}</p>
                                     <p className="transport_card__detail city"><span>Город:</span> {this.state.transport.city}</p>
+                                </div>
+                                <div className="transport_card__owner">
                                     {
                                         this.state.transport.company_id &&
                                         <a 
@@ -207,8 +209,10 @@ export default class TransportCard extends React.Component {
                                         <p className="transport_card__detail driver-name"><span>Водитель:</span> {this.state.user.fullname ? this.state.user.fullname : "Не указано"}</p>
                                     }
                                     
-                                    <p className="transport_card__detail phone"><span>Телефон:</span> {this.state.user.phone ? this.state.user.phone : "Не указано"}</p>
+                                    <a href={"tel:"+ this.state.user.phone} className="transport_card__detail phone"><span>Телефон:</span> {this.state.user.phone ? this.state.user.phone : "Не указано"}</a>
                                 </div>
+                                <p className="transport_card__detail description"><span>Описание:</span> {this.state.transport.description ? this.state.transport.description: "Не указано"}</p>
+                                
                             </div>
                         </div>
                     </div>

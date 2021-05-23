@@ -1,11 +1,13 @@
 import React from 'react'
 
 import { ResponseNotify, showNotify } from '../../../components/common/response_notify'
+import Ticket from '../../../components/cards/ticket/index'
+import TicketCard from '../../../components/common/ticket_card'
 
 import sendRequest from '../../../utils/fetch'
 
 import CabinetSwitch from '../components/switch_cabinet'
-import TicketCabinet from '../components/ticket'
+
 
 import './css/client.css'
 
@@ -16,12 +18,21 @@ export default class ClientPage extends React.Component {
         this.state = {
             applications: props.applications,
 
+            ticket_id: null,
+
             response_text: null,
             notify_type: null,
             error: null
         }
 
         this.rejectApplication = this.rejectApplication.bind(this)
+        this.showTicketCard = this.showTicketCard.bind(this)
+    }
+
+    showTicketCard(ticket_id) {
+        this.setState({
+            ticket_id: ticket_id
+        })
     }
 
     rejectApplication(index_array) {
@@ -69,6 +80,14 @@ export default class ClientPage extends React.Component {
                 text={this.state.response_text}
                 />
                 
+                {
+                    this.state.ticket_id && 
+                    <TicketCard
+                    ticket_id={this.state.ticket_id}
+                    onClose={() => this.setState({ticket_id: null})}
+                    />
+                }
+
                 <div className="container cabinet client">
                     <CabinetSwitch is_active="client" onClick={this.props.changeForm}/>
                     <p id="warning">Заявки отображаются до подтверждения ее водителем, дальнейший статус заявки можно посмотреть на странице "История".</p>
@@ -78,8 +97,11 @@ export default class ClientPage extends React.Component {
                             this.state.applications &&
                             this.state.applications.map(
                                 (ticket, index) =>
-                                <TicketCabinet
+                                <Ticket
+                                controls="reject"
+                                show_status={true}
                                 ticket={ticket}
+                                showTicketCard={() => this.showTicketCard(ticket.id)}
                                 rejectApplication={() => this.rejectApplication(index)}
                                 />
                             )

@@ -7,7 +7,7 @@
     align-items: center;
     height: 100vh;
     width: 100vw;
-    background: rgba(22, 22, 22, 0.5);
+    background: rgba(22, 22, 22, 0.8);
 }
 
 .search-app__filters__modal-window__content {
@@ -24,6 +24,7 @@
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: 70px 1fr;
+    margin-bottom: 5vh;
     
 }
 

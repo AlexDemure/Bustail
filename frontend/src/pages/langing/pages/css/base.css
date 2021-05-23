@@ -7,6 +7,7 @@
     grid-template-rows: 1fr;
     overflow: hidden;
     justify-items: center;
+    align-items: unset
 }
 
 .container.landing .page {

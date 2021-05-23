@@ -3,6 +3,7 @@ import React from 'react'
 import NavBar from '../../components/common/navbar'
 import Header from '../../components/common/header'
 import TransportCard from '../../components/common/transport_card'
+import TicketCard from '../../components/common/ticket_card'
 
 import { getMeNotifications } from '../../components/common/api/me_notifications'
 
@@ -31,7 +32,8 @@ export default class NotificationPage extends React.Component {
             notify_type: null,
             error: null,
 
-            transport_id: null
+            transport_id: null,
+            ticket_id: null,
         };
         
         this.changeForm = this.changeForm.bind(this)
@@ -39,11 +41,18 @@ export default class NotificationPage extends React.Component {
         this.setOfferDecision = this.setOfferDecision.bind(this)
         this.deleteElementInArray = this.deleteElementInArray.bind(this)
         this.showTransportCard = this.showTransportCard.bind(this)
+        this.showTicketCard = this.showTicketCard.bind(this)
     }
 
     showTransportCard(transport_id) {
         this.setState({
             transport_id: transport_id
+        })
+    }
+
+    showTicketCard(ticket_id) {
+        this.setState({
+            ticket_id: ticket_id
         })
     }
 
@@ -189,6 +198,14 @@ export default class NotificationPage extends React.Component {
                     />
                 }
 
+                {
+                    this.state.ticket_id && 
+                    <TicketCard
+                    ticket_id={this.state.ticket_id}
+                    onClose={() => this.setState({ticket_id: null})}
+                    />
+                }
+
                 <Header previous_page="/main" page_name="Уведомления"/>
 
                 <div className={"container notifications " + this.state.form}>
@@ -205,11 +222,12 @@ export default class NotificationPage extends React.Component {
                             notifications.map(
                                 (notification, index) => {
                                     return <Notification
-                                            notifiation={notification}
+                                            notification={notification}
                                             notification_owner={this.state.form}
                                             setOfferDecision={(e) => this.setOfferDecision(e, notification.id, index)}
                                             removeOffer={() => this.removeOffer(notification.id, index)}
                                             showTransportCard={() => this.showTransportCard(notification.transport.id)}
+                                            showTicketCard={() => this.showTicketCard(notification.application.id)}
                                             />
                                 }
                                 

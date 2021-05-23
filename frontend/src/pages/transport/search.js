@@ -3,6 +3,7 @@ import NavBar from '../../components/common/navbar'
 import Header from '../../components/common/header'
 import TransportCard from '../../components/common/transport_card'
 import Transport from '../../components/cards/transport/index'
+import TicketCard from '../../components/common/ticket_card'
 
 import { ResponseNotify, showNotify } from '../../components/common/response_notify'
 
@@ -49,6 +50,7 @@ export default class SearchTransportPage extends React.Component {
             isScrolling: true,
             
             transport_id: null, // Карточка автомобиля
+            ticket_id: null,
 
             transport_types: null // Типы автомобилей для параметров поиска
         }
@@ -58,11 +60,18 @@ export default class SearchTransportPage extends React.Component {
         this.getTransports = this.getTransports.bind(this)
         this.createOffer = this.createOffer.bind(this)
         this.showTransportCard = this.showTransportCard.bind(this)
+        this.showTicketCard = this.showTicketCard.bind(this)
     }
 
     showTransportCard(transport_id) {
         this.setState({
             transport_id: transport_id
+        })
+    }
+
+    showTicketCard(ticket_id) {
+        this.setState({
+            ticket_id: ticket_id
         })
     }
 
@@ -232,6 +241,13 @@ export default class SearchTransportPage extends React.Component {
                     onClose={() => this.setState({transport_id: null})}
                     />
                 }
+                {
+                    this.state.ticket_id && 
+                    <TicketCard
+                    ticket_id={this.state.ticket_id}
+                    onClose={() => this.setState({ticket_id: null})}
+                    />
+                }
 
                 { 
                     this.state.offerData !== null && 
@@ -241,6 +257,7 @@ export default class SearchTransportPage extends React.Component {
                     create_link="/app/create"
                     choices={this.state.user_apps}
                     createOffer={this.createOffer}
+                    showTicketCard={this.showTicketCard}
                     />  
                 }
                 

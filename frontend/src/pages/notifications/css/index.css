@@ -1,9 +1,7 @@
 .container.notifications {
-    width: 95vw;
-
-    display: grid;
     grid-template-rows: auto 1fr;
-
+    justify-items: normal;
+    align-items: unset;
     align-content: flex-start;
     overflow: hidden;
 }
@@ -36,25 +34,4 @@
 
 .container.notifications .offer {
     width: 100%;
-}
-
-/* ADAPTIVE 768-801 */
-@media (min-width: 641px) and (max-width: 1023px) {
-    .container.notifications {
-        width: 80vw;
-    }
-}
-
- /* ADAPTIVE 1024,1280,1337,1440px */
-@media (min-width: 1024px) and (max-width: 1535px) {
-    .container.notifications {
-        width: 65vw;
-    }
-}
-
- /* ADAPTIVE 1536px and more */
-@media (min-width: 1536px) {
-    .container.notifications {
-        width: 55vw;
-    }
 }

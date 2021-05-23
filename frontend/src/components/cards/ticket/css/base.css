@@ -1,7 +1,8 @@
-.ticket__search {
-    margin-bottom: 10px;
+.ticket {
+    margin-bottom: 6.5px;
     width: 100%;
-    height: 100px;
+    height: auto;
+    min-height: 100px;
     border-radius: 10px;
 
     display: grid;
@@ -9,22 +10,22 @@
     position: relative;
 }
 
-.ticket__search div p {
+.ticket div p {
     margin: 0;
     padding: 0;
 }
 
-.ticket__search div[id=left] {
+.ticket div[id=left] {
     grid-column: 1 / 2;
     background-color: #222222;
-    
+    display: grid;
 }
 
-.ticket__search div[id=left] p {
+.ticket div[id=left] p {
     margin-left: 10px;
 }
 
-.ticket__search .ticket__search__placeholder {
+.ticket .ticket__placeholder {
     font-size: 14px;
     color: #6e6e6e;
     font-family: "FuturaMediumC";
@@ -32,46 +33,50 @@
 
 }
 
-.ticket__search .ticket__search__city {
+.ticket .ticket__city {
     font-size: 18px;
     color: #fbfbfb;
     font-family: "FuturaDemiC";
     margin-top: 5px;
 
 }
-.ticket__search div[id=right] div[id=right-div-left] p[id=to] {
+.ticket div[id=right] div[id=right-div-left] p[id=to] {
     color: #fba333;
 }
 
-.ticket__search .ticket__search__details-btn {
+.ticket .ticket__details-btn {
     font-size: 15px;
     color: #fba333;
     font-family: "FuturaBookC";
     margin-top: 15px;
+    align-self: flex-end;
+    padding-bottom: 5px;
 }
 
-.ticket__search .ticket__search__type-app {
+.ticket .ticket__type-app {
     font-size: 15px;
     color: #fbfbfb;
     font-family: "FuturaBookC";
     margin-top: 15px;
+    align-self: flex-end;
+    padding-bottom: 5px;
 }
 
-.ticket__search .ticket__search__date {
+.ticket .ticket__date {
     font-size: 14px;
     color: #fba333;
     font-family: "FuturaDemiC";
     margin-top: 15px;
 }
 
-.ticket__search .ticket__search__price {
+.ticket .ticket__price {
     font-size: 14px;
     color: #fbfbfb;
     font-family: "FuturaBookC";
     margin-top: 5px;
 }
 
-.ticket__search div[id=right] {
+.ticket div[id=right] {
     grid-column: 2 / 3;
     background-color: #262626;
     display: grid;
@@ -79,16 +84,16 @@
 }
 
 
-.ticket__search div[id=right] div[id=right-div-left] {
+.ticket div[id=right] div[id=right-div-left] {
     grid-column: 1 / 2;
-    
+    display: grid;
 }
 
-.ticket__search div[id=right] div[id=right-div-left] p {
+.ticket div[id=right] div[id=right-div-left] p {
     margin-left: 10px;
 }
 
-.ticket__search div[id=right] div[id=right-div-right] {
+.ticket div[id=right] div[id=right-div-right] {
     grid-column: 2 / 3;
     display: grid;
     grid-template-rows: 30% 30% 40%;
@@ -100,11 +105,39 @@
     width: 95%;
 }
 
-.ticket__search div[id=right] div[id=right-div-right] p {
+.ticket div[id=right] div[id=right-div-right] p {
     text-align: end;
+    margin-right: 2.5px;
 }
 
-.ticket__search div[id=right] div[id=right-div-right] .ticket__search__offer-btn {
+.ticket .ticket__reject-btn {
+    height: 90%;
+    width: 100%;
+    
+
+    display: grid;
+    align-content: center;
+    justify-content: center;
+
+    background-color: #9B5E5D;
+    border-radius: 5px;
+}
+
+.ticket .ticket__reject-btn:hover {
+    background-color: #fba333;
+}
+
+.ticket .ticket__reject-btn p {
+    font-size: 13px;
+    color: #fbfbfb;
+    font-family: "FuturaBookC";
+}
+
+.ticket .ticket__reject-btn:hover p {
+    color: #181818;
+}
+
+.ticket div[id=right] div[id=right-div-right] .ticket__offer-btn {
     height: 80%;
     width: 100%;
     
@@ -117,21 +150,21 @@
     border-radius: 5px;
 }
 
-.ticket__search div[id=right] div[id=right-div-right] .ticket__search__offer-btn:hover {
+.ticket div[id=right] div[id=right-div-right] .ticket__offer-btn:hover {
     background-color: #fba333;
 }
 
-.ticket__search div[id=right] div[id=right-div-right] .ticket__search__offer-btn p {
+.ticket div[id=right] div[id=right-div-right] .ticket__offer-btn p {
     font-size: 13px;
     color: #6e6e6e;
     font-family: "FuturaBookC";
 }
 
-.ticket__search div[id=right] div[id=right-div-right] .ticket__search__offer-btn:hover p {
+.ticket div[id=right] div[id=right-div-right] .ticket__offer-btn:hover p {
     color: #181818;
 }
 
-.ticket__search .ticket__search__about {
+.ticket .ticket__about {
     grid-column: 1 / 3;
     grid-row: 1 / 3;
 
@@ -147,7 +180,7 @@
     border: 1px solid #262626;
 }
 
-.ticket__search .ticket__search__about .ticket__search__about__close-btn {
+.ticket .ticket__about .ticket__about__close-btn {
     grid-column: 2 / 3;
     grid-row: 1 / 2;
     width: 50px;
@@ -161,7 +194,7 @@
     justify-self: flex-end;
 }
 
-.ticket__search .ticket__search__about .ticket__search__about__details {
+.ticket .ticket__about .ticket__about__details {
     grid-column: 1 / 2;
     grid-row: 1 / 2;
     width: 100%;
@@ -169,7 +202,7 @@
 
 }
 
-.ticket__search .ticket__search__about .ticket__search__about__details .ticket__search__about__item.description {
+.ticket .ticket__about .ticket__about__details .ticket__about__item.description {
     color: #6e6e6e;
     font-family: 'FuturaMediumC';
     font-size: 15px;
@@ -177,199 +210,218 @@
     margin-left: 10px;
 }
 
-.ticket__search .ticket__search__about .ticket__search__about__details p span {
+.ticket .ticket__about .ticket__about__details p span {
     color: #FBFBFB;
     font-size: 15px;
     font-family: 'FuturaDemiC';
 }
 
-.ticket__search .ticket__search__about .ticket__search__about__details p span {
+.ticket .ticket__about .ticket__about__details p span {
     font-size: 14px;
+}
+
+.ticket .ticket__status {
+    height: 15px;
+    width: 15px;
+    opacity: 0.5;
+    position: absolute;
+    border-radius: 50%;
+    margin-top: -5px;
+    top: 0;
+    right: 0;
+}
+
+.ticket .ticket__status.confirmed{
+    background-color: #fba333;
+}
+
+.ticket .ticket__status.waiting{
+    background-color: #fbfbfb;
 }
 
 
 /* ADAPTIVE 768-801 */
 @media (min-width: 641px) and (max-width: 1023px) {
-    .ticket__search .ticket__search__about,
-    .ticket__search {
+    .ticket .ticket__about,
+    .ticket {
         height: 125px;
     }
 
-    .ticket__search .ticket__search__placeholder {
+    .ticket .ticket__placeholder {
         font-size: 18px;
     }
-    .ticket__search .ticket__search__city {
+    .ticket .ticket__city {
         font-size: 22px;
     }
 
-    .ticket__search .ticket__search__details-btn {
+    .ticket .ticket__details-btn {
         font-size: 20px;
     }
     
-    .ticket__search .ticket__search__type-app {
+    .ticket .ticket__type-app {
         font-size: 20px;
     }
     
-    .ticket__search .ticket__search__date {
+    .ticket .ticket__date {
         font-size: 18px;
     }
     
-    .ticket__search .ticket__search__price {
+    .ticket .ticket__price {
         font-size: 20px;
     }
 
-    .ticket__search .ticket__search__reject-btn p {
+    .ticket .ticket__reject-btn p {
         font-size: 18px;
     }
     
-    .ticket__search .ticket__search__about .ticket__search__about__close-btn {
+    .ticket .ticket__about .ticket__about__close-btn {
         width: 55px;
         height: 45px;
         background-size: 30px 30px;
     }
     
-    .ticket__search .ticket__search__about .ticket__search__about__details .ticket__search__about__item.description {
+    .ticket .ticket__about .ticket__about__details .ticket__about__item.description {
         font-size: 20px;
     }
     
-    .ticket__search .ticket__search__about .ticket__search__about__details p span {
+    .ticket .ticket__about .ticket__about__details p span {
         font-size: 20px;
     }
     
-    .ticket__search .ticket__search__about .ticket__search__about__details p span {
+    .ticket .ticket__about .ticket__about__details p span {
         font-size: 18px;
     }
     
-    .ticket__search .ticket__search__status {
+    .ticket .ticket__status {
         height: 20px;
         width: 20px;
     }
 
-    .ticket__search div[id=right] div[id=right-div-right] .ticket__search__offer-btn p {
+    .ticket div[id=right] div[id=right-div-right] .ticket__offer-btn p {
         font-size: 18px;
     }
 }
 
  /* ADAPTIVE 1024,1280,1337,1440px */
 @media (min-width: 1024px) and (max-width: 1535px) {
-    .ticket__search .ticket__search__about,
-    .ticket__search {
+    .ticket .ticket__about,
+    .ticket {
         height: 150px;
     }
 
-    .ticket__search .ticket__search__placeholder {
+    .ticket .ticket__placeholder {
         font-size: 20px;
     }
-    .ticket__search .ticket__search__city {
+    .ticket .ticket__city {
         font-size: 24px;
     }
 
-    .ticket__search .ticket__search__details-btn {
+    .ticket .ticket__details-btn {
         font-size: 22px;
     }
     
-    .ticket__search .ticket__search__type-app {
+    .ticket .ticket__type-app {
         font-size: 22px;
     }
     
-    .ticket__search .ticket__search__date {
+    .ticket .ticket__date {
         font-size: 20px;
     }
     
-    .ticket__search .ticket__search__price {
+    .ticket .ticket__price {
         font-size: 22px;
     }
 
-    .ticket__search .ticket__search__reject-btn p {
+    .ticket .ticket__reject-btn p {
         font-size: 20px;
     }
     
-    .ticket__search .ticket__search__about .ticket__search__about__close-btn {
+    .ticket .ticket__about .ticket__about__close-btn {
         width: 60px;
         height: 50px;
         background-size: 35px 35px;
     }
     
-    .ticket__search .ticket__search__about .ticket__search__about__details .ticket__search__about__item.description {
+    .ticket .ticket__about .ticket__about__details .ticket__about__item.description {
         font-size: 22px;
     }
     
-    .ticket__search .ticket__search__about .ticket__search__about__details p span {
+    .ticket .ticket__about .ticket__about__details p span {
         font-size: 22px;
     }
     
-    .ticket__search .ticket__search__about .ticket__search__about__details p span {
+    .ticket .ticket__about .ticket__about__details p span {
         font-size: 20px;
     }
     
-    .ticket__search .ticket__search__status {
+    .ticket .ticket__status {
         height: 25px;
         width: 25px;
     }
 
-    .ticket__search div[id=right] div[id=right-div-right] .ticket__search__offer-btn p {
+    .ticket div[id=right] div[id=right-div-right] .ticket__offer-btn p {
         font-size: 20px;
     }
 }
 
  /* ADAPTIVE 1536px and more */
 @media (min-width: 1536px) {
-    .ticket__search .ticket__search__about,
-    .ticket__search {
+    .ticket .ticket__about,
+    .ticket {
         height: 175px;
     }
 
-    .ticket__search .ticket__search__placeholder {
+    .ticket .ticket__placeholder {
         font-size: 22px;
     }
-    .ticket__search .ticket__search__city {
+    .ticket .ticket__city {
         font-size: 26px;
     }
 
-    .ticket__search .ticket__search__details-btn {
+    .ticket .ticket__details-btn {
         font-size: 24px;
     }
     
-    .ticket__search .ticket__search__type-app {
+    .ticket .ticket__type-app {
         font-size: 24px;
     }
     
-    .ticket__search .ticket__search__date {
+    .ticket .ticket__date {
         font-size: 22px;
     }
     
-    .ticket__search .ticket__search__price {
+    .ticket .ticket__price {
         font-size: 24px;
     }
 
-    .ticket__search .ticket__search__reject-btn p {
+    .ticket .ticket__reject-btn p {
         font-size: 22px;
     }
     
-    .ticket__search .ticket__search__about .ticket__search__about__close-btn {
+    .ticket .ticket__about .ticket__about__close-btn {
         width: 65px;
         height: 55px;
         background-size: 40px 40px;
     }
     
-    .ticket__search .ticket__search__about .ticket__search__about__details .ticket__search__about__item.description {
+    .ticket .ticket__about .ticket__about__details .ticket__about__item.description {
         font-size: 24px;
     }
     
-    .ticket__search .ticket__search__about .ticket__search__about__details p span {
+    .ticket .ticket__about .ticket__about__details p span {
         font-size: 24px;
     }
     
-    .ticket__search .ticket__search__about .ticket__search__about__details p span {
+    .ticket .ticket__about .ticket__about__details p span {
         font-size: 22px;
     }
     
-    .ticket__search .ticket__search__status {
+    .ticket .ticket__status {
         height: 30px;
         width: 30px;
     }
 
-    .ticket__search div[id=right] div[id=right-div-right] .ticket__search__offer-btn p {
+    .ticket div[id=right] div[id=right-div-right] .ticket__offer-btn p {
         font-size: 22px;
     }
 }

@@ -1,14 +1,7 @@
 .container.cabinet {
-    width: 100vw;
-
-    display: grid;
-    height: 80vh;
-
+    justify-items: normal;
     justify-content: center;
     align-content: center;
-    align-items: center;
-    
-    overflow: hidden;
 }
 
 .container.cabinet::-webkit-scrollbar {
@@ -19,7 +12,6 @@
     -ms-overflow-style: none;  /* IE and Edge */
     scrollbar-width: none;  /* Firefox */
 }
-
 
 .container.cabinet.common,
 .container.cabinet.client {
@@ -109,10 +101,6 @@
 
 /* ADAPTIVE 768-801-1024px */
 @media (min-width: 641px) and (max-width: 1023px) {
-    .container.cabinet {
-        width: 95%;
-    }
-
     .container.cabinet.common p[id=warning],
     .container.cabinet.client p[id=warning],
     .container.cabinet.driver.form p[id=warning]
@@ -124,10 +112,6 @@
 
  /* ADAPTIVE 1024,1280 */
 @media (min-width: 1024px) and (max-width: 1280px) {
-    .container.cabinet {
-        width: 65%;
-    }
-
     .container.cabinet.common p[id=warning],
     .container.cabinet.client p[id=warning],
     .container.cabinet.driver.form p[id=warning],    
@@ -137,12 +121,7 @@
 }
 
  /* ADAPTIVE 1337,1440px */
-@media (min-width: 1281px) and (max-width: 1535px) {
-    .container.cabinet {
-        width: 50%;
-    }
-    
-
+@media (min-width: 1281px) and (max-width: 1535px) {    
     .container.cabinet.common p[id=warning],
     .container.cabinet.client p[id=warning],
     .container.cabinet.driver.form p[id=warning],
@@ -154,10 +133,6 @@
 
  /* ADAPTIVE 1536px and more */
 @media (min-width: 1536px) {
-    .container.cabinet {
-        width: 45%;
-    }
-    
     .container.cabinet.common p[id=warning],
     .container.cabinet.client p[id=warning],
     .container.cabinet.driver.form p[id=warning],
