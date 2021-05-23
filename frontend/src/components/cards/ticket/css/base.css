@@ -2,7 +2,7 @@
     margin-bottom: 6.5px;
     width: 100%;
     height: auto;
-    min-height: 100px;
+    min-height: 90px;
     border-radius: 10px;
 
     display: grid;
@@ -178,7 +178,7 @@
 /* ADAPTIVE 768-801 */
 @media (min-width: 641px) and (max-width: 1023px) {
     .ticket {
-        min-width: 450px;
+        min-width: 500px;
     }
 
     .ticket .ticket__placeholder {
@@ -221,7 +221,8 @@
  /* ADAPTIVE 1024,1280,1337,1440px */
 @media (min-width: 1024px) and (max-width: 1535px) {
     .ticket {
-        min-width: 500px;
+        min-width: 575px;
+        min-height: 130px;
     }
 
     .ticket .ticket__placeholder {
@@ -264,7 +265,8 @@
  /* ADAPTIVE 1536px and more */
 @media (min-width: 1536px) {
     .ticket {
-        min-width: 550px;
+        min-width: 625px;
+        min-height: 130px;
     }
 
     .ticket .ticket__placeholder {
