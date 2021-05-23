@@ -3,6 +3,7 @@
     width: 100%;
     height: auto;
     min-height: 90px;
+    min-width: 95vw;
     border-radius: 10px;
 
     display: grid;
