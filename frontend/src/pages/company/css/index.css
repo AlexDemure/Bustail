@@ -1,15 +1,11 @@
 .container.company-page {
-    position: relative;
-
-    width: 95vw;
+    justify-content: center;
+    align-content: flex-start;
+    align-items: unset;
+    overflow: hidden;
 
     display: grid;
     grid-template-rows: 40px 1fr;
-
-    justify-content: center;
-    align-content: flex-start;
-    
-    overflow: hidden;
 }
 
 .container.company-page .company-page__title {

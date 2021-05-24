@@ -148,51 +148,21 @@
 }
 
 
-
-/* ADAPTIVE 375px */
-@media (min-width:361px) and (max-width:400px){
-    .transport {
-        min-height: 160px;
-        grid-template-columns: 180px 1fr;
-    }
-
-    .transport .transport__card {
-        min-height: 160px;
-    }
-
-    .transport .transport__photo {
-        min-height: 160px;
-        width: 180px;
-        background-size: 180px 160px;   /* x y*/
-    }
-   
-    .transport__card .transport__card__controls.multi .transport__card__control {
-        background-size: 28px 28px;
-    }
-    
-    .transport__card #offer,
-    .transport__card #remove {
-        height: 45px;
-        width: 120px;
-    }
-
- }
-
  /* ADAPTIVE 414px */
  @media (min-width:401px) and (max-width:640px){
     .transport {
-        min-height: 180px;
+        min-height: 160px;
         grid-template-columns: 200px 1fr;
     }
 
     .transport .transport__card {
-        min-height: 180px;
+        min-height: 160px;
     }
 
     .transport .transport__photo {
-        min-height: 180px;
+        min-height: 160px;
         width: 200px;
-        background-size: 200px 180px;   /* x y*/
+        background-size: 200px 160px;   /* x y*/
     }
    
     .transport__card .transport__card__title p[id=model] {
@@ -224,18 +194,18 @@
  /* ADAPTIVE 768-801 */
 @media (min-width: 641px) and (max-width: 1023px) {
     .transport {
-        min-height: 220px;
-        grid-template-columns: 270px 1fr;
+        min-height: 200px;
+        grid-template-columns: 250px 1fr;
     }
 
     .transport .transport__card {
-        min-height: 270px;
+        min-height: 250px;
     }
 
     .transport .transport__photo {
-        min-height: 220px;
-        width: 270px;
-        background-size: 270px 220px;   /* x y*/
+        min-height: 200px;
+        width: 250px;
+        background-size: 250px 200px;   /* x y*/
     }
 
     .transport__card .transport__card__title p[id=model] {
