@@ -1,17 +1,15 @@
 import React from 'react'
 import { withRouter } from 'react-router'
-import { getCompanyCardByUrl } from '../../components/common/api/company_card'
+import { getCompanyCardByUrl } from '../../components/common/api/company/get_by_url'
 
 import NavBar from '../../components/common/navbar'
 import Header from '../../components/common/header'
 import TransportCard from '../../components/common/transport_card'
 import Transport from '../../components/cards/transport'
-
-import { getMeApps } from '../../components/common/api/me_apps'
-
 import { ResponseNotify, showNotify } from '../../components/common/response_notify'
 
-import sendRequest from '../../utils/fetch'
+import { getMeApps } from '../../components/common/api/applications/me'
+import { createNotification} from '../../components/common/api/notifications/create'
 
 import OfferForm from "./components/offer"
 
@@ -61,13 +59,13 @@ class CompanyPage extends React.Component {
         let user_apps = await getMeApps()
 
         this.setState({
-            company: company,
-            user_apps: user_apps
+            company: company.result,
+            user_apps: user_apps.result
         })
     }
 
     
-    createOffer(event, ticket_id, price) {
+    async createOffer(event, ticket_id, price) {
         event.preventDefault();
 
 
@@ -81,28 +79,24 @@ class CompanyPage extends React.Component {
             data["price"] = price
         }
 
-        sendRequest('/api/v1/notifications/', "POST", data)
-        .then(
-            (result) => {
-                console.log(result)
-                this.setState({
-                    response_text: "Предложение успешно отправлено",
-                    notify_type: "success",
-                    error: null,
-                    offerData: null
-                })
-                showNotify()
-            },
-            (error) => {
-                console.log(error)
-                this.setState({
-                    response_text: error.message,
-                    notify_type: "error",
-                    error: error.message
-                })
-                showNotify()
-            }
-        )
+        let response = await createNotification(data)
+        
+        if (response.result !== null) {
+            this.setState({
+                response_text: "Предложение успешно отправлено",
+                notify_type: "success",
+                error: null,
+                offerData: null
+            })
+            showNotify()
+        } else {
+            this.setState({
+                response_text: response.error.message,
+                notify_type: "error",
+                error: response.error.message
+            })
+            showNotify()
+        }
     }
 
     render() {

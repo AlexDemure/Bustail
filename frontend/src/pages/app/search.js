@@ -8,14 +8,14 @@ import TicketCard from '../../components/common/ticket_card'
 
 import { ResponseNotify, showNotify } from '../../components/common/response_notify'
 
-import { getDriverCard } from '../../components/common/api/driver_card'
-import { aboutMe } from '../../components/common/api/about_me'
-import { getMeCompanyCard } from '../../components/common/api/company_card'
+import { getMeDriverCard } from '../../components/common/api/drivers/me'
+import { getMeAccountCard } from '../../components/common/api/account/me'
+import { getMeCompanyCard } from '../../components/common/api/company/me'
+import { appTypes } from '../../components/common/api/applications/types'
+import { getCities } from '../../components/common/api/other/cities'
+import {createNotification} from '../../components/common/api/notifications/create'
+import {getApplications} from '../../components/common/api/applications/get'
 
-import { getCities } from '../../constants/cities'
-import { appTypes } from '../../constants/app_types'
-
-import sendRequest from '../../utils/fetch'
 import SerializeForm from '../../utils/form_serializer'
 
 import OfferForm from "./components/offer"
@@ -66,7 +66,7 @@ export default class SearchAppPage extends React.Component {
 
         this.onScroll = this.onScroll.bind(this)
         this.onSubmit = this.onSubmit.bind(this)
-        this.getApps = this.getApps.bind(this)
+
         this.createOffer = this.createOffer.bind(this)
         this.showTransportCard = this.showTransportCard.bind(this)
         this.showTicketCard = this.showTicketCard.bind(this)
@@ -84,10 +84,9 @@ export default class SearchAppPage extends React.Component {
         })
     }
 
-    createOffer(event, transport_id, price) {
+    async createOffer(event, transport_id, price) {
         event.preventDefault();
 
-       
         let data = {
             application_id: this.state.apps[this.state.offerData].id,
             transport_id: transport_id,
@@ -98,58 +97,25 @@ export default class SearchAppPage extends React.Component {
             data["price"] = price
         }
 
-        sendRequest('/api/v1/notifications/', "POST", data)
-        .then(
-            (result) => {
-                console.log(result)
-                this.setState({
-                    response_text: "Предложение успешно отправлено",
-                    notify_type: "success",
-                    error: null,
-                    offerData: null
-                })
-                showNotify()
-            },
-            (error) => {
-                console.log(error)
-                this.setState({
-                    response_text: error.message,
-                    notify_type: "error",
-                    error: error.message
-                })
-                showNotify()
-            }
-        )
-    }
+        let response = await createNotification(data)
+        
+        if (response.result !== null) {
+            this.setState({
+                response_text: "Предложение успешно отправлено",
+                notify_type: "success",
+                error: null,
+                offerData: null
+            })
+            showNotify()
 
-    async getApps(city = null, application_type = null, offset = 0) {
-        let data;
-        
-        let url = `/api/v1/applications/?limit=10&offset=${offset}&order_by=to_go_when&order_type=asc&`
-        
-        if (application_type !== null && application_type !== "") {
-            url += application_type
+        } else {
+            this.setState({
+                response_text: response.error.message,
+                notify_type: "error",
+                error: response.error.message
+            })
+            showNotify()
         }
-
-        if (city !== null && city !== "") {
-            url += `city=${city}`
-        }
-        
-        await sendRequest(url, "GET")
-        .then(
-            (result) => {
-                data = {
-                    applications: result.applications,
-                    total_rows: result.total_rows
-                }
-            },
-            (error) => {
-                console.log(error)
-                data = null
-            }
-        )
-        return data
-
     }
 
     onScroll = async(e) => {
@@ -157,13 +123,13 @@ export default class SearchAppPage extends React.Component {
         if (e.target.scrollHeight - (e.target.offsetHeight + e.target.scrollTop) === 0) {
             if (this.state.isScrolling === true) {
                 
-                let data = await this.getApps(this.state.city, this.state.application_type, this.state.offset);        
+                let response = await getApplications(this.state.city, this.state.application_type, this.state.offset);        
 
-                let new_array = this.state.apps.concat(data.applications)
+                let new_array = this.state.apps.concat(response.result.applications)
                         
                 this.setState({
                     apps: new_array,
-                    total_rows: data.total_rows,
+                    total_rows: response.result.total_rows,
                     offset: new_array.length
                 })
 
@@ -200,15 +166,15 @@ export default class SearchAppPage extends React.Component {
             }
         }
         
-        let response = await this.getApps(data.city, data.application_type);        
+        let response = await getApplications(data.city, data.application_type);        
 
         this.setState({
             windowType: "search",
             active_items: active_items,
 
-            apps: response.applications,
-            total_rows: response.total_rows,
-            offset: response.applications.length,
+            apps: response.result.applications,
+            total_rows: response.result.total_rows,
+            offset: response.result.applications.length,
             
             application_type: data.application_type,
             city: data.city,
@@ -217,27 +183,27 @@ export default class SearchAppPage extends React.Component {
     }
 
     async componentDidMount(){
-        let user = await aboutMe()
-        let driver = await getDriverCard()
+        let user = await getMeAccountCard()
+        let driver = await getMeDriverCard()
         let company = await getMeCompanyCard()
 
         let cities = await getCities()
-        let apps_data = await this.getApps()
+        let apps_data = await getApplications()
         
         let application_types = await appTypes()
 
         this.setState({
-            user: user,
-            driver_transports: driver ? driver.transports : [],
-            company_transports: company ? company.transports: [],
+            user: user.result,
+            driver_transports: driver.result ? driver.result.transports : [],
+            company_transports: company.result ? company.result.transports: [],
 
-            cities: cities,
+            cities: cities.result,
             
-            apps: apps_data.applications,
-            total_rows: apps_data.total_rows,
-            offset: apps_data ? apps_data.applications.length : null,
+            apps: apps_data.result.applications,
+            total_rows: apps_data.result.total_rows,
+            offset: apps_data.result ? apps_data.result.applications.length : null,
 
-            application_types: application_types
+            application_types: application_types.result
         });
     }
 

@@ -1,6 +1,7 @@
 import React from 'react';
 
-import sendRequest from '../../../utils/fetch'
+import {getDriverCard} from '../../common/api/drivers/get_by_id'
+import {getCompanyCard} from '../../common/api/company/get_by_id'
 
 import './css/base.css'
 
@@ -46,27 +47,25 @@ export default class Transport extends React.Component {
             phone: null
         }
 
-        this.getDriveInfo = this.getDriveInfo.bind(this)
+        this.getOwnerInfo = this.getOwnerInfo.bind(this)
     }
 
-    getDriveInfo() {
-        sendRequest(`/api/v1/drivers/${this.props.transport.driver_id}/`, "GET")
-        .then(
-            (result) => {
-                this.setState({
-                    phone: result.account.phone
-                })    
-            },
-            (error) => {
-                console.log(error)
-            }
-        )
+    async getOwnerInfo() {
+        if (this.props.transport.driver_id) {
+            let response = await getDriverCard(this.props.transport.driver_id)
+            this.setState({
+                phone: response.result.account.phone
+            })
+        } else if (this.props.transport.company_id) {
+            let response = await getCompanyCard(this.props.transport.company_id)
+            this.setState({
+                phone: response.result.account.phone
+            })
+        }
     }
 
     async componentDidMount() {
-        if (this.props.transport.driver_id !== null) {
-            this.getDriveInfo()
-        }
+        await this.getOwnerInfo()
     }
 
     render() {

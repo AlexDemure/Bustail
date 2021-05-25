@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { aboutMe } from '../../components/common/api/about_me'
+import { getMeAccountCard } from '../../components/common/api/account/me'
  
 import CreateAppForm from './forms/create'
 
@@ -13,7 +13,7 @@ export default class CreateAppPage extends React.Component {
 
     async componentDidMount(){
         isAuth()
-        await aboutMe()
+        await getMeAccountCard()
     }
 
     render() {

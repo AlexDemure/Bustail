@@ -4,12 +4,12 @@ import { ResponseNotify, showNotify } from '../../../components/common/response_
 import Ticket from '../../../components/cards/ticket/index'
 import TicketCard from '../../../components/common/ticket_card'
 
-import sendRequest from '../../../utils/fetch'
+import { rejectApplication } from '../../../components/common/api/applications/reject'
 
 import CabinetSwitch from '../components/switch_cabinet'
 
-
 import './css/client.css'
+
 
 export default class ClientPage extends React.Component {
     constructor(props) {
@@ -35,12 +35,13 @@ export default class ClientPage extends React.Component {
         })
     }
 
-    rejectApplication(index_array) {
-        sendRequest(`/api/v1/applications/${this.state.applications[index_array].id}/reject/`, "PUT")
-        .then(
-            (result) => {
-                console.log(result)
-                let applications = this.state.applications
+    async rejectApplication(index_array) {
+        let application = this.state.applications[index_array]
+        
+        let response = await rejectApplication(application.id)
+        
+        if (response.result !== null) {
+            let applications = this.state.applications
                 applications.splice(index_array, 1)
 
                 this.setState({
@@ -51,17 +52,15 @@ export default class ClientPage extends React.Component {
                     error: null
                 })
                 showNotify()
-            },
-            (error) => {
-                console.log(error)
-                this.setState({
-                    error: error.message,
-                    response_text: error.message,
-                    notify_type: "error"
-                })
-                showNotify()
-            }
-        )
+        
+        } else {
+            this.setState({
+                error: response.error.message,
+                response_text: response.error.message,
+                notify_type: "error"
+            })
+            showNotify()
+        }
     }
 
     componentDidUpdate(prevProps) {

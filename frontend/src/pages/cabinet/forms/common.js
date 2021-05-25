@@ -3,16 +3,16 @@ import React from 'react'
 import DefaultInput from '../../../components/common/inputs/default'
 import SearchInput from '../../../components/common/inputs/search_selector'
 import InputPhone from '../../../components/common/inputs/phone'
-
 import SubmitButton from '../../../components/common/buttons/submit_btn'
 import CabinetSwitch from '../components/switch_cabinet'
-
 import { ResponseNotify, showNotify } from '../../../components/common/response_notify'
 
+import { updateAccount } from '../../../components/common/api/account/update'
+
 import SerializeForm from '../../../utils/form_serializer'
-import sendRequest from '../../../utils/fetch'
 
 import { selectErrorInputs } from '../../../constants/input_parsers'
+
 
 class CommonInfoForm extends React.Component {
     constructor(props) {
@@ -51,7 +51,7 @@ export default class CommonPage extends React.Component {
         this.changeInfo = this.changeInfo.bind(this)
     }
 
-    changeInfo(event) {
+    async changeInfo(event) {
         event.preventDefault();
 
         let prepared_data = SerializeForm(event.target, new FormData(event.target))
@@ -61,42 +61,42 @@ export default class CommonPage extends React.Component {
             fullname: prepared_data.get("fullname"),
             city: prepared_data.get("city")
         }
-        sendRequest('/api/v1/accounts/', "PUT", data)
-        .then(
-            (result) => {
-                if (this.state.error) {
-                    selectErrorInputs(this.state.error, false)
-                    this.setState({
-                        error: null
-                    })
-                }
-                this.setState({
-                    response_text: "Данные успешно изменены",
-                    notify_type: "success",
-                })
-                showNotify()
-                this.props.changeInfo(data)
-            },
-            (error) => {
-                this.setState({
-                    error: error.message,
-                    notify_type: "error"
-                })
 
-                if (error.name === "ValidationError") {
-                    selectErrorInputs(error.message)
-                    this.setState({
-                        response_text: "Не корректно заполнены данные",
-                    })
-                } else {
-                    this.setState({
-                        response_text: error.message,
-                    })
-                }
-
-                showNotify()
+        let response = await updateAccount(data)
+        
+        if (response.result !== null) {
+            if (this.state.error) {
+                selectErrorInputs(this.state.error, false)
+                this.setState({
+                    error: null
+                })
             }
-        )
+            this.setState({
+                response_text: "Данные успешно изменены",
+                notify_type: "success",
+            })
+            showNotify()
+            this.props.changeInfo(data)
+
+        } else {
+            this.setState({
+                error: response.error.message,
+                notify_type: "error"
+            })
+
+            if (response.error.name === "ValidationError") {
+                selectErrorInputs(response.error.message)
+                this.setState({
+                    response_text: "Не корректно заполнены данные",
+                })
+            } else {
+                this.setState({
+                    response_text: response.error.message,
+                })
+            }
+
+            showNotify()
+        }
     }
 
     componentDidUpdate(prevProps) {

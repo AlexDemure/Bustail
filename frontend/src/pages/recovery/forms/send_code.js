@@ -5,8 +5,9 @@ import Notify from '../../../components/common/notify'
 import DefaultInput from '../../../components/common/inputs/default'
 import SubmitButton from '../../../components/common/buttons/submit_btn'
 
+import { sendChangePasswordCode } from '../../../components/common/api/mailing/change_password'
+
 import SerializeForm from '../../../utils/form_serializer'
-import sendRequest from '../../../utils/fetch'
 
 
 function SendCodeForm(props) {
@@ -36,30 +37,24 @@ export default class RecoveryForm extends React.Component {
         this.sendCode = this.sendCode.bind(this);
     }
 
-    sendCode(event) {
+    async sendCode(event) {
         event.preventDefault();
         let prepared_data = SerializeForm(event.target, new FormData(event.target))
         
-        let data = {email: prepared_data.get("email")}
-
-        sendRequest('/api/v1/mailing/change_password/', "POST", data)
-        .then(
-            (result) => {
-                console.log(result);
-                
-                this.setState({
-                    form: "notify",
-                    error: null
-                })
-            },
-            (error) => {
-                console.log(error.message);
-                this.setState({
-                    error: error.message
-                })
-            }
-        )
+        let response = await sendChangePasswordCode({email: prepared_data.get("email")})
+        
+        if (response.result !== null) {
+            this.setState({
+                form: "notify",
+                error: null
+            }) 
+        } else {
+            this.setState({
+                error: response.error.message
+            })
+        }
     }
+
     render() {
         let form;
 

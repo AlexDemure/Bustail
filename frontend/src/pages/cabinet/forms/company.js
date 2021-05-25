@@ -4,21 +4,23 @@ import DefaultInput from '../../../components/common/inputs/default'
 import SubmitButton from '../../../components/common/buttons/submit_btn'
 import TransportCard from '../../../components/common/transport_card'
 import Transport from '../../../components/cards/transport'
-
 import { ResponseNotify, showNotify } from '../../../components/common/response_notify'
 
-import PaymentData from '../components/payment_data'
+import { createCompany } from '../../../components/common/api/company/create'
+import { updateCompany } from '../../../components/common/api/company/update'
+import { deleteTransport } from '../../../components/common/api/transports/delete'
+import { getPaymentLink } from '../../../components/common/api/payments/get'
 
+import PaymentData from '../components/payment_data'
 import CabinetSwitch from '../components/switch_cabinet'
 import CardSwitch from '../components/switch_card'
 
 import { selectErrorInputs } from '../../../constants/input_parsers'
 
-import sendRequest from '../../../utils/fetch'
+
 import SerializeForm from '../../../utils/form_serializer'
 
 import './css/company.css'
-
 
 
 function CompanyForm(props) {
@@ -128,7 +130,7 @@ export default class CompanyPage extends React.Component {
         }
     }
 
-    setCompanyInfo(event, method) {
+    async setCompanyInfo(event, method) {
         event.preventDefault();
 
         let prepared_data = SerializeForm(event.target, new FormData(event.target))
@@ -144,109 +146,93 @@ export default class CompanyPage extends React.Component {
                 instagram: prepared_data.get("instagram") || null
             }
         }
-        sendRequest('/api/v1/company/', method, data)
-        .then(
-            (result) => {
-                if (this.state.error) {
-                    selectErrorInputs(this.state.error, false)
-                }
-                this.setState({
-                    company: {
-                        id: result.id,
-                        account_id: result.account_id,
+        let response;
+        if (method === "POST") {
+            response = await createCompany(data)
+        } else if (method === "PUT") {
+            response = await updateCompany(data)
+        }
 
-                        license_number: result.license_number,
-                        inn: result.inn,
-                        ogrn: result.ogrn,
-                        company_name: result.company_name,
-                        socials: result.socials,
-                        page_url: result.page_url,
-
-                        transports: result.transports,
-                        
-                        total_amount: result.total_amount,
-                        commission: result.commission,
-                        debt: result.debt,
-                        limit: result.limit
-                    },
-                    error: null,
-                    response_text: "Данные успешно изменены",
-                    notify_type: "success",
-                })
-                showNotify()
-
-                if (method === "POST") {
-                    this.setState({
-                        form: "card"
-                    })
-                }
-            },
-            (error) => {
-                this.setState({
-                    error: error.message,
-                    notify_type: "error"
-                })
-
-                if (error.name === "ValidationError") {
-                    selectErrorInputs(error.message)
-                    this.setState({
-                        response_text: "Не корректно заполнены данные",
-                    })
-                } else {
-                    this.setState({
-                        response_text: error.message,
-                    })
-                }
-                showNotify()
+        if (response.result !== null) {
+            if (this.state.error) {
+                selectErrorInputs(this.state.error, false)
             }
-        )
+            this.setState({
+                company: response.result,
+                error: null,
+                response_text: "Данные успешно изменены",
+                notify_type: "success",
+            })
+
+            showNotify()
+                
+            if (method === "POST") {
+                this.setState({
+                    form: "card"
+                })
+            }
+
+        } else {
+            this.setState({
+                error: response.error.message,
+                notify_type: "error"
+            })
+
+            if (response.error.name === "ValidationError") {
+                selectErrorInputs(response.error.message)
+                this.setState({
+                    response_text: "Не корректно заполнены данные",
+                })
+            } else {
+                this.setState({
+                    response_text: response.error.message,
+                })
+            }
+            showNotify()
+        }
     }
     
-    deleteTransport(index_array) {
-        sendRequest(`api/v1/drivers/transports/${this.state.transports[index_array].id}/`, "DELETE")
-        .then(
-            (result) => {
-                console.log(result)
-                let transports = this.state.transports
-                transports.splice(index_array, 1)
+    async deleteTransport(index_array) {
+        let transport = this.state.transports[index_array]
+        
+        let response = await deleteTransport(transport.id)
+        if (response.result !== null) {
+            let transports = this.state.transports
+            transports.splice(index_array, 1)
 
-                this.setState({
-                    transports: transports,
+            this.setState({
+                transports: transports,
 
-                    response_text: "Транспорт успешно удален",
-                    notify_type: "success",
-                    error: null
-                })
-                showNotify()
-            },
-            (error) => {
-                console.log(error)
-                this.setState({
-                    error: error.message,
-                    response_text: error.message,
-                    notify_type: "error"
-                })
-                showNotify()
-            }
-        )
+                response_text: "Транспорт успешно удален",
+                notify_type: "success",
+                error: null
+            })
+            showNotify()
+        } else {
+            this.setState({
+                error: response.error.message,
+                response_text: response.error.message,
+                notify_type: "error"
+            })
+            showNotify() 
+        }
     }
 
-    getPaymentLink = () => {
-        sendRequest("/api/v1/payments?payment_card=company", "GET")
-        .then(
-            (result) => {
-                window.location.replace(result.payment_url)
-            },
-            (error) => {
-                console.log(error.message)
-                this.setState({
-                    error: error.message,
-                    notify_type: "error",
-                    response_text: error.message,
-                })
-                showNotify()
-            }
-        )    
+    getPaymentLink = async() => {
+        let response = await getPaymentLink("company")
+        
+        if (response.result !== null) {
+            window.location.replace(response.result.payment_url)
+        
+        } else {
+            this.setState({
+                error: response.error.message,
+                notify_type: "error",
+                
+                response_text: response.error.message,
+            })
+            showNotify()
+        }
     }
 
     componentDidUpdate(prevProps) {

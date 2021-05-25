@@ -7,14 +7,13 @@ import TicketCard from '../../components/common/ticket_card'
 
 import { ResponseNotify, showNotify } from '../../components/common/response_notify'
 
-import { aboutMe } from '../../components/common/api/about_me'
-import { getMeApps } from '../../components/common/api/me_apps'
-
-import { transportTypes } from '../../constants/transport_types'
+import { getMeAccountCard } from '../../components/common/api/account/me'
+import { getMeApps } from '../../components/common/api/applications/me'
+import { transportTypes } from '../../components/common/api/transports/types'
+import {createNotification} from '../../components/common/api/notifications/create'
+import { getTransports } from '../../components/common/api/transports/get'
 
 import SerializeForm from '../../utils/form_serializer'
-import sendRequest from '../../utils/fetch'
-
 
 import OfferForm from "./components/offer"
 import SearchFilters from './components/filters'
@@ -57,7 +56,6 @@ export default class SearchTransportPage extends React.Component {
 
         this.onScroll = this.onScroll.bind(this)
         this.onSubmit = this.onSubmit.bind(this)
-        this.getTransports = this.getTransports.bind(this)
         this.createOffer = this.createOffer.bind(this)
         this.showTransportCard = this.showTransportCard.bind(this)
         this.showTicketCard = this.showTicketCard.bind(this)
@@ -75,7 +73,7 @@ export default class SearchTransportPage extends React.Component {
         })
     }
 
-    createOffer(event, ticket_id, price) {
+    async createOffer(event, ticket_id, price) {
         event.preventDefault();
 
 
@@ -89,58 +87,25 @@ export default class SearchTransportPage extends React.Component {
             data["price"] = price
         }
 
-        sendRequest('/api/v1/notifications/', "POST", data)
-        .then(
-            (result) => {
-                console.log(result)
-                this.setState({
-                    response_text: "Предложение успешно отправлено",
-                    notify_type: "success",
-                    error: null,
-                    offerData: null
-                })
-                showNotify()
-            },
-            (error) => {
-                console.log(error)
-                this.setState({
-                    response_text: error.message,
-                    notify_type: "error",
-                    error: error.message
-                })
-                showNotify()
-            }
-        )
-    }
-
-    async getTransports(city = null, transport_type = null, offset = 0) {
-        let data;
+        let response = await createNotification(data)
         
-        let url = `/api/v1/drivers/transports/?limit=10&offset=${offset}&order_by=id&order_type=desc&`
+        if (response.result !== null) {
+            this.setState({
+                response_text: "Предложение успешно отправлено",
+                notify_type: "success",
+                error: null,
+                offerData: null
+            })
+            showNotify()
         
-        if (transport_type !== null && transport_type !== "") {
-            url += transport_type
+        } else {
+            this.setState({
+                response_text: response.error.message,
+                notify_type: "error",
+                error: response.error.message
+            })
+            showNotify()
         }
-
-        if (city !== null && city !== "") {
-            url += `city=${city}`
-        }
-        
-        await sendRequest(url, "GET")
-        .then(
-            (result) => {
-                data = {
-                    transports: result.transports,
-                    total_rows: result.total_rows
-                }
-            },
-            (error) => {
-                console.log(error)
-                data = null
-            }
-        )
-        return data
-
     }
 
     onScroll = async(e) => {
@@ -148,13 +113,13 @@ export default class SearchTransportPage extends React.Component {
         if (e.target.scrollHeight - (e.target.offsetHeight + e.target.scrollTop) === 0) {
             if (this.state.isScrolling === true) {
                 
-                let data = await this.getTransports(this.state.city, this.state.transport_type, this.state.offset);        
+                let data = await getTransports(this.state.city, this.state.transport_type, this.state.offset);        
 
-                let new_array = this.state.transports.concat(data.transports)
+                let new_array = this.state.transports.concat(data.result.transports)
                         
                 this.setState({
                     transports: new_array,
-                    total_rows: data.total_rows,
+                    total_rows: data.result.total_rows,
                     offset: new_array.length
                 })
 
@@ -191,15 +156,15 @@ export default class SearchTransportPage extends React.Component {
             }
         }
 
-        let response = await this.getTransports(data.city, data.transport_type);        
+        let response = await getTransports(data.city, data.transport_type);        
 
         this.setState({
             windowType: "search",
             active_items: active_items,
 
-            transports: response.transports,
-            total_rows: response.total_rows,
-            offset: response.transports.length,
+            transports: response.result.transports,
+            total_rows: response.result.total_rows,
+            offset: response.result.transports.length,
             transport_type: data.transport_type,
             city: data.city,
         })
@@ -207,22 +172,22 @@ export default class SearchTransportPage extends React.Component {
     }
 
     async componentDidMount(){
-        let user = await aboutMe()
+        let user = await getMeAccountCard()
     
         let user_apps = await getMeApps()
         
-        let transport_data = await this.getTransports()
+        let transport_data = await getTransports()
 
         let transport_types = await transportTypes()
 
         this.setState({
-            user: user,
-            user_apps: user_apps,
-            transports: transport_data.transports,
-            total_rows: transport_data.total_rows,
-            offset: transport_data ? transport_data.transports.length : null,
+            user: user.result,
+            user_apps: user_apps.result.applications,
+            transports: transport_data.result.transports,
+            total_rows: transport_data.result.total_rows,
+            offset: transport_data.result ? transport_data.result.transports.length : null,
 
-            transport_types: transport_types
+            transport_types: transport_types.result
         });
     }
     

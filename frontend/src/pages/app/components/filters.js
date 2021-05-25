@@ -2,7 +2,8 @@ import React from 'react'
 
 import SearchInput from '../../../components/common/inputs/search_selector'
 import SubmitButton from '../../../components/common/buttons/submit_btn'
-import { getCities } from '../../../constants/cities'
+import { getCities } from '../../../components/common/api/other/cities'
+
 
 import './css/filters.css'
 
@@ -19,7 +20,7 @@ export default class SearchFilters extends React.Component {
     async componentDidMount() {
         let cities = await getCities()
         this.setState({
-            cities: cities
+            cities: cities.result
         })
     }
 

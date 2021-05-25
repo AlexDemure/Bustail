@@ -1,6 +1,6 @@
 import React from 'react'
 
-import sendRequest from '../../utils/fetch'
+import { getAccountCard } from '../common/api/account/get_by_id'
 
 import './css/client_card.css'
 
@@ -17,27 +17,10 @@ export default class ClientCard extends React.Component {
         }
     }
 
-    async getUserInfo(account_id) {
-        let user;
-
-        await sendRequest(`/api/v1/accounts/${account_id}/`, "GET")
-        .then(
-            (result) => {
-                user = result
-                return user
-            },
-            (error) => {
-                user = null
-            }
-        )
-
-        return user
-    }
-
     async componentDidMount() {
-        let user = await this.getUserInfo(this.props.account_id)
+        let user = await getAccountCard(this.props.account_id)
         this.setState({
-            user: user
+            user: user.result
         })
     }
 

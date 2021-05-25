@@ -15,7 +15,7 @@ async function fetcher(url, method, data, token = localStorage.getItem("token"))
     return response
 }
 
-async function sendRequest(url, method, data) {
+export async function sendRequest(url, method, data) {
     const bad_responses = [400, 403, 404]
     const validation_code = [422]
     const bad_token = [401]
@@ -58,5 +58,27 @@ async function sendRequest(url, method, data) {
     }
 }
 
-export default sendRequest
+export async function sendRequestResponseJSON(url, method, data) {
+    let response;
+    
+    await sendRequest(url, method, data)
+    .then(
+        (result) => {
+            response = {
+                result: result,
+                error: null,
+            }
+        },
+        (error) => {
+            response = {
+                result: null,
+                error: error,
+            }
+        }
+    )
+    
+    return response
+}
+
+
 

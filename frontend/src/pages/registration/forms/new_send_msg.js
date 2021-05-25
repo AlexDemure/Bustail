@@ -2,9 +2,9 @@ import React from 'react'
 
 import SubmitButton from '../../../components/common/buttons/submit_btn'
 
-import CountDown from '../components/count_down'
+import { sendVerifyCode } from '../../../components/common/api/mailing/verify_code'
 
-import sendRequest from '../../../utils/fetch'
+import CountDown from '../components/count_down'
 
 import './css/new_send_msg.css'
 
@@ -26,23 +26,15 @@ export default class NewSendMessageForm extends React.Component {
         })
     }
 
-    sendMessage(event) {
+    async sendMessage(event) {
         event.preventDefault();
         
-        let data = {email: this.props.email}
-
-        sendRequest('/api/v1/mailing/verify_code/', "POST", data, localStorage.getItem("token"))
-        .then(
-            (result) => {
-                console.log(result);
-                this.setState({
-                    seconds: 60
-                })
-            },
-            (error) => {
-                console.log(error.message);
-            }
-        )
+        let response = await sendVerifyCode({email: this.props.email})
+        if (response.result !== null) {
+            this.setState({
+                seconds: 60
+            })
+        }
     }
 
     render() {

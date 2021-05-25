@@ -4,19 +4,19 @@ import Notify from '../../../components/common/notify'
 import DefaultInput from '../../../components/common/inputs/default'
 import SearchInput from '../../../components/common/inputs/search_selector'
 import InputDate from '../../../components/common/inputs/datepicker'
-
 import TextAreaInput from '../../../components/common/inputs/textarea'
 import SubmitButton from '../../../components/common/buttons/submit_btn'
+import { ResponseNotify, showNotify } from '../../../components/common/response_notify'
 import NavBar from '../../../components/common/navbar'
 import Header from '../../../components/common/header'
 
-import { ResponseNotify, showNotify } from '../../../components/common/response_notify'
+import { appTypes } from '../../../components/common/api/applications/types'
+import { createApplication } from '../../../components/common/api/applications/create'
+import { getCities } from '../../../components/common/api/other/cities'
+import { updateApplication } from '../../../components/common/api/applications/update'
 
 import SerializeForm from '../../../utils/form_serializer'
-import sendRequest from '../../../utils/fetch'
 
-import { appTypes } from '../../../constants/app_types'
-import { getCities } from '../../../constants/cities'
 import { selectErrorInputs } from '../../../constants/input_parsers'
 
 
@@ -69,7 +69,7 @@ export default class CreateAppForm extends React.Component {
         this.additionalCard = this.additionalCard.bind(this);
     }
 
-    mainCard(event) {
+    async mainCard(event) {
         event.preventDefault();
 
         let prepared_data = SerializeForm(event.target, new FormData(event.target))
@@ -93,44 +93,36 @@ export default class CreateAppForm extends React.Component {
             count_seats: parseInt(prepared_data.get("count_seats")),
         }
 
-        sendRequest('/api/v1/applications/', "POST", data)
-        .then(
-            (result) => {
-                if (this.state.error) {
-                    selectErrorInputs(this.state.error, false)
-                    this.setState({error: null})
+        let response = await createApplication(data)
+        if (response.result !== null) {
+            this.setState({
+                form: "additional",
+                app_data: {
+                    id: response.result.id
                 }
+            })
+        } else {
+            this.setState({
+                error: response.error.message,
+                notify_type: "error"
+            })
 
+            if (response.error.name === "ValidationError") {
+                selectErrorInputs(response.error.message)
                 this.setState({
-                    form: "additional",
-                    app_data: {
-                        id: result.id
-                    }
+                    response_text: "Не корректно заполнены данные",
                 })
-            },
-            (error) => {
+            } else {
                 this.setState({
-                    error: error.message,
-                    notify_type: "error"
+                    response_text: response.error.message,
                 })
-
-                if (error.name === "ValidationError") {
-                    selectErrorInputs(error.message)
-                    this.setState({
-                        response_text: "Не корректно заполнены данные",
-                    })
-                } else {
-                    this.setState({
-                        response_text: error.message,
-                    })
-                }
-
-                showNotify()
             }
-        )
+
+            showNotify()
+        }
     }
 
-    additionalCard(event) {
+    async additionalCard(event) {
         event.preventDefault();
 
         let prepared_data = SerializeForm(event.target, new FormData(event.target))
@@ -139,33 +131,29 @@ export default class CreateAppForm extends React.Component {
             price: prepared_data.get("price") !== "" ? parseInt(prepared_data.get("price")) : 0,
             description: prepared_data.get("description") !== "" ? prepared_data.get("description") : null
         }
- 
-        sendRequest(`/api/v1/applications/${this.state.app_data.id}/`, "PUT", data)
-        .then(
-            (result) => {
-                this.setState({form: "notify"})
-            },
-            (error) => {
+        
+        let response = await updateApplication(this.state.app_data.id, data)
+        if (response.result !== null) {
+            this.setState({form: "notify"})
+        } else {
+            this.setState({
+                error: response.error.message,
+                notify_type: "error"
+            })
+
+            if (response.error.name === "ValidationError") {
+                selectErrorInputs(response.error.message)
                 this.setState({
-                    error: error.message,
-                    notify_type: "error"
+                    response_text: "Не корректно заполнены данные",
                 })
-
-                if (error.name === "ValidationError") {
-                    selectErrorInputs(error.message)
-                    this.setState({
-                        response_text: "Не корректно заполнены данные",
-                    })
-                } else {
-                    this.setState({
-                        response_text: error.message,
-                    })
-                }
-
-                showNotify()
+            } else {
+                this.setState({
+                    response_text: response.error.message,
+                })
             }
-        )
 
+            showNotify()
+        }
     }
 
     async componentDidMount(){
@@ -173,17 +161,17 @@ export default class CreateAppForm extends React.Component {
         let app_types = await appTypes()
         let app_types_list = [] // Формирование в стиле [] для SearchInput
 
-        Object.keys(app_types).forEach(
+        Object.keys(app_types.result).forEach(
             function(key) {
-                app_types_list.push(app_types[key])
+                app_types_list.push(app_types.result[key])
             }
          );
 
         
         this.setState(
             {
-                cities: cities,
-                app_types: app_types,
+                cities: cities.result,
+                app_types: app_types.result,
                 app_types_list: app_types_list,
             }
         );

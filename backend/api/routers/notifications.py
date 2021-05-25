@@ -24,7 +24,7 @@ from backend.enums.system import SystemLogs
 from backend.schemas.drivers import DriverData, CompanyData
 from backend.schemas.notifications import (
     NotificationData, NotificationCreate,
-    SetDecision, NotificationDelete, MeNotifications
+    SetDecision, MeNotifications
 )
 from backend.submodules.common.enums import BaseMessage
 from backend.submodules.common.responses import auth_responses
@@ -146,6 +146,7 @@ async def create_notification(notification_in: NotificationCreate, account: Acco
 async def notification_decision(payload: SetDecision, account: Account = Depends(confirmed_account)) -> Message:
     """Решение по предложению."""
     logger = get_logger().bind(account_id=account.id, payload=payload.dict())
+
     notification = await get_notification(payload.notification_id)
     if not notification:
         logger.debug(SystemLogs.notification_not_found.value)
@@ -154,7 +155,25 @@ async def notification_decision(payload: SetDecision, account: Account = Depends
             detail=BaseMessage.obj_is_not_found.value
         )
 
-    logger = logger.bind(notification_id=notification.id)
+    application = await get_application(notification.application_id)
+    if not application:
+        logger.debug(SystemLogs.application_not_found.value)
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=BaseMessage.obj_is_not_found.value
+        )
+
+    if application.application_status != ApplicationStatus.waiting:
+        logger.debug(SystemLogs.application_have_ended_status.value)
+
+        await delete_notification(notification.id)
+
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=ApplicationErrors.application_has_ended_status.value
+        )
+
+    logger = logger.bind(notification_id=notification.id, application_id=application.id)
 
     if notification.decision is not None:
         logger.debug(SystemLogs.notification_is_have_decision.value, decision=notification.decision)
@@ -166,14 +185,6 @@ async def notification_decision(payload: SetDecision, account: Account = Depends
     # Если уведомление от водителя тогда смотрим принадлежит ли это заявка данному пользователю.
     # Здесь реверсивная логика - То есть решение дает противоположная сторона.
     if notification.notification_type == NotificationTypes.driver_to_client:
-        application = await get_application(notification.application_id)
-        if not application:
-            logger.debug(SystemLogs.application_not_found.value)
-            raise HTTPException(
-                status_code=status.HTTP_400_BAD_REQUEST,
-                detail=BaseMessage.obj_is_not_found.value
-            )
-
         if application.account_id != account.id:
             logger.warning(
                 f"{SystemLogs.violation_business_logic.value} "
@@ -210,7 +221,7 @@ async def notification_decision(payload: SetDecision, account: Account = Depends
 
 
 @router.delete(
-    "/",
+    "/{notification_id}/",
     response_model=Message,
     responses={
         status.HTTP_200_OK: {"description": BaseMessage.obj_is_deleted.value},
@@ -222,11 +233,11 @@ async def notification_decision(payload: SetDecision, account: Account = Depends
         **auth_responses
     }
 )
-async def notification_delete(payload: NotificationDelete, account: Account = Depends(confirmed_account)) -> Message:
+async def notification_delete(notification_id: int, account: Account = Depends(confirmed_account)) -> Message:
     """Удаление предложения."""
-    logger = get_logger().bind(account_id=account.id, payload=payload.dict())
+    logger = get_logger().bind(account_id=account.id, notification_id=notification_id)
 
-    notification = await get_notification(payload.notification_id)
+    notification = await get_notification(notification_id)
     if not notification:
         logger.debug(SystemLogs.notification_not_found.value)
         raise HTTPException(

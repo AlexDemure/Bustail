@@ -5,11 +5,11 @@ import NavBar from '../../components/common/navbar'
 
 import isAuth from '../../utils/is_auth'
 
-import { getCities } from '../../constants/cities'
-import { aboutMe } from '../../components/common/api/about_me'
-import { getMeApps } from '../../components/common/api/me_apps'
-import { getDriverCard } from '../../components/common/api/driver_card'
-import { getMeCompanyCard } from '../../components/common/api/company_card'
+import { getCities } from '../../components/common/api/other/cities'
+import { getMeAccountCard } from '../../components/common/api/account/me'
+import { getMeApps } from '../../components/common/api/applications/me'
+import { getMeDriverCard } from '../../components/common/api/drivers/me'
+import { getMeCompanyCard } from '../../components/common/api/company/me'
 
 import CommonPage from './forms/common'
 import ClientPage from './forms/client'
@@ -82,31 +82,31 @@ export default class CabinetPage extends React.Component {
     async componentDidMount(){
         isAuth()
 
-        let user = await aboutMe()
+        let user = await getMeAccountCard()
         let user_applications = await getMeApps()
 
         let cities = await getCities()
 
         this.setState({
-            user: user,
-            user_applications: user_applications,
+            user: user.result,
+            user_applications: user_applications.result.applications,
 
-            cities: cities
+            cities: cities.result
         });
 
-        let driver = await getDriverCard()
-        if (driver) {
+        let driver = await getMeDriverCard()
+        if (driver.result) {
             this.setState({
-                driver: driver,
-                driver_transports: driver.transports,
+                driver: driver.result,
+                driver_transports: driver.result.transports,
             })
         }
 
         let company = await getMeCompanyCard()
-        if (company) {
+        if (company.result) {
             this.setState({
-                company: company,
-                company_transports: company.transports
+                company: company.result,
+                company_transports: company.result.transports
             })
         }
 

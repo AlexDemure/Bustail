@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { getMeNotifications } from './api/me_notifications'
+import { getMeNotifications } from './api/notifications/me'
 
 import './css/navbar.css'
 
@@ -34,7 +34,7 @@ class NavBar extends React.Component {
         let notifications = await getMeNotifications()
 
         this.setState({
-            count_notifications: notifications ? notifications.count_notifications : 0
+            count_notifications: notifications.result ?  notifications.result.count_notifications : 0
         })
 
     }

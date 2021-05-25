@@ -19,6 +19,7 @@
 
     display: grid;
     justify-items: center;
+    gap: 20px
 }
 
 .container.notifications .notifications__driver__applications::-webkit-scrollbar, 

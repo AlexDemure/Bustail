@@ -38,10 +38,6 @@ class NotificationDataWithRelatedObjects(BaseModel):
         orm_mode = True
 
 
-class NotificationDelete(BaseModel):
-    notification_id: int
-
-
 class SetDecision(BaseModel):
     notification_id: int
     decision: bool

@@ -67,7 +67,7 @@ const DragAndDrop = (props) => {
                                 <React.Fragment>
                                     {
                                         file.type.split('/')[0] === "image" ?
-                                        <img className="drag-drop__item img" src={URL.createObjectURL(file)}></img> :
+                                        <img className="drag-drop__item img" alt="preview" src={URL.createObjectURL(file)}></img> :
                                         <div className="drag-drop__item file">
                                             <p>{file.name}</p>
                                         </div>

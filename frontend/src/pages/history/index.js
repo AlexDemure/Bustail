@@ -5,11 +5,12 @@ import Header from '../../components/common/header'
 import TransportCard from '../../components/common/transport_card'
 import ClientCard from '../../components/common/client_card'
 
-import sendRequest from '../../utils/fetch'
+import { getApplicationsHistory } from '../../components/common/api/applications/history'
 
 import HistoryTable from './tables/history'
 
 import './css/index.css'
+
 
 const table_columns = ["Транспорт", "Клиент", "Откуда - Куда", "Дата", "Цена", "Статус"]
 
@@ -39,26 +40,11 @@ export default class HistoryPage extends React.Component {
         })
     }
 
-    async getHistory() {
-        let history;
-        await sendRequest('/api/v1/applications/history/', "GET")
-        .then(
-            (result) => {
-                console.log(result)
-                history = result
-            },
-            (error) => {
-                console.log(error)
-                history = null
-            }
-        )
-        return history
-    }
 
     async componentDidMount() {
-        let history = await this.getHistory()
+        let history = await getApplicationsHistory()
         this.setState({
-            history: history
+            history: history.result
         })
     }
 

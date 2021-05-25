@@ -1,9 +1,9 @@
 import React from 'react'
 
-import { getTransportCard } from '../common/api/transport_card'
-import { getCompanyCard } from '../common/api/company_card'
+import { getTransportCard } from './api/transports/get_by_id'
+import { getCompanyCard } from '../common/api/company/get_by_id'
+import { getDriverCard } from '../common/api/drivers/get_by_id'
 
-import sendRequest from '../../utils/fetch'
 
 import './css/transport_card.css'
 
@@ -49,43 +49,6 @@ export default class TransportCard extends React.Component {
         }
     }
 
-    async getDriverInfo(driver_id) {
-        let driver;
-
-        await sendRequest(`/api/v1/drivers/${driver_id}/`, "GET")
-        .then(
-            (result) => {
-                console.log(result)
-                driver = result
-                return driver
-            },
-            (error) => {
-                console.log(error)
-                driver = null
-            }
-        )
-
-        return driver
-    }
-
-    async getUserInfo(account_id) {
-        let user;
-
-        await sendRequest(`/api/v1/accounts/${account_id}/`, "GET")
-        .then(
-            (result) => {
-                console.log(result)
-                user = result
-                return user
-            },
-            (error) => {
-                console.log(error)
-                user = null
-            }
-        )
-
-        return user
-    }
 
     async componentDidMount() {
         let user;
@@ -93,30 +56,30 @@ export default class TransportCard extends React.Component {
         let company;
         let transport = await getTransportCard(this.props.transport_id)
         
-        if (transport.driver_id !== null) {
-            driver = await this.getDriverInfo(transport.driver_id)
+        if (transport.result.driver_id !== null) {
+            driver = await getDriverCard(transport.result.driver_id)
 
-            if (driver) {
+            if (driver.result) {
                 user = {
-                    fullname: driver.account.fullname,
-                    phone: driver.account.phone
+                    fullname: driver.result.account.fullname,
+                    phone: driver.result.account.phone
                 }
             }
         }
 
-        if (transport.company_id !== null) {
-            company = await getCompanyCard(transport.company_id)
+        if (transport.result.company_id !== null) {
+            company = await getCompanyCard(transport.result.company_id)
             user = {
-                fullname: company.account.fullname,
-                phone: company.company_phone
+                fullname: company.result.account.fullname,
+                phone: company.result.company_phone
             }
         }
         
         this.setState({
             user: user,
-            driver: driver,
-            company: company,
-            transport: transport,
+            driver: driver ? driver.result: null,
+            company: company ? company.result : null,
+            transport: transport.result,
         })
     }
 

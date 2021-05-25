@@ -4,8 +4,8 @@ import NavBar from '../../components/common/navbar'
 import Header from '../../components/common/header'
 import Notify from '../../components/common/notify'
 
-import { getDriverCard } from '../../components/common/api/driver_card'
-import { getMeCompanyCard } from '../../components/common/api/company_card'
+import { getMeDriverCard } from '../../components/common/api/drivers/me'
+import { getMeCompanyCard } from '../../components/common/api/company/me'
 
 
 import CreateTransportForm from './forms/create'
@@ -56,12 +56,12 @@ export default class CreateTransportPage extends React.Component {
     }
 
     async componentDidMount(){
-        let driver = await getDriverCard()
+        let driver = await getMeDriverCard()
         let company = await getMeCompanyCard()
 
         this.setState({
-            driver: driver,
-            company: company
+            driver: driver.result,
+            company: company.result
         })
         
     }

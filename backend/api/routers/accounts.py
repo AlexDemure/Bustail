@@ -39,8 +39,8 @@ async def read_user_me(account: Account = Depends(confirmed_account)) -> Optiona
     return await get_account(account.id)
 
 
-@router.post(
-    "/confirm/",
+@router.get(
+    "/confirm",
     response_model=Message,
     responses={
         status.HTTP_200_OK: {"description": BaseMessage.obj_is_changed.value},
@@ -48,7 +48,7 @@ async def read_user_me(account: Account = Depends(confirmed_account)) -> Optiona
         status.HTTP_404_NOT_FOUND: {"description": AccountErrors.confirmed_code_is_not_found.value}
     }
 )
-async def confirm_account(payload: ConfirmAccount, account: Account = Depends(current_account)) -> Message:
+async def confirm_account(code: str, account: Account = Depends(current_account)) -> Message:
     """
     Подтверждение аккаунта через почту.
 
@@ -57,7 +57,6 @@ async def confirm_account(payload: ConfirmAccount, account: Account = Depends(cu
      после этого не обходимо указать клиенту что необходимо повторно пройти регистрацию.
     """
     logger = get_logger().bind(
-        payload=payload.dict(),
         account_id=account.id, email=account.email,
         created_at=account.created_at, verified_at=account.verified_at
     )
@@ -70,7 +69,7 @@ async def confirm_account(payload: ConfirmAccount, account: Account = Depends(cu
         )
 
     if settings.ENV == SystemEnvs.prod.value:
-        if await is_verify_code(account.id, payload.code) is False:
+        if await is_verify_code(account.id, code) is False:
             logger.debug(SystemLogs.wrong_verify_code.value)
             raise HTTPException(
                 status_code=404,

@@ -3,9 +3,9 @@ import React from 'react'
 import Notify from '../../../components/common/notify'
 import DefaultInput from '../../../components/common/inputs/default'
 import SubmitButton from '../../../components/common/buttons/submit_btn'
+import { changePassword } from '../../../components/common/api/account/change_password'
 
 import SerializeForm from '../../../utils/form_serializer'
-import sendRequest from '../../../utils/fetch'
 
 
 function ChangePasswordForm(props) {
@@ -36,9 +36,11 @@ export default class RecoveryForm extends React.Component {
         this.changePassword = this.changePassword.bind(this);
     }
 
-    changePassword(event) {
+    async changePassword(event) {
         event.preventDefault();
+        
         let prepared_data = SerializeForm(event.target, new FormData(event.target))
+        
         if (prepared_data.get("new_password") !== prepared_data.get("repeat_password")) {
             this.setState({
                 error: "Пароли не совпадают."
@@ -54,26 +56,19 @@ export default class RecoveryForm extends React.Component {
             return
         }
 
-        let data = {password: prepared_data.get('new_password')}
-
-        sendRequest('/api/v1/accounts/change_password?security_token=' + token, "PUT", data)
-        .then(
-            (result) => {
-                console.log(result);
-                
-                this.setState({
-                    form: "notify",
-                    error: null
-                })
-            },
-            (error) => {
-                console.log(error.message);
-                this.setState({
-                    error: error.message
-                })
-            }
-        )
+        let response = await changePassword(token, {password: prepared_data.get('new_password')})
+        if (response.result !== null) {
+            this.setState({
+                form: "notify",
+                error: null
+            })
+        } else {
+            this.setState({
+                error: response.error.message
+            })
+        }
     }
+
     render() {
         let form;
 

@@ -63,7 +63,7 @@
 .notification__card__controls .notification__btn-set-decision-offer.accept,
 .notification__card__controls .notification__btn-set-decision-offer.reject {
     width: 100%;
-    height: 100%;
+    height: 50px;
 
     color: #fbfbfb;
     font-size: 16px;

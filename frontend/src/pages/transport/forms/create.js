@@ -8,16 +8,16 @@ import DragAndDrop from '../../../components/common/drag_and_drop'
 
 import { ResponseNotify, showNotify } from '../../../components/common/response_notify'
 
-import { getCities } from '../../../constants/cities'
-import { getCars } from '../../../constants/cars'
-import { transportTypes } from '../../../constants/transport_types'
+import { getCities } from '../../../components/common/api/other/cities'
+import { getCars } from '../../../components/common/api/other/cars'
+import { transportTypes } from '../../../components/common/api/transports/types'
 
 import { selectErrorInputs, validateImageFile } from '../../../constants/input_parsers'
 
-import sendRequest from '../../../utils/fetch'
-import { uploadFile } from '../../../utils/upload_file'
-
 import SerializeForm from '../../../utils/form_serializer'
+import { createTransport } from '../../../components/common/api/transports/create'
+import { updateTransport } from '../../../components/common/api/transports/update'
+import { uploadCovers } from '../../../components/common/api/transports/upload_covers'
 
 
 
@@ -47,8 +47,8 @@ class ChoiceCar extends React.Component {
     async componentDidMount() {
         let cars = await getCars()
         this.setState({
-            cars: cars,
-            brands: Object.keys(cars).map(
+            cars: cars.result,
+            brands: Object.keys(cars.result).map(
                 key => key
             )
         })
@@ -72,7 +72,7 @@ class ImageFormCreateTransport extends React.Component {
 
     render() {
         return (
-            <form className="create-transport__form__upload-cover" onSubmit={this.props.uploadCover}>
+            <form className="create-transport__form__upload-cover" onSubmit={this.props.uploadCovers}>
             <DragAndDrop saveFiles={this.props.saveFiles}/>
             <SubmitButton className={this.props.isUploaded ? "" : "disabled"} value="Далее"/>
         </form>
@@ -91,7 +91,7 @@ class MainFormCreateTransport extends React.Component {
     }
     async componentDidMount(){
         let cities = await getCities()
-        this.setState({cities: cities})
+        this.setState({cities: cities.result})
     }
 
     render() {
@@ -145,13 +145,13 @@ export default class CreateTransportForm extends React.Component {
 
         this.mainCard = this.mainCard.bind(this);
         this.additionalCard = this.additionalCard.bind(this);
-        this.uploadCover = this.uploadCover.bind(this);
+        this.uploadCovers = this.uploadCovers.bind(this);
         this.saveFiles = this.saveFiles.bind(this)
         
     }
 
     
-    mainCard(event) {
+    async mainCard(event) {
         event.preventDefault();
 
         let prepared_data = SerializeForm(event.target, new FormData(event.target))
@@ -178,38 +178,35 @@ export default class CreateTransportForm extends React.Component {
             transport_type: transport_type || "other"
         }
 
-        sendRequest('/api/v1/drivers/transports/', "POST", data)
-        .then(
-            (result) => {
-                this.setState({
-                    form: "additional",
-                    transport: {
-                        id: result.id
-                    }
-                })
-            },
-            (error) => {
-                this.setState({
-                    error: error.message,
-                    notify_type: "error"
-                })
-
-                if (error.name === "ValidationError") {
-                    selectErrorInputs(error.message)
-                    this.setState({
-                        response_text: "Не корректно заполнены данные",
-                    })
-                } else {
-                    this.setState({
-                        response_text: error.message,
-                    })
+        let response = await createTransport(data)
+        if (response.result !== null) {
+            this.setState({
+                form: "additional",
+                transport: {
+                    id: response.result.id
                 }
-                showNotify()
+            })
+        } else {
+            this.setState({
+                error: response.error.message,
+                notify_type: "error"
+            })
+
+            if (response.error.name === "ValidationError") {
+                selectErrorInputs(response.error.message)
+                this.setState({
+                    response_text: "Не корректно заполнены данные",
+                })
+            } else {
+                this.setState({
+                    response_text: response.error.message,
+                })
             }
-        )
+            showNotify()
+        }
     }
 
-    additionalCard(event) {
+    async additionalCard(event) {
         event.preventDefault();
 
         let prepared_data = SerializeForm(event.target, new FormData(event.target))
@@ -219,32 +216,29 @@ export default class CreateTransportForm extends React.Component {
             price: parseInt(prepared_data.get("price")),
         }
 
-        sendRequest(`/api/v1/drivers/transports/${this.state.transport.id}/`, "PUT", data)
-        .then(
-            (result) => {
-                this.setState({
-                    form: "upload"
-                })
-            },
-            (error) => {
-                this.setState({
-                    error: error.message,
-                    notify_type: "error"
-                })
+        let response = await updateTransport(this.state.transport.id, data)
+        if (response.result !== null) {
+            this.setState({
+                form: "upload"
+            })
+        } else {
+            this.setState({
+                error: response.error.message,
+                notify_type: "error"
+            })
 
-                if (error.name === "ValidationError") {
-                    selectErrorInputs(error.message)
-                    this.setState({
-                        response_text: "Не корректно заполнены данные",
-                    })
-                } else {
-                    this.setState({
-                        response_text: error.message,
-                    })
-                }
-                showNotify()
+            if (response.error.name === "ValidationError") {
+                selectErrorInputs(response.error.message)
+                this.setState({
+                    response_text: "Не корректно заполнены данные",
+                })
+            } else {
+                this.setState({
+                    response_text: response.error.message,
+                })
             }
-        )
+            showNotify()
+        }
     }
 
     saveFiles(files, isUploaded) {
@@ -254,7 +248,7 @@ export default class CreateTransportForm extends React.Component {
         })
     }
 
-    uploadCover(event) {
+    async uploadCovers(event) {
         let error;
 
         event.preventDefault();
@@ -265,8 +259,6 @@ export default class CreateTransportForm extends React.Component {
             this.state.files.forEach(
                 function(file) {
                     let isCorrect = validateImageFile(file)
-                    console.log("Check", isCorrect)
-
                     if (!isCorrect) {
                         error = true
                         return
@@ -289,49 +281,42 @@ export default class CreateTransportForm extends React.Component {
                 return
             }
 
-            let url = `/api/v1/drivers/transports/${this.state.transport.id}/covers/`
-            let data  = new FormData();
+            let data = new FormData();
             this.state.files.forEach(
                 function(file) {
                     data.append("files", file, file.name)
-                    console.log("Append")
                 }
             )
             
-            uploadFile(url, data)
-            .then(
-                (result) => {
-                    this.props.changePage("notify")
-                },
-                (error) => {
-                    this.setState({
-                        isUploaded: false,
-                        files: null,
-                        
-                        response_text: error.message,
-                        error: error.message,
-                        notify_type: "error"
-                    })
-                    showNotify()
-                }
-            )
-            
+            let response = await uploadCovers(this.state.transport.id, data)
+            if (response.result !== null) {
+                this.props.changePage("notify")
+            } else {
+                this.setState({
+                    isUploaded: false,
+                    files: null,
+                    
+                    response_text: response.error.message,
+                    error: response.error.message,
+                    notify_type: "error"
+                })
+                showNotify()
+            }
         }
-        
     }
 
     async componentDidMount(){
         let transport_types = await transportTypes()
         let transport_types_list = [] // Формирование в стиле [] для SearchInput
 
-        Object.keys(transport_types).forEach(
+        Object.keys(transport_types.result).forEach(
             function(key) {
-                transport_types_list.push(transport_types[key])
+                transport_types_list.push(transport_types.result[key])
             }
          );
          
         this.setState({
-            transport_types: transport_types,
+            transport_types: transport_types.result,
             transport_types_list: transport_types_list
         })
     }
@@ -347,7 +332,7 @@ export default class CreateTransportForm extends React.Component {
             form = <ImageFormCreateTransport
             changePage={this.props.changePage}
             transport={this.state.transport}
-            uploadCover={this.uploadCover}
+            uploadCovers={this.uploadCovers}
             saveFiles={this.saveFiles}
             isUploaded={this.state.isUploaded}
             />

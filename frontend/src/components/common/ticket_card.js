@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { getApplicationCard } from './api/application_card'
+import { getApplicationCard } from './api/applications/get_by_id'
 
 import './css/ticket_card.css'
 
@@ -23,7 +23,7 @@ export default class TicketCard extends React.Component {
     async componentDidMount() {
         let ticket = await getApplicationCard(this.props.ticket_id)
         this.setState({
-            ticket: ticket
+            ticket: ticket.result
         })
     }
 

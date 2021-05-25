@@ -6,13 +6,14 @@ import InputPhone from '../../../components/common/inputs/phone'
 import SubmitButton from '../../../components/common/buttons/submit_btn'
 import AuthSwitch from '../../../components/switches/auth'
 
-import SerializeForm from '../../../utils/form_serializer'
-import sendRequest from '../../../utils/fetch'
+import { getCities } from '../../../components/common/api/other/cities'
+import { selectErrorInputs } from '../../../constants/input_parsers'
+import { createAccount } from '../../../components/common/api/account/create'
+import { confirmAccount } from '../../../components/common/api/account/confirm'
 
-import { getCities } from '../../../constants/cities'
+import SerializeForm from '../../../utils/form_serializer'
 
 import NewSendMessageForm from './new_send_msg'
-import { selectErrorInputs } from '../../../constants/input_parsers'
 
 
 class MainFormRegistration extends React.Component {
@@ -24,8 +25,8 @@ class MainFormRegistration extends React.Component {
     }
 
     async componentDidMount(){
-        let data = await getCities()
-        this.setState({cities: data});
+        let cities = await getCities()
+        this.setState({cities: cities.result});
     }
 
 
@@ -82,11 +83,11 @@ export default class RegistrationForm extends React.Component {
             email: "",
             error: null
         };
-        this.newUser = this.newUser.bind(this);
-        this.confirmEmail = this.confirmEmail.bind(this);
+        this.createAccount = this.createAccount.bind(this);
+        this.confirmAccount = this.confirmAccount.bind(this);
     }
 
-    newUser(event) {
+    async createAccount(event) {
         event.preventDefault();
 
         let prepared_data = SerializeForm(event.target, new FormData(event.target));
@@ -98,78 +99,63 @@ export default class RegistrationForm extends React.Component {
 
         };
 
-        sendRequest('/api/v1/accounts/', "POST", data)
-        .then(
-            (result) => {
-                console.log(result);
-                
-                localStorage.setItem('token', result.access_token);
-                localStorage.setItem('is_confirmed', false)
-                
+        let response = await createAccount(data)
+        if (response.result !== null) {
+            localStorage.setItem('token', response.result.access_token);
+            localStorage.setItem('is_confirmed', false)
+            
+            this.setState({
+                form: "confirm",
+                email: prepared_data.get("email"),
+                error: null
+            })
+
+        } else {
+            if (response.error.name === "ValidationError") {
+                selectErrorInputs(response.error.message)
                 this.setState({
-                    form: "confirm",
-                    email: prepared_data.get("email"),
-                    error: null
+                    error: "Не корректно заполнены данные"
                 })
-            },
-            (error) => {
-                console.log(error.message);
-                if (error.name === "ValidationError") {
-                    selectErrorInputs(error.message)
-                    this.setState({
-                        error: "Не корректно заполнены данные"
-                    })
-                } else {
-                    this.setState({
-                        error: error.message
-                    })
-                }
-
-
+            } else {
+                this.setState({
+                    error: response.error.message
+                })
             }
-        )
+        }
     }
 
-    confirmEmail(event) {
+    async confirmAccount(event) {
         event.preventDefault();
 
         let prepared_data = SerializeForm(event.target, new FormData(event.target))
-        console.log(prepared_data);
-
-        let data = {code: prepared_data.get("code")};
-
-        sendRequest('/api/v1/accounts/confirm/', "POST", data, localStorage.getItem("token"))
-        .then(
-            (data) => {
-                console.log(data);
-                localStorage.setItem('is_confirmed', true)
-                window.location.replace("/main");
-            },
-            (error) => {
-                console.log(error.message);
-                if (error.name === "ValidationError") {
-                    selectErrorInputs(error.message)
-                    this.setState({
-                        error: "Код подтверждения состоит от 4 до 16 символов"
-                    })
-                } else {
-                    this.setState({
-                        error: error.message
-                    })
-                }
+        
+        let response = await confirmAccount(prepared_data.get("code"))
+        
+        if (response.result !== null) {
+            localStorage.setItem('is_confirmed', true)
+            window.location.replace("/main");
+        
+        } else {
+            if (response.error.name === "ValidationError") {
+                selectErrorInputs(response.error.message)
+                this.setState({
+                    error: "Код подтверждения состоит от 4 до 16 символов"
+                })
+            } else {
+                this.setState({
+                    error: response.error.message
+                })
             }
-        )
-
+        }
     }
-
 
     render() {
         let form;
 
         if (this.state.form === "confirm") {
-            form = <ConfirmEmailFormRegistration error={this.state.error} email={this.state.email} onSubmit={this.confirmEmail}/>
+            form = <ConfirmEmailFormRegistration error={this.state.error} email={this.state.email} onSubmit={this.confirmAccount}/>
         }else{
-            form = <MainFormRegistration error={this.state.error} onSubmit={this.newUser}/>
+            form = <MainFormRegistration error={this.state.error} onSubmit={this.createAccount}/>
         }
         return (
             <div className="registration__form">
