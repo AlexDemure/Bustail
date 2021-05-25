@@ -156,7 +156,7 @@ class BaseTest:
         verify_code = await self.get_verify_code(account_object.id)
 
         async with self.client as ac:
-            response = await ac.post("/accounts/confirm/", headers=self.headers, json={"code": verify_code.message})
+            response = await ac.get(f"/accounts/confirm?code={verify_code.message}", headers=self.headers)
 
         assert response.status_code == 200
 
