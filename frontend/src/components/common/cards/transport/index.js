@@ -1,7 +1,7 @@
 import React from 'react';
 
-import {getDriverCard} from '../../common/api/drivers/get_by_id'
-import {getCompanyCard} from '../../common/api/company/get_by_id'
+import {getDriverCard} from '../../../common/api/drivers/get_by_id'
+import {getCompanyCard} from '../../../common/api/company/get_by_id'
 
 import './css/base.css'
 

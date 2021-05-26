@@ -2,8 +2,8 @@ import React from 'react'
 
 import NavBar from '../../components/common/navbar'
 import Header from '../../components/common/header'
-import TransportCard from '../../components/common/transport_card'
-import TicketCard from '../../components/common/ticket_card'
+import TransportCard from '../../components/common/modal/transport'
+import TicketCard from '../../components/common/modal/ticket'
 import { ResponseNotify, showNotify } from '../../components/common/response_notify'
 
 import { getMeNotifications } from '../../components/common/api/notifications/me'

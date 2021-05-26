@@ -5,12 +5,12 @@
     border-radius: 5px;
     width: 100%;
     max-width: 650px;
-    min-height: 140px;
+    min-height: 160px;
     height: auto;
 
     display: grid;
     grid-template-rows: 1fr;
-    grid-template-columns: 160px 1fr;
+    grid-template-columns: 180px 1fr;
 
     position: relative;
 }
@@ -22,9 +22,9 @@
 
     position: absolute;
     height: 100%;
-    min-height: 140px;
+    min-height: 160px;
     
-    width: 160px;
+    width: 180px;
 
     border-radius: 5px;
 }
@@ -34,19 +34,20 @@
     grid-row: 1 / 2;
     padding-left: 10px;
     padding-right: 5px;
-    min-height: 140px;
+    min-height: 160px;
 
     display: grid;
     justify-content: flex-start;
     align-content: flex-start;
-    grid-template-rows: auto 1fr auto;
+    gap: 2.5px;
+    grid-template-rows: auto auto 1fr;
     grid-template-columns: 1fr;
 }
 
 .transport__card p {
     margin: 0;
     padding: 0;
-    margin-top: 5px;
+    margin-top: 2.5px;
 }
 
 .transport__card .transport__card__title {
@@ -55,9 +56,8 @@
 }
 
 .transport__card .transport__card__title p[id=model] {
-    margin-top: 10px;
     color: #FBFBFB;
-    font-size: 15px;
+    font-size: 14px;
     font-family: 'FuturaMediumC';
 }
 
@@ -71,18 +71,19 @@
     grid-row: 3 / 4;
     display: grid;
     align-self: flex-end;
+
     justify-items: center;
-    margin: 5px;
+    margin-bottom: 10px;
 }
 
 .transport__card #offer,
 .transport__card #remove {
+    padding-left: 10px;
     border-radius: 5px;
     text-align: center;
-    align-self: center;
     justify-self: center;
     height: 40px;
-    width: 100px;
+    width: 80%;
     display: grid;
     align-items: center;
 }
@@ -104,7 +105,7 @@
 .transport__card #remove p {
     color: #FBFBFB;
     font-family: "FuturaBookC";
-    font-size: 14px;
+    font-size: 13px;
 
 }
 
@@ -138,12 +139,12 @@
 .transport__card .transport__card__body .transport__card__item {
     color: #535353;
     font-family: 'FuturaBookC';
-    font-size: 14px;
+    font-size: 13px;
  }
 
  .transport__card .transport__card__body .transport__card__item span {
     color: #FBFBFB;
-    font-size: 14px;
+    font-size: 13px;
     font-family: 'FuturaMediumC';
 }
 
@@ -195,7 +196,7 @@
 @media (min-width: 641px) and (max-width: 1023px) {
     .transport {
         min-height: 200px;
-        grid-template-columns: 250px 1fr;
+        grid-template-columns: 300px 1fr;
     }
 
     .transport .transport__card {
@@ -204,8 +205,8 @@
 
     .transport .transport__photo {
         min-height: 200px;
-        width: 250px;
-        background-size: 250px 200px;   /* x y*/
+        width: 300px;
+        background-size: 300px 200px;   /* x y*/
     }
 
     .transport__card .transport__card__title p[id=model] {
@@ -225,7 +226,6 @@
     .transport__card #offer,
     .transport__card #remove {
         height: 50px;
-        width: 150px;
     }
     
     .transport__card #offer p,
@@ -243,7 +243,7 @@
 @media (min-width: 1024px) {
     .transport {
         min-height: 250px;
-        grid-template-columns: 350px 1fr;
+        grid-template-columns: 325px 1fr;
     }
     
     .transport .transport__card {
@@ -252,12 +252,12 @@
 
     .transport .transport__photo {
         min-height: 250px;
-        width: 350px;
-        background-size: 350px 250px;   /* x y*/
+        width: 325px;
+        background-size: 325px 250px;   /* x y*/
     }
 
     .transport__card .transport__card__title p[id=model] {
-        font-size: 26px;
+        font-size: 22px;
     }
 
     .transport__card .transport__card__controls.multi {
@@ -273,7 +273,6 @@
     .transport__card #offer,
     .transport__card #remove {
         height: 50px;
-        width: 150px;
     }
     
     .transport__card #offer p,
@@ -292,44 +291,44 @@
 }
 
 .transport__card .transport__card__controls .transport__card__control.company {
-    background-image: url("../../../../static/icons/default/company_card.png");
+    background-image: url("../../../../../static/icons/default/company_card.png");
 }
 
 .transport__card .transport__card__controls .transport__card__control.company:hover {
-    background-image: url("../../../../static/icons/active/company_card.png");
+    background-image: url("../../../../../static/icons/active/company_card.png");
 }
 
 .transport__card .transport__card__controls .transport__card__control.person {
     pointer-events: none;
     opacity: 0.5;
-    background-image: url("../../../../static/icons/default/cabinet.png");
+    background-image: url("../../../../../static/icons/default/cabinet.png");
 }
 
 .transport__card .transport__card__controls .transport__card__control.person:hover {
-    background-image: url("../../../../static/icons/default/cabinet.png");
+    background-image: url("../../../../../static/icons/default/cabinet.png");
     border-top: none
 }
 
 .transport__card .transport__card__controls .transport__card__control.contacts {
-    background-image: url("../../../../static/icons/default/call.png");
+    background-image: url("../../../../../static/icons/default/call.png");
 }
 
 .transport__card .transport__card__controls .transport__card__control.contacts:hover {
-    background-image: url("../../../../static/icons/active/call.png");
+    background-image: url("../../../../../static/icons/active/call.png");
 }
 
 .transport__card .transport__card__controls .transport__card__control.info {
-    background-image: url("../../../../static/icons/default/description.png");
+    background-image: url("../../../../../static/icons/default/description.png");
 }
 
 .transport__card .transport__card__controls .transport__card__control.info:hover {
-    background-image: url("../../../../static/icons/active/description.png");
+    background-image: url("../../../../../static/icons/active/description.png");
 }
 
 .transport__card .transport__card__controls .transport__card__control.offer {
-    background-image: url("../../../../static/icons/default/offer.png");
+    background-image: url("../../../../../static/icons/default/offer.png");
 }
 
 .transport__card .transport__card__controls .transport__card__control.offer:hover {
-    background-image: url("../../../../static/icons/active/offer.png");
+    background-image: url("../../../../../static/icons/active/offer.png");
 }

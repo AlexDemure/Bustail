@@ -1,0 +1,64 @@
+.change-price .modal-window__content form {
+    width: 95%;
+    justify-self: center;
+    
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 55px 55px;
+}
+
+.change-price .modal-window__content .modal-window__text {
+    font-size: 16px;
+    font-family: "FuturaDemiC";
+    color: #9B5E5D;
+    justify-self: center;
+    text-align: center;
+    width: 80%;
+}
+
+.change-price .modal-window__content form .input__common {
+    justify-self: center;
+    width: calc((100% - 5%) - 10px);
+    margin-left: calc((100% - 95%) / 2);
+}
+
+.change-price .modal-window__content form button {
+    margin-top: 10px;
+    justify-self: center;
+    align-self: flex-start;
+}
+
+.change-price .modal-window__content form button:hover {
+    background-color: #fba333;
+    color: #181818;
+}
+
+/* ADAPTIVE 768-801-1024px */
+@media (min-width: 641px) and (max-width: 1023px) {
+    
+    .change-price .modal-window__content form  {
+        width: 95%;
+        grid-template-rows: 80px 90px;
+    }
+
+    .change-price .modal-window__content .modal-window__text {
+        font-size: 18px;
+    }
+}
+
+ /* ADAPTIVE 1024,1280,1337,1440px */
+@media (min-width: 1024px) {
+
+    .change-price .modal-window__content form .input__common {
+        height: 60px;
+    }
+
+    .change-price .modal-window__content form  {
+        grid-template-rows: 70px 70px;
+    }    
+
+    .change-price .modal-window__content .modal-window__text {
+        font-size: 20px;
+    }
+        
+}

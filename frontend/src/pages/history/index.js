@@ -2,8 +2,8 @@ import React from 'react'
 
 import NavBar from '../../components/common/navbar'
 import Header from '../../components/common/header'
-import TransportCard from '../../components/common/transport_card'
-import ClientCard from '../../components/common/client_card'
+import TransportCard from '../../components/common/modal/transport'
+import ClientCard from '../../components/common/modal/client'
 
 import { getApplicationsHistory } from '../../components/common/api/applications/history'
 

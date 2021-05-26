@@ -1,8 +1,8 @@
 import React from 'react'
 
 import { ResponseNotify, showNotify } from '../../../components/common/response_notify'
-import Ticket from '../../../components/cards/ticket/index'
-import TicketCard from '../../../components/common/ticket_card'
+import Ticket from '../../../components/common/cards/ticket/index'
+import TicketCard from '../../../components/common/modal/ticket'
 
 import { rejectApplication } from '../../../components/common/api/applications/reject'
 

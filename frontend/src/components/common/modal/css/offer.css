@@ -1,0 +1,135 @@
+.offer-modal.modal-window__bg {
+    z-index: 200;
+
+    align-content: unset;
+}
+
+.offer-modal .modal-window__content {
+    z-index: 201;
+    
+    position: absolute;
+
+    align-self: flex-end;
+    height: 90%;
+    width: 100vw;
+    
+    grid-template-rows: 70px 40px 1fr;
+    overflow: hidden
+}
+
+.offer-modal.application-offer .modal-window__content {
+    grid-template-rows: 70px 40px 1fr;
+}
+
+.offer-modal.transport-offer .modal-window__content {
+    grid-template-rows: 70px 40px 70px 1fr;
+}
+
+.offer-modal .modal-window__text {
+    font-size: 16px;
+    font-family: "FuturaDemiC";
+    color: #535353;
+    
+    margin: 0;
+    padding: 0;
+
+    margin-left: 20px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+
+    float: left;
+}
+
+.offer-modal .modal-window__create-object {
+    font-size: 16px;
+    font-family: "FuturaDemiC";
+    color: #fba333;
+    text-decoration: none;
+    
+    margin: 0;
+    padding: 0;
+
+    margin-right: 25px;
+    margin-top: 5px;
+
+    float: right;
+    cursor: pointer;
+}
+
+.offer-modal .modal-window__choices {
+    justify-self: center;
+    
+    padding-bottom: 10vh;
+
+
+    overflow-y: scroll;
+    overflow-x: hidden;
+    
+    -webkit-overflow-scrolling: touch;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+
+.offer-modal.application-offer .modal-window__choices {
+    width: 95%;
+}
+
+.offer-modal .modal-window__choices::-webkit-scrollbar {
+    display: none;
+}
+
+.offer-modal .modal-window__no-choices-text {
+    font-size: 18px;
+    font-family: "FuturaDemiC";
+    color: #9B5E5D;
+    text-align: center;
+    justify-self: center;
+    align-self: center;
+
+    margin-top: 25%;    
+}
+
+/* ADAPTIVE 768-801 */
+@media (min-width: 641px) and (max-width: 1023px) {
+
+    .offer-modal .modal-window__text,
+    .offer-modal .modal-window__create-object {
+        font-size: 20px;
+    }
+
+    .offer-modal .modal-window__no-choices-text {
+        font-size: 22px;
+    }
+}
+
+ /* ADAPTIVE 1024,1280,1337,1440px */
+ @media (min-width: 1024px) {
+    .offer-modal .modal-window__text,
+    .offer-modal .modal-window__create-object {
+        font-size: 24px;
+    }
+
+    .offer-modal .modal-window__no-choices-text {
+        font-size: 26px;
+    }
+ }
+
+
+@media (min-width: 1024px) and (max-width: 1335px) {
+    .offer-modal .modal-window__content {
+        width: 70vw;
+    }
+}
+
+@media (min-width: 1336px) and (max-width: 1535px) {
+    .offer-modal .modal-window__content {
+        width: 55vw;
+    }
+}
+
+ /* ADAPTIVE 1024,1280,1337,1440px */
+ @media (min-width: 1536px) {
+    .offer-modal .modal-window__content {
+        width: 45vw;
+    }
+ }

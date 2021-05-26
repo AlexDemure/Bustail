@@ -5,6 +5,7 @@ import SubmitButton from '../../../components/common/buttons/submit_btn'
 import { getCities } from '../../../components/common/api/other/cities'
 
 
+import '../../../components/common/modal/css/filters.css'
 import './css/filters.css'
 
 
@@ -61,29 +62,21 @@ export default class SearchFilters extends React.Component {
 
 
         return (
-            <div className="search-transport__filters__modal-window__bg">
-                <div className="search-transport__filters__modal-window__content">
+            <div className="search-transport filters modal-window__bg">
+                <div className="filters modal-window__content">
                     <div>
-                        <p className="search-transport__filters__modal-window__title">Параметры поиска</p>
-                        <div className="search-transport__filters__modal-window__close-btn" onClick={this.props.closeFilters}></div>
+                        <p className="modal-window__title">Параметры поиска</p>
+                        <div className="modal-window__close-btn" onClick={this.props.closeFilters}></div>
                     </div>
-                    <form className="search-transport__filters__form" onSubmit={this.props.onSubmit}>
+                    <form onSubmit={this.props.onSubmit}>
                         <SearchInput name="city" options={this.state.cities} value={this.props.city ? this.props.city : null} isRequired={false}/>
-                        
-                        {/* <div className="search-transport__filters__modal-window__owner-types">
-                        <div className="owner-type individual active">
-                            <p>Частное лицо</p>
-                        </div>
-                        <div className="owner-type company">
-                            <p>Компания</p>
-                        </div>
-                        </div> */}
-                        <div className="search-transport__filters__modal-window__transport-types">
+
+                        <div className="filter types transport-types">
                             {
                                 options &&
                                 Object.keys(options).map(
                                     key => {
-                                        let class_name = "search-transport__filters__modal-window__transport-type " + key
+                                        let class_name = "type transport-type " + key
 
                                         if (this.props.active_items.includes(key)) {
                                             class_name += " active"

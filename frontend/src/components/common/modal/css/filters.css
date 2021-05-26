@@ -1,0 +1,112 @@
+.filters form {
+    width: 95%;
+    justify-self: center;
+    
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 55px auto 1fr;
+}
+
+.filters form .search-selector__input__common {
+    justify-self: center;
+    width: calc((100% - 5%) - 10px);
+    margin-left: calc((100% - 95%) / 2);
+}
+
+.filters form .search-selector__option {
+    width: calc((100% - 5%) - 10px);
+    margin-left: calc((100% - 95%) / 2);
+}
+
+.filter.types {
+    margin-top: 5px;
+    width: 95%;
+    justify-self: center;
+    height: 310px;
+
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2.5px;
+    grid-template-rows: repeat(6, 50px);
+    overflow-x: hidden;
+    overflow-y: scroll;
+
+    -webkit-overflow-scrolling: touch;
+}
+
+.filter.types::-webkit-scrollbar {
+    display: none;
+}
+
+.filter.types  {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+
+.filter.types .type {
+    height: 45px;
+    
+    border: 1px solid #262626;
+    border-radius: 5px;
+
+    display: grid;
+    align-items: center;
+
+    background-position-y: center;
+    background-position-x: 10px;
+    background-repeat: no-repeat;
+    background-size: 25px;
+}
+
+.filter.types .type p {
+    color: #6e6e6e;
+    font-size: 14px;
+    font-family: "FuturaBookC";
+    padding-left: 50px;
+}
+
+.filter.types .type.active {
+    border: 1px solid #fba333;
+}
+
+.filter.types .type.active p {
+    color: #fba333;
+}
+
+.filters.modal-window__content form button {
+    margin-top: 10px;
+    justify-self: center;
+    align-self: flex-start;
+}
+
+.filters.modal-window__content button:hover {
+    background-color: #fba333;
+    color: #181818;
+}
+
+
+
+/* ADAPTIVE 768-801-1024px */
+@media (min-width: 640px) {
+    .filters form {
+        grid-template-rows: 80px auto 1fr;
+    }
+
+    .filter.types {
+        width: 95%;
+        height: 450px;
+        gap: 5px;
+        grid-template-rows: repeat(6, 70px);
+    }
+
+    .filter.types .type {
+        height: 70px;
+        margin-bottom: 10px;
+        background-size: 35px;
+    }
+
+    .filter.types .type p {
+        font-size: 22px;
+        padding-left: 50px;
+    }
+}

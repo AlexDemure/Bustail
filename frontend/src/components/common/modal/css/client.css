@@ -1,0 +1,103 @@
+
+.client-modal .modal-window__content {
+    
+    bottom: 11vh;
+   
+    height: 100px;
+
+   
+    grid-template-columns: 1fr 50px 50px;
+    grid-template-rows: 50px 50px;
+}
+
+
+.client-modal .modal-window__close-btn {
+    grid-row: 1 / 2;
+    grid-column: 3 / 4;
+}
+
+.client__card__detail {
+    font-family: "FuturaBookC";
+    font-size: 14px;
+    color: #6e6e6e;
+    margin-left: 10px;
+}
+
+.client__card__detail span {
+    font-family: "FuturaDemiC";
+    font-size: 16px;
+    color: #fbfbfb;
+}
+
+.client__card__detail.fullname {
+    grid-row: 1 / 2;
+    grid-column: 1 / 2;
+    align-self: flex-start;
+}
+
+.client__card__detail.email span {
+    color: #fba333;
+    font-size: 15px;
+}
+
+.client__card__detail.phone {
+    grid-row: 1 / 2;
+    grid-column: 2 / 3;
+    justify-self: flex-end;
+    margin-right: 10px;
+    margin-top: 10px;
+    border: 1px solid #262626;
+    border-radius: 5px;
+    background-image: url("../../../../static/icons/default/call.png");
+
+    background-position-x: center;
+    background-position-y: center;
+    background-repeat: no-repeat;
+    background-size: 25px 25px;
+    width: 50px;
+    height: 40px;
+}
+
+.client__card__detail.phone:hover {
+    border: 1px solid #fba333;
+    background-image: url("../../../../static/icons/active/call.png");
+}
+
+.client-modal p[id=warning] {
+    grid-column: 1 / 4;
+
+    justify-self: center;
+    text-align: center;
+    width: 85%;
+    font-family: "FuturaBookC";
+    font-size: 14px;
+    color: #9B5E5D;
+}
+
+/* ADAPTIVE 768-801 */
+@media (min-width: 641px) {
+
+    .client__card__detail {
+        font-size: 22px;
+    }
+    
+    .client__card__detail span {
+        font-size: 22px;
+    }
+    
+    .client__card__detail.email span {
+        font-size: 22px;
+    }
+    
+    .client__card__detail.phone {
+        background-size: 30px 30px;
+        width: 55px;
+        height: 45px;
+    }
+
+    .client-modal p[id=warning] {
+        font-size: 20px;
+    }
+
+}
+

@@ -4,8 +4,8 @@ import { getCompanyCardByUrl } from '../../components/common/api/company/get_by_
 
 import NavBar from '../../components/common/navbar'
 import Header from '../../components/common/header'
-import TransportCard from '../../components/common/transport_card'
-import Transport from '../../components/cards/transport'
+import TransportCard from '../../components/common/modal/transport'
+import Transport from '../../components/common/cards/transport'
 import { ResponseNotify, showNotify } from '../../components/common/response_notify'
 
 import { getMeApps } from '../../components/common/api/applications/me'
@@ -60,7 +60,7 @@ class CompanyPage extends React.Component {
 
         this.setState({
             company: company.result,
-            user_apps: user_apps.result
+            user_apps: user_apps.result.applications
         })
     }
 
@@ -120,7 +120,8 @@ class CompanyPage extends React.Component {
                     this.state.offerData !== null && 
                     <OfferForm
                     closeOffer={() => this.setState({offerData: null})}
-                    offer_type="Предложение заявки"
+                    offer_type="application"
+                    title="Предложение заявки"
                     create_link="/app/create"
                     choices={this.state.user_apps}
                     createOffer={this.createOffer}

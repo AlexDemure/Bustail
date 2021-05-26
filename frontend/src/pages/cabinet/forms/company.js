@@ -2,8 +2,8 @@ import React from 'react'
 
 import DefaultInput from '../../../components/common/inputs/default'
 import SubmitButton from '../../../components/common/buttons/submit_btn'
-import TransportCard from '../../../components/common/transport_card'
-import Transport from '../../../components/cards/transport'
+import TransportCard from '../../../components/common/modal/transport'
+import Transport from '../../../components/common/cards/transport'
 import { ResponseNotify, showNotify } from '../../../components/common/response_notify'
 
 import { createCompany } from '../../../components/common/api/company/create'

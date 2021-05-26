@@ -1,0 +1,32 @@
+.zoom-photo.modal-window__bg {
+    z-index: 300;
+}
+
+.zoomed-photo {
+    z-index: 301;
+    height: 50vh;
+    width: 95vw;
+}
+
+ /* ADAPTIVE 1024,1280,1337,1440px */
+ @media (min-width: 1024px) and (max-width: 1335px) {
+    .zoomed-photo {
+        height: 450px;
+        width: 650px;
+    }
+}
+
+@media (min-width: 1336px) and (max-width: 1535px) {
+    .zoomed-photo {
+        height: 500px;
+        width: 700px;
+    }
+}
+
+ /* ADAPTIVE 1536px and more */
+ @media (min-width: 1536px) {
+    .zoomed-photo {
+        height: 550px;
+        width: 750px;
+    }
+ }

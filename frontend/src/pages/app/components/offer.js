@@ -1,49 +1,11 @@
 import React from 'react'
 
-import ChangePrice from '../../../components/common/change_price_modal'
-import Transport from '../../../components/cards/transport'
+import ChangePrice from '../../../components/common/modal/change_price'
+import OfferModal from '../../../components/common/modal/offer'
+import Transport from '../../../components/common/cards/transport'
 
 import SerializeForm from '../../../utils/form_serializer'
 
-
-import ChoicesTypeSwitch from './switch_choices_type'
-
-import './css/offer.css'
-
-
-function ChoicesElements(props) {
-    return (
-        <div className="offer__transport__modal-window__bg">
-            <div className="offer__transport__modal-window__content">
-                <div>
-                    <p className="offer__transport__modal-window__title">{props.offer_type}</p>
-                    <div className="offer__transport__modal-window__close-btn" onClick={props.closeOffer}></div>
-                </div>
-                <div>
-                    <p className="offer__transport__modal-window__text">Выберите элемент из списка</p>
-                    <a href={props.create_link} className="offer__transport__modal-window__create-object">Создать</a>
-                </div>
-                
-                <ChoicesTypeSwitch is_active={props.activeChoiceType} onClick={props.changeChoicesType}/>
-
-                <div className="offer__transport__modal-window__choices">
-                    {
-                        props.choices.length > 0 ?
-                        props.choices.map(
-                            (choice) =>
-                            <Transport
-                            controls="offer"
-                            createOffer={(e) => props.createOffer(e, choice.id)}
-                            showTransportCard={props.showTransportCard}
-                            transport={choice}/>
-                        ) :
-                        <p className="offer__transport__modal-window__no-choices-text">Список предложений пуст</p>
-                    }
-                </div>
-            </div>
-        </div>
-    )
-}
 
 export default class OfferForm extends React.Component {
     constructor(props) {
@@ -93,17 +55,30 @@ export default class OfferForm extends React.Component {
         let form;
 
         if (this.state.form === "choices") {
-            form = <ChoicesElements
-            choices={this.state.choices_type === "personal" ? this.props.driver_transports : this.props.company_transports}
-            price={this.state.price}
-            showTransportCard={this.props.showTransportCard}
+            let choices = this.state.choices_type === "personal" ? this.props.driver_transports : this.props.company_transports
+            
+            form = <OfferModal
+            title={this.props.title}
             offer_type={this.props.offer_type}
             closeOffer={this.props.closeOffer}
             create_link={this.props.create_link}
-
+            
             activeChoiceType={this.state.choices_type}
             createOffer={this.createOffer}
             changeChoicesType={this.changeChoicesType}
+            
+            choices={
+                choices.length > 0 ?
+                choices.map(
+                    (choice) => {
+                        return <Transport
+                        controls="offer"
+                        createOffer={(e) => this.createOffer(e, choice.id)}
+                        showTransportCard={this.props.showTransportCard}
+                        transport={choice}/>
+                    }
+                ) : []
+            }
             />
         } else if (this.state.form === "price") {
             form = <ChangePrice

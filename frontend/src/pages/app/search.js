@@ -2,9 +2,9 @@ import React from 'react'
 import NavBar from '../../components/common/navbar'
 import Header from '../../components/common/header'
 
-import TransportCard from '../../components/common/transport_card'
-import Ticket from '../../components/cards/ticket/index'
-import TicketCard from '../../components/common/ticket_card'
+import TransportCard from '../../components/common/modal/transport'
+import Ticket from '../../components/common/cards/ticket/index'
+import TicketCard from '../../components/common/modal/ticket'
 
 import { ResponseNotify, showNotify } from '../../components/common/response_notify'
 
@@ -233,7 +233,8 @@ export default class SearchAppPage extends React.Component {
                         <OfferForm
                         closeOffer={() => this.setState({offerData: null})}
                         ticket={this.state.apps[this.state.offerData]}
-                        offer_type="Предложение аренды"
+                        offer_type="transport"
+                        title="Предложение аренды"
                         create_link="/transport/create"
                         driver_transports={this.state.driver_transports}
                         company_transports={this.state.company_transports}

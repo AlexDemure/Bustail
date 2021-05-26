@@ -49,8 +49,8 @@
     font-size: 15px;
     color: #fba333;
     font-family: "FuturaBookC";
-    margin-top: 15px;
-    align-self: flex-end;
+
+    align-self: center;
     padding-bottom: 5px;
 }
 
@@ -58,8 +58,8 @@
     font-size: 15px;
     color: #fbfbfb;
     font-family: "FuturaBookC";
-    margin-top: 15px;
-    align-self: flex-end;
+
+    align-self: center;
     padding-bottom: 5px;
 }
 
@@ -112,7 +112,7 @@
 }
 
 .ticket .ticket__reject-btn {
-    height: 90%;
+    height: 40px;
     width: 100%;
     
 
@@ -122,6 +122,7 @@
 
     background-color: #9B5E5D;
     border-radius: 5px;
+    margin-bottom: 15px;
 }
 
 .ticket .ticket__reject-btn:hover {
@@ -139,7 +140,7 @@
 }
 
 .ticket div[id=right] div[id=right-div-right] .ticket__offer-btn {
-    height: 80%;
+    height: 40px;
     width: 100%;
     
 
@@ -149,6 +150,7 @@
 
     background-color: #222222;
     border-radius: 5px;
+    margin-bottom: 15px;
 }
 
 .ticket div[id=right] div[id=right-div-right] .ticket__offer-btn:hover {

@@ -1,24 +1,14 @@
 import React from 'react'
 
-import { getTransportCard } from './api/transports/get_by_id'
-import { getCompanyCard } from '../common/api/company/get_by_id'
-import { getDriverCard } from '../common/api/drivers/get_by_id'
+import { getTransportCard } from '../api/transports/get_by_id'
+import { getCompanyCard } from '../api/company/get_by_id'
+import { getDriverCard } from '../api/drivers/get_by_id'
 
+import ZoomPhoto from './zoom'
 
-import './css/transport_card.css'
+import './css/base.css'
+import './css/transport.css'
 
-
-function ZoomPhoto(props) {
-    return (
-        <div className="zoom-photo__modal__bg" onClick={props.onClick}>
-            <img 
-                src={props.file_uri}
-                alt="preview"
-                className="zoomed-photo"
-            ></img>
-        </div>
-    )
-}
 
 export default class TransportCard extends React.Component {
     constructor(props) {
@@ -109,14 +99,14 @@ export default class TransportCard extends React.Component {
                     <ZoomPhoto file_uri={this.state.zoomObject.file_uri} onClick={() => this.setState({zoomMode: false})}/>
                 }
                 
-                <div className="transport_card__modal-window__bg">
-                    <div className="transport_card__modal-window__content">
+                <div className="transport-modal modal-window__bg">
+                    <div className="modal-window__content">
                         <div>
-                            <p className="transport_card__modal-window__title">Карточка автомобиля</p>
-                            <div className="transport_card__modal-window__close-btn" onClick={this.props.onClose}></div>
+                            <p className="modal-window__title">Карточка автомобиля</p>
+                            <div className="modal-window__close-btn" onClick={this.props.onClose}></div>
                         </div>
-                        <div className="transport_card__modal-window__card">
-                            <div className="transport_card__photos">
+                        <div className="transport__card">
+                            <div className="transport__card__photos">
                             {
                                 main_img ?
                                 <img 
@@ -126,12 +116,12 @@ export default class TransportCard extends React.Component {
                                         zoomObject: this.state.transport.transport_covers[0],
                                     })}
                                     alt="preview"
-                                    className="transport_card__photo"
+                                    className="transport__card__photo"
                                 ></img> :
                                 <div></div>
                             }
                            
-                            <div className="transport_card__other-photos">
+                            <div className="transport__card__other-photos">
                                 {
                                     this.state.transport.transport_covers.length > 0 &&
                                     this.state.transport.transport_covers.slice(1).map(
@@ -144,37 +134,37 @@ export default class TransportCard extends React.Component {
                                         })}
                                         
                                         alt="preview"
-                                        className="transport_card__additional-photo">
+                                        className="transport__card__additional-photo">
                                         </img>
                                     )
                                 }
                                 {div_blocks}
                             </div>
                         </div>
-                            <div className="transport_card__details">
-                                <p className="transport_card__detail transport-name">{this.state.transport.brand} {this.state.transport.model}</p>
-                                <p className="transport_card__detail state-number"><span>Номер:</span> {this.state.transport.state_number}</p>
-                                <div className="transport_card__additionals">
-                                    <p className="transport_card__detail count-seats"><span>Вместимость:</span> {this.state.transport.count_seats}</p>
-                                    <p className="transport_card__detail price"><span>Стоимость:</span> {this.state.transport.price}</p>
-                                    <p className="transport_card__detail city"><span>Город:</span> {this.state.transport.city}</p>
+                            <div className="transport__card__details">
+                                <p className="transport__card__detail transport-name">{this.state.transport.brand} {this.state.transport.model}</p>
+                                <p className="transport__card__detail state-number"><span>Номер:</span> {this.state.transport.state_number}</p>
+                                <div className="transport__card__additionals">
+                                    <p className="transport__card__detail count-seats"><span>Вместимость:</span> {this.state.transport.count_seats}</p>
+                                    <p className="transport__card__detail price"><span>Стоимость:</span> {this.state.transport.price}</p>
+                                    <p className="transport__card__detail city"><span>Город:</span> {this.state.transport.city}</p>
                                 </div>
-                                <div className="transport_card__owner">
+                                <div className="transport__card__owner">
                                     {
                                         this.state.transport.company_id &&
                                         <a 
                                         href={`/company/${this.state.company.page_url}`}
-                                        className="transport_card__detail driver-name"><span id="company">Компания: {this.state.company.company_name}</span>
+                                        className="transport__card__detail driver-name"><span id="company">Компания: {this.state.company.company_name}</span>
                                         </a>
                                     }
                                     {
                                         this.state.transport.driver_id &&
-                                        <p className="transport_card__detail driver-name"><span>Водитель:</span> {this.state.user.fullname ? this.state.user.fullname : "Не указано"}</p>
+                                        <p className="transport__card__detail driver-name"><span>Водитель:</span> {this.state.user.fullname ? this.state.user.fullname : "Не указано"}</p>
                                     }
                                     
-                                    <a href={"tel:"+ this.state.user.phone} className="transport_card__detail phone"><span>Телефон:</span> {this.state.user.phone ? this.state.user.phone : "Не указано"}</a>
+                                    <a href={"tel:"+ this.state.user.phone} className="transport__card__detail phone"><span>Телефон:</span> {this.state.user.phone ? this.state.user.phone : "Не указано"}</a>
                                 </div>
-                                <p className="transport_card__detail description"><span>Описание:</span> {this.state.transport.description ? this.state.transport.description: "Не указано"}</p>
+                                <p className="transport__card__detail description"><span>Описание:</span> {this.state.transport.description ? this.state.transport.description: "Не указано"}</p>
                                 
                             </div>
                         </div>
