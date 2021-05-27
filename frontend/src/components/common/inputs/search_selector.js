@@ -65,16 +65,37 @@ export default class SearchInput extends React.Component {
         }
     }
 
-    onClick() {
-        this.setState({
-            result: this.props.options
-        })
+    onClick(e) {
+        let element = document.getElementsByClassName("search-selector " + this.props.name)[0]
+        
+        if (e.target.className.startsWith('search-selector') && e.target.name === this.props.name) {
+            element.className += " active"
+
+            this.setState({
+                result: this.props.options
+            }) 
+
+        } else {
+            element.className = "search-selector " + this.props.name
+
+            this.setState({
+                result: []
+            })
+        }
+       
     }
 
+    componentDidMount() {
+        document.addEventListener('click', this.onClick)
+    }
+
+    componentWillUnmount() {
+        document.removeEventListener('click', this.onClick)
+    }
     
     render() {
         return (
-            <div className={"search-selector " + (this.state.result.length > 0 ? "active" : "")}>
+            <div className={"search-selector " + this.props.name}>
                 <input
                 required={this.props.isRequired === false ? false : true} 
                 className={`search-selector__input__common ${this.props.isRequired === false ? "no-required" : "required"}`}
