@@ -7,6 +7,7 @@ import Header from '../../components/common/header'
 import TransportCard from '../../components/common/modal/transport'
 import Transport from '../../components/common/cards/transport'
 import { ResponseNotify, showNotify } from '../../components/common/response_notify'
+import TicketCard from '../../components/common/modal/ticket'
 
 import { getMeApps } from '../../components/common/api/applications/me'
 import { createNotification} from '../../components/common/api/notifications/create'
@@ -40,16 +41,24 @@ class CompanyPage extends React.Component {
             response_text: null,
             error: null,
 
-            transport_id: null
+            transport_id: null,
+            ticket_id: null
         }
 
         this.createOffer = this.createOffer.bind(this)
         this.showTransportCard = this.showTransportCard.bind(this)
+        this.showTicketCard = this.showTicketCard.bind(this)
     }
 
     showTransportCard(transport_id) {
         this.setState({
             transport_id: transport_id
+        })
+    }
+
+    showTicketCard(ticket_id) {
+        this.setState({
+            ticket_id: ticket_id
         })
     }
 
@@ -116,6 +125,14 @@ class CompanyPage extends React.Component {
                     />
                 }
 
+                {
+                    this.state.ticket_id && 
+                    <TicketCard
+                    ticket_id={this.state.ticket_id}
+                    onClose={() => this.setState({ticket_id: null})}
+                    />
+                }
+
                 { 
                     this.state.offerData !== null && 
                     <OfferForm
@@ -125,6 +142,7 @@ class CompanyPage extends React.Component {
                     create_link="/app/create"
                     choices={this.state.user_apps}
                     createOffer={this.createOffer}
+                    showTicketCard={this.showTicketCard}
                     />  
                 }
 

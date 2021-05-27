@@ -12,8 +12,8 @@ import { deleteTransport } from '../../../components/common/api/transports/delet
 import { getPaymentLink } from '../../../components/common/api/payments/get'
 
 import PaymentData from '../components/payment_data'
-import CabinetSwitch from '../components/switch_cabinet'
-import CardSwitch from '../components/switch_card'
+import CabinetSwitch from '../../../components/switches/cabinet'
+import CardTypeSwitch from '../../../components/switches/card_type'
 
 import { selectErrorInputs } from '../../../constants/input_parsers'
 
@@ -282,7 +282,7 @@ export default class CompanyPage extends React.Component {
 
                 <div className={"container cabinet company " + this.state.form}>
                     <CabinetSwitch is_active="company" onClick={this.props.changeForm}/>
-                    <CardSwitch is_active={this.state.form} isDisable={this.state.company === null ? true : false} onClick={this.changeForm}/>
+                    <CardTypeSwitch is_active={this.state.form} isDisable={this.state.company === null ? true : false} onClick={this.changeForm}/>
                     {form}
                 </div>
 

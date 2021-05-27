@@ -46,12 +46,14 @@
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: repeat(4, 25px);
+    margin-right: 10px;
 }
 .ticket__card__detail.date,
 .ticket__card__detail.price,
-.ticket__card__detail.app_type {
+.ticket__card__detail.app_type,
+.ticket__card__detail.count_seats {
     font-family: "FuturaBookC";
-    text-align: left;
+    text-align: right;
     margin-right: 5px;
     align-self: center;
     font-size: 16px;

@@ -9,12 +9,11 @@ import { ResponseNotify, showNotify } from '../../components/common/response_not
 import { getMeNotifications } from '../../components/common/api/notifications/me'
 import { deleteNotification } from '../../components/common/api/notifications/delete'
 import { updateNotification } from '../../components/common/api/notifications/update'
+import NotificationSwitch from '../../components/switches/notifications'
 
 import isAuth from '../../utils/is_auth'
 
-import NotificationSwitch from './components/notification_switch'
 import Notification from './components/notification'
-
 
 import './css/index.css'
 

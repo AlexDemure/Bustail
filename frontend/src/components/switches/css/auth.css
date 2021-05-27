@@ -1,0 +1,40 @@
+.switch.auth {
+    margin-bottom: 5px;
+}
+
+.switch.auth #v-line {
+    opacity: 0.3;
+}
+
+.switch.auth #v-line,
+.switch.auth .switch__item.no-active {
+    font-size: 16px;
+}
+
+
+/* ADAPTIVE 768-801-1024px */
+@media (min-width: 641px) and (max-width: 1023px) {
+
+    .switch.auth #v-line,
+    .switch.auth .switch__item.no-active {
+        font-size: 20px;
+    }
+}
+
+ /* ADAPTIVE 1024,1280,1337,1440px */
+@media (min-width: 1024px) and (max-width: 1535px) {
+
+    .switch.auth #v-line,
+    .switch.auth .switch__item.no-active {
+        font-size: 22px;
+    }
+}
+
+ /* ADAPTIVE 1536px and more */
+@media (min-width: 1536px) {
+    
+    .switch.auth #v-line,
+    .switch.auth .switch__item.no-active {
+        font-size: 24px;
+    }
+}

@@ -1,11 +1,11 @@
 .offer-modal.modal-window__bg {
-    z-index: 200;
+    z-index: 150;
 
     align-content: unset;
 }
 
 .offer-modal .modal-window__content {
-    z-index: 201;
+    z-index: 151;
     
     position: absolute;
 
@@ -61,7 +61,7 @@
     
     padding-bottom: 10vh;
 
-
+    width: 95%;
     overflow-y: scroll;
     overflow-x: hidden;
     
@@ -70,9 +70,6 @@
     scrollbar-width: none;  /* Firefox */
 }
 
-.offer-modal.application-offer .modal-window__choices {
-    width: 95%;
-}
 
 .offer-modal .modal-window__choices::-webkit-scrollbar {
     display: none;
@@ -92,6 +89,10 @@
 /* ADAPTIVE 768-801 */
 @media (min-width: 641px) and (max-width: 1023px) {
 
+    .offer-modal.transport-offer .modal-window__choices {
+        width: auto;
+    }
+
     .offer-modal .modal-window__text,
     .offer-modal .modal-window__create-object {
         font-size: 20px;
@@ -104,6 +105,11 @@
 
  /* ADAPTIVE 1024,1280,1337,1440px */
  @media (min-width: 1024px) {
+
+    .offer-modal.transport-offer .modal-window__choices {
+        width: auto;
+    }
+
     .offer-modal .modal-window__text,
     .offer-modal .modal-window__create-object {
         font-size: 24px;

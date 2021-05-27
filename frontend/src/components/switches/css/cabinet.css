@@ -1,0 +1,11 @@
+.switch.cabinet {
+    margin-left: 10px;
+    margin-right: 10px;
+    height: 30px;
+}
+
+.switch.cabinet #company {
+    right: 0;
+    top: 0;
+    position: absolute;
+}

@@ -42,7 +42,7 @@ export default class Ticket extends React.Component {
                 <div id="left">
                     <p className="ticket__placeholder">откуда</p>
                     <p id='from' className="ticket__city">{this.props.ticket.to_go_from}</p>
-                    <p className="ticket__details-btn" onClick={() => this.props.showTicketCard(this.props.ticket.id)}>подробнее</p>
+                    <p className="ticket__details-btn" onClick={this.props.showTicketCard}>подробнее</p>
                     {
                         this.props.show_status === true &&
                         <div className={"ticket__status " + this.props.ticket.application_status}></div>

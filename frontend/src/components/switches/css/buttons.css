@@ -1,0 +1,107 @@
+.switch.buttons {
+    height: 50px;
+    width: 90%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 5px;
+    grid-template-rows: 1fr;
+    justify-items: center;
+    align-items: center;
+
+    justify-self: center;
+}
+
+.switch.buttons p {
+    font-size: 14px;
+
+    height: 45px;
+    width: 100%;
+    border: 1px solid #262626;
+    border-radius: 5px;
+
+    text-align: center;
+    display: grid;
+    align-items: center;
+
+    background-position: 10px center;
+    background-repeat: no-repeat;
+    background-size: 20px;
+}
+
+
+.switch.buttons .switch__item.active {
+    border: 1px solid #fba333
+}
+
+
+.switch.buttons #form {
+    background-image: url('../../../static/icons/default/description.png');
+}
+.switch.buttons #form.active {
+    background-image: url('../../../static/icons/active/description.png');
+}
+
+.switch.buttons #card {
+    background-image: url('../../../static/icons/default/driver_card.png');
+}
+.switch.buttons #card.active {
+    background-image: url('../../../static/icons/active/driver_card.png');
+}
+
+.switch.buttons #personal {
+    background-image: url('../../../static/icons/default/driver_card.png');
+}
+.switch.buttons #personal.active {
+    background-image: url('../../../static/icons/active/driver_card.png');
+}
+
+.switch.buttons #company {
+    background-image: url('../../../static/icons/default/company_card.png');
+}
+.switch.buttons #company.active  {
+    background-image: url('../../../static/icons/active/company_card.png');
+}
+
+
+@media (min-width: 414px) and (max-width: 640px) {
+    .switch.buttons p {
+        background-size: 25px;
+    }
+}
+
+@media (min-width: 641px) and (max-width: 1023px) {
+    .switch.buttons {
+        height: 50px;
+    }
+    
+    .switch.buttons p {
+        height: 50px;
+        font-size: 18px;
+        background-position: 15px center;
+        background-size: 30px;
+    }
+}
+
+@media (min-width: 1024px) and (max-width: 1535px) {
+    .switch.buttons {
+        height: 55px;
+    }
+    .switch.buttons p {
+        height: 55px;
+        font-size: 22px;
+        background-position: 20px center;
+        background-size: 35px;
+    }
+}
+
+@media (min-width: 1536px) {
+    .switch.buttons {
+        height: 60px;
+    }
+    .switch.buttons p {
+        height: 60px;
+        font-size: 24px;
+        background-position: 25px center;
+        background-size: 40px;
+    }
+}

@@ -1,0 +1,67 @@
+.switch.notification-switch {
+    margin-left: 10px;
+    height: 40px;
+}
+
+.switch.notification-switch .switch__item {
+    padding-right: 20px;
+    margin-top: 10px;
+}
+
+.switch.notification-switch .switch__item .switch__circle {
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    background-color: #9B5E5D;
+    position: absolute;
+    top: -10px;
+    right: 0px;
+
+    display: grid;
+    justify-content: center;
+    align-content: center;
+}
+
+.switch.notification-switch .switch__circle p {
+    color: #FBFBFB;
+    margin: 0;
+    padding: 0;
+    font-size: 13px;
+}
+
+/* ADAPTIVE 768-801-1024px */
+@media (min-width: 641px) and (max-width: 1023px) {
+
+    .switch.notification-switch .switch__item .switch__circle p {
+        font-size: 16px;
+    }
+    .switch.notification-switch .switch__item .switch__circle {
+        height: 25px;
+        width: 25px;
+    }
+}
+
+ /* ADAPTIVE 1024,1280,1337,1440px */
+@media (min-width: 1024px) and (max-width: 1535px) {
+
+    .switch.notification-switch .switch__item .switch__circle p {
+        font-size: 18px;
+    }
+    .switch.notification-switch .switch__item .switch__circle {
+        height: 28px;
+        width: 28px;
+    }
+}
+
+ /* ADAPTIVE 1536px and more */
+@media (min-width: 1536px) {
+
+    .switch.notification-switch .switch__item .switch__circle p {
+        font-size: 20px;
+    }
+
+    .switch.notification-switch .switch__item .switch__circle {
+        height: 30px;
+        width: 30px;
+    }
+}

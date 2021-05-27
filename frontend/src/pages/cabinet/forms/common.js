@@ -4,7 +4,7 @@ import DefaultInput from '../../../components/common/inputs/default'
 import SearchInput from '../../../components/common/inputs/search_selector'
 import InputPhone from '../../../components/common/inputs/phone'
 import SubmitButton from '../../../components/common/buttons/submit_btn'
-import CabinetSwitch from '../components/switch_cabinet'
+import CabinetSwitch from '../../../components/switches/cabinet'
 import { ResponseNotify, showNotify } from '../../../components/common/response_notify'
 
 import { updateAccount } from '../../../components/common/api/account/update'

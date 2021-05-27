@@ -6,7 +6,7 @@ import TicketCard from '../../../components/common/modal/ticket'
 
 import { rejectApplication } from '../../../components/common/api/applications/reject'
 
-import CabinetSwitch from '../components/switch_cabinet'
+import CabinetSwitch from '../../../components/switches/cabinet'
 
 import './css/client.css'
 

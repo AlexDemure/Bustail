@@ -51,7 +51,7 @@ export default class OfferForm extends React.Component {
                             return <Ticket
                             controls="offer"
                             makeOffer={(e) => this.createOffer(e, choice.id, choice.price)}
-                            showTicketCard={() => this.showTicketCard(choice.id)}
+                            showTicketCard={() => this.props.showTicketCard(choice.id)}
                             ticket={choice}
                             />
                         }
