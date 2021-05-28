@@ -61,7 +61,7 @@ export default class Notification extends React.Component {
                     <p 
                     onClick={this.props.showTicketCard}
                     className="notification__card__item ticket_data">
-                        <span>Заявка: </span>{this.state.application.to_go_to} - {this.state.application.to_go_from}
+                        <span>Заявка: </span>{this.state.application.to_go_from} - {this.state.application.to_go_from}
                     </p>
                     <p className="notification__card__item price">
                         <span>{`Предложенная цена: ${isChanged ? "(изм)": ""}`} </span>{price > 0 ? price : "Не указано"}
