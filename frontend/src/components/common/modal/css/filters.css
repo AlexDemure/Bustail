@@ -110,3 +110,15 @@
         padding-left: 50px;
     }
 }
+
+@media (min-width: 1024) and (max-width: 1535px) {
+    .filter.types {
+        margin-top: 5px;
+    }
+}
+
+@media (min-width: 1536px) {
+    .filter.types {
+        margin-top: 15px;
+    }
+}
