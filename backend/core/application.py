@@ -6,6 +6,7 @@ from structlog import get_logger
 from backend.apps.mailing.service import service_mailing
 from backend.core import middleware
 from backend.core.config import settings
+from backend.core.scheduler import start
 from backend.core.urls import api_router
 from backend.db.database import postgres_db_init, sqlite_db_init
 from backend.enums.system import SystemEnvs
@@ -47,6 +48,12 @@ async def fixtures():
         print("Connection to SQLite3...")
         await sqlite_db_init()
     await setup_permissions_and_roles()
+
+
+@app.on_event("startup")
+def scheduler_init():
+    print("Start scheduler...")
+    start()
 
 
 app.include_router(api_router, prefix=settings.API_URL)
