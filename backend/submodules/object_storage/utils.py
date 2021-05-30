@@ -86,7 +86,9 @@ def compression_image(file: IO, content_type: FileMimetypes) -> bytes:
     """
     with tempfile.NamedTemporaryFile() as temp_file:
         image = Image.open(file)
-        image.thumbnail([800, 600], Image.ANTIALIAS)
+        if image.width / image.height <= 1:
+            image = image.rotate(-90)
+        image.thumbnail([1024, 768], Image.ANTIALIAS)
         image.save(temp_file, content_type.pillow_format, quality=85, optimize=True)
         temp_file.seek(0)
         return temp_file.file.read()
