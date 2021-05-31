@@ -36,4 +36,3 @@ docker-compose -f docker-compose.prod up -d --build
 - Redis (Используется в качестве менеджера задач)
 - Docker & Docker-compose
 - Sentry
-
