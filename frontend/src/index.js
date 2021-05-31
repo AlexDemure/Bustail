@@ -53,12 +53,12 @@ ReactDOM.render(
           <Route path="/docs/privecy" component={DocsPrivecyPage} />
 
           <Route path='/company/:page_url' component={CompanyPage} />
+          <Route path='/test' component={Test} />
 
       </Switch>
   </Router>,
   document.getElementById('root')
 );
-
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

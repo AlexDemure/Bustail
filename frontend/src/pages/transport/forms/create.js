@@ -249,18 +249,23 @@ export default class CreateTransportForm extends React.Component {
     }
 
     async uploadCovers(event) {
-        let error;
+        let error, error_text;
 
         event.preventDefault();
         
         if (this.state.files) {
-            
             // Проверка на тип
             this.state.files.forEach(
-                function(file) {
-                    let isCorrect = validateImageFile(file)
-                    if (!isCorrect) {
+                function(file, index) {
+                    if (!validateImageFile(file)) {
                         error = true
+                        error_text = "Файлы должны быть формате jpeg, image, png"
+                        return
+                    }
+
+                    if (document.getElementById(index).clientWidth / document.getElementById(index).clientHeight <= 1) {
+                        error = true
+                        error_text = "Изображения должны быть прямоугольной формы (например 1024х768)"
                         return
                     }
                 }
@@ -270,10 +275,10 @@ export default class CreateTransportForm extends React.Component {
                 
                 this.setState({
                     isUploaded: false,
-                    file: null,
+                    fileы: null,
                     
-                    response_text: "Файлы должны быть формате jpeg, image, png",
-                    error: "Файлы должны быть формате jpeg, image, png",
+                    response_text: error_text,
+                    error: error_text,
                     notify_type: "error"
                 })
 

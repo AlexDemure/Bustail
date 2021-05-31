@@ -27,8 +27,6 @@ const DragAndDrop = (props) => {
     }
 
     function save(files) {
-        console.log(files)
-
         setDrag(false)
         saveFiles(files)
         props.saveFiles(files, true)
@@ -62,12 +60,12 @@ const DragAndDrop = (props) => {
                 {
                     files &&
                     files.map(
-                        file => {
+                        (file, index) => {
                             return (
                                 <React.Fragment>
                                     {
                                         file.type.split('/')[0] === "image" ?
-                                        <img className="drag-drop__item img" alt="preview" src={URL.createObjectURL(file)}></img> :
+                                        <img className="drag-drop__item img" alt="preview" id={index} src={URL.createObjectURL(file)}></img> :
                                         <div className="drag-drop__item file">
                                             <p>{file.name}</p>
                                         </div>
