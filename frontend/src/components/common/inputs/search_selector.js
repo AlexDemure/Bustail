@@ -44,7 +44,7 @@ export default class SearchInput extends React.Component {
         if (userData === '') {
             if (this.state.result.length > 0) {
                 this.setState({
-                    result: [],
+                    result: this.props.options,
                     value: userData
                 });
             }
