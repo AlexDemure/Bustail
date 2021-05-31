@@ -53,7 +53,6 @@ ReactDOM.render(
           <Route path="/docs/privecy" component={DocsPrivecyPage} />
 
           <Route path='/company/:page_url' component={CompanyPage} />
-          <Route path='/test' component={Test} />
 
       </Switch>
   </Router>,
