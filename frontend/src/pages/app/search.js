@@ -154,7 +154,7 @@ export default class SearchAppPage extends React.Component {
             application_type: ""
         }
 
-        let application_types = [].slice.call(e.target.children[2].children)
+        let application_types = [].slice.call(e.target.children[1].children)
         
         for (var key in application_types) {
             
