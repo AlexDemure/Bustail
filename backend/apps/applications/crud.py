@@ -58,7 +58,7 @@ class CRUDApplication(CRUDBase[Application, ApplicationCreate, UpdatedBase]):
             self.model.filter(
                 Q(
                     Q(application_status=ApplicationStatus.waiting),
-                    Q(to_go_when__gt=datetime.utcnow().date())
+                    Q(to_go_when__lt=datetime.utcnow().date())
                 )
             ).all()
         )
