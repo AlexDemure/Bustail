@@ -43,7 +43,7 @@ const DragAndDrop = (props) => {
                     onDragOver={e => dragStartHandler(e)}
                     onDrop={e => onDropHandler(e)}
                   >
-                    <p>Отпустите файлы, чтобы загрузить их (размер файла до 5МБ)</p>
+                    <p>Отпустите файлы, чтобы загрузить их (до 4 файлов и размер файлов до 5МБ)</p>
                   </div>
                 : <div
                     className="drag-drop__drop-area"
@@ -51,7 +51,7 @@ const DragAndDrop = (props) => {
                     onDragLeave={e => dragLeaveHandler(e)}
                     onDragOver={e => dragStartHandler(e)}
                   >
-                    <p>Перетащите файлы или нажмите на форму (размер файла до 5МБ)</p>
+                    <p>Перетащите файлы или нажмите на форму (до 4 файлов и размер файлов до 5МБ)</p>
                     <input type="file" multiple onChange={(e) => uploadHandler(e)}></input>
                   </div>
             }
