@@ -46,3 +46,27 @@
 .search-transport .type.transport-type.other.active {
     background-image: url('../../../../static/icons/active/other.png');
 }
+
+.search-transport .type.transport-type.ritual {
+    background-image: url('../../../../static/icons/default/church.png');
+}
+
+.search-transport .type.transport-type.ritual.active {
+    background-image: url('../../../../static/icons/active/church.png');
+}
+
+.search-transport .type.transport-type.animal {
+    background-image: url('../../../../static/icons/default/animal.png');
+}
+
+.search-transport .type.transport-type.animal.active {
+    background-image: url('../../../../static/icons/active/animal.png');
+}
+
+.search-transport .type.transport-type.medical {
+    background-image: url('../../../../static/icons/default/medical.png');
+}
+
+.search-transport .type.transport-type.medical.active {
+    background-image: url('../../../../static/icons/active/medical.png');
+}

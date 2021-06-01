@@ -22,12 +22,12 @@
     margin-top: 5px;
     width: 95%;
     justify-self: center;
-    height: 310px;
+    height: 280px;
 
     display: grid;
-    grid-template-columns: 1fr;
-    gap: 2.5px;
-    grid-template-rows: repeat(6, 50px);
+    grid-template-columns: 1fr 1fr;
+    gap: 5px;
+    grid-template-rows: repeat(4, 65px);
     overflow-x: hidden;
     overflow-y: scroll;
 
@@ -44,16 +44,17 @@
 }
 
 .filter.types .type {
-    height: 45px;
+    height: 65px;
     
     border: 1px solid #262626;
     border-radius: 5px;
 
     display: grid;
-    align-items: center;
+    grid-template-rows: 50% 50%;
+    align-items: flex-end;
 
-    background-position-y: center;
-    background-position-x: 10px;
+    background-position-y: 10px;
+    background-position-x: center;
     background-repeat: no-repeat;
     background-size: 25px;
 }
@@ -62,7 +63,9 @@
     color: #6e6e6e;
     font-size: 14px;
     font-family: "FuturaBookC";
-    padding-left: 50px;
+    text-align: center;
+    grid-row: 2 / 3;
+    align-self: center;
 }
 
 .filter.types .type.active {
@@ -93,21 +96,17 @@
     }
 
     .filter.types {
-        width: 95%;
-        height: 450px;
-        gap: 5px;
-        grid-template-rows: repeat(6, 70px);
+        height: 380px;
+        grid-template-rows: repeat(4, 90px);
     }
 
     .filter.types .type {
-        height: 70px;
-        margin-bottom: 10px;
-        background-size: 35px;
+        height: 90px;
+        background-size: 40px;
     }
 
     .filter.types .type p {
         font-size: 22px;
-        padding-left: 50px;
     }
 }
 

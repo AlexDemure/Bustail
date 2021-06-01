@@ -73,7 +73,7 @@ export default class Transport extends React.Component {
         if (this.props.transport.transport_covers.length > 0) {
             image_url = this.props.transport.transport_covers[0].file_uri
         } else {
-            image_url = null
+            image_url = '/default_cover.jpg'
         }
         
         let controls;

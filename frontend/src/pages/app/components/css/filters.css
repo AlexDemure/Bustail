@@ -45,3 +45,19 @@
 .search-app .type.app-type.other.active {
     background-image: url('../../../../static/icons/active/other.png');
 }
+
+.search-app .type.app-type.medical {
+    background-image: url('../../../../static/icons/default/medical.png');
+}
+
+.search-app .type.app-type.medical.active {
+    background-image: url('../../../../static/icons/active/medical.png');
+}
+
+.search-app .type.app-type.animal {
+    background-image: url('../../../../static/icons/default/animal.png');
+}
+
+.search-app .type.app-type.animal.active {
+    background-image: url('../../../../static/icons/active/animal.png');
+}

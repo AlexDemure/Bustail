@@ -35,6 +35,8 @@ class ApplicationTypes(Enum):
     transfer = "transfer"
     intercity = "intercity"
     ritual = "ritual"
+    animal = "animal"
+    medical = "medical"
     other = "other"
 
     @property
@@ -45,6 +47,10 @@ class ApplicationTypes(Enum):
             return "Путешествия"
         elif self is self.intercity:
             return "Междугородние"
+        elif self is self.animal:
+            return "Питомцы"
+        elif self is self.medical:
+            return "Медицина"
         elif self is self.ritual:
             return "Ритуальные усл."
         elif self is self.transfer:

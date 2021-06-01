@@ -18,7 +18,7 @@ export default class Notification extends React.Component {
         if (this.state.transport.transport_covers.length > 0) {
             image_url = this.state.transport.transport_covers[0].file_uri
         } else {
-            image_url = null
+            image_url = '/default_cover.jpg'
         }
 
         let price = this.props.notification.price ? this.props.notification.price : this.state.application.price
