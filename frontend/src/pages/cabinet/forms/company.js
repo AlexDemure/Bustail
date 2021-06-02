@@ -31,11 +31,11 @@ function CompanyForm(props) {
                 лицензией перевозчика.
             </p>
             <form className="cabinet__company__form__company-info" onSubmit={props.onSubmit} autoComplete="off">
-                <DefaultInput value={props.company ? props.company.inn : null} name="inn" input_type="text" size="25" minLength={10} maxLength={12} placeholder="ИНН"/>
-                <DefaultInput value={props.company ? props.company.ogrn : null} name="ogrn" input_type="text" size="25" minLength={13} maxLength={15} placeholder="ОГРН"/>
+                <DefaultInput value={props.company ? props.company.inn : null} name="inn" input_type="text" size="25" minLength={10} maxLength={12} placeholder="ИНН" pattern={"[0-9]+"}/>
+                <DefaultInput value={props.company ? props.company.ogrn : null} name="ogrn" input_type="text" size="25" minLength={13} maxLength={15} placeholder="ОГРН" pattern={"[0-9]+"}/>
                 <DefaultInput value={props.company ? props.company.company_name : null} name="company_name" input_type="text" size="25" placeholder="Название компании"/>
-                <DefaultInput value={props.company ? props.company.license_number : null} name="license_number" input_type="text" size="25" placeholder="Номер лицензии"/>
-                <DefaultInput value={props.company ? props.company.page_url : null} name="page_url" input_type="text" size="64" minLength={6} maxLength={64} placeholder="Название страницы на англ." parser="lowercase" isRequired={false} pattern={"[a-zA-Z0-9]+"}/>
+                <DefaultInput value={props.company ? props.company.license_number : null} name="license_number" input_type="text" size="25" parser="combine" placeholder="Номер лицензии"/>
+                <DefaultInput value={props.company ? props.company.page_url : null} name="page_url" input_type="text" size="64" minLength={6} maxLength={64} placeholder="Название страницы на англ." parser="combine" isRequired={false} pattern={"[a-zA-Z0-9]+"}/>
                 <DefaultInput value={props.company && props.company.socials ? props.company.socials.vk : null} name="vk" minLength={1} maxLength={64} input_type="text" size="64" placeholder="Группа в Вконтакте" isRequired={false}/>
                 <DefaultInput value={props.company && props.company.socials ? props.company.socials.instagram : null} minLength={1} maxLength={64} name="instagram" input_type="text" size="64"  placeholder="Страница в Инстаграм" isRequired={false}/>
                 <SubmitButton value={props.company === null ? "Создать" : "Сохранить" }/>

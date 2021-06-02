@@ -2,6 +2,12 @@ export const inputParsers = {
     lowercase(input) {
       return input.toLocaleLowerCase();
     },
+    whitespace(input) {
+      return input.replace(/\s/g,'')
+    },
+    combine(input) {
+      return input.replace(/\s/g,'').toLocaleLowerCase();
+    }
 };
 
 export let selectErrorInputs = (message, setBorder = true) =>  {

@@ -101,7 +101,7 @@ class MainFormCreateTransport extends React.Component {
                 <SearchInput name="transport_type" placeholder="Тип транспорта" options={this.props.transport_types}/>
                 <ChoiceCar/>               
                 <DefaultInput name="count_seats" maxLength={4} input_type="number" size="4" placeholder="Вместимость"/>
-                <DefaultInput name="state_number" input_type="text" size="12" placeholder="Гос номер"/>
+                <DefaultInput name="state_number" input_type="text" par size="12" parser="whitespace" placeholder="Гос номер"/>
                 <SubmitButton value="Далее"/>
             </form>
         )

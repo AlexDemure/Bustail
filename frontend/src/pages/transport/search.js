@@ -45,6 +45,8 @@ export default class SearchTransportPage extends React.Component {
             offset: null,
             transport_type: null, 
             city: null,
+            order_by: null,
+            order_type: null,
             
             isScrolling: true,
             
@@ -56,6 +58,7 @@ export default class SearchTransportPage extends React.Component {
 
         this.onScroll = this.onScroll.bind(this)
         this.onSubmit = this.onSubmit.bind(this)
+        this.onSubmitSorted = this.onSubmitSorted.bind(this)
         this.createOffer = this.createOffer.bind(this)
         this.showTransportCard = this.showTransportCard.bind(this)
         this.showTicketCard = this.showTicketCard.bind(this)
@@ -113,7 +116,13 @@ export default class SearchTransportPage extends React.Component {
         if (e.target.scrollHeight - (e.target.offsetHeight + e.target.scrollTop) === 0) {
             if (this.state.isScrolling === true) {
                 
-                let data = await getTransports(this.state.city, this.state.transport_type, this.state.offset);        
+                let data = await getTransports(
+                    this.state.city,
+                    this.state.transport_type,
+                    this.state.offset,
+                    this.state.order_by || 'id',
+                    this.state.order_type || 'desc'
+                );        
 
                 let new_array = this.state.transports.concat(data.result.transports)
                         
@@ -167,6 +176,40 @@ export default class SearchTransportPage extends React.Component {
             offset: response.result.transports.length,
             transport_type: data.transport_type,
             city: data.city,
+            isScrolling: true
+        })
+
+    }
+
+    onSubmitSorted = async(e, order_by) => {
+        document.getElementsByClassName('search-transport__transports')[0].scrollTo(0, 0);
+
+        let order_type = this.state.order_type;
+
+        if (order_type === "desc") {
+            order_type = "asc"
+        } else if (order_type === "asc") {
+            order_type = null
+            order_by = null
+        } else {
+            order_type = "desc"
+        }
+
+        let response = await getTransports(
+            this.state.city || null,
+            this.state.transport_type || null,
+            0,
+            order_by || "id",
+            order_type || "desc"
+        );        
+
+        this.setState({
+            transports: response.result.transports,
+            total_rows: response.result.total_rows,
+            offset: response.result.transports.length,
+            order_by: order_by,
+            order_type: order_type,
+            isScrolling: true
         })
 
     }
@@ -243,6 +286,10 @@ export default class SearchTransportPage extends React.Component {
 
                 <div className="container search-transport">
                     <div className="search-transport__filters" onClick={() => this.setState({windowType: "filters"})}></div>
+                    <div
+                    onClick={(e) => this.onSubmitSorted(e, "price")}
+                    className={`search-transport__sort ${this.state.order_type && this.state.order_by === "price" ? this.state.order_type : ""}`}
+                    ></div>
                     <div className="search-transport__transports" onScroll={this.onScroll}>
                         {
                             this.state.transports &&
