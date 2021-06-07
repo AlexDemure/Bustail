@@ -1539,7 +1539,8 @@
       "Verna",
       "Universe",
       "Автобус",
-      "Grand Starex"
+      "Grand Starex",
+      "Aerotown"
    ],
    "Infiniti":[
       "QX50",
@@ -2639,6 +2640,7 @@
    ],
    "Toyota":[
       "4Runner",
+      "Noax",
       "2000GT",
       "Agya",
       "Allion",
@@ -2915,6 +2917,9 @@
       "Автобус"
    ],
    "Zhong Tong": [
+      "Автобус"
+   ],
+   "Shenlong": [
       "Автобус"
    ],
    "Scania": [
