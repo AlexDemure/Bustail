@@ -349,7 +349,27 @@
       "МАЗ-7907",
       "МАЗ-7916",
       "МАЗ-7917",
-      "Поколения грузовых МАЗ"
+      "Поколения грузовых МАЗ",
+      "МАЗ-103",
+      "МАЗ-104",
+      "МАЗ-105",
+      "МАЗ-107",
+      "МАЗ-152",
+      "МАЗ-203",
+      "МАЗ-205",
+      "МАЗ-206",
+      "МАЗ-215",
+      "МАЗ-216",
+      "МАЗ-226",
+      "МАЗ-231",
+      "МАЗ-232",
+      "МАЗ-241",
+      "МАЗ-251",
+      "МАЗ-256",
+      "МАЗ-257",
+      "МАЗ-271",
+      "МАЗ-303",
+      "Автобус"
    ],
    "МоАЗ":[
       "МАЗ-529",
@@ -943,7 +963,7 @@
       "Газотурбинные Chrysler",
       "Voyager"
    ],
-   "Citroën":[
+   "Citroen":[
       "2CV",
       "Ami",
       "Berlingo",
@@ -984,7 +1004,8 @@
       "XM",
       "Xsara",
       "Xsara Picasso",
-      "ZX"
+      "ZX",
+      "Jumper"
    ],
    "Dacia":[
       "(автопроизводитель)",
@@ -1012,7 +1033,9 @@
       "Chevrolet Rezzo",
       "Tico",
       "Chevrolet Epica",
-      "Chevrolet Captiva"
+      "Chevrolet Captiva",
+      "Автобус",
+      "BH120F"
    ],
    "DAF":[
       "44",
@@ -1021,7 +1044,8 @@
       "600",
       "A-серия",
       "YP-104",
-      "YP-408"
+      "YP-408",
+      "Автобус"
    ],
    "Daihatsu":[
       "Toyota Camry",
@@ -1512,7 +1536,9 @@
       "Stellar",
       "Terracan",
       "Veloster",
-      "Verna"
+      "Verna",
+      "Universe",
+      "Автобус"
    ],
    "Infiniti":[
       "QX50",
@@ -1538,7 +1564,9 @@
       "Unicab",
       "Piazza",
       "Trooper",
-      "VehiCROSS"
+      "VehiCROSS",
+      "Автобус",
+      "Богдан"
    ],
    "Italdesign":[
       "Aztec",
@@ -1548,7 +1576,9 @@
       "Daily",
       "EuroCargo",
       "Stralis",
-      "Trakker"
+      "Trakker",
+      "Foxbus",
+      "Neman"
    ],
    "Jaguar":[
       "E-type",
@@ -1614,7 +1644,10 @@
       "Soul",
       "Spectra",
       "Sportage",
-      "Venga"
+      "Venga",
+      "Granbird",
+      "Asia Cosmos",
+      "Автобус"
    ],
    "Koenigsegg":[
       "Agera",
@@ -1982,7 +2015,10 @@
       "GLA",
       "X164",
       "X166",
-      "Zetros"
+      "Zetros",
+      "Tourismo",
+      "Travego",
+      "Otomorsan"
    ],
    "Mercury":[
       "(автомобильная марка)",
@@ -2027,7 +2063,8 @@
       "Space Runner",
       "Space Star",
       "Tredia",
-      "Type 73"
+      "Type 73",
+      "Fuso Rosa"
    ],
    "Nissan":[
       "180SX",
@@ -2377,7 +2414,8 @@
       "Twingo",
       "Twizy",
       "Wind",
-      "ZOE"
+      "ZOE",
+      "Автобус"
    ],
    "Renault Samsung":[
       "Renault Koleos",
@@ -2704,7 +2742,8 @@
       "Vista",
       "Vista V20",
       "WISH",
-      "Yaris"
+      "Yaris",
+      "Coaster"
    ],
    "Triumph Motor Company":[
       "Triumph Spitfire"
@@ -2790,7 +2829,9 @@
       "XC60",
       "V70",
       "XC90",
-      "YCC"
+      "YCC",
+      "B10M",
+      "Автобус"
    ],
    "Willys":[
       "Willys-Overland",
@@ -2802,5 +2843,104 @@
       "Застава Флорида",
       "Koral",
       "750"
+   ],
+   "НефАЗ": [
+      "Bravis",
+      "Автобус",
+      "КамАЗ-6282"
+   ],
+   "ПАЗ": [
+      "Автобус",
+      "Аврора"
+   ],
+   "King Long": [
+      "Автобус"
+   ],
+   "JAC": [
+      "Автобус"
+   ],
+   "КАВЗ": [
+      "Автобус"
+   ],
+   "ЛИАЗ": [
+      "Автобус",
+      "Аврора"
+   ],
+   "Higer": [
+      "KQL",
+      "Автобус"
+   ],
+   "Shuchi": [
+      "Автобус"
+   ],
+   "Yutong": [
+      "Автобус"
+   ],
+   "Otokar": [
+      "Автобус"
+   ],
+   "Temsa": [
+      "Автобус"
+   ],
+   "Van Hool": [
+      "Автобус"
+   ],
+   "Bova": [
+      "Автобус"
+   ],
+   "Karosa": [
+      "Автобус"
+   ],
+   "Golden Dragon": [
+      "Автобус"
+   ],
+   "Irizar": [
+      "Автобус"
+   ],
+   "Neoplan": [
+      "N116 Cityliner",
+      "Skyliner",
+      "N122",
+      "Автобус"
+   ],
+   "Setra": [
+      "Автобус",
+      "215",
+      "315"
+   ],
+   "Ikarbus": [
+      "Автобус"
+   ],
+   "Zhong Tong": [
+      "Автобус"
+   ],
+   "Scania": [
+      "Автобус",
+      "113",
+      "OmniLink"
+   ],
+   "Ikarus": [
+      "180",
+      "250",
+      "256",
+      "260",
+      "263",
+      "280",
+      "283",
+      "290",
+      "283",
+      "290",
+      "293",
+      "415",
+      "55/Lux",
+      "556",
+      "620",
+      "66",
+      "695",
+      "Автобус"
+   ],
+   "MAN": [
+      "Lion's Coach",
+      "Автобус"
    ]
 }

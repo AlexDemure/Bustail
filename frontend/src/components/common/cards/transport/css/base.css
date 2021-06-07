@@ -239,10 +239,16 @@
     }
 }
 
- /* ADAPTIVE 1024 and more */
+ @media (min-width: 641px) and (max-width: 1023px) {
+    .transport {
+        min-width: 600px;
+    }
+ }
+
 @media (min-width: 1024px) {
     .transport {
         min-height: 250px;
+        min-width: 650px;
         grid-template-columns: 325px 1fr;
     }
     
