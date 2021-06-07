@@ -210,20 +210,20 @@
 @media (min-width: 1024px) and (max-width: 1535px) {
 
     .transport__card {
-        grid-template-rows: 300px 1fr;
+        grid-template-rows: 325px 1fr;
     }
     
     .transport__card .transport__card__photos {
-        height: 300px;
+        height: 325px;
     } 
     
     .transport__card__photos .transport__card__photo{
-        height: 300px;
+        height: 325px;
     }
     
     .transport__card__photos .transport__card__other-photos div,
     .transport__card__photos .transport__card__other-photos .transport__card__additional-photo{
-        height: 94.5px;
+        height: 103.5px;
         width: 90%;
         margin-bottom: 5px;
     }
