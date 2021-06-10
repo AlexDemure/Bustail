@@ -33,6 +33,9 @@ class FileMimetypes(Enum):
     # Электронные книги
     epub = "application/epub+zip"
 
+    # SQLFile
+    sql = "application/sql"
+
     @property
     def file_format(self):
         if self is self.png:
