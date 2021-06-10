@@ -113,7 +113,7 @@ export default class SearchTransportPage extends React.Component {
 
     onScroll = async(e) => {
         
-        if (e.target.scrollHeight - (e.target.offsetHeight + e.target.scrollTop) === 0) {
+        if (e.target.scrollHeight - (e.target.offsetHeight + e.target.scrollTop) <= 100) {
             if (this.state.isScrolling === true) {
                 
                 let data = await getTransports(

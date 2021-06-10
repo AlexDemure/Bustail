@@ -1538,7 +1538,9 @@
       "Veloster",
       "Verna",
       "Universe",
-      "Автобус"
+      "Автобус",
+      "Grand Starex",
+      "Aerotown"
    ],
    "Infiniti":[
       "QX50",
@@ -2638,6 +2640,7 @@
    ],
    "Toyota":[
       "4Runner",
+      "Noax",
       "2000GT",
       "Agya",
       "Allion",
@@ -2793,7 +2796,8 @@
       "Touran",
       "Typ 3",
       "Typ 4",
-      "Typ 166"
+      "Typ 166",
+      "Multivan"
    ],
    "Volvo":[
       "140",
@@ -2913,6 +2917,9 @@
       "Автобус"
    ],
    "Zhong Tong": [
+      "Автобус"
+   ],
+   "Shenlong": [
       "Автобус"
    ],
    "Scania": [
