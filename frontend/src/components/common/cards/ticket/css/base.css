@@ -52,6 +52,8 @@
 
     align-self: center;
     padding-bottom: 5px;
+
+    cursor: pointer;
 }
 
 .ticket .ticket__type-app {
@@ -123,6 +125,8 @@
     background-color: #9B5E5D;
     border-radius: 5px;
     margin-bottom: 15px;
+
+    cursor: pointer;
 }
 
 .ticket .ticket__reject-btn:hover {
@@ -151,6 +155,8 @@
     background-color: #222222;
     border-radius: 5px;
     margin-bottom: 15px;
+
+    cursor: pointer;
 }
 
 .ticket div[id=right] div[id=right-div-right] .ticket__offer-btn:hover {

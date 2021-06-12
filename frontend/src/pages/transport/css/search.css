@@ -47,6 +47,8 @@
     
     background-position: center;
     background-repeat: no-repeat;
+
+    cursor: pointer;
 }
 
 .container.search-transport .search-transport__sort {

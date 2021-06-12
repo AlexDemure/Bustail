@@ -1,11 +1,11 @@
 .notification {
     margin-top: 10px;
-    height: 335px;
-    width: 350px;
+    height: 350px;
+    width: 335px;
 
     display: grid;
 
-    grid-template-rows: 185px 100px 50px;
+    grid-template-rows: 200px 100px 50px;
     border: 1px solid #262626;
     border-radius: 10px;
 }
@@ -22,7 +22,7 @@
     height: 100%;
     width: 100%;
     display: grid;
-    align-content: center;
+    align-content: space-around;
 }
 
 .notification__card__controls {
@@ -95,9 +95,9 @@
  /* ADAPTIVE 768-801 */
 @media (min-width: 641px) {
     .notification {
-        height: 460px;
-        width: 500px;
-        grid-template-rows: 310px 100px 50px;
+        height: 500px;
+        width: 450px;
+        grid-template-rows: 300px 150px 50px;
     }
     
     .notification__card__body .notification__card__item {

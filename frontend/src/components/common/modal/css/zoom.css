@@ -11,22 +11,22 @@
  /* ADAPTIVE 1024,1280,1337,1440px */
  @media (min-width: 1024px) and (max-width: 1335px) {
     .zoomed-photo {
-        height: 450px;
-        width: 650px;
+        height: 550px;
+        width: 750px;
     }
 }
 
 @media (min-width: 1336px) and (max-width: 1535px) {
     .zoomed-photo {
-        height: 500px;
-        width: 700px;
+        height: 600px;
+        width: 800px;
     }
 }
 
  /* ADAPTIVE 1536px and more */
  @media (min-width: 1536px) {
     .zoomed-photo {
-        height: 550px;
-        width: 750px;
+        height: 650px;
+        width: 850px;
     }
  }

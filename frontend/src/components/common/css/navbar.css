@@ -56,6 +56,8 @@
 .navbar__common a[id=home] {
     background-image: url('../../../static/icons/default/home.png');
 }
+
+.navbar__common a[id=home]:hover,
 .navbar__common a[id=home]:active {
     background-image: url('../../../static/icons/active/home.png');
 }
@@ -63,6 +65,8 @@
 .navbar__common a[id=history] {
     background-image: url('../../../static/icons/default/history.png');
 }
+
+.navbar__common a[id=history]:hover,
 .navbar__common a[id=history]:active {
     background-image: url('../../../static/icons/active/history.png');
 }
@@ -70,6 +74,8 @@
 .navbar__common a[id=notifications] {
     background-image: url('../../../static/icons/default/notification.png');
 }
+
+.navbar__common a[id=notifications]:hover,
 .navbar__common a[id=notifications]:active {
     background-image: url('../../../static/icons/active/notification.png');
 }
@@ -77,6 +83,8 @@
 .navbar__common a[id=cabinet] {
     background-image: url('../../../static/icons/default/cabinet.png');
 }
+
+.navbar__common a[id=cabinet]:hover,
 .navbar__common a[id=cabinet]:active {
     background-image: url('../../../static/icons/active/cabinet.png');
 }

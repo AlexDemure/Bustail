@@ -31,7 +31,9 @@
 
     display: grid;
     grid-template-columns: 70% 30%;
-    gap: 5px
+    gap: 5px;
+
+    cursor: pointer;
 } 
 
 .transport__card__photos .transport__card__photo{

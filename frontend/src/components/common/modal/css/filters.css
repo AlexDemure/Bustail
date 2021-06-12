@@ -57,6 +57,8 @@
     background-position-x: center;
     background-repeat: no-repeat;
     background-size: 25px;
+
+    cursor: pointer;
 }
 
 .filter.types .type p {

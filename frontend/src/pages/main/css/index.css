@@ -33,6 +33,8 @@
     
     border: 1px solid #262626;
     border-radius: 10px;
+
+    cursor: pointer;
 }
 
 .main .main__menu div:hover {

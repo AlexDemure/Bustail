@@ -28,6 +28,8 @@ header .header__common__dropdown-btn {
     background-repeat: no-repeat;
     background-position-x: center;
     background-position-y: center;
+
+    cursor: pointer;
 }
 
 header .header__common__page-name {

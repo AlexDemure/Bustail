@@ -36,3 +36,7 @@
 .react-datepicker__day--disabled {
     opacity: 0.5;
 }
+
+.react-datepicker__day:hover {
+    background-color: #fba333 !important;
+}

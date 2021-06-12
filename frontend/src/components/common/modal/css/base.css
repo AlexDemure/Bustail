@@ -64,6 +64,8 @@
     background-repeat: no-repeat;
     float: right;
     justify-self: flex-end;
+
+    cursor: pointer;
 }
 
 /* ADAPTIVE 768-801-1024px */

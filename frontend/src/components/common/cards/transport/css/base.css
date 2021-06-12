@@ -27,6 +27,8 @@
     width: 180px;
 
     border-radius: 5px;
+
+    cursor: pointer;
 }
 
 .transport .transport__card {
@@ -86,6 +88,8 @@
     width: 80%;
     display: grid;
     align-items: center;
+
+    cursor: pointer;
 }
 
 .transport__card #offer {
@@ -133,6 +137,8 @@
     height: 40px;
 
     border-top: 1px solid #2e2e2e;
+
+    cursor: pointer;
 }
 
 
