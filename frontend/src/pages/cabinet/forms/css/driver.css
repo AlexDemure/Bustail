@@ -28,12 +28,17 @@
 }
 
 .container.cabinet.driver.card .cabinet__driver .cabinet__driver__transports {
-    width: 95%;
+    width: 100%;
     height: 100%;
     grid-row: 3 / 4;
     justify-self: center;
     
+    display: grid;
     overflow: hidden;
+}
+
+.container.cabinet.driver.card .cabinet__driver .cabinet__driver__transports .transport {
+    justify-self: center;
 }
 
 .container.cabinet.driver.card .cabinet__driver .cabinet__driver__transports .cabinet__driver__title {
