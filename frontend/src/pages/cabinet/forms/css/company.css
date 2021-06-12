@@ -28,7 +28,6 @@
 }
 
 .container.cabinet.company.card .cabinet__company .cabinet__company__transports {
-    width: 95%;
     height: 100%;
     grid-row: 3 / 4;
     justify-self: center;
