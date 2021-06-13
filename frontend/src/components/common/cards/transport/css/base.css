@@ -78,8 +78,7 @@
     margin-bottom: 10px;
 }
 
-.transport__card #offer,
-.transport__card #remove {
+.transport__card #offer {
     padding-left: 10px;
     border-radius: 5px;
     text-align: center;
@@ -96,28 +95,25 @@
     background-color: #262626;
 }
 
-.transport__card #remove {
-    background-color: #9B5E5D;
-}
-
-.transport__card #offer:hover,
-.transport__card #remove:hover {
+.transport__card #offer:hover {
     background-color: #fba333;
 }
 
-.transport__card #offer p,
-.transport__card #remove p {
+.transport__card #offer p {
     color: #FBFBFB;
     font-family: "FuturaBookC";
     font-size: 13px;
 
 }
 
-.transport__card #offer:hover p,
-.transport__card #remove:hover p {
+.transport__card #offer:hover p {
     color: #181818;
 }
 
+.transport__card .transport__card__controls.multi.cabinet {
+    grid-template-columns: repeat(3, 40px);
+    width: 100%;
+}
 
 .transport__card .transport__card__controls.multi {
     grid-template-columns: repeat(4, 40px);
@@ -186,8 +182,7 @@
         height: 45px;
     }
 
-    .transport__card #offer p,
-    .transport__card #remove p {
+    .transport__card #offer p {
         font-size: 16px;
     }
 
@@ -229,13 +224,11 @@
         height: 50px;
     }
 
-    .transport__card #offer,
-    .transport__card #remove {
+    .transport__card #offer {
         height: 50px;
     }
     
-    .transport__card #offer p,
-    .transport__card #remove p {
+    .transport__card #offer p {
         font-size: 18px;
     }
 
@@ -282,13 +275,11 @@
         height: 70px;
     }
 
-    .transport__card #offer,
-    .transport__card #remove {
+    .transport__card #offer {
         height: 50px;
     }
     
-    .transport__card #offer p,
-    .transport__card #remove p {
+    .transport__card #offer p {
         font-size: 18px;
     }
 
@@ -343,4 +334,20 @@
 
 .transport__card .transport__card__controls .transport__card__control.offer:hover {
     background-image: url("../../../../../static/icons/active/offer.png");
+}
+
+.transport__card .transport__card__controls .transport__card__control.top {
+    background-image: url("../../../../../static/icons/default/arrow_up.png");
+}
+
+.transport__card .transport__card__controls .transport__card__control.top:hover {
+    background-image: url("../../../../../static/icons/active/arrow_up.png");
+}
+
+.transport__card .transport__card__controls .transport__card__control.remove {
+    background-image: url("../../../../../static/icons/default/close.png");
+}
+
+.transport__card .transport__card__controls .transport__card__control.remove:hover {
+    background-image: url("../../../../../static/icons/active/close.png");
 }

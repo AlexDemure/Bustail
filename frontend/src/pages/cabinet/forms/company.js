@@ -9,6 +9,7 @@ import { ResponseNotify, showNotify } from '../../../components/common/response_
 import { createCompany } from '../../../components/common/api/company/create'
 import { updateCompany } from '../../../components/common/api/company/update'
 import { deleteTransport } from '../../../components/common/api/transports/delete'
+import { topInSearch } from '../../../components/common/api/transports/top_in_search'
 import { getPaymentLink } from '../../../components/common/api/payments/get'
 
 import PaymentData from '../components/payment_data'
@@ -21,6 +22,7 @@ import { selectErrorInputs } from '../../../constants/input_parsers'
 import SerializeForm from '../../../utils/form_serializer'
 
 import './css/company.css'
+
 
 
 function CompanyForm(props) {
@@ -73,10 +75,11 @@ class CompanyCard extends React.Component {
                         this.props.transports.map(
                             (transport, index) =>
                             <Transport
-                            controls="remove"
+                            controls="cabinet"
                             transport={transport}
-                            showTransportCard={this.props.showTransportCard}
+                            showTransportCard={() => this.props.showTransportCard(transport.id)}
                             deleteTransport={() => this.props.deleteTransport(index)}
+                            transportTopInSearch={() => this.props.transportTopInSearch(transport.id)}
                             />
                         )
                     }
@@ -108,6 +111,7 @@ export default class CompanyPage extends React.Component {
         this.setCompanyInfo = this.setCompanyInfo.bind(this)
         this.deleteTransport = this.deleteTransport.bind(this)
         this.showTransportCard = this.showTransportCard.bind(this)
+        this.transportTopInSearch = this.transportTopInSearch.bind(this)
     }
 
     showTransportCard(transport_id) {
@@ -192,6 +196,25 @@ export default class CompanyPage extends React.Component {
         }
     }
     
+    async transportTopInSearch(transport_id) {
+        let response = await topInSearch(transport_id)
+        if (response.result !== null) {
+            this.setState({
+                response_text: "Транспорт обновлен в поиске",
+                notify_type: "success",
+                error: null
+            })
+            showNotify()
+        } else {
+            this.setState({
+                error: response.error.message,
+                response_text: response.error.message,
+                notify_type: "error"
+            })
+            showNotify() 
+        }
+    }
+    
     async deleteTransport(index_array) {
         let transport = this.state.transports[index_array]
         
@@ -252,6 +275,7 @@ export default class CompanyPage extends React.Component {
             getPaymentLink={this.getPaymentLink}
             deleteTransport={this.deleteTransport}
             showTransportCard={this.showTransportCard}
+            transportTopInSearch={this.transportTopInSearch}
             company={this.state.company}
             transports={this.state.transports}
             />

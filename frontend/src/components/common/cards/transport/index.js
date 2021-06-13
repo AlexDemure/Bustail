@@ -14,10 +14,12 @@ function OfferControls(props) {
     )
 }
 
-function RemoveControls(props) {
+function CabinetControls(props) {
     return (
-        <div className="transport__card__controls remove" id="remove" onClick={props.deleteTransport}>
-            <p>Удалить</p>
+        <div className="transport__card__controls multi cabinet" >
+            <div className="transport__card__control info" onClick={props.showTransportCard}></div>
+            <div title="Поднять в поиске" className="transport__card__control top" onClick={props.transportTopInSearch}></div>
+            <div title="Удалить транспорт" className="transport__card__control remove" onClick={props.deleteTransport}></div>
         </div>
     )
 }
@@ -87,9 +89,13 @@ export default class Transport extends React.Component {
             openOffer={this.props.openOffer}
             />
         
-        } else if (this.props.controls === "remove") {
+        } else if (this.props.controls === "cabinet") {
             // Используется В Личном кабинете
-            controls = <RemoveControls deleteTransport={this.props.deleteTransport}/>
+            controls = <CabinetControls
+            deleteTransport={this.props.deleteTransport}
+            showTransportCard={this.props.showTransportCard}
+            transportTopInSearch={this.props.transportTopInSearch}
+            />
         
         } else if (this.props.controls === "offer") {
             // Используется в модальном окне Предложение транспорта

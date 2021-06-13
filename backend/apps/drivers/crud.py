@@ -105,7 +105,7 @@ class CRUDTransport(CRUDBase[Transport, TransportCreate, UpdatedBase]):
         offset: int = 0,
         transport_type: list = None,
         city: str = "",
-        order_by: str = 'id',
+        order_by: str = 'updated_at',
         order_type: str = 'desc',
     ) -> Tuple[List[Transport], int]:
 
@@ -121,7 +121,7 @@ class CRUDTransport(CRUDBase[Transport, TransportCreate, UpdatedBase]):
             .filter(
                 Q(*filters, join_type="AND")
             )
-            .order_by(f'{"-" if order_type == "desc" else ""}{order_by}')
+            .order_by(f'{"-" if order_type == "desc" else ""}{order_by}', '-id')
             .limit(limit=limit)
             .offset(offset=offset)
             .prefetch_related(Prefetch('transport_covers', queryset=TransportPhoto.all()))
@@ -133,7 +133,7 @@ class CRUDTransport(CRUDBase[Transport, TransportCreate, UpdatedBase]):
                 .filter(
                 Q(*filters, join_type="AND")
             )
-            .order_by(f'{"-" if order_type == "desc" else ""}{order_by}')
+            .order_by(f'{"-" if order_type == "desc" else ""}{order_by}', '-id')
             .count()
         )
 

@@ -120,7 +120,7 @@ export default class SearchTransportPage extends React.Component {
                     this.state.city,
                     this.state.transport_type,
                     this.state.offset,
-                    this.state.order_by || 'id',
+                    this.state.order_by || 'updated_at',
                     this.state.order_type || 'desc'
                 );        
 
@@ -199,7 +199,7 @@ export default class SearchTransportPage extends React.Component {
             this.state.city || null,
             this.state.transport_type || null,
             0,
-            order_by || "id",
+            order_by || "updated_at",
             order_type || "desc"
         );        
 

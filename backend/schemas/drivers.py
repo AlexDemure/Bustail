@@ -1,14 +1,15 @@
+from datetime import datetime
 from decimal import Decimal
 from enum import Enum
-from uuid import uuid4
 from typing import List
+from uuid import uuid4
 
 from pydantic import BaseModel, validator, constr, conint, root_validator
 
-from backend.schemas.accounts import AccountData
 from backend.enums.drivers import TransportType
-from backend.utils import get_cities, get_cars
+from backend.schemas.accounts import AccountData
 from backend.submodules.object_storage.enums import FileMimetypes
+from backend.utils import get_cities, get_cars
 
 
 class CoverData(BaseModel):
@@ -93,6 +94,7 @@ class TransportData(TransportBase):
     company_files: list = []
     transport_type: TransportType
     transport_covers: list = []
+    updated_at: datetime
 
 
 class ListTransports(BaseModel):

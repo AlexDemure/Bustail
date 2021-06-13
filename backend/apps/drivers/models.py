@@ -1,3 +1,4 @@
+from datetime import datetime
 from decimal import Decimal
 
 from tortoise import models, fields
@@ -59,7 +60,7 @@ class Transport(models.Model):
     transport_type = fields.CharEnumField(TransportType, max_length=128)
     is_active = fields.BooleanField(default=True)
 
-    # updated_at = fields.DatetimeField(auto_now_add=True, default=datetime.utcnow())
+    updated_at = fields.DatetimeField(auto_now=True)
 
 
 class WithFile:

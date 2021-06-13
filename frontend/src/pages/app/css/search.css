@@ -57,12 +57,12 @@
 }
 
 .container.search-app .search-app__sort.desc {
-    background-image: url('../../../static/icons/arrow_up.png');
+    background-image: url('../../../static/icons/active/arrow_up.png');
 }
 
 .container.search-app .search-app__sort.asc {
     transform: rotate(180deg);
-    background-image: url('../../../static/icons/arrow_up.png');
+    background-image: url('../../../static/icons/active/arrow_up.png');
 }
 
 .container.search-app .search-app__filters {

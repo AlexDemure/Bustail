@@ -1,3 +1,4 @@
+from datetime import datetime
 from typing import List
 
 from fastapi import APIRouter, Depends, status, HTTPException, File, UploadFile, Query
@@ -20,6 +21,7 @@ from backend.apps.drivers.logic import (
     change_transport_data as logic_change_transport_data,
     delete_transport as logic_delete_transport,
     get_transport_cover as logic_get_transport_cover,
+    transport_raise_in_search as logic_transport_raise_in_search
 )
 from backend.enums.drivers import DriverErrors, TransportType
 from backend.enums.system import SystemLogs
@@ -200,6 +202,41 @@ async def change_transport_data(
     return Message(msg=BaseMessage.obj_is_changed.value)
 
 
+@router.put(
+    "/transports/{transport_id}/top_in_search/",
+    response_model=Message,
+    responses={
+        status.HTTP_200_OK: {"description": BaseMessage.obj_is_changed.value},
+        status.HTTP_400_BAD_REQUEST: {
+            "description":
+                f"{DriverErrors.car_not_belong_to_driver.value} or "
+                f"{DriverErrors.raising_in_search_available_once_day.value}"
+        },
+        status.HTTP_404_NOT_FOUND: {"description": BaseMessage.obj_is_not_found.value},
+        **auth_responses
+    }
+)
+async def transport_raise_in_search(
+        transport_id: int,
+        account: Account = Depends(confirmed_account)
+) -> Message:
+    """
+    Поднятие транспорта в поиске.
+
+    Доступно только 1 раз в день.
+    """
+    carrier, transport = await is_transport_belongs_carrie(account.id, transport_id)
+    if transport.updated_at.date() == datetime.utcnow().date():
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=DriverErrors.raising_in_search_available_once_day.value
+        )
+
+    await logic_transport_raise_in_search(transport)
+
+    return Message(msg=BaseMessage.obj_is_changed.value)
+
+
 @router.delete(
     "/transports/{transport_id}/",
     response_model=Message,
@@ -279,7 +316,7 @@ async def create_transport(payload: TransportBase, account: Account = Depends(co
 )
 async def get_transports(
         limit: int = 10, offset: int = 0, transport_type: List[TransportType] = Query(None),
-        city: str = "", order_by: str = 'price', order_type: str = 'asc'
+        city: str = "", order_by: str = 'updated_at', order_type: str = 'desc'
 ) -> ListTransports:
     """
     Получение списка всех предложений аренды транспорта.

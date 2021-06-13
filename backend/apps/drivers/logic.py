@@ -1,3 +1,4 @@
+from datetime import datetime
 from typing import Optional, Tuple, List
 from uuid import uuid4
 
@@ -5,6 +6,7 @@ from fastapi import HTTPException, status
 from fastapi import UploadFile
 from structlog import get_logger
 
+from backend.apps.company.logic import get_company_by_account_id
 from backend.apps.drivers.crud import (
     driver as driver_crud,
     transport as transport_crud,
@@ -12,11 +14,10 @@ from backend.apps.drivers.crud import (
 )
 from backend.apps.drivers.models import Driver
 from backend.apps.drivers.serializer import prepare_transport_with_photos, prepare_driver_data
-from backend.apps.company.logic import get_company_by_account_id
 from backend.core.config import settings
+from backend.enums.company import CompanyErrors
 from backend.enums.drivers import DriverErrors
 from backend.enums.system import SystemLogs, SystemEnvs
-from backend.enums.company import CompanyErrors
 from backend.schemas.drivers import (
     DriverCreate, DriverData, TransportData, TransportCreate, CoverData,
     ListTransports, TransportUpdate, TransportPhotoData, TransportPhotoCreate
@@ -98,6 +99,21 @@ async def change_transport_data(transport: TransportData, transport_up: Transpor
         id=transport.id,
         updated_fields=transport_up.dict()
     )
+    await transport_crud.update(update_schema)
+    logger.debug(SystemLogs.transport_is_updated.value)
+
+
+async def transport_raise_in_search(transport: TransportData):
+    """Поднятие транспорта в поиске."""
+    logger = get_logger().bind(transport_id=transport.id)
+
+    update_schema = UpdatedBase(
+        id=transport.id,
+        updated_fields=dict(
+            updated_at=datetime.utcnow()
+        )
+    )
+
     await transport_crud.update(update_schema)
     logger.debug(SystemLogs.transport_is_updated.value)
 

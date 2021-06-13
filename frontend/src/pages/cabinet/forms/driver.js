@@ -10,6 +10,7 @@ import { ResponseNotify, showNotify } from '../../../components/common/response_
 import { createDriver } from '../../../components/common/api/drivers/create'
 import { updateDriver } from '../../../components/common/api/drivers/update'
 import { deleteTransport } from '../../../components/common/api/transports/delete'
+import { topInSearch } from '../../../components/common/api/transports/top_in_search'
 import { getPaymentLink } from '../../../components/common/api/payments/get'
 
 import PaymentData from '../components/payment_data'
@@ -64,10 +65,11 @@ class DriverCard extends React.Component {
                         this.props.transports.map(
                             (transport, index) =>
                             <Transport
-                            controls="remove"
+                            controls="cabinet"
                             transport={transport}
-                            showTransportCard={this.props.showTransportCard}
+                            showTransportCard={() => this.props.showTransportCard(transport.id)}
                             deleteTransport={() => this.props.deleteTransport(index)}
+                            transportTopInSearch={() => this.props.transportTopInSearch(transport.id)}
                             />
                         )
                     }
@@ -98,6 +100,7 @@ export default class DriverPage extends React.Component {
         this.setDriverInfo = this.setDriverInfo.bind(this)
         this.deleteTransport = this.deleteTransport.bind(this)
         this.showTransportCard = this.showTransportCard.bind(this)
+        this.transportTopInSearch = this.transportTopInSearch.bind(this)
     }
 
     showTransportCard(transport_id) {
@@ -177,6 +180,25 @@ export default class DriverPage extends React.Component {
         }
     }
 
+    async transportTopInSearch(transport_id) {
+        let response = await topInSearch(transport_id)
+        if (response.result !== null) {
+            this.setState({
+                response_text: "Транспорт обновлен в поиске",
+                notify_type: "success",
+                error: null
+            })
+            showNotify()
+        } else {
+            this.setState({
+                error: response.error.message,
+                response_text: response.error.message,
+                notify_type: "error"
+            })
+            showNotify() 
+        }
+    }
+
     async deleteTransport(index_array) {
         let transport = this.state.transports[index_array]
         
@@ -237,6 +259,7 @@ export default class DriverPage extends React.Component {
             getPaymentLink={this.getPaymentLink}
             deleteTransport={this.deleteTransport}
             showTransportCard={this.showTransportCard}
+            transportTopInSearch={this.transportTopInSearch}
             driver={this.state.driver}
             transports={this.state.transports}
             />

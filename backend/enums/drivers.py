@@ -59,6 +59,7 @@ class DriverErrors(Enum):
     car_not_belong_to_driver = "Данный транспорт не принадлежит текущему пользователю."
     driver_have_debt_limit = "Превышен лимит задолженности. Необходимо оплатить задолженность."
     inn_is_already = "Данный ИНН указан у другого пользователя."
+    raising_in_search_available_once_day = "Поднятие в поиске доступно раз в день."
 
 
 class CarrierType(Enum):
