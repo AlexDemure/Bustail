@@ -60,14 +60,25 @@ class TestCarrierData:
             cars = get_cars()
             brand = random.choice(list(cars.keys()))
 
+            transport_type = random.choice([x for x in TransportType])
+
+            if transport_type == TransportType.car:
+                count_seats = random.randint(1, 8)
+            elif transport_type == TransportType.minubus:
+                count_seats = random.randint(9, 24)
+            elif transport_type == TransportType.bus:
+                count_seats = random.randint(25, 50)
+            else:
+                count_seats = random.randint(1, 50)
+
             transport_data = {
                 "brand": brand,
                 "model": random.choice(cars[brand]),
-                "count_seats": random.randint(1, 50),
+                "count_seats": count_seats,
                 "price": random.randint(1000, 10000),
                 "city": random.choice(get_cities()),
                 "state_number": generate_random_code(size=6, only_digits=False),
-                "transport_type": random.choice([x.value for x in TransportType])
+                "transport_type": transport_type.value
             }
             transports.append(transport_data)
 
