@@ -8,3 +8,5 @@ db.*
 __pycache__
 covers
 backups
+backend/migrations
+backend/aerich.ini

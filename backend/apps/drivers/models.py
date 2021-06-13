@@ -1,10 +1,10 @@
+from decimal import Decimal
+
 from tortoise import models, fields
 
-from decimal import Decimal
+from backend.core.config import settings
 from backend.enums.drivers import TransportType, CarrierType
 from backend.submodules.object_storage.enums import FileMimetypes
-
-from backend.core.config import settings
 
 
 class Company(models.Model):
@@ -58,6 +58,8 @@ class Transport(models.Model):
     description = fields.CharField(max_length=1024, null=True)
     transport_type = fields.CharEnumField(TransportType, max_length=128)
     is_active = fields.BooleanField(default=True)
+
+    # updated_at = fields.DatetimeField(auto_now_add=True, default=datetime.utcnow())
 
 
 class WithFile:

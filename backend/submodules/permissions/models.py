@@ -1,6 +1,6 @@
 from tortoise import models, fields
 
-from .enums import Permissions, Roles
+from backend.submodules.permissions.enums import Permissions, Roles
 
 
 class Role(models.Model):

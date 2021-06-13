@@ -3,9 +3,9 @@ from tortoise.query_utils import Q, Prefetch
 
 from backend.submodules.common.crud import CRUDBase
 
-from .enums import Permissions, Roles
-from .models import AccountRole, Permission, Role, RolePermission
-from .schemas import (
+from backend.submodules.permissions.enums import Permissions, Roles
+from backend.submodules.permissions.models import AccountRole, Permission, Role, RolePermission
+from backend.submodules.permissions.schemas import (
     AccountRoleCreate, AccountRoleUpdate,
     PermissionCreate, PermissionUpdate,
     RoleCreate, RoleUpdate, RolePermissionUpdate, RolePermissionCreate

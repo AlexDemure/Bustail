@@ -30,6 +30,24 @@ class TransportType(Enum):
         elif self is self.other:
             return "Другое"
 
+    def check_seats(self, count_seats: int) -> bool:
+        """
+        Проверка на совместимость количество пассажиров и тип транспорта.
+
+        Необходимо для того чтобы не было что транспорт Автобус но вместимость 8.
+        """
+        if self is self.car:
+            return 0 < count_seats <= 8
+        elif self is self.minubus:
+            return 8 < count_seats <= 24
+        elif self is self.bus:
+            return 24 < count_seats
+
+    @classmethod
+    def get_passenger_transports(cls) -> list:
+        """Получение списка пассажирских транспортов."""
+        return [cls.car, cls.minubus, cls.bus]
+
     @classmethod
     def get_types(cls) -> dict:
         return {x.value: x.description for x in cls}

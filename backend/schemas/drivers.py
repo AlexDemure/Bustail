@@ -66,6 +66,17 @@ class TransportBase(BaseModel):
 
         return value
 
+    @validator('transport_type')
+    def check_transport_type(cls, value, values):
+        transports = TransportType.get_passenger_transports()
+        transport_type = TransportType(value)
+
+        if transport_type in transports:
+            if not transport_type.check_seats(values.get('count_seats')):
+                raise ValueError("Wrong transport type")
+
+        return value
+
 
 class TransportUpdate(BaseModel):
     description: constr(min_length=1, max_length=1024) = None

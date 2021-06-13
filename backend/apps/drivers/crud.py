@@ -105,8 +105,8 @@ class CRUDTransport(CRUDBase[Transport, TransportCreate, UpdatedBase]):
         offset: int = 0,
         transport_type: list = None,
         city: str = "",
-        order_by: str = 'price',
-        order_type: str = 'asc',
+        order_by: str = 'id',
+        order_type: str = 'desc',
     ) -> Tuple[List[Transport], int]:
 
         filters = [Q(city__icontains=city), Q(is_active=True)]
