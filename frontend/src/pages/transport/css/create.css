@@ -6,55 +6,6 @@
     width: 80%;
 }
 
-.create-transport__choice-owner {
-    width: 100%;
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: repeat(2, 150px);
-    gap: 15px;
-    align-items: flex-end;
-    justify-items: center;
-}
-
-.create-transport__choice-owner p {
-    width: 60%;
-    height: calc(100% - 15px);
-    font-size: 16px;
-    color: #6e6e6e;
-    border: 2px solid #262626;
-    border-radius: 10px;
-    font-family: "FuturaDemic";
-
-    display: grid;
-    justify-items: center;
-    align-items: flex-end;
-    padding-bottom: 15px;
-
-    text-align: center;
-
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: 50px;
-}
-.create-transport__choice-owner p:hover {
-    color: #fba333;
-    border: 2px solid #fba333;
-}
-
-.create-transport__choice-owner #driver {
-    background-image: url("../../../static/icons/default/cabinet.png")
-}
-.create-transport__choice-owner #driver:hover {
-    background-image: url("../../../static/icons/active/cabinet.png")
-}
-
-.create-transport__choice-owner #company {
-    background-image: url("../../../static/icons/default/company_card.png")
-}
-.create-transport__choice-owner #company:hover {
-    background-image: url("../../../static/icons/active/company_card.png")
-}
-
 .container.create-transport .create-transport__form__upload-cover input,
 .container.create-transport .create-transport__form__additional-info textarea,
 .container.create-transport .create-transport__form__additional-info input,
@@ -85,42 +36,4 @@
     .container.create-transport .create-transport__form__create-transport {
         padding-bottom: 10vh;
     } 
-}
-
-/* ADAPTIVE 768-801-1024px */
-@media (min-width: 641px) and (max-width: 1023px) {
-    .create-transport__choice-owner {
-        width: 330px;
-        grid-template-rows: repeat(2, 160px);
-    }
-    
-    .create-transport__choice-owner p {
-        font-size: 18px;
-    }
-}
-
- /* ADAPTIVE 1024,1280,1337,1440px */
-@media (min-width: 1024px) and (max-width: 1535px) {
-    .create-transport__choice-owner {
-        width: 430px;
-        grid-template-rows: repeat(2, 200px);
-    }
-    
-    .create-transport__choice-owner p {
-        font-size: 20px;
-        background-size: 60px;
-    }
-}
-
- /* ADAPTIVE 1536px and more */
-@media (min-width: 1536px) {
-    .create-transport__choice-owner {
-        width: 430px;
-        grid-template-rows: repeat(2, 200px);
-    }
-    
-    .create-transport__choice-owner p {
-        font-size: 24px;
-        background-size: 80px;
-    }
 }

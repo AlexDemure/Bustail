@@ -155,6 +155,8 @@ export default class DriverPage extends React.Component {
             showNotify()
                 
             if (method === "POST") {
+                this.props.setCarrier("driver", response.result)
+
                 this.setState({
                     form: "card"
                 })
@@ -288,7 +290,7 @@ export default class DriverPage extends React.Component {
                 }
 
                 <div className={"container cabinet driver " + this.state.form}>
-                    <CabinetSwitch is_active="driver" onClick={this.props.changeForm}/>
+                    <CabinetSwitch is_active="carrier" onClick={this.props.changeForm}/>
                     <CardTypeSwitch is_active={this.state.form} isDisable={this.state.driver === null ? true : false} onClick={this.changeForm}/>
                     {form}
                 </div>

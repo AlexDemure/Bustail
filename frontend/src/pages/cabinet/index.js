@@ -13,11 +13,9 @@ import { getMeCompanyCard } from '../../components/common/api/company/me'
 
 import CommonPage from './forms/common'
 import ClientPage from './forms/client'
-import DriverPage from './forms/driver'
-import CompanyPage from './forms/company'
+import CarrierPage from './forms/carrier'
 
 import './css/index.css'
-
 
 
 export default class CabinetPage extends React.Component {
@@ -46,6 +44,8 @@ export default class CabinetPage extends React.Component {
 
         this.changeForm = this.changeForm.bind(this)
         this.changeInfo = this.changeInfo.bind(this)
+
+        this.setCarrier = this.setCarrier.bind(this)
     }
 
     changeForm(event) {
@@ -59,14 +59,10 @@ export default class CabinetPage extends React.Component {
             this.setState({
                 form: "client",
             }) 
-        } else if (event.target.id === "driver") {
+        } else if (event.target.id === "carrier") {
             this.setState({
-                form: "driver",
+                form: "carrier",
             }) 
-        } else {
-            this.setState({
-                form: "company",
-            })
         }
     }
 
@@ -78,7 +74,19 @@ export default class CabinetPage extends React.Component {
             }
         })
     }
-    
+
+    setCarrier(carrier_type, carrier) {
+        if (carrier_type == "company") {
+            this.setState({
+                company: carrier
+            })
+        } else if (carrier_type == "driver") {
+            this.setState({
+                driver: carrier
+            })
+        }
+    }
+
     async componentDidMount(){
         isAuth()
 
@@ -127,17 +135,28 @@ export default class CabinetPage extends React.Component {
             changeForm={this.changeForm}
             applications={this.state.user_applications}
             />
-        } else if (this.state.form === "driver") {
-            form = <DriverPage
+        } else if (this.state.form === "carrier") {
+            let carrier_type = null
+            let carrier = null
+            let tranposrts = null;
+
+            if (this.state.company !== null) {
+                carrier_type = "company"
+                carrier = this.state.company
+                tranposrts = this.state.company_transports
+            
+            } else if (this.state.driver !== null) {
+                carrier_type = "driver"
+                carrier = this.state.driver
+                tranposrts = this.state.driver_transports
+            }
+
+            form = <CarrierPage
+            carrier_type={carrier_type}
             changeForm={this.changeForm}
-            driver={this.state.driver}
-            transports={this.state.driver_transports}
-            />
-        } else if (this.state.form === "company") {
-            form = <CompanyPage
-            changeForm={this.changeForm}
-            company={this.state.company}
-            transports={this.state.company_transports}
+            setCarrier={this.setCarrier}
+            carrier={carrier}
+            transports={tranposrts}
             />
         }
 

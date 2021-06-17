@@ -169,8 +169,10 @@ export default class CompanyPage extends React.Component {
             })
 
             showNotify()
-                
+               
             if (method === "POST") {
+                this.props.setCarrier("company", response.result)
+
                 this.setState({
                     form: "card"
                 })
@@ -305,7 +307,7 @@ export default class CompanyPage extends React.Component {
                 }
 
                 <div className={"container cabinet company " + this.state.form}>
-                    <CabinetSwitch is_active="company" onClick={this.props.changeForm}/>
+                    <CabinetSwitch is_active="carrier" onClick={this.props.changeForm}/>
                     <CardTypeSwitch is_active={this.state.form} isDisable={this.state.company === null ? true : false} onClick={this.changeForm}/>
                     {form}
                 </div>

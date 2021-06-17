@@ -13,28 +13,17 @@ import CreateTransportForm from './forms/create'
 import './css/create.css'
 
 
-function ChoiceOwner(props) {
-    return (
-        <div className="create-transport__choice-owner">
-            <p id="driver" onClick={props.choiceOwner}>Личный транспорт</p>
-            <p id="company" onClick={props.choiceOwner}>Транспорт компании</p>
-        </div>
-    )
-}
-
 export default class CreateTransportPage extends React.Component {
     constructor() {
         super()
 
         this.state = {
-            page: "choice",
-            owner: null,
+            page: null,
             driver: null,
             company: null
         }
 
         this.changePage = this.changePage.bind(this)
-        this.choiceOwner = this.choiceOwner.bind(this)
     }
 
     changePage(page) {
@@ -43,63 +32,44 @@ export default class CreateTransportPage extends React.Component {
         })
     }
 
-    choiceOwner(e) {
-        if (e.target.id === "driver") {
-            this.setState({
-                owner: "driver",
-            })
-        } else if (e.target.id === "company"){
-            this.setState({
-                owner: "company",
-            }) 
-        }
-    }
-
     async componentDidMount(){
-        let driver = await getMeDriverCard()
         let company = await getMeCompanyCard()
+        if (company.result !== null) {
+            this.setState({
+                company: company.result,
+                page: "company"
+            })
+            return
+        }
 
-        this.setState({
-            driver: driver.result,
-            company: company.result
-        })
+        let driver = await getMeDriverCard()
+        if (driver.result !== null) {
+            this.setState({
+                driver: driver.result,
+                page: "driver"
+            })
+            return
+        }
         
+        this.setState({
+            page: "carrier_not_found"
+        })
     }
 
     render() {
         let page;
-        if (this.state.page === "choice" && this.state.owner === null) {
-            page = <ChoiceOwner choiceOwner={(e) => this.choiceOwner(e)}/>
-        
-        } else if (this.state.page === "notify") {
+       
+        if (this.state.page === "notify") {
             page = <Notify type="create_transport" link="/cabinet" text="Личный кабинет"/>
         
-        } else if (this.state.owner !== null) {
-           
-            if (this.state.owner === "driver") {
-                
-                if (this.state.driver !== null) {
-                    page = <CreateTransportForm owner={this.state.owner} driver={this.state.driver} changePage={this.changePage}/>
-                
-                } else {
-                    page = <Notify type="create_driver" link="/cabinet" text="Личный кабинет"/>
-                }
-            }
-
-            if (this.state.owner === "company") {
-                
-                if (this.state.company !== null) {
-                    page = <CreateTransportForm owner={this.state.owner} company={this.state.company} changePage={this.changePage}/>
-                
-                } else {
-                    page = <Notify type="create_company" link="/cabinet" text="Личный кабинет"/>
-                }
-            }
-
-    
-        } else if (this.state.page === "notify") {
-            page = <Notify type="create_transport" link="/cabinet" text="Личный кабинет"/>
+        } else if (this.state.page === "carrier_not_found") {
+            page = <Notify type="create_carrier" link="/cabinet" text="Личный кабинет"/>
         
+        } else if (this.state.page === "driver") {
+            page = <CreateTransportForm owner="driver" driver={this.state.driver} changePage={this.changePage}/>
+        
+        } else if (this.state.page === "company") {
+            page = <CreateTransportForm owner="company" company={this.state.company} changePage={this.changePage}/>
         }
         
         return (

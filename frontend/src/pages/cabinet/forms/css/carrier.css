@@ -1,0 +1,88 @@
+.cabinet-carrier__choice-carrier {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(2, 150px);
+    gap: 15px;
+    align-items: flex-end;
+    justify-items: center;
+}
+
+
+.cabinet-carrier__choice-carrier p {
+    width: 80%;
+    height: calc(100% - 15px);
+    font-size: 16px;
+    color: #6e6e6e;
+    border: 2px solid #262626;
+    border-radius: 10px;
+    font-family: "FuturaMediumC";
+
+    display: grid;
+    justify-items: center;
+    align-items: flex-end;
+    padding-bottom: 15px;
+
+    text-align: center;
+
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 50px;
+}
+.cabinet-carrier__choice-carrier p:hover {
+    color: #fba333;
+    border: 2px solid #fba333;
+}
+
+.cabinet-carrier__choice-carrier #driver {
+    background-image: url("../../../../static/icons/default/cabinet.png")
+}
+.cabinet-carrier__choice-carrier #driver:hover {
+    background-image: url("../../../../static/icons/active/cabinet.png")
+}
+
+.cabinet-carrier__choice-carrier #company {
+    background-image: url("../../../../static/icons/default/company_card.png")
+}
+.cabinet-carrier__choice-carrier #company:hover {
+    background-image: url("../../../../static/icons/active/company_card.png")
+}
+
+
+/* ADAPTIVE 768-801-1024px */
+@media (min-width: 641px) and (max-width: 1023px) {
+    .cabinet-carrier__choice-carrier {
+        width: 400px;
+        grid-template-rows: repeat(2, 160px);
+    }
+    
+    .cabinet-carrier__choice-carrier p {
+        font-size: 18px;
+    }
+}
+
+ /* ADAPTIVE 1024,1280,1337,1440px */
+@media (min-width: 1024px) and (max-width: 1535px) {
+    .cabinet-carrier__choice-carrier {
+        width: 460px;
+        grid-template-rows: repeat(2, 200px);
+    }
+    
+    .cabinet-carrier__choice-carrier p {
+        font-size: 20px;
+        background-size: 60px;
+    }
+}
+
+ /* ADAPTIVE 1536px and more */
+@media (min-width: 1536px) {
+    .cabinet-carrier__choice-carrier {
+        width: 520px;
+        grid-template-rows: repeat(2, 200px);
+    }
+    
+    .cabinet-carrier__choice-carrier p {
+        font-size: 24px;
+        background-size: 80px;
+    }
+}
