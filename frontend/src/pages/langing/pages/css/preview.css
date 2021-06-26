@@ -18,13 +18,13 @@
 }
 
 .container.landing .preview .preview__title #name {
-    font-size: 32px;
+    font-size: 40px;
     color: #fbfbfb;
     font-family: "FuturaDemiC";
 }
 
 .container.landing .preview .preview__title #description {
-    font-size: 18px;
+    font-size: 20px;
     color: #fba333;
     font-family: "FuturaDemiC";
 }
@@ -39,6 +39,8 @@
     grid-template-rows: 90px 70px 50px;
     gap: 5px;
     justify-content: center;
+
+    cursor: pointer;
 }
 
 .container.landing .preview .preview__btns div[id="login-btn"] {
@@ -59,6 +61,8 @@
     display: grid;
     align-items: center;
     justify-items: center;
+
+    cursor: pointer;
 }
 
 .container.landing .preview .preview__btns div[id="login-btn"]:hover {
@@ -135,18 +139,7 @@
 /* ADAPTIVE 375px */
 @media screen and (min-width:361px) and (max-width:400px){
     .container.landing .preview .preview__title #name {
-        font-size: 34px;
-    }
-    
-    .container.landing .preview .preview__title #description {
-        font-size: 20px;
-    }
- }
-
- /* ADAPTIVE 414-600px */
- @media screen and (min-width:401px) and (max-width: 640px){
-    .container.landing .preview .preview__title #name {
-        font-size: 36px; 
+        font-size: 42px;
     }
     
     .container.landing .preview .preview__title #description {
@@ -154,14 +147,25 @@
     }
  }
 
- /* ADAPTIVE 768-801-1024px */
- @media (min-width: 641px) and (max-width: 1023px) {
+ /* ADAPTIVE 414-600px */
+ @media screen and (min-width:401px) and (max-width: 640px){
     .container.landing .preview .preview__title #name {
-        font-size: 40px; 
+        font-size: 46px; 
     }
     
     .container.landing .preview .preview__title #description {
         font-size: 24px;
+    }
+ }
+
+ /* ADAPTIVE 768-801-1024px */
+ @media (min-width: 641px) and (max-width: 1023px) {
+    .container.landing .preview .preview__title #name {
+        font-size: 56px; 
+    }
+    
+    .container.landing .preview .preview__title #description {
+        font-size: 32px;
     }
     .container.landing .preview .preview__btns {
         grid-template-rows: 100px 80px 60px;
@@ -203,22 +207,22 @@
 /* ADAPTIVE 1024,1280,1337,1440px */
  @media (min-width: 1024px) and (max-width: 1535px) {
     .container.landing .preview .preview__title #name {
-        font-size: 48px; 
+        font-size: 64px; 
     }
     
     .container.landing .preview .preview__title #description {
-        font-size: 26px;
+        font-size: 36px;
     }
  }
 
 /* ADAPTIVE 1536px and more */
 @media (min-width: 1536px) {
     .container.landing .preview .preview__title #name {
-        font-size: 54px; 
+        font-size: 72px; 
     }
     
     .container.landing .preview .preview__title #description {
-        font-size: 28px;
+        font-size: 42px;
     }
  }
 

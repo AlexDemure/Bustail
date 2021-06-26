@@ -67,6 +67,11 @@
     font-family: 'FuturaMediumC';
 }
 
+.dropdown-menu .dropdown-menu__list ul li a[class=disable] {
+    pointer-events: none;
+    opacity: 0.5;
+}
+
 .dropdown-menu .dropdown-menu__list ul li a:hover {
     color: #fba333;
     font-size: 26px;
@@ -87,6 +92,8 @@
 .dropdown-menu .button__common__redirect {
     justify-self: center;
     align-self: center;
+
+    cursor: pointer;
 }
 
 

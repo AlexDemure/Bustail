@@ -369,7 +369,7 @@ async def read_driver_me(account: Account = Depends(confirmed_account)) -> Drive
         **auth_responses
     }
 )
-async def get_driver(driver_id: int, account: Account = Depends(confirmed_account)) -> DriverData:
+async def get_driver(driver_id: int) -> DriverData:
     """Получение карточки водителя."""
     logger = get_logger().bind(driver_id=driver_id)
     driver = await logic_get_driver(driver_id)

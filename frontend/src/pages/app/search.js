@@ -16,6 +16,7 @@ import { getCities } from '../../components/common/api/other/cities'
 import {createNotification} from '../../components/common/api/notifications/create'
 import {getApplications} from '../../components/common/api/applications/get'
 
+import isAuth from '../../utils/is_auth'
 import SerializeForm from '../../utils/form_serializer'
 
 import OfferForm from "./components/offer"
@@ -222,20 +223,27 @@ export default class SearchAppPage extends React.Component {
     }
 
     async componentDidMount(){
-        let user = await getMeAccountCard()
-        let driver = await getMeDriverCard()
-        let company = await getMeCompanyCard()
 
+        let is_auth = isAuth(false)
+        if (is_auth === true) {
+            let user = await getMeAccountCard()
+            let driver = await getMeDriverCard()
+            let company = await getMeCompanyCard()
+
+            this.setState({
+                user: user.result,
+                driver_transports: driver.result ? driver.result.transports : [],
+                company_transports: company.result ? company.result.transports: [],
+
+            })
+        }
+        
         let cities = await getCities()
         let apps_data = await getApplications()
         
         let application_types = await appTypes()
 
         this.setState({
-            user: user.result,
-            driver_transports: driver.result ? driver.result.transports : [],
-            company_transports: company.result ? company.result.transports: [],
-
             cities: cities.result,
             
             apps: apps_data.result.applications,

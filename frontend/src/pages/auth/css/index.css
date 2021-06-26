@@ -15,6 +15,8 @@
 .container.auth .preview-banner__common {
     grid-row: 1/2;
     align-self: flex-end;
+
+    cursor: pointer;
 }
 
 .container.auth .auth__body {

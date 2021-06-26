@@ -14,6 +14,8 @@ import { createNotification} from '../../components/common/api/notifications/cre
 
 import OfferForm from "./components/offer"
 
+import isAuth from '../../utils/is_auth'
+
 import './css/index.css'
 
 
@@ -64,13 +66,19 @@ class CompanyPage extends React.Component {
 
     async componentDidMount() {
         let company = await getCompanyCardByUrl(this.props.match.params.page_url)
-        
-        let user_apps = await getMeApps()
-
         this.setState({
             company: company.result,
-            user_apps: user_apps.result.applications
         })
+
+        let is_auth = isAuth(false)
+        if (is_auth === true) {
+            let user_apps = await getMeApps()
+            this.setState({
+                user_apps: user_apps.result.applications
+            })
+        }
+        
+        
     }
 
     

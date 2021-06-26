@@ -37,6 +37,11 @@
     cursor: pointer;
 }
 
+.main .main__menu div.disable {
+    pointer-events: none;
+    opacity: 0.5;
+}
+
 .main .main__menu div:hover {
     border: 1px solid #fba333;
 }

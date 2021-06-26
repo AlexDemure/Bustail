@@ -13,6 +13,7 @@ import { transportTypes } from '../../components/common/api/transports/types'
 import {createNotification} from '../../components/common/api/notifications/create'
 import { getTransports } from '../../components/common/api/transports/get'
 
+import isAuth from '../../utils/is_auth'
 import SerializeForm from '../../utils/form_serializer'
 
 import OfferForm from "./components/offer"
@@ -215,21 +216,25 @@ export default class SearchTransportPage extends React.Component {
     }
 
     async componentDidMount(){
-        let user = await getMeAccountCard()
-    
-        let user_apps = await getMeApps()
+        let is_auth = isAuth(false)
+        
+        if (is_auth === true) {
+            let user = await getMeAccountCard()
+            let user_apps = await getMeApps()
+            
+            this.setState({
+                user: user.result,
+                user_apps: user_apps.result.applications,
+            })
+        }
         
         let transport_data = await getTransports()
-
         let transport_types = await transportTypes()
 
         this.setState({
-            user: user.result,
-            user_apps: user_apps.result.applications,
             transports: transport_data.result.transports,
             total_rows: transport_data.result.total_rows,
             offset: transport_data.result ? transport_data.result.transports.length : null,
-
             transport_types: transport_types.result
         });
     }

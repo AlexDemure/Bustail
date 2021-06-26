@@ -13,7 +13,7 @@ export default function PreviewPage(props) {
                 </h2>
             </div>
             <div className="preview__btns">
-                <div id="login-btn" onClick={() => window.location.replace('/login')}>
+                <div id="login-btn" onClick={() => window.location.replace('/main')}>
                     <p>В приложение</p>
                 </div>
                 <div id="socials">

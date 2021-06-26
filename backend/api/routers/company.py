@@ -102,9 +102,9 @@ async def create_company(payload: CompanyBase, account: Account = Depends(confir
         **auth_responses
     }
 )
-async def get_company_by_url(page_url: str, account: Account = Depends(confirmed_account)) -> CompanyData:
+async def get_company_by_url(page_url: str) -> CompanyData:
     """Получение карточки компании по названию в адресной строке браузера."""
-    logger = get_logger().bind(account_id=account.id, page_url=page_url)
+    logger = get_logger().bind(page_url=page_url)
 
     company = await logic_get_company_by_url(page_url)
     if not company:
@@ -126,9 +126,9 @@ async def get_company_by_url(page_url: str, account: Account = Depends(confirmed
         **auth_responses
     }
 )
-async def get_company(company_id: int, account: Account = Depends(confirmed_account)) -> CompanyData:
+async def get_company(company_id: int) -> CompanyData:
     """Получение карточки компании по id."""
-    logger = get_logger().bind(account_id=account.id, company_id=company_id)
+    logger = get_logger().bind(company_id=company_id)
 
     company = await logic_get_company(company_id)
     if not company:

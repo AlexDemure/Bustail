@@ -2,6 +2,8 @@ import React from 'react'
 
 import { getMeNotifications } from './api/notifications/me'
 
+import isAuth from '../../utils/is_auth'
+
 import './css/navbar.css'
 
 
@@ -10,6 +12,7 @@ class NavBar extends React.Component {
         super(props)
 
         this.state = {
+            is_auth: null,
             count_notifications: this.props.count_notifications ?? 0
         }
     }
@@ -31,10 +34,16 @@ class NavBar extends React.Component {
             return
         }
         
-        let notifications = await getMeNotifications()
+        let is_auth = isAuth(false)
+        if (is_auth === true) {
+            let notifications = await getMeNotifications()
+            this.setState({
+                count_notifications: notifications.result ?  notifications.result.count_notifications : 0
+            })
+        }
 
         this.setState({
-            count_notifications: notifications.result ?  notifications.result.count_notifications : 0
+            is_auth: is_auth
         })
 
     }
@@ -44,18 +53,18 @@ class NavBar extends React.Component {
         return (
             <div className="navbar__common">
             <a href="/main" className="navbar__common__btn" id="home"></a>
-            <a href="/history" className="navbar__common__btn" id="history"></a>
-            <a href="/notifications" className="navbar__common__btn" id="notifications">
+            <a href="/history" className={`navbar__common__btn ${this.state.is_auth ? '' : 'disable'} `} id="history"></a>
+            <a href="/notifications" className={`navbar__common__btn ${this.state.is_auth ? '' : 'disable'} `} id="notifications">
             
             {   
                 this.state.count_notifications > 0 &&
-                <div className="navbar__common__notification__circle">
+                <div className={`navbar__common__notification__circle ${this.state.is_auth ? '' : 'disable'} `}>
                     <p>{this.state.count_notifications}</p>
                 </div>
             }
             
             </a>
-            <a href="/cabinet" className="navbar__common__btn" id="cabinet"></a>
+            <a href="/cabinet" className={`navbar__common__btn ${this.state.is_auth ? '' : 'disable'} `} id="cabinet"></a>
         </div> 
         )
         

@@ -113,7 +113,7 @@ async def create_application(
         **auth_responses
     }
 )
-async def get_application(application_id: int, account: Account = Depends(confirmed_account)) -> ApplicationData:
+async def get_application(application_id: int) -> ApplicationData:
     """Получение данных о заявке."""
     return await logic_get_application(application_id)
 
@@ -132,6 +132,7 @@ async def update_application(
         account: Account = Depends(confirmed_account)
 ) -> Message:
     """Обновление данных по заявке."""
+    #TODO проверить на принадлежность заявки
     try:
         await logic_update_application(application_id, payload)
     except (AssertionError, ValueError) as e:

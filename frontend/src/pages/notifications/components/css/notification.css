@@ -51,6 +51,8 @@
 .notification__card__body .notification__card__item.ticket_data,
 .notification__card__body .notification__card__item.transport_data {
     color: #fba333;
+
+    cursor: pointer;
 }
 
 .notification__card__body .notification__card__item span {
@@ -72,6 +74,8 @@
     border-radius: 2px;
     display: grid;
     align-items: center;
+
+    cursor: pointer;
 }
 
 .notification__card__controls .notification__btn-set-decision-offer.accept {

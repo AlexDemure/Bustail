@@ -26,6 +26,12 @@
     background-repeat: no-repeat;
 }
 
+.navbar__common .navbar__common__btn.disable {
+    pointer-events: none;
+    opacity: 0.5;
+}
+
+
 .navbar__common a[id=notifications] {
     position: relative;
 }
