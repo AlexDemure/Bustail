@@ -123,7 +123,7 @@ export default class SearchAppPage extends React.Component {
 
     onScroll = async(e) => {
         
-        if (e.target.scrollHeight - (e.target.offsetHeight + e.target.scrollTop) === 0) {
+        if (e.target.offsetHeight + e.target.scrollTop >= e.target.scrollHeight) {
             if (this.state.isScrolling === true) {
                 
                 let response = await getApplications(this.state.city, this.state.application_type, this.state.offset);        
