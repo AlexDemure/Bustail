@@ -1,8 +1,6 @@
 import './css/base.css'
 import './css/offer.css'
 
-import TransportOwnerSwitch from '../../switches/transport_owner'
-
 export default function OfferModal(props) {
     return (
         <div className={`offer-modal ${props.offer_type}-offer modal-window__bg`}>
@@ -16,13 +14,6 @@ export default function OfferModal(props) {
                     <a href={props.create_link} className="modal-window__create-object">Создать</a>
                 </div>
 
-                {
-                    props.offer_type === "transport" &&
-                    <TransportOwnerSwitch
-                    is_active={props.activeChoiceType}
-                    onClick={props.changeChoicesType}
-                    />
-                }
                 <div className="modal-window__choices">
                     {
                         props.choices.length > 0 ?

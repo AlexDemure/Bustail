@@ -22,7 +22,7 @@
 }
 
 .offer-modal.transport-offer .modal-window__content {
-    grid-template-rows: 70px 40px 70px 1fr;
+    grid-template-rows: 70px 70px 1fr;
 }
 
 .offer-modal .modal-window__text {

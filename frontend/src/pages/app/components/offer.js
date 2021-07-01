@@ -13,13 +13,11 @@ export default class OfferForm extends React.Component {
         
         this.state = {
             form: "choices",
-            choices_type: "personal",
             
             transport_id: null,
             price: null,
         }
 
-        this.changeChoicesType = this.changeChoicesType.bind(this)
         this.setPrice = this.setPrice.bind(this)
         this.createOffer = this.createOffer.bind(this)
     }
@@ -37,26 +35,10 @@ export default class OfferForm extends React.Component {
         this.props.createOffer(e, this.state.transport_id, prepared_data.get("price"))
     }
 
-    changeChoicesType(event) {
-        event.preventDefault();
-
-        if (event.target.id === "personal") {
-            this.setState({
-                choices_type: "personal",
-            })
-        } else if (event.target.id === "company"){
-            this.setState({
-                choices_type: "company",
-            }) 
-        }
-    }
-
     render() {
         let form;
 
         if (this.state.form === "choices") {
-            let choices = this.state.choices_type === "personal" ? this.props.driver_transports : this.props.company_transports
-            
             form = <OfferModal
             title={this.props.title}
             offer_type={this.props.offer_type}
@@ -68,8 +50,8 @@ export default class OfferForm extends React.Component {
             changeChoicesType={this.changeChoicesType}
             
             choices={
-                choices.length > 0 ?
-                choices.map(
+                this.props.transports.length > 0 ?
+                this.props.transports.map(
                     (choice) => {
                         return <Transport
                         controls="offer"

@@ -41,8 +41,7 @@ export default class SearchAppPage extends React.Component {
             offerData: null,
 
             user: null,
-            driver_transports: [],
-            company_transports: [],
+            transports: [],
 
             cities: null,
             
@@ -226,14 +225,23 @@ export default class SearchAppPage extends React.Component {
 
         let is_auth = isAuth(false)
         if (is_auth === true) {
+            let transports;
+
             let user = await getMeAccountCard()
+            
             let driver = await getMeDriverCard()
+            if (driver.result) {
+                transports  = driver.result.transports
+            }
+
             let company = await getMeCompanyCard()
+            if (company.result) {
+                transports  = company.result.transports
+            }
 
             this.setState({
                 user: user.result,
-                driver_transports: driver.result ? driver.result.transports : [],
-                company_transports: company.result ? company.result.transports: [],
+                transports: transports
 
             })
         }
@@ -283,8 +291,7 @@ export default class SearchAppPage extends React.Component {
                         offer_type="transport"
                         title="Предложение аренды"
                         create_link="/transport/create"
-                        driver_transports={this.state.driver_transports}
-                        company_transports={this.state.company_transports}
+                        transports={this.state.transports}
                         createOffer={this.createOffer}
                         showTransportCard={this.showTransportCard}
                         />
